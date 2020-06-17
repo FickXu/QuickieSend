@@ -1,0 +1,31 @@
+
+<view class="person-center">
+  <!-- nav-bar -->
+  <cu-custom isBack="{{true}}" bgColor="bg-white">
+    <view slot="content" class="bold">{{ title }}</view>
+  </cu-custom>
+  
+  <!-- 设置 -->
+  <view class="cu-list menu list-menu settings">
+    <view class="cu-form-group">
+      <view class="title">手机号码</view>
+      <input placeholder="请输入手机号码"></input>
+      <view class="cu-tag radius bg-cyan">
+        获取验证码
+      </view>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">验证码</view>
+      <input placeholder="请输入验证码"></input>
+    </view>
+  </view>
+
+  <!-- tips -->
+  <view class="value tips">注：绑定手机号以后，系统会将订单状态以短信的形式发送给您</view>
+
+  
+  <!-- 退出登录 -->
+  <view class="btn-box">
+    <button class="btn">确定</button>
+  </view>
+</view>

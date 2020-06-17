@@ -1,0 +1,50 @@
+// 底部导航高度
+@height-nav: calc(100rpx + env(safe-area-inset-bottom) / 2);
+
+.person-center {
+		height: calc(~'100vh - @{height-nav}');
+
+		.list-menu {
+			background-color: #ffffff;
+		}
+
+		// 我的订单
+		.my-orders {
+			margin-top: 20px;
+
+			.header {
+				margin: 15px 20px 0;
+				height: 30rpx;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+
+				.title {
+					font-size:17px;
+					font-family:PingFang SC;
+					font-weight:bold;
+					color:rgba(51,51,51,1);
+				}
+
+				.btn-all-order {
+					font-size:12px;
+					font-family:PingFang SC;
+					font-weight:500;
+					color:rgba(102,102,102,1);
+					display: flex;
+					justify-content: flex-end;
+					align-items: center;
+				}
+			}
+		}
+
+		// 设置
+		.settings {
+			margin-top: 20px;
+		}
+
+		.cu-form-group .title {
+			min-width: calc(4em + 30rpx);
+		}
+  }
+  

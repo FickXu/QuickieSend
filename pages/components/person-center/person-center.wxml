@@ -1,0 +1,111 @@
+
+<scroll-view scroll-y="{{true}}" class="person-center" bindscroll="pageScroll">
+  <view class="container">
+    <!-- nav-bar -->
+    <cu-custom isBack="{{true}}" bgColor="{{cuCustomBGColor}}">
+      <view slot="content" class="bold">{{ title }}</view>
+    </cu-custom>
+    <!-- <view class="nav-bar">
+    </view> -->
+
+    <!-- 个人信息 -->
+    <view class="user-info" bindtap="goToSettingPage">
+      <image src="{{userInfo.avatarUrl}}"  class="user-photo" />
+      <view class="user-info-name">
+        <text>{{userInfo.nickName}}</text>
+        <text class="small">{{userInfo.province}}</text>
+      </view>
+    </view>
+  
+    <!-- 我的明细，我的搜藏，购物车 -->
+    <view class="list-menu">
+      <!-- 购物车 -->
+      <view class="cu-list grid col-3 no-border">
+        <view class="cu-item"  bindtap="getMydetails">
+          <view class="cuIcon-cart text-grey"></view>
+          <text>我的明细</text>
+        </view>
+        <!-- 订单 -->
+        <view class="cu-item" bindtap="getMyCollected">
+          <view class="cuIcon-form text-grey"></view>
+          <text>收藏</text>
+        </view>
+        <!-- 地址 -->
+        <view class="cu-item" bindtap="getShopingCar">
+          <view class="cuIcon-location text-grey"></view>
+          <text>购物车</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 我的订单 -->
+    <view class="list-menu my-orders">
+      <view class="header">
+        <view class="title">我的订单</view>
+        <view class="btn-all-order" bindtap="getAllOrders">
+          <text decode="{{true}}">所有订单&nbsp;</text>
+          <view class="cuIcon-right text-grey"></view>
+        </view>
+      </view>
+      <view class="cu-list grid col-4 no-border">
+        <!-- 代付款 -->
+        <view class="cu-item"  bindtap="chooseAddress">
+          <view class="cuIcon-cart text-grey"></view>
+          <text>代付款</text>
+        </view>
+        <!-- 代发货 -->
+        <view class="cu-item" bindtap="getOrders">
+          <view class="cuIcon-form text-grey"></view>
+          <text>代发货</text>
+        </view>
+        <!-- 待收货 -->
+        <view class="cu-item" bindtap="getShopCar">
+          <view class="cuIcon-location text-grey"></view>
+          <text>待收货</text>
+        </view>
+        <!-- 已完成 -->
+        <view class="cu-item" bindtap="getShopCar">
+          <view class="cuIcon-location text-grey"></view>
+          <text>已完成</text>
+        </view>
+      </view>
+    </view>
+  
+    <!-- 设置 -->
+    <view class="cu-list menu list-menu settings">
+      <!-- 需要接口控制 -->
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="custome-icon-size cuIcon-lock text-cyan"></text>小二快跑
+        </view>
+      </view>
+      <!-- 需要接口控制 -->
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>快跑账单
+        </view>
+      </view>
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>关于我们
+        </view>
+      </view>
+      <view class="cu-item arrow">
+        <view class="content">
+          <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>法律条款
+        </view>
+      </view>
+    </view>
+    
+    <!-- 猜你喜欢 -->
+    <view class="recommend">
+      <view class="icon">
+        <image src="../../images/recommend.png" mode="aspectFill" />
+      </view>
+      <view class="recommend-list">
+        <!-- 商品列表 -->
+        <commodity-list info="{{commodityList}}"></commodity-list>
+      </view>
+    </view>
+  </view>
+</scroll-view>

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "commodity-list": "../commodity-list/commodity-list"
+}
+}

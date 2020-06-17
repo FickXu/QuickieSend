@@ -1,0 +1,114 @@
+// 底部导航高度
+@height-nav: calc(50px + env(safe-area-inset-bottom) / 2);
+// 搜索框的高度
+@height-search: 50px;
+// 顶部导航高度
+@height-toolbar: 100px;
+// 组件的高度
+@height-category-list: calc(~'100vh - @{height-toolbar}');
+
+.toolbar {
+  // height: @height-toolbar;
+}
+
+.category-list {
+  height: @height-category-list;
+  // background-color: green;
+}
+
+.search {
+  height: @height-search;
+}
+
+.weui-search-bar {
+  background-color: #fff;
+
+  .weui-search-bar__labe {
+    border-radius: 100rpx;
+    background-color: #f7f7f7;
+  }
+}
+
+.VerticalNav.nav {
+  width: 210rpx;
+  white-space: initial;
+}
+
+.VerticalNav.nav .cu-item {
+  width: 100%;
+  height: 163rpx;
+  text-align: center;
+  background-color: #fff;
+  margin: 0;
+  border: none;
+  height: 50px;
+  position: relative;
+}
+
+.VerticalNav.nav .cu-item.cur {
+  background-color: #f1f1f1;
+}
+.VerticalNav.nav .cu-item.cur::after {
+  content: "";
+  width: 8rpx;
+  height: 30rpx;
+  border-radius: 10rpx 0 0 10rpx;
+  position: absolute;
+  background-color: currentColor;
+  top: 0;
+  right: 0rpx;
+  bottom: 0;
+  margin: auto;
+}
+.VerticalBox{
+  display: flex;
+  height: 100%;
+}
+.VerticalMain{
+  background-color: #f7f7f7;
+  border-radius: 20rpx;
+  // height: calc(~'@{height-category-list} - @{height-search}');
+}
+
+.commodity {
+
+  &-list {
+    
+  }
+
+  &-item {
+    width: 100%;
+    height: 163rpx;
+    margin-bottom: 20rpx;
+    border-radius: 20rpx;
+    background-color: #fff;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &-img {
+    min-width: 163rpx;
+    max-width: 163rpx;
+    height: 163rpx;
+  }
+
+  &-info {
+    margin-left: 20rpx;
+    margin-right: 20rpx;
+
+    .title {
+      font-size:13px;
+      font-family:PingFang SC;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+    }
+
+    .price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20rpx;
+    }
+  }
+}

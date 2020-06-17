@@ -1,0 +1,40 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content">{{ title }}</view>
+</cu-custom>
+
+<!-- 购买商品 -->
+<view class="address-list">
+  <view
+    class="address-list-item"
+    wx:for="{{addressList}}"
+    wx:key="index"
+    bindtap="setAddress"
+    data-index="{{index}}"
+    >
+    <slideView
+      buttons="{{slideButtons}}"
+      bindbuttontap="slideButtonTap"
+      bindshow="bindshow"
+      data-id="{{item.id}}"
+      >
+      <view class="box">
+        <view class="icon" wx:if="{{item.isDefault==0}}">
+          <view class="cuIcon-favorfill text-blue"></view>
+        </view>
+        <view wx:else><text decode="{{true}}">&emsp;</text></view>
+        <view class="contact-info">
+          <view>
+            <text>{{item.contact}}</text>
+            <text decode="{{true}}">&emsp;&emsp;{{item.mobilePhone}}</text>
+          </view>
+          <view>{{item.contactAddress}}</view>
+        </view>
+      </view>
+    </slideView>
+  </view>
+</view>
+
+<view class="address-add">
+  <button bindtap="chooseAddress" type="primary">添加新地址</button>
+</view>

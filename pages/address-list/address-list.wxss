@@ -1,0 +1,22 @@
+.address-list {
+  margin-top: 10rpx;
+}
+.address-list-item {
+  background-color: #fff;
+  border-bottom: 2rpx solid #f7f7f7;
+}
+.address-list-item .box {
+  padding: 20rpx;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+}
+.address-list-item .contact-info {
+  margin-left: 20rpx;
+}
+.address-list-item .contact-info view:not(:first-child) {
+  margin-top: 5rpx;
+}
+.address-add {
+  margin: 30rpx;
+}

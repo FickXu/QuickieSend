@@ -1,0 +1,101 @@
+<!--pages/home/home.wxml-->
+<view class="home-page" wx:if="{{PageCur == 'home'}}">
+  <view class="top-area">
+    <cu-custom>
+      <view slot="content" class="bold">{{ title }}</view>
+    </cu-custom>
+  
+    <!-- 搜索组件 -->
+    <view class="search-box">
+      <view class="location cuIcon-location text-white" bindtap="getLocation">
+        <text class="label">定位</text>
+      </view>
+      <view class="search">
+        <view class="cuIcon-search"></view>
+        <input type="text" class="search" placeholder="{{searchPlaceholder}}"/>
+      </view>
+      <view class="shop-car cuIcon-cart text-white"></view>
+    </view>
+  
+  </view>
+  
+  <!-- 附近店铺信息 -->
+  <view class="near-shop-info">
+    <view class="shop-img">
+      <image class="img" src="https://fick-db-1257045447.cos.ap-chengdu.myqcloud.com/test-img/top-bg-home.png" />
+    </view>
+    <view class="shop-desc">
+      <view class="title">麓谷小镇美宜佳</view>
+      <view class="title1">美宜佳</view>
+    </view>
+    <view class="attr-item">
+      <view class="value orange">1000</view>
+      <view class="label">粉丝数</view>
+    </view>
+    <view class="attr-item">
+      <view class="value red">3.9万</view>
+      <view class="label">购买指数</view>
+    </view>
+  </view>
+  
+  <scroll-view
+    scroll-y class="scrollPage" 
+    refresher-enabled="{{true}}"
+    enable-flex="{{true}}" 
+    bindrefresherpulling="bindrefresherpulling"
+    >
+  
+    <!-- 店铺热门分类 -->
+    <view class="hot-category">
+      <view
+        class="item {{categoryIndex == index ? 'active' : ''}}"
+        data-index="{{index}}"
+        wx:for="{{hotCategoryList}}"
+        bindtap="chooseCategory"
+        >
+        {{item.name}}
+      </view>
+    </view>
+  
+    <!-- 商品banner -->
+    <view class="commodity-banner">
+      <view class="icon">
+        <image src="../images/new-commodity.png" mode="aspectFill" />
+      </view>
+    </view>
+    
+    <!-- 商品列表 -->
+    <commodity-list info="{{commodityList}}"></commodity-list>
+    
+  </scroll-view>
+</view>
+
+<!-- 分类列表 -->
+<category-list wx:if="{{PageCur == 'category-list'}}"></category-list>
+
+<!-- 个人中心 -->
+<person-center wx:if="{{PageCur == 'person-center'}}"></person-center>
+
+
+<!-- 底部导航 -->
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action text-grey {{PageCur == 'home' ? 'text-cyan' : ''}}" bindtap="routerPage" data-page="home">
+    <view class="{{PageCur == 'home' ? 'text-cyan': ''}}">
+      <view class="cuIcon-homefill"></view>
+      首页
+    </view>
+  </view>
+  <view class="action text-grey" bindtap="routerPage" data-page="category-list">
+    <view class="{{PageCur == 'category-list' ? 'text-cyan': ''}}">
+      <view class="cuIcon-apps"></view>
+      分类
+    </view>
+  </view>
+  <view class="action text-grey {{PageCur == 'person-center' ? 'text-cyan' : ''}}" bindtap="routerPage" data-page="person-center">
+    <view class="{{PageCur == 'person-center' ? 'text-cyan': ''}}">
+      <view class="cuIcon-myfill"></view>
+      我的
+    </view>
+  </view>
+  <!-- wxec62e934c43063ab -->
+</view>

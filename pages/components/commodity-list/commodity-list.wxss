@@ -1,0 +1,39 @@
+.commodity-box {
+  -webkit-column-count: 2;
+  -webkit-column-gap: 2;
+  column-count: 2;
+  column-gap: 20rpx;
+  padding-bottom: 20rpx;
+}
+.commodity-box .commodity-item {
+  break-inside: avoid;
+  /*避免在元素内部插入分页符*/
+  box-sizing: border-box;
+  max-height: 500rpx;
+  background: #ffffff;
+  box-shadow: 0rpx 6rpx 12rpx rgba(199, 199, 199, 0.16);
+  border-radius: 20rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+}
+.commodity-box .commodity-item .img {
+  width: 100%;
+  height: 314rpx;
+  overflow: hidden;
+}
+.commodity-box .commodity-item .img image {
+  width: 100%;
+  height: 100%;
+  position: inherit;
+}
+.commodity-box .commodity-item .desc {
+  margin: 18rpx;
+}
+.commodity-box .commodity-item .desc .title {
+  font-size: 28rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 18px;
+  color: #333333;
+}

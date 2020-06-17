@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/bind-phone/bind-phone",
+    "pages/home/home",
+    "pages/setting/setting",
+    "pages/person-info/person-info",
+    "pages/login/login",
+    "pages/address-list/address-list"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F9F9F9",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
+    "backgroundColor": "#F9F9F9"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "cu-custom":"/colorui/components/cu-custom"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息用于查找附近商家"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+
+<view class="person-center">
+  <!-- nav-bar -->
+  <cu-custom isBack="{{true}}" bgColor="bg-white">
+    <view slot="content" class="bold">{{ title }}</view>
+  </cu-custom>
+  
+  <!-- 设置 -->
+  <view class="cu-list menu list-menu settings">
+    <!-- 需要接口控制 -->
+    <view class="cu-item arrow" bindtap="personInfo">
+      <view class="content">头像</view>
+      <view class="cu-avatar round" style="background-image:url({{userInfo.avatarUrl}});"></view>
+    </view>
+    <!-- 需要接口控制 -->
+    <view class="cu-item arrow">
+      <view class="content">昵称</view>
+      <view class="value">{{userInfo.nickName}}</view>
+    </view>
+    <view class="cu-form-group">
+		  <view class="title">性别</view>
+      <picker bindchange="PickerChange" value="{{genderIndex}}" range="{{genderArray}}">
+        <view class="picker value">
+          {{genderArray[genderIndex]}}
+        </view>
+      </picker>
+    </view>
+    <view class="cu-form-group">
+      <view class="title">日期选择</view>
+      <picker mode="date" value="{{birthday}}" start="1920-01-01" end="2020-01-01" bindchange="DateChange">
+        <view class="picker value">
+          {{birthday}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+</view>

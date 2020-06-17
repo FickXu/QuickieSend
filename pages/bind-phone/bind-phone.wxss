@@ -1,0 +1,34 @@
+.person-center {
+  height: calc(100vh - calc(100rpx + env(safe-area-inset-bottom) / 2));
+}
+.person-center .list-menu {
+  background-color: #ffffff;
+}
+.person-center .my-orders {
+  margin-top: 20px;
+}
+.person-center .my-orders .header {
+  margin: 15px 20px 0;
+  height: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.person-center .my-orders .header .title {
+  font-size: 17px;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333333;
+}
+.person-center .my-orders .header .btn-all-order {
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #666666;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.person-center .settings {
+  margin-top: 20px;
+}

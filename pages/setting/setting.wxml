@@ -1,0 +1,32 @@
+
+<view class="person-center">
+  <!-- nav-bar -->
+  <cu-custom isBack="{{true}}" bgColor="bg-white">
+    <view slot="content" class="bold">{{ title }}</view>
+  </cu-custom>
+  
+  <!-- 设置 -->
+  <view class="cu-list menu list-menu settings">
+    <!-- 需要接口控制 -->
+    <view class="cu-item arrow" bindtap="personInfoPage">
+      <view class="content">个人信息</view>
+    </view>
+    <!-- 需要接口控制 -->
+    <view class="cu-item arrow" bindtap="addressListPage">
+      <view class="content">地址管理</view>
+    </view>
+    <view class="cu-item arrow">
+      <view class="content">绑定号码</view>
+      <view class="value">未设置</view>
+    </view>
+    <view class="cu-item arrow">
+      <view class="content">实名认证</view>
+      <view class="value">未认证</view>
+    </view>
+  </view>
+  
+  <!-- 退出登录 -->
+  <view class="btn-box">
+    <button class="btn">退出登录</button>
+  </view>
+</view>

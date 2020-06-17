@@ -1,0 +1,9 @@
+<!-- 联系客服 -->
+<view wx:if="{{videoShow}}" class="cu-modal {{videoShow?'show':''}}">
+  <view class="cu-dialog bg-white">
+    <video class="video" id="myVideo" src="{{videoUrl}}" controls></video>
+    <view class="cu-bar bg-white">
+      <button class="action margin-0 flex-sub solid-left bg-gold" bindtap="hideModal">关闭</button>
+    </view>
+  </view>
+</view>

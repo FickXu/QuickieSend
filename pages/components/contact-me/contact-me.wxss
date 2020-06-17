@@ -1,0 +1,36 @@
+.container {
+  padding-top: 100rpx;
+  padding-bottom: 170rpx;
+  background-color: #ffffff;
+}
+.container .align-center {
+  text-align: center;
+}
+.container .login-logo .logo {
+  width: 128rpx;
+  height: 128rpx;
+}
+.container .login-title {
+  margin-top: 40rpx;
+}
+.container .list-contact {
+  margin-top: 100rpx;
+}
+.container .list-contact .custome-icon-size {
+  font-size: 40rpx;
+}
+.container .company-profile {
+  line-height: 50rpx;
+}
+.container .company-profile-title {
+  padding: 0 30rpx;
+  color: #253b51;
+  font-size: 44rpx;
+  line-height: 90rpx;
+  margin-top: 30rpx;
+}
+.container .company-profile-content {
+  padding: 0 30rpx 90rpx 30rpx;
+  color: #3d3d3d;
+  font-size: 32rpx;
+}

@@ -1,0 +1,41 @@
+<view class="container">
+    <view class="align-center login-logo">
+        <image class="logo" src="{{ logoImg }}"></image>
+    </view>
+    <view class="align-center login-title">
+        <text>马上送到</text>
+    </view>
+
+    <!-- 联系方式 -->
+    <view class="cu-list menu list-contact">
+        <!-- telphone -->
+        <view class="cu-item arrow" bindtap="callPhone" data-text="{{telNo}}">
+            <view class="content">
+                <text class="custome-icon-size cuIcon-phone text-blue"></text>电话
+                <text class="text-grey">{{ telNo }}</text>
+            </view>
+        </view>
+        <!-- wechat -->
+        <view class="cu-item arrow" bindtap="copyText" data-text="{{wechatNo}}">
+            <view class="content">
+                <text class="custome-icon-size cuIcon-weixin text-blue"></text>微信
+                <text class="text-grey">{{ wechatNo }}</text>
+            </view>
+        </view>
+        <!-- QQ -->
+        <view class="cu-item arrow" bindtap="copyText" data-text="{{qqNo}}">
+            <view class="content">
+                <text class="custome-icon-size cuIcon-mark text-blue"></text>QQ
+                <text class="text-grey">{{ qqNo }}</text>
+            </view>
+        </view>
+        <view class="cu-item"></view>
+    </view>
+    <!-- 公司简介 -->
+    <view class="company-profile">
+        <view class="company-profile-title">公司简介</view>
+        <view class="company-profile-content">
+            {{ synopsis }}
+        </view>
+    </view>
+</view>

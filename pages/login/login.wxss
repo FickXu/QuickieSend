@@ -1,0 +1,57 @@
+.login-out-area {
+  background-color: #fff;
+  height: 100vh;
+}
+.login-out-area .login-logo {
+  margin: 20px;
+}
+.login-out-area .login-logo .logo {
+  width: 300px;
+  height: 300px;
+}
+.login-out-area .login-btn {
+  margin-top: 40rpx;
+}
+.login-out-area .login-btn .button {
+  width: 84.82%;
+  height: 96rpx;
+  border-radius: 50px;
+  line-height: 96rpx;
+}
+.login-out-area .login-btn .button::after {
+  border: none;
+}
+.login-out-area .login-btn .bg-fill {
+  background-color: #22BFB7;
+  color: #ffffff;
+}
+.login-out-area .login-btn .border {
+  border: 1px solid #22BFB7;
+  background-color: #fff;
+  color: #22BFB7;
+}
+.login-out-area .bg-login {
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 60rpx;
+  text-align: center;
+}
+.login-out-area .bg-login .bg-img {
+  width: 55%;
+  height: 100%;
+  margin: 0 auto;
+}
+.align-center {
+  text-align: center;
+}
+.author-phone-title {
+  margin-top: 60rpx;
+  font-size: 40rpx;
+}
+.author-phone-desc {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+.btn-argee {
+  margin-bottom: 20rpx;
+}

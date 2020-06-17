@@ -1,0 +1,18 @@
+<!-- 单个商品 -->
+<view class="commodity-box">
+  <view class="commodity-item" wx:for="{{ info }}">
+  <!-- 商品属性 -->
+    <view class="img">
+    <!-- 商品图片 -->
+      <image mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
+    </view>
+    <view class="desc">
+    <!-- 商品名称 -->
+      <view class="line-overflow title">{{ item.name }}</view>
+    </view>
+    <view class="commodity-attr-item">
+      <view class="price">¥ {{ item.price }}</view>
+      <view class="label-info">{{ item.postType }}</view>
+    </view>
+  </view>
+</view>

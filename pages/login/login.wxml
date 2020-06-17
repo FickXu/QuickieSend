@@ -1,0 +1,28 @@
+<view class="login-out-area">
+  <cu-custom bgColor="bg-white" isBack="{{true}}">
+    <view slot="content" class="bold">{{ loginPageInfo.title }}</view>
+  </cu-custom>
+  <view class="align-center login-logo">
+    <image class="logo" src="{{ loginPageInfo.iconUrl }}"></image>
+  </view>
+  <view class="login-btn">
+    <button class="button bg-fill" open-type='getUserInfo' bindgetuserinfo="bindgetuserinfo">{{ loginPageInfo.btnText1 }} </button>
+  </view>
+  <view class="login-btn">
+    <button class="button border" bindtap="pageBack">{{ loginPageInfo.btnText2 }} </button>
+  </view>
+</view>
+
+<view class="cu-modal {{isAuthorPhone?'show':''}}">
+  <view class="cu-dialog bg-white">
+    <view class="author-phone-title">马上送到</view>
+    <view class="author-phone-desc">马上送到需要您授权来获取手机号</view>
+    <view class="cu-bar bg-white btn-argee">
+      <button
+        class="action margin-0 flex-sub solid-left bg-gold btn-i-know"
+        open-type="getPhoneNumber"
+        bindgetphonenumber="getPhoneNumber"
+        >同意</button>
+    </view>
+  </view>
+</view>
