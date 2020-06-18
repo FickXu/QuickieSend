@@ -51,6 +51,7 @@
         class="item {{categoryIndex == index ? 'active' : ''}}"
         data-index="{{index}}"
         wx:for="{{hotCategoryList}}"
+        wx:key="index"
         bindtap="chooseCategory"
         >
         {{item.name}}

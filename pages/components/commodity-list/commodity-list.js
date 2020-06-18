@@ -14,13 +14,31 @@ Component({
   data: {},
   lifetimes: {
     ready () {
-      this.getAllCommodityItem()
     },
   },
   methods: {
-    getAllCommodityItem () {
-      const query = wx.createSelectorQuery()
-      console.log(query.select('.commodity-item'))
+    // 商品详情
+    goToDetail (e) {
+      let dataset = e.currentTarget.dataset
+      let self = this
+
+      wx.navigateTo({
+        url: '../../pages/commodity-detail/commodity-detail',
+        events: {
+          sendData: function (data) {
+          }
+        },
+        success: function (res) {
+          let params = {
+            id:dataset.id,
+            ...self.data.info[dataset.index]
+          }
+          res.eventChannel.emit('sendData', params)
+        },
+        fail: function(err) {
+          console.log(err)
+        }
+      })
     }
   }
 })

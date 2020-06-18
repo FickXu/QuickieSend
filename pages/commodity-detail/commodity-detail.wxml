@@ -1,5 +1,5 @@
 <!--pages/commodity-detai/commodity-detai.wxml-->
-<cu-custom isBack="{{true}}">
+<cu-custom isCustom="{{true}}">
   <view slot="content" class="bold">{{ title }}</view>
 </cu-custom>
 <scroll-view
@@ -11,7 +11,7 @@
   <!-- 详情主图 -->
   <view class="commodity-banner">
     <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true">
-    <swiper-item wx:for="{{swiperList}}" wx:key>
+    <swiper-item wx:for="{{swiperList}}" wx:key="index">
       <image src="{{item.url}}" mode="aspectFill"></image>
     </swiper-item>
   </swiper>
@@ -21,11 +21,11 @@
   <view class="commodity-info">
     <!-- 商品名称 -->
     <view class="header">
-      <view class="title line-overflow">淘乡甜虎林大米20斤东北黑龙江珍珠米大米圆粒米宝宝粥珍珠米大米圆粒米</view>
+      <view class="title line-overflow">{{detail.name}}</view>
       <view class="flex space-between flex-align-center">
         <view class="left">
-          <text class="price">¥ 55.3</text>
-          <text class="value throw-line expired-price ml-10">¥ 89.6</text>
+          <text class="price">¥ {{detail.price}}</text>
+          <text class="value throw-line expired-price ml-10">¥  {{detail.price}}</text>
         </view>
         <view class="flex flex-align-center">
           <text class="label-info">销量：22</text>

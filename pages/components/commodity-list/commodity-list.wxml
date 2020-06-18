@@ -1,6 +1,13 @@
 <!-- 单个商品 -->
 <view class="commodity-box">
-  <view class="commodity-item" wx:for="{{ info }}">
+  <view
+    class="commodity-item"
+    wx:for="{{ info }}"
+    wx:key="index"
+    bindtap="goToDetail"
+    data-id="{{item.id}}"
+    data-index="{{index}}"
+    >
   <!-- 商品属性 -->
     <view class="img">
     <!-- 商品图片 -->

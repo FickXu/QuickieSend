@@ -65,7 +65,7 @@ Page({
         postType: '免费配送'
       },
     ],
-    showSelectStandard: true ,
+    showSelectStandard: false ,
     number: 0
   },
 
@@ -189,30 +189,44 @@ Page({
   // 页面显示时检查登录状态
   onShow: function () {
     let self = this
-    if (app.globalData.loginCode == 10007) {
-      self.setData({
-        isLogin: false,
-        loginCode: app.globalData.loginCode
-      })
-      return
-    }
 
-    wx.getStorage({
-      key: 'userInfo',
-      success (res) {
-        // console.log('Page home:', res)
-        self.setData({
-          isLogin: true,
-        })
-        // 缓存到全局
-        app.globalData.userInfo = res.data
-      },
-      fail (err) {
-        console.log('get storage fail:', err)
-        self.setData({
-          isLogin: false
-        })
-      }
+    // 页面通信
+    const eventChannel = this.getOpenerEventChannel()
+    // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
+    eventChannel.on('sendData', function(data) {
+      self.setData({
+        detail: {
+          ...self.data.detail,
+          ...data
+        }
+      })
+      console.log('获取到的参数：', data, self.data.detail)
     })
+
+    // if (app.globalData.loginCode == 10007) {
+    //   self.setData({
+    //     isLogin: false,
+    //     loginCode: app.globalData.loginCode
+    //   })
+    //   return
+    // }
+
+    // wx.getStorage({
+    //   key: 'userInfo',
+    //   success (res) {
+    //     // console.log('Page home:', res)
+    //     self.setData({
+    //       isLogin: true,
+    //     })
+    //     // 缓存到全局
+    //     app.globalData.userInfo = res.data
+    //   },
+    //   fail (err) {
+    //     console.log('get storage fail:', err)
+    //     self.setData({
+    //       isLogin: false
+    //     })
+    //   }
+    // })
   }
 })
