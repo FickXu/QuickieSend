@@ -47,7 +47,7 @@
   <view class="comment mt-10">
     <view class="flex flex-align-center space-between">
       <text class="header">商品评论（23）</text>
-      <text class="text-cyan">查看全部</text>
+      <text class="text-cyan" bindtap="allComment">查看全部</text>
     </view>
     <view class="info mt-10 flex flex-align-center">
       <view class="cu-avatar round" style="background-image:url({{detail.avatarUrl}});"></view>

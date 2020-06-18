@@ -69,6 +69,16 @@ Page({
     number: 0
   },
 
+  // 查看所有评论
+  allComment() {
+    wx.navigateTo({
+      url: '../../pages/comment-list/comment-list',
+      fail(err) {
+        console.log(err)
+      }
+    })
+  },
+
   // 计数器
   counter(e) {
     console.log(e)

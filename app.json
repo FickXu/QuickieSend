@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/comment-list/comment-list",
     "pages/commodity-detail/commodity-detail",
     "pages/bind-phone/bind-phone",
     "pages/setting/setting",
