@@ -22,31 +22,31 @@ Component({
         id: 1,
         name: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
         price: 88.0,
-        postType: '包邮'
+        postType: '免费配送'
       },
       {
         id: 2,
         name: '红烧鱼',
         price: 30,
-        postType: '包邮'
+        postType: '免费配送'
       },
       {
         id: 4,
         name: '红烧肘子',
         price: 30,
-        postType: '包邮'
+        postType: '免费配送'
       },
       {
         id: 4,
         name: '红烧肘子',
         price: 30,
-        postType: '包邮'
+        postType: '免费配送'
       },
       {
         id: 3,
         name: '清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼',
         price: 38.0,
-        postType: '包邮'
+        postType: '免费配送'
       },
     ],
 	},

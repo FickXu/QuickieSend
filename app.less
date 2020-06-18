@@ -13,24 +13,30 @@
 /* 灰色 */
 @gray: #CCCCCC;
 
+.commodity-attr-item {
+  .flex;
+  .space-between;
+  .flex-align-center;
+  padding: 0 18rpx;
+}
+
+/* 字体 */
 // 多行文本溢出
 .line-overflow {
   display: -webkit-box;//盒子类型
   word-break: break-all;//自动换行的处理方法。允许在单词内换行
   text-overflow: ellipsis;//溢出时用...
-  font-size: 18rpx;//自适应字体
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp:2;//行数
 }
 
-.commodity-attr-item {
-  display: flex;
-  padding: 0 18rpx;
-  justify-content: space-between;
-  align-items: center;
+// 值类型的描述的样式
+.value {
+  color: #bbbbbb;
 }
 
+// 价格
 .price {
   font-size:36rpx;
   font-family:PingFang SC;
@@ -51,7 +57,18 @@
   font-weight: 700;
 }
 
-// 大按钮
+// 页面中的业务提示信息
+.tips {
+  margin: 20px;
+}
+
+// 文本删除线
+.throw-line {
+  text-decoration: line-through;
+}
+
+/* 按钮 */
+// 胶囊那妞
 .btn-box {
   padding: 0 50px;
   margin-top: 20px;
@@ -70,10 +87,82 @@
   }
 }
 
-.value {
-  color: #bbbbbb;
+/* 盒模型布局 */
+// 弹性布局
+.flex {
+  display: flex;
 }
 
-.tips {
-  margin: 20px;
+.space-between {
+  justify-content: space-between;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+.flex-row1 {
+  flex: 1;
+}
+.flex-row2 {
+  flex: 2;
+}
+.flex-row3 {
+  flex: 3;
+}
+.flex-row4 {
+  flex: 4;
+}
+
+/* 外边距 */
+// 上边距
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-15 {
+  margin-top: 15px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-30 {
+  margin-top: 30px;
+}
+// 右边距
+.mr-10 {
+  margin-right: 10px;
+}
+.mr-15 {
+  margin-right: 15px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.mr-30 {
+  margin-right: 30px;
+}
+// 下边距
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-30 {
+  margin-bottom: 30px;
+}
+// 左边距
+.ml-10 {
+  margin-left: 10px;
+}
+.ml-15 {
+  margin-left: 15px;
+}
+.ml-20 {
+  margin-left: 20px;
+}
+.ml-30 {
+  margin-left: 30px;
 }

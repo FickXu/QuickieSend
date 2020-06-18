@@ -23,7 +23,7 @@
       <view class="cu-list grid col-3 no-border">
         <view class="cu-item"  bindtap="getMydetails">
           <view class="cuIcon-cart text-grey"></view>
-          <text>我的明细</text>
+          <text>消费明细</text>
         </view>
         <!-- 订单 -->
         <view class="cu-item" bindtap="getMyCollected">

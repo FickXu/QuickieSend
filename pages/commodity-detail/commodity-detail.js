@@ -5,10 +5,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: '马上送到',
-    PageCur: 'home',
-    isLogin: true,
-    loginCode: 10007,
+    customBar: app.globalData.CustomBar,
+    title: '商品详情',
+    detail: {
+      nickName: 'Fick',
+      avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
+    },
+    swiperList: [
+      {
+        id: 0,
+        url: '../images/rich.png'
+      },
+      {
+        id: 1,
+        url: '../images/rich.png'
+      },
+      {
+        id: 2,
+        url: '../images/rich.png'
+      },
+      {
+        id: 3,
+        url: '../images/rich.png'
+      },
+      {
+        id: 4,
+        url: '../images/rich.png'
+      }
+    ],
     commodityList: [
       {
         id: 1,
@@ -41,33 +65,37 @@ Page({
         postType: '免费配送'
       },
     ],
-    searchPlaceholder: '一次性一用口罩',
-    // 热门分类列表
-    hotCategoryList: [
-      {
-        id: 1,
-        name: '营养餐'
-      },
-      {
-        id: 2,
-        name: '陪护餐'
-      },
-      {
-        id: 3,
-        name: '营养品'
-      },
-      {
-        id: 4,
-        name: '住院相关'
-      }
-    ],
-    // 当前热门分类下标
-    categoryIndex: 0
+    showSelectStandard: true ,
+    number: 0
   },
 
-  // 下拉刷新
-  bindrefresherpulling: function () {
-    console.log(234)
+  // 计数器
+  counter(e) {
+    console.log(e)
+    let type = e.currentTarget.dataset.type
+    if (type === 'minus') {
+      this.setData({
+        number: this.data.number == 0 ? 0 : --this.data.number
+      })
+    } else {
+      this.setData({
+        number: ++this.data.number
+      })
+    }
+  },
+
+  // 选择规格
+  showSelectStandardModal() {
+    this.setData({
+      showSelectStandard: true
+    })
+  },
+
+  // 关闭规格选择
+  hideSelectStandardModal(e) {
+    this.setData({
+      showSelectStandard: false
+    })
   },
 
   // 获取定位信息

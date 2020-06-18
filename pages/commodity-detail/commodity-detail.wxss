@@ -1,0 +1,130 @@
+.scrollPage {
+  position: relative;
+  height: 100vh;
+}
+.scrollPage .screen-swiper {
+  height: 300px;
+}
+.scrollPage .commodity-info {
+  background: #ffffff;
+  border-radius: 10px 10px 0px 0px;
+  padding: 30px 17px 20px;
+  position: relative;
+  margin-top: -10px;
+}
+.scrollPage .commodity-info .expired-price {
+  font-size: 12px;
+}
+.scrollPage .standard-container {
+  height: 44px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333333;
+  padding: 0 15px;
+}
+.scrollPage .header {
+  font-size: 16px;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333333;
+}
+.scrollPage .comment {
+  background-color: #fff;
+  padding: 15px;
+}
+.scrollPage .comment .info .nick-name {
+  font-size: 14px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333333;
+}
+.scrollPage .comment .content {
+  font-size: 13px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #666666;
+}
+.scrollPage .hot {
+  background-color: #fff;
+  padding: 15px;
+}
+.scrollPage .describe {
+  background-color: #fff;
+  padding: 15px 0;
+}
+.detail-bottom-nav {
+  height: 64px;
+}
+.detail-bottom-nav .btn-buy-now {
+  height: 100%;
+  color: #ffffff;
+  font-size: 18px;
+  font-family: PingFang SC;
+  font-weight: 400;
+  background-color: #22BFB7;
+  justify-content: center;
+}
+.cu-dialog {
+  border-top-left-radius: 10px!important;
+  border-top-right-radius: 10px!important;
+}
+.padding-xl {
+  padding: 15px;
+  position: relative;
+}
+.padding-xl .icon-close {
+  position: absolute;
+  top: -5px;
+  right: 15px;
+}
+.padding-xl .commodity-summary {
+  width: 100%;
+  height: 77px;
+}
+.padding-xl .commodity-summary .img-box {
+  min-width: 77px;
+  max-width: 77px;
+  height: 77px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.padding-xl .commodity-summary .img-box .img {
+  width: 100%;
+  height: 100%;
+}
+.padding-xl .commodity-summary .summary {
+  text-align: left;
+}
+.padding-xl .commodity-standard-list .standard-item {
+  text-align: left;
+  padding: 0 10px;
+}
+.padding-xl .commodity-standard-list .standard-item .title {
+  font-size: 16px;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #333333;
+}
+.padding-xl .commodity-standard-list .standard-item .values {
+  padding: 10px 0;
+}
+.padding-xl .counter {
+  flex: 1;
+}
+.padding-xl .counter .btn-minus {
+  min-width: 20px;
+  text-align: center;
+  border: 1px solid #f7f7f7;
+  color: #666666;
+  border-radius: 5px;
+}
+.padding-xl .counter .btn-puls {
+  min-width: 20px;
+  text-align: center;
+  border: 1px solid #f7f7f7;
+  color: #666666;
+  border-radius: 5px;
+}
+.padding-xl .counter .ipt-num {
+  text-align: center;
+}

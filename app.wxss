@@ -4242,20 +4242,23 @@ scroll-view.cu-steps .cu-item {
 /* 深黑色 */
 /* 浅黑色 */
 /* 灰色 */
+.commodity-attr-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 18rpx;
+}
+/* 字体 */
 .line-overflow {
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
-  font-size: 18rpx;
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-.commodity-attr-item {
-  display: flex;
-  padding: 0 18rpx;
-  justify-content: space-between;
-  align-items: center;
+.value {
+  color: #bbbbbb;
 }
 .price {
   font-size: 36rpx;
@@ -4273,6 +4276,13 @@ scroll-view.cu-steps .cu-item {
 .bold {
   font-weight: 700;
 }
+.tips {
+  margin: 20px;
+}
+.throw-line {
+  text-decoration: line-through;
+}
+/* 按钮 */
 .btn-box {
   padding: 0 50px;
   margin-top: 20px;
@@ -4289,9 +4299,74 @@ scroll-view.cu-steps .cu-item {
   border: none;
   border-radius: 50px;
 }
-.value {
-  color: #bbbbbb;
+/* 盒模型布局 */
+.flex {
+  display: flex;
 }
-.tips {
-  margin: 20px;
+.space-between {
+  justify-content: space-between;
+}
+.flex-align-center {
+  align-items: center;
+}
+.flex-row1 {
+  flex: 1;
+}
+.flex-row2 {
+  flex: 2;
+}
+.flex-row3 {
+  flex: 3;
+}
+.flex-row4 {
+  flex: 4;
+}
+/* 外边距 */
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-15 {
+  margin-top: 15px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-30 {
+  margin-top: 30px;
+}
+.mr-10 {
+  margin-right: 10px;
+}
+.mr-15 {
+  margin-right: 15px;
+}
+.mr-20 {
+  margin-right: 20px;
+}
+.mr-30 {
+  margin-right: 30px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-15 {
+  margin-bottom: 15px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-30 {
+  margin-bottom: 30px;
+}
+.ml-10 {
+  margin-left: 10px;
+}
+.ml-15 {
+  margin-left: 15px;
+}
+.ml-20 {
+  margin-left: 20px;
+}
+.ml-30 {
+  margin-left: 30px;
 }
