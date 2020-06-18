@@ -4282,6 +4282,16 @@ scroll-view.cu-steps .cu-item {
 .throw-line {
   text-decoration: line-through;
 }
+.icon-banner {
+  width: 200px;
+  height: 24px;
+  margin: 20px auto 20px;
+  text-align: center;
+}
+.icon-banner image {
+  width: 100%;
+  height: 100%;
+}
 /* 按钮 */
 .btn-box {
   padding: 0 50px;

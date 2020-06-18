@@ -60,7 +60,7 @@
   
     <!-- 商品banner -->
     <view class="commodity-banner">
-      <view class="icon">
+      <view class="icon-banner">
         <image src="../images/new-commodity.png" mode="aspectFill" />
       </view>
     </view>

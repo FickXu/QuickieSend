@@ -58,7 +58,9 @@
   
   <!-- 商品列表 -->
   <view class="hot mt-10 mb-10">
-    <view class="header mb-10">爆款推荐</view>
+     <view class="icon-banner">
+        <image src="../images/recommend.png" mode="aspectFill" />
+      </view>
     <commodity-list info="{{commodityList}}"></commodity-list>
   </view>
 

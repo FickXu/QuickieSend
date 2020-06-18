@@ -99,7 +99,7 @@
     
     <!-- 猜你喜欢 -->
     <view class="recommend">
-      <view class="icon">
+      <view class="icon-banner">
         <image src="../../images/recommend.png" mode="aspectFill" />
       </view>
       <view class="recommend-list">
