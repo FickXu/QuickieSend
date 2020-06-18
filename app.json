@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/commodity-list/commodity-list",
     "pages/home/home",
+    "pages/commodity-list/commodity-list",
     "pages/comment-list/comment-list",
     "pages/commodity-detail/commodity-detail",
     "pages/bind-phone/bind-phone",
