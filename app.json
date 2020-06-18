@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/commodity-list/commodity-list",
     "pages/home/home",
     "pages/comment-list/comment-list",
     "pages/commodity-detail/commodity-detail",

@@ -1,6 +1,6 @@
 const app = getApp();
 
-Component({
+Page({
   options: {
     addGlobalClass: true
   },
@@ -8,13 +8,9 @@ Component({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
-    title: "商品分类",
+    title: "母婴用品",
     // 搜索条件
     searchText: '请输入您要搜索的内容',
-    vtabs: [],
-    activeTab: 0,
-    TabCur: 0,
-    MainCur: 0,
     navList: [
       {
         id: 0,
@@ -386,214 +382,65 @@ Component({
         ]
       }
     ],
-    iconList: [{
-      icon: 'cardboardfill',
-      color: 'red',
-      badge: 120,
-      name: 'VR'
-    }, {
-      icon: 'recordfill',
-      color: 'orange',
-      badge: 1,
-      name: '录像'
-    }, {
-      icon: 'picfill',
-      color: 'yellow',
-      badge: 0,
-      name: '图像'
-    }, {
-      icon: 'noticefill',
-      color: 'olive',
-      badge: 22,
-      name: '通知'
-    }, {
-      icon: 'upstagefill',
-      color: 'cyan',
-      badge: 0,
-      name: '排行榜'
-    }, {
-      icon: 'clothesfill',
-      color: 'blue',
-      badge: 0,
-      name: '皮肤'
-    }, {
-      icon: 'discoverfill',
-      color: 'purple',
-      badge: 0,
-      name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'clothesfill',
-      color: 'blue',
-      badge: 0,
-      name: '皮肤'
-    }, {
-      icon: 'discoverfill',
-      color: 'purple',
-      badge: 0,
-      name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'clothesfill',
-      color: 'blue',
-      badge: 0,
-      name: '皮肤'
-    }, {
-      icon: 'discoverfill',
-      color: 'purple',
-      badge: 0,
-      name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'clothesfill',
-      color: 'blue',
-      badge: 0,
-      name: '皮肤'
-    }, {
-      icon: 'discoverfill',
-      color: 'purple',
-      badge: 0,
-      name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'clothesfill',
-      color: 'blue',
-      badge: 0,
-      name: '皮肤'
-    }, {
-      icon: 'discoverfill',
-      color: 'purple',
-      badge: 0,
-      name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'clothesfill',
-      color: 'blue',
-      badge: 0,
-      name: '皮肤'
-    }, {
-      icon: 'discoverfill',
-      color: 'purple',
-      badge: 0,
-      name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'commandfill',
-      color: 'purple',
-      badge: 0,
-      name: '问答'
-    }, {
-      icon: 'brandfill',
-      color: 'mauve',
-      badge: 0,
-      name: '版权'
-    }, {
-      icon: 'discoverfill',
-      color: 'purple',
-      badge: 0,
-      name: '发现'
-    }, {
-      icon: 'questionfill',
-      color: 'mauve',
-      badge: 0,
-      name: '帮助'
-    }, {
-      icon: 'commandfill',
-      color: 'purple',
-      badge: 0,
-      name: '问答'
-    }, {
-      icon: 'brandfill',
-      color: 'mauve',
-      badge: 0,
-      name: '版权'
-    }],
-    load: true
   },
-  ready () {
+  onShow () {
   },
-  methods: {
-    // 点击分类tab
-    onTabCLick(e) {
-      const index = e.detail.index
-      console.log('tabClick', index)
-    },
-  
-    // 页面滚动时分类列表变化
-    onChange(e) {
-      const index = e.detail.index
-      console.log('change', index)
-    },
-    // 输入时搜索
-    inputSearch: function () {
+  // 点击分类tab
+  onTabCLick(e) {
+    const index = e.detail.index
+    console.log('tabClick', index)
+  },
 
-    },
-    // 清空搜索框字符串
-    clearSearchText: function () {
-      this.setData({
-        searchText: ''
-      })
-    },
-    tabSelect(e) {
-      this.setData({
-        TabCur: e.currentTarget.dataset.id,
-        MainCur: e.currentTarget.dataset.id,
-        VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
-      })
-    },
-    VerticalMain(e) {
-      let that = this;
-      let list = this.data.navList;
-      let tabHeight = 0;
-      if (this.data.load) {
-        for (let i = 0; i < list.length; i++) {
-          let view = wx.createSelectorQuery().in(this).select("#main-" + i);
-          view.fields({
-            size: true
-          }, data => {
-            list[i].top = tabHeight;
-            tabHeight = tabHeight + data.height;
-            list[i].bottom = tabHeight;     
-          }).exec();
-        }
-        that.setData({
-          load: false,
-          navList: list
-        })
-      }
-      let scrollTop = e.detail.scrollTop + 20;
+  // 页面滚动时分类列表变化
+  onChange(e) {
+    const index = e.detail.index
+    console.log('change', index)
+  },
+  // 输入时搜索
+  inputSearch: function () {
+
+  },
+  // 清空搜索框字符串
+  clearSearchText: function () {
+    this.setData({
+      searchText: ''
+    })
+  },
+  tabSelect(e) {
+    this.setData({
+      TabCur: e.currentTarget.dataset.id,
+      MainCur: e.currentTarget.dataset.id,
+      VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
+    })
+  },
+  VerticalMain(e) {
+    let that = this;
+    let list = this.data.navList;
+    let tabHeight = 0;
+    if (this.data.load) {
       for (let i = 0; i < list.length; i++) {
-        if (scrollTop > list[i].top && scrollTop < list[i].bottom) {
-          that.setData({
-            VerticalNavTop: (list[i].id - 1) * 50,
-            TabCur: list[i].id
-          })
-          return false
-        }
+        let view = wx.createSelectorQuery().in(this).select("#main-" + i);
+        view.fields({
+          size: true
+        }, data => {
+          list[i].top = tabHeight;
+          tabHeight = tabHeight + data.height;
+          list[i].bottom = tabHeight;     
+        }).exec();
+      }
+      that.setData({
+        load: false,
+        navList: list
+      })
+    }
+    let scrollTop = e.detail.scrollTop + 20;
+    for (let i = 0; i < list.length; i++) {
+      if (scrollTop > list[i].top && scrollTop < list[i].bottom) {
+        that.setData({
+          VerticalNavTop: (list[i].id - 1) * 50,
+          TabCur: list[i].id
+        })
+        return false
       }
     }
   }

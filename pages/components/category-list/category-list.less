@@ -3,12 +3,12 @@
 // 搜索框的高度
 @height-search: 50px;
 // 顶部导航高度
-@height-toolbar: 100px;
+@height-toolbar: 134px;
 // 组件的高度
-@height-category-list: calc(~'100vh - @{height-toolbar}');
+@height-category-list: calc(~'100vh - @{height-toolbar} - @{height-nav}');
 
 .toolbar {
-  // height: @height-toolbar;
+  height: @height-toolbar;
 }
 
 .category-list {

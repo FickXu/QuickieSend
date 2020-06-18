@@ -17,7 +17,6 @@
 </view>
 
 <view class="category-list">
-  
 
   <!-- 分类列表 -->
   <view class="VerticalBox">
@@ -45,7 +44,17 @@
       scroll-into-view="main-{{MainCur}}"
       bindscroll="VerticalMain"
       >
-      <view class="padding-top padding-lr" wx:for="{{navList}}" wx:key id="main-{{index}}">
+      <view class="cu-list grid col-3 no-border">
+        <view class="cu-item" wx:for="{{iconList}}" wx:key="index">
+          <view class="cuIcon-{{item.icon}} text-{{item.color}}">
+            <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
+              <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
+            </view>
+          </view>
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+      <!-- <view class="padding-top padding-lr" wx:for="{{navList}}" wx:key id="main-{{index}}">
         <view class="commodity-list">
           <view class="commodity-item" wx:for="{{navList[index].list}}">
             <image class="commodity-img" mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
@@ -58,7 +67,7 @@
             </view>
           </view>
         </view>
-      </view>
+      </view> -->
     </scroll-view>
   </view>
 

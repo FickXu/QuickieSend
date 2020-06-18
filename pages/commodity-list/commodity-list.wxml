@@ -1,0 +1,39 @@
+<!-- 顶部导航 -->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+  <view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+<!-- 搜索组件 -->
+<view class="cu-bar search bg-white fixed" style="top:{{CustomBar}}px">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="请输入要搜索的商品" confirm-type="search"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-cyan shadow-blur round">搜索</button>
+  </view>
+</view>
+
+<scroll-view
+  class="scroll-page fixed"
+  scroll-y
+  scroll-with-animation
+  >
+  <view class="padding-top padding-lr" wx:for="{{navList}}" wx:key id="main-{{index}}">
+    <view class="commodity-list">
+      <view class="commodity-item" wx:for="{{navList[index].list}}">
+        <image class="commodity-img" mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
+        <view class="commodity-info">
+          <view class="title line-overflow">{{item.name}}</view>
+          <view class="flex space-between flex-align-center mt-10">
+            <text class="value">399购买</text>
+            <text class="value">免费配送</text>
+          </view>
+          <view class="price">
+            <view class="num">¥ {{item.price}}</view>
+            <view class="shoping-car cuIcon-cart text-cyan"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

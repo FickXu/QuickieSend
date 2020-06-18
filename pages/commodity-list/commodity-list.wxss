@@ -1,0 +1,34 @@
+.scroll-page {
+  padding-top: 50px;
+  background-color: #fff;
+}
+.scroll-page .commodity-item {
+  width: 100%;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  border-bottom: 1px solid #f7f7f7;
+  padding: 15px 0;
+}
+.scroll-page .commodity-img {
+  min-width: 163rpx;
+  max-width: 163rpx;
+  height: 163rpx;
+}
+.scroll-page .commodity-info {
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+}
+.scroll-page .commodity-info .title {
+  font-size: 13px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #333333;
+}
+.scroll-page .commodity-info .price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10rpx;
+}
