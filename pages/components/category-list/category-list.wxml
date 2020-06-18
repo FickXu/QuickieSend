@@ -1,23 +1,19 @@
-<!-- header -->
-<view class="toolbar">
-  <!-- 顶部导航 -->
-  <cu-custom bgColor="bg-white">
-    <view slot="content" class="bold">{{ title }}</view>
-  </cu-custom>
-  <!-- 搜索组件 -->
-  <view class="cu-bar search bg-white">
-    <view class="search-form round">
-      <text class="cuIcon-search"></text>
-      <input type="text" placeholder="请输入要搜索的商品" confirm-type="search"></input>
-    </view>
-    <view class="action">
-      <button class="cu-btn bg-cyan shadow-blur round">搜索</button>
-    </view>
+<!-- 顶部导航 -->
+<cu-custom bgColor="bg-white">
+  <view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+<!-- 搜索组件 -->
+<view class="cu-bar search bg-white fixed" style="top:{{CustomBar}}px">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="请输入要搜索的商品" confirm-type="search"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn bg-cyan shadow-blur round">搜索</button>
   </view>
 </view>
 
 <view class="category-list">
-
   <!-- 分类列表 -->
   <view class="VerticalBox">
     <scroll-view

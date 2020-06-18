@@ -1,8 +1,7 @@
-.toolbar {
-  height: 134px;
-}
 .category-list {
-  height: calc(100vh - 134px - calc(50px + env(safe-area-inset-bottom) / 2));
+  height: calc(100vh - calc(50px + env(safe-area-inset-bottom) / 2));
+  padding-top: 50px;
+  padding-bottom: calc(50px + env(safe-area-inset-bottom) / 2);
 }
 .search {
   height: 50px;

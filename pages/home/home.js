@@ -6,7 +6,7 @@ Page({
    */
   data: {
     title: '马上送到',
-    PageCur: 'category-list',
+    PageCur: 'home',
     isLogin: true,
     loginCode: 10007,
     commodityList: [

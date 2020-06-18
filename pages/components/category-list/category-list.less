@@ -5,15 +5,12 @@
 // 顶部导航高度
 @height-toolbar: 134px;
 // 组件的高度
-@height-category-list: calc(~'100vh - @{height-toolbar} - @{height-nav}');
-
-.toolbar {
-  height: @height-toolbar;
-}
+@height-category-list: calc(~'100vh - @{height-nav}');
 
 .category-list {
   height: @height-category-list;
-  // background-color: green;
+  padding-top: 50px;
+  padding-bottom: @height-nav;
 }
 
 .search {
