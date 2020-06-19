@@ -120,42 +120,42 @@ Page({
   routerPage: function(event) {
     let self = this
     let data = event.currentTarget.dataset.page;
-    self.setData({
-      PageCur: data,
-      loginCode: 0,
-      showSearch: 'block'
-    })
+    // self.setData({
+    //   PageCur: data,
+    //   loginCode: 0,
+    //   showSearch: 'block'
+    // })
     
-    // if (!this.data.isLogin && data == 'person-center') {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '用户未登录，请重新登录',
-    //     success (res) {
-    //       if (res.confirm) {
-    //         wx.navigateTo({
-    //           url: '../../pages/login/login'
-    //         })
-    //         // wx.clearStorage({
-    //         //   success () {
-    //         //     app.globalData.loginCode = 10007
-    //         //     self.setData({
-    //         //       isLogin: false,
-    //         //       showSearch: 'none',
-    //         //       loginCode: app.globalData.loginCode
-    //         //     })
-    //         //   }
-    //         // })
-    //       }
-    //     }
-    //   })
-    //   return
-    // } else {
-    //   self.setData({
-    //     PageCur: data,
-    //     loginCode: 0,
-    //     showSearch: 'block'
-    //   })
-    // }
+    if (!this.data.isLogin && data == 'person-center') {
+      wx.showModal({
+        title: '提示',
+        content: '用户未登录，请重新登录',
+        success (res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../../pages/login/login'
+            })
+            wx.clearStorage({
+              success () {
+                app.globalData.loginCode = 10007
+                self.setData({
+                  isLogin: false,
+                  showSearch: 'none',
+                  loginCode: app.globalData.loginCode
+                })
+              }
+            })
+          }
+        }
+      })
+      return
+    } else {
+      self.setData({
+        PageCur: data,
+        loginCode: 0,
+        showSearch: 'block'
+      })
+    }
   },
 
   // 页面显示时检查登录状态

@@ -9,6 +9,10 @@ Page({
     addGlobalClass: true,
   },
   data: {
+    apis:  {
+      login: 'base/info',
+      auth: 'auth'
+    },
     loginPageInfo: {
       iconUrl: '../images/bg-login.png',
       title: '账户登录',
@@ -44,14 +48,19 @@ Page({
 
   // 获取用户信息
   bindgetuserinfo: function(e) {
-    // console.log('我是授权按钮：', e.detail)
+    console.log('我是授权按钮：', e.detail)
 
-    this.setData({
-      'loginPageInfo.encryptedData': e.detail.encryptedData,
-      'loginPageInfo.iv': e.detail.iv
-    })
+    let userInfo = {
+      encryptedData: e.detail.encryptedData,
+      iv: e.detail.iv
+    }
+
+    // this.setData({
+    //   'loginPageInfo.encryptedData': userInfo.encryptedData,
+    //   'loginPageInfo.iv': userInfo.iv
+    // })
   
-    this._getUserInfo()
+    this._wxLogin(userInfo)
   },
   // 获取用户授权
   customerAuthor(encryptedData, iv, data) {
@@ -68,16 +77,17 @@ Page({
     return userInfo
   },
   // 微信登录获取code
-  _wxLogin: function() {
+  _wxLogin: function(data) {
     return new Promise((resolve, reject) => {
       // 微信登录获取code
       wx.login({
         success: res => {
           let params = {
-            code: res.code
+            code: res.code,
+            ...data
           }
           // 通过code获取session_key和openid
-          request('wechatapplet/miniLogin', params, 'GET').then(res => {
+          request(this.data.apis.auth, params).then(res => {
             if (res.data.code == 0) {
               let data = JSON.parse(res.data.data)
               resolve(Object.assign(params, data))

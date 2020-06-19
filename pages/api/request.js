@@ -1,7 +1,8 @@
 const app = new getApp()
 
 // 服务器地址
-let serviceUrl = 'https://dssjewel.com/applet/'
+// let serviceUrl = 'https://dssjewel.com/applet/'
+let serviceUrl = 'http://skybin115.oicp.net/api/'
 
 /* 
 * path, 业务借口的请求路径

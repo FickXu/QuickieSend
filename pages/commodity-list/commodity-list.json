@@ -1,6 +1,6 @@
 {
     "component": true,
     "usingComponents": {
-        "searchbar": "../components/searchbar/searchbar"
+        "commodity-list": "../components/commodity-list/commodity-list"
     }
 }

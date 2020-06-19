@@ -1,5 +1,5 @@
-<!-- 单个商品 -->
-<view class="commodity-box">
+<!-- 商品两列多行布局 -->
+<view class="commodity-column" wx:if="{{layout=='column'}}">
   <view
     class="commodity-item"
     wx:for="{{ info }}"
@@ -20,6 +20,25 @@
     <view class="commodity-attr-item">
       <view class="price">¥ {{ item.price }}</view>
       <view class="label-info">{{ item.postType }}</view>
+    </view>
+  </view>
+</view>
+<!-- 商品单列多行布局 -->
+<view wx:else="{{layout=='row'}}">
+  <view class="padding-lr commodity-row">
+    <view class="commodity-item" wx:for="{{info}}" wx:key="index">
+      <image class="commodity-img" mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
+      <view class="commodity-info ml-15 mr-10">
+        <view class="title line-overflow">{{item.name}}</view>
+        <view class="flex space-between flex-align-center mt-10">
+          <text class="value">399购买</text>
+          <text class="value">免费配送</text>
+        </view>
+        <view class="price">
+          <view class="num">¥ {{item.price}}</view>
+          <view class="shoping-car cuIcon-cart text-cyan"></view>
+        </view>
+      </view>
     </view>
   </view>
 </view>

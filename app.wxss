@@ -4293,21 +4293,27 @@ scroll-view.cu-steps .cu-item {
   height: 100%;
 }
 /* 按钮 */
-.btn-box {
+.qs-btn-box {
   padding: 0 50px;
   margin-top: 20px;
 }
-.btn-box .btn {
+.qs-btn {
   width: 100%;
   height: 44px;
   font-size: 17px;
   font-family: PingFang SC;
   font-weight: 500;
-  color: #ffffff;
-  background-color: #22BFB7;
   outline: none;
   border: none;
   border-radius: 50px;
+}
+.qs-border {
+  border: 1px solid #22BFB7;
+  color: #22BFB7;
+}
+.qs-bg {
+  background-color: #22BFB7;
+  color: #ffffff;
 }
 /* 盒模型布局 */
 .flex {

@@ -9,6 +9,10 @@ Component({
     info: {
       type: Array,
       defalut: null
+    },
+    layout: {
+      type: String,
+      value: 'column'
     }
   },
   data: {},

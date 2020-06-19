@@ -25,7 +25,7 @@
 
   
   <!-- 退出登录 -->
-  <view class="btn-box">
-    <button class="btn">确定</button>
+  <view class="qs-btn-box">
+    <button class="qs-btn qs-bg">确定</button>
   </view>
 </view>

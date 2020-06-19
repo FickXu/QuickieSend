@@ -13,27 +13,75 @@
   </view>
 </view>
 
+<!-- 筛选条件 -->
+<view class="filter-list bg-white flex flex-align-center">
+  <view class="flex-row2">价格</view>
+  <view class="flex-row2">销量</view>
+  <view class="flex-row2">品牌</view>
+  <view class="flex-row2 btn-filter flex flex-align-center">
+    <text bindtap="showModal">筛选<text class="cuIcon-filter"></text></text>
+    <text class="split"></text>
+    <text class="cuIcon-sort" bindtap="changeLayout"></text>
+  </view>
+</view>
+
 <scroll-view
   class="scroll-page fixed"
   scroll-y
   scroll-with-animation
   >
-  <view class="padding-top padding-lr" wx:for="{{navList}}" wx:key id="main-{{index}}">
-    <view class="commodity-list">
-      <view class="commodity-item" wx:for="{{navList[index].list}}">
-        <image class="commodity-img" mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
-        <view class="commodity-info">
-          <view class="title line-overflow">{{item.name}}</view>
-          <view class="flex space-between flex-align-center mt-10">
-            <text class="value">399购买</text>
-            <text class="value">免费配送</text>
-          </view>
-          <view class="price">
-            <view class="num">¥ {{item.price}}</view>
-            <view class="shoping-car cuIcon-cart text-cyan"></view>
-          </view>
-        </view>
+  <!-- 商品列表 -->
+  <view class="ml-15 mr-15">
+    <commodity-list info="{{commodityList}}" layout="{{layoutType}}"></commodity-list>
+  </view>
+</scroll-view>
+
+<!-- 筛选条件 -->
+<view class="cu-modal drawer-modal justify-end {{modalStatus?'show':''}}" bindtap="hideModal">
+  <view class="cu-dialog basis-lg filter-container" catchtap style="top:{{CustomBar}}px;height:calc(100vh - {{CustomBar}}px)">
+    <view class="title">筛选</view>
+
+    <!-- 价格 -->
+    <view class="mt-15 price-box">
+      <view class="title">价格区间（元）</view>
+      <view class="ipt-box mt-10">
+        <input class="ipt" type="number" value="{{params.minPrice}}" placeholder="最低价" />
+        <text class="split"></text>
+        <input class="ipt" type="number" value="{{params.maxPrice}}" placeholder="最高价" />
+      </view>
+    </view>
+
+    <!-- 品牌 -->
+    <view class="mt-15 brand-box">
+      <view class="title">品牌</view>
+      <view class="tag-list mt-10">
+        <view class="qs-tag radius mr-10">雀巢</view>
+        <view class="qs-tag radius mr-10 active">惠氏惠氏</view>
+        <view class="qs-tag radius mr-10">雀巢</view>
+        <view class="qs-tag radius mr-10">惠氏惠氏</view>
+      </view>
+    </view>
+    
+    <!-- 品类 -->
+    <view class="mt-15 brand-box">
+      <view class="title">品类</view>
+      <view class="tag-list mt-10">
+        <view class="qs-tag radius mr-10">雀巢</view>
+        <view class="qs-tag radius mr-10 active">惠氏惠氏</view>
+        <view class="qs-tag radius mr-10">雀巢</view>
+        <view class="qs-tag radius mr-10">惠氏惠氏</view>
+      </view>
+    </view>
+  
+    <!-- 重置和确定 -->
+    <view class="mt-30 ml-15 mr-15 flex space-between">
+      <view style="flex-basis:48%">
+        <button class="qs-btn qs-border" bindtap="resetFilter">重置</button>
+      </view>
+      <view style="flex-basis:48%">
+        <button class="qs-btn qs-bg">确定</button>
       </view>
     </view>
   </view>
-</scroll-view>
+
+</view>

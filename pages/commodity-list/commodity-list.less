@@ -1,43 +1,92 @@
-.scroll-page {
-  padding-top: 50px;
-  background-color: #fff;
-  
-  .commodity {
-  
-    &-item {
-      width: 100%;
-      margin-bottom: 20rpx;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      border-bottom: 1px solid #f7f7f7;
-      padding: 15px 0;
+.filter-list {
+  height: 60px;
+  margin-top: 50px;
+  padding: 0 15px;
 
+  .btn-filter {
+    justify-content: space-around;
+  }
+
+  .split {
+    min-width: 2px;
+    max-width: 2px;
+    height: 15px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+  }
+
+  .cuIcon-sort {
+    line-height: 20px;
+    font-size: 22px;
+  }
+}
+
+.scroll-page {
+  background-color: #fff;
+}
+
+.filter-container {
+  flex-basis: 80%;
+  background-color: #fff;
+
+  .title {
+    height:25px;
+    padding: 0 15px;
+    font-size:16px;
+    font-family:PingFang SC;
+    font-weight:700;
+    color:rgba(17,17,17,1);
+    height: 36px;
+    line-height: 36px;
+    text-align: left;
+  }
+
+  .ipt-box {
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 44px;
+    text-align: center;
+
+    .ipt {
+      flex-basis: 45%;
+      background-color: #f7f7f7;
+      height: inherit;
     }
-  
-    &-img {
-      min-width: 163rpx;
-      max-width: 163rpx;
-      height: 163rpx;
+
+    .split {
+      flex-basis: 15px;
+      height: 2px;
+      background-color: #666666;
+      border-radius: 5px;
     }
+  }
+
+  .brand-box {
+    text-align: center;
+    padding: 0 15px;
+
+  }
   
-    &-info {
-      margin-left: 20rpx;
-      margin-right: 20rpx;
-  
-      .title {
-        font-size:13px;
-        font-family:PingFang SC;
-        font-weight:500;
-        color:rgba(51,51,51,1);
-      }
-  
-      .price {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10rpx;
-      }
+  .tag-list {
+    display: inline-flex;
+    justify-content: left;
+    flex-wrap: wrap;
+
+    .qs-tag {
+      height:30px;
+      line-height:30px;
+      background:rgba(255,255,255,1);
+      border:1px solid rgba(233,233,233,1);
+      border-radius:2px;
+      padding: 0 5px;
+      margin-bottom: 10px;
+    }
+    
+    .active {
+      border: 1px solid #22BFB7;
+      color: #22BFB7;
     }
   }
 }

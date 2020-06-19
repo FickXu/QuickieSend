@@ -1,34 +1,78 @@
+.filter-list {
+  height: 60px;
+  margin-top: 50px;
+  padding: 0 15px;
+}
+.filter-list .btn-filter {
+  justify-content: space-around;
+}
+.filter-list .split {
+  min-width: 2px;
+  max-width: 2px;
+  height: 15px;
+  background-color: #f7f7f7;
+  border-radius: 5px;
+}
+.filter-list .cuIcon-sort {
+  line-height: 20px;
+  font-size: 22px;
+}
 .scroll-page {
-  padding-top: 50px;
   background-color: #fff;
 }
-.scroll-page .commodity-item {
-  width: 100%;
-  margin-bottom: 20rpx;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  border-bottom: 1px solid #f7f7f7;
-  padding: 15px 0;
+.filter-container {
+  flex-basis: 80%;
+  background-color: #fff;
 }
-.scroll-page .commodity-img {
-  min-width: 163rpx;
-  max-width: 163rpx;
-  height: 163rpx;
-}
-.scroll-page .commodity-info {
-  margin-left: 20rpx;
-  margin-right: 20rpx;
-}
-.scroll-page .commodity-info .title {
-  font-size: 13px;
+.filter-container .title {
+  height: 25px;
+  padding: 0 15px;
+  font-size: 16px;
   font-family: PingFang SC;
-  font-weight: 500;
-  color: #333333;
+  font-weight: 700;
+  color: #111111;
+  height: 36px;
+  line-height: 36px;
+  text-align: left;
 }
-.scroll-page .commodity-info .price {
+.filter-container .ipt-box {
+  padding: 0 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  margin-top: 10rpx;
+  height: 44px;
+  text-align: center;
+}
+.filter-container .ipt-box .ipt {
+  flex-basis: 45%;
+  background-color: #f7f7f7;
+  height: inherit;
+}
+.filter-container .ipt-box .split {
+  flex-basis: 15px;
+  height: 2px;
+  background-color: #666666;
+  border-radius: 5px;
+}
+.filter-container .brand-box {
+  text-align: center;
+  padding: 0 15px;
+}
+.filter-container .tag-list {
+  display: inline-flex;
+  justify-content: left;
+  flex-wrap: wrap;
+}
+.filter-container .tag-list .qs-tag {
+  height: 30px;
+  line-height: 30px;
+  background: #ffffff;
+  border: 1px solid #e9e9e9;
+  border-radius: 2px;
+  padding: 0 5px;
+  margin-bottom: 10px;
+}
+.filter-container .tag-list .active {
+  border: 1px solid #22BFB7;
+  color: #22BFB7;
 }

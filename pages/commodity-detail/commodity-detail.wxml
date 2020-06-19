@@ -149,8 +149,8 @@
         </view>
 
         <!-- 确定按钮 -->
-        <view class="btn-box mt-30">
-          <button class="btn">确定</button>
+        <view class="qs-btn-box mt-30">
+          <button class="qs-btn qs-bg">确定</button>
         </view>
       </view>
 
