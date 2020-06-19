@@ -4257,6 +4257,9 @@ scroll-view.cu-steps .cu-item {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
+.text-right {
+  text-align: right;
+}
 .value {
   color: #bbbbbb;
 }
