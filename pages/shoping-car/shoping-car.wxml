@@ -1,0 +1,40 @@
+<!-- 顶部导航 -->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+  <view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+
+<scroll-view
+  class="scroll-page"
+  scroll-y
+  scroll-with-animation
+  style="height: calc(~'100vh - {{CustomBar}}px - 50px')"
+  >
+  <!-- 商品列表 -->
+  <commodity-list
+    info="{{commodityList}}"
+    layout="{{layoutType}}"
+    isSelect="{{true}}"
+    isAllSelected="{{isAllSelected}}"
+    bind:checkedChange="checkedChange"
+    >
+  </commodity-list>
+</scroll-view>
+
+<!-- 结算 -->
+<view class="settle-accounts flex justify-center flex-align-center">
+  <view class="data-view flex-row2 flex align-center ml-10 mr-10">
+    <view class="radio-box flex align-center">
+      <checkbox-group bindchange="checkboxChange">
+        <checkbox class="round cyan checkbox" checked="{{isAllSelected}}"></checkbox>
+      </checkbox-group>
+      <text class="margin-left-xs">全部</text>
+    </view>
+    <view class="total-amount ml-15">
+      <text class="text-cyan">合计 </text>
+      <text class="text-cyan" style="font-size: 18px;font-weight: 700">¥ {{totalAmount}}</text>
+    </view>
+  </view>
+  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-cyan text-white">
+    结算
+  </view>
+</view>

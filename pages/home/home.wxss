@@ -142,5 +142,4 @@
 .scrollPage {
   height: calc(100vh - 384rpx - 144rpx - -80rpx - calc(100rpx + env(safe-area-inset-bottom) / 2));
   width: 100%;
-  padding: 0 10px;
 }

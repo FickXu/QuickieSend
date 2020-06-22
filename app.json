@@ -2,6 +2,7 @@
   "pages": [
     "pages/home/home",
     "pages/commodity-list/commodity-list",
+    "pages/shoping-car/shoping-car",
     "pages/my-scan/my-scan",
     "pages/login/login",
     "pages/comment-list/comment-list",

@@ -4340,6 +4340,21 @@ scroll-view.cu-steps .cu-item {
 .flex-row4 {
   flex: 4;
 }
+.flex-row5 {
+  flex: 5;
+}
+.flex-row6 {
+  flex: 6;
+}
+.flex-row7 {
+  flex: 7;
+}
+.flex-row8 {
+  flex: 8;
+}
+.flex-row8 {
+  flex: 8;
+}
 /* 外边距 */
 .mt-10 {
   margin-top: 10px;

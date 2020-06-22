@@ -44,7 +44,7 @@
   display: inline-flex;
   align-items: center;
   border-bottom: 1px solid #f7f7f7;
-  padding: 15px 0;
+  padding: 15px 15px;
 }
 .commodity-row .commodity-img {
   min-width: 100px;

@@ -31,7 +31,7 @@
   scroll-with-animation
   >
   <!-- 商品列表 -->
-  <view class="ml-15 mr-15">
+  <view>
     <commodity-list info="{{commodityList}}" layout="{{layoutType}}"></commodity-list>
   </view>
 </scroll-view>

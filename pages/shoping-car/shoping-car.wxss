@@ -1,0 +1,19 @@
+.scroll-page {
+  background-color: #fff;
+  padding-bottom: 50px;
+}
+.settle-accounts {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  background-color: #fff;
+}
+.active {
+  border: 1px solid #22BFB7;
+  color: #22BFB7;
+}
+.btn-box {
+  height: 100%;
+  font-size: 16px;
+}
