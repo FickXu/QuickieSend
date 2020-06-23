@@ -14,7 +14,7 @@
         <view class="cuIcon-search"></view>
         <input type="text" class="search" placeholder="{{searchPlaceholder}}"/>
       </view>
-      <view class="shop-car cuIcon-cart text-white"></view>
+      <view class="shop-car cuIcon-cart text-white" bindtap="openShopingCartPage"></view>
     </view>
   
   </view>

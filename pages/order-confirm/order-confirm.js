@@ -1,3 +1,5 @@
+import {calculationMoney} from '../utils/tools'
+
 const app = getApp();
 
 Page({
@@ -67,86 +69,47 @@ Page({
       minPrice: '',
       maxPrice: ''
     },
-    layoutType: 'row'
+    layoutType: 'row',
+    isShow: false
   },
   onShow () {
   },
 
-  // 选中商品时
-  checkedChange(e) {
-    let ids = e.detail
-    let arr = this.data.commodityList
-    arr.forEach(item => {
-      if (ids.includes(item.id.toString())) {
-        item.checked = true
-      } else {
-        item.checked = false
-      }
-    })
+  // 去支付
+  pay() {
     this.setData({
-      // selectedList: arr
+      isShow: true
+    })
+  },
+
+  // 商品数量发生变化时
+  numberChange(e) {
+    let detail = e.detail
+    let arr = this.data.commodityList
+    let index = arr.findIndex(item => item.id == detail.id)
+
+    arr[index] = { ...detail }
+
+    this.setData({
       commodityList: arr
     })
-    console.log('已选商品', this.data.commodityList.filter(item => ids.includes(item.id.toString())), ids)
-    // // 获取总价和已选总件数
-    this.calculationAmountAndNumber()
-    // // 设置全选状态
-    this.setAllSelectedStatus()
+
+    this.calcualtionTotalAmount()
+    // console.log('支付', this.data.commodityList)
   },
 
-  // 全选选中状态
-  setAllSelectedStatus() {
+  // 计算总价格
+  calcualtionTotalAmount() {
     let arr = this.data.commodityList
-    let selectedList = arr.filter(item => item.checked)
-
-    this.setData({
-      isAllSelected: this.data.commodityList.length == selectedList.length ? true : false
-    })
-  },
-
-  // 全选按钮
-  checkboxChange(e) {
-    let selectedList = e.detail.value
-    let arr = this.data.commodityList
+    let total = 0
     arr.forEach(item => {
-      item.checked = selectedList.length > 0 ? true : false
-    })
-    this.setData({
-      commodityList: arr,
-      isAllSelected: selectedList.length > 0 ? true : false
-    })
-    console.log('已选商品', this.data.commodityList.filter(item => item.checked))
-    this.calculationAmountAndNumber()
-  },
-
-  // 计算总价级件数
-  calculationAmountAndNumber() {
-
-    let selectedList = this.data.commodityList.filter(item => item.checked)
-    let count = selectedList.length
-    // let count = this.data.selectedList.length
-    let totalAmount = 0
-    selectedList.forEach(item => {
-      totalAmount += item.price || 0
-    })
-
-    totalAmount = Number.parseFloat(Number.parseFloat(totalAmount).toFixed(2))
+      if (item.CURRENT_QUANTITY) {
+        total += item.price * item.CURRENT_QUANTITY
+      }
+    });
 
     this.setData({
-      totalAmount: totalAmount,
-      selectedTotal: count
+      totalAmount: calculationMoney(total)
     })
-  },
-
-  showModal(e) {
-    this.setData({
-      modalStatus: true
-    })
-  },
-
-  hideModal(e) {
-    this.setData({
-      modalStatus: false
-    })
-  },
+  }
 })

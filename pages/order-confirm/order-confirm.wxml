@@ -37,6 +37,7 @@
       info="{{commodityList}}"
       layout="{{layoutType}}"
       isCount="{{true}}"
+      bind:numberChange="numberChange"
       >
     </commodity-list>
   </view>
@@ -94,7 +95,24 @@
       共<text class="text-cyan" decode="{{true}}">&nbsp;{{commodityList.length}}&nbsp;</text>件
     </view>
   </view>
-  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-cyan text-white">
+  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-cyan text-white" bindtap="pay">
     去支付
+  </view>
+</view>
+
+<view class="cu-modal {{isShow ?'show':''}}">
+  <view class="cu-dialog">
+    <view class="text-black fz-18 text-algin padding-tb text-bold">支付中</view>
+    <view class="bg-img" style="background-image: url('https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg');height:200px;">
+      <view class="cu-bar justify-end text-white">
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close "></text>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white text-center justify-center">
+      <button class="cu-btn round">支付遇到问题</button>
+      <button class="cu-btn round bg-cyan ml-15">已经支付成功</button>
+    </view>
   </view>
 </view>

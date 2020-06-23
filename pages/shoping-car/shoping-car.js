@@ -1,3 +1,5 @@
+import {calculationMoney} from '../utils/tools'
+
 const app = getApp();
 
 Page({
@@ -131,7 +133,7 @@ Page({
       totalAmount += item.price || 0
     })
 
-    totalAmount = Number.parseFloat(Number.parseFloat(totalAmount).toFixed(2))
+    totalAmount = calculationMoney(totalAmount)
 
     this.setData({
       totalAmount: totalAmount,

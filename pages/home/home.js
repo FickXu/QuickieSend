@@ -65,6 +65,13 @@ Page({
     categoryIndex: 0
   },
 
+  // 打开购物车
+  openShopingCartPage() {
+    wx.navigateTo({
+      url: '../shoping-car/shoping-car'
+    })
+  },
+
   // 下拉刷新
   bindrefresherpulling: function () {
     console.log(234)
