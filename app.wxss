@@ -4249,6 +4249,21 @@ scroll-view.cu-steps .cu-item {
   padding: 0 18rpx;
 }
 /* 字体 */
+.fz-12 {
+  font-size: 12px;
+}
+.fz-14 {
+  font-size: 14px;
+}
+.fz-16 {
+  font-size: 16px;
+}
+.fz-18 {
+  font-size: 18px;
+}
+.fz-20 {
+  font-size: 20px;
+}
 .line-overflow {
   display: -webkit-box;
   word-break: break-all;

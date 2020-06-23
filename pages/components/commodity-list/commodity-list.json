@@ -1,6 +1,6 @@
 {
     "component": true,
     "usingComponents": {
-        "counter": "../components/counter/counter"
+        "counter": "../counter/counter"
     }
 }

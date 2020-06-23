@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/order-confirm/order-confirm",
     "pages/shoping-car/shoping-car",
     "pages/commodity-detail/commodity-detail",
     "pages/commodity-list/commodity-list",
