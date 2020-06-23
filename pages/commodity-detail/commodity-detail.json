@@ -1,6 +1,7 @@
 {
     "navigationBarTitleText": "商品详情",
     "usingComponents": {
-        "commodity-list": "../components/commodity-list/commodity-list"
+        "commodity-list": "../components/commodity-list/commodity-list",
+        "counter": "../components/counter/counter"
     }
 }

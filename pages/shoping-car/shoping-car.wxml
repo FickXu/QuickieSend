@@ -14,7 +14,9 @@
     info="{{commodityList}}"
     layout="{{layoutType}}"
     isSelect="{{true}}"
-    isAllSelected="{{isAllSelected}}"
+    isCount="{{true}}"
+    isShowCount="{{false}}"
+    isShopingCart="{{false}}"
     bind:checkedChange="checkedChange"
     >
   </commodity-list>

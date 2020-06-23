@@ -65,8 +65,13 @@ Page({
         postType: '免费配送'
       },
     ],
-    showSelectStandard: false ,
-    number: 0
+    showSelectStandard: false 
+  },
+
+  // 商品数量发生变化
+  numberChange(e) {
+    let numbers = e.detail
+    console.log('number', numbers)
   },
 
   // 查看所有评论
@@ -77,21 +82,6 @@ Page({
         console.log(err)
       }
     })
-  },
-
-  // 计数器
-  counter(e) {
-    console.log(e)
-    let type = e.currentTarget.dataset.type
-    if (type === 'minus') {
-      this.setData({
-        number: this.data.number == 0 ? 0 : --this.data.number
-      })
-    } else {
-      this.setData({
-        number: ++this.data.number
-      })
-    }
   },
 
   // 选择规格
@@ -201,17 +191,17 @@ Page({
     let self = this
 
     // 页面通信
-    const eventChannel = this.getOpenerEventChannel()
-    // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
-    eventChannel.on('sendData', function(data) {
-      self.setData({
-        detail: {
-          ...self.data.detail,
-          ...data
-        }
-      })
-      console.log('获取到的参数：', data, self.data.detail)
-    })
+    // const eventChannel = this.getOpenerEventChannel()
+    // // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
+    // eventChannel.on('sendData', function(data) {
+    //   self.setData({
+    //     detail: {
+    //       ...self.data.detail,
+    //       ...data
+    //     }
+    //   })
+    //   console.log('获取到的参数：', data, self.data.detail)
+    // })
 
     // if (app.globalData.loginCode == 10007) {
     //   self.setData({

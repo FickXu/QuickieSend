@@ -4404,3 +4404,21 @@ scroll-view.cu-steps .cu-item {
 .ml-30 {
   margin-left: 30px;
 }
+/* 计数器 */
+.btn-minus {
+  min-width: 20px;
+  text-align: center;
+  border: 1px solid #f7f7f7;
+  color: #666666;
+  border-radius: 5px;
+}
+.btn-puls {
+  min-width: 20px;
+  text-align: center;
+  border: 1px solid #f7f7f7;
+  color: #666666;
+  border-radius: 5px;
+}
+.ipt-num {
+  text-align: center;
+}

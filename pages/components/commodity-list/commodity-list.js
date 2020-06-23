@@ -6,23 +6,33 @@ Component({
     styleIsolation: 'shared'
   },
   properties: {
-    // 数据
+    // 列表数据源
     info: {
       type: Array,
-      defalut: null
+      defalut: []
     },
-    // 列表的布局方式（多行单列或多行两列）
+    // 列表布局方式， layout：row/column 单列多行/两列多行。默认两列多行
     layout: {
       type: String,
       value: 'column'
     },
-    // 是否为选中列表
+    // 列表是否需要选择功能， 默认不需要
     isSelect: {
       type: Boolean,
       value: false
     },
-    // 是否全选列表
-    isAllSelected: {
+    // 列表是否需要操作item的数量，默认不需要。如果是可选列表，不需要设置isCount参数
+    isCount: {
+      type: Boolean,
+      value: false
+    },
+    // 列表是否需要显示item的数量，默认不需要
+    isShowCount: {
+      type: Boolean,
+      value: false
+    },
+    // 列表是否需要显示item的购物车，默认不需要
+    isShopingCart: {
       type: Boolean,
       value: false
     }
@@ -32,7 +42,15 @@ Component({
       this.setData({
         commodityList: info
       })
-    }
+    },
+    // 如果是可选列表，需要计数器
+    'isSelect': function(status) {
+      if (status) {
+        this.setData({
+          isCount: true
+        })
+      }
+    },
   },
   data: {
     commodityList: []
@@ -42,7 +60,13 @@ Component({
     },
   },
   methods: {
-    // 商品选择
+    // 选择的商品数量发生变化时
+    numberChange(e) {
+      let numbers = e.detail
+      console.log('number', numbers)
+    },
+
+    // 选择的商品发生变化时
     checkboxChange(e) {
       let ids = e.detail.value
 

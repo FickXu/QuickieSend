@@ -1,0 +1,9 @@
+<!-- 计数器 -->
+<view class="counter flex space-between flex-align-center flex-row1">
+  <view class="btn-minus" bindtap="counter" data-type="minus">－</view>
+  <view class="ipt-num">
+    <!-- <input type="number" value="{{number}}" bindinput="numberChange" /> -->
+    <input type="number" value="{{number}}" disabled="{{true}}"/>
+  </view>
+  <view class="btn-puls" bindtap="counter" data-type="puls">＋</view>
+</view>

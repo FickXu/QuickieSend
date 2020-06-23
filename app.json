@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/home/home",
-    "pages/commodity-list/commodity-list",
     "pages/shoping-car/shoping-car",
+    "pages/commodity-detail/commodity-detail",
+    "pages/commodity-list/commodity-list",
     "pages/my-scan/my-scan",
     "pages/login/login",
     "pages/comment-list/comment-list",
-    "pages/commodity-detail/commodity-detail",
     "pages/bind-phone/bind-phone",
     "pages/setting/setting",
     "pages/person-info/person-info",

@@ -1,3 +1,4 @@
+
 <!-- 商品两列多行布局 -->
 <view class="commodity-column ml-15 mr-15" wx:if="{{layout=='column'}}">
   <view
@@ -27,68 +28,46 @@
 <view wx:else="{{layout=='row'}}">
   <view class="commodity-row">
     
-    <!-- 选择列表 -->
-    <view wx:if="{{isSelect}}">
+    <checkbox-group bindchange="checkboxChange">
+      <view class="commodity-item" wx:for="{{commodityList}}" wx:key="{{item.id}}">
+        <view class="flex flex-align-center">
+          <view class="select-box mr-10" wx:if="{{isSelect}}">
+            <checkbox
+              class="round cyan checkbox"
+              value="{{item.id}}"
+              checked="{{item.checked}}"
+              >
+            </checkbox>
+          </view>
+          <view class="flex">
+            <image class="commodity-img" mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
+            <view class="commodity-info ml-10 mr-10">
+              <view class="title line-overflow">{{item.name}}</view>
+              <!-- 编辑时为规格 -->
+              <view class="flex space-between flex-align-center mt-10">
+                <text class="value">399购买</text>
+                <text class="value">免费配送</text>
+              </view>
 
-      <checkbox-group bindchange="checkboxChange">
-        <view class="commodity-item" wx:for="{{commodityList}}" wx:key="{{item.id}}">
-          <view class="flex flex-align-center">
-            <view class="select-box mr-10">
-              <checkbox
-                class="round cyan checkbox"
-                value="{{item.id}}"
-                checked="{{item.checked}}"
-                >
-              </checkbox>
-            </view>
-            <view class="flex">
-              <image class="commodity-img" mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
-              <view class="commodity-info ml-10 mr-10">
-                <view class="title line-overflow">{{item.name}}</view>
-                <!-- 编辑时为规格 -->
-                <view class="flex space-between flex-align-center mt-10">
-                  <text class="value">399购买</text>
-                  <text class="value">免费配送</text>
-                </view>
+              <view class="price flex justify-center flex-align-center mt-10">
+                <view class="price">¥ {{item.price}}</view>
 
-                <view class="price">
-                  <view class="num">¥ {{item.price}}</view>
+                <!-- 购物车 -->
+                <view wx:if="{{isShopingCart}}" class="shoping-car cuIcon-cart text-cyan"></view>
 
-                  <!-- 计数器-->
-                  <view class="shoping-car cuIcon-cart text-cyan"></view>
-                </view>
+                <!-- 计数器-->
+                <counter wx:if="{{isCount}}" bind:numberChange="numberChange" item="{{item}}"></counter>
+                
+                <!-- 商品数量 -->
+                <view class="commodity-count" wx:if="{{isShowCount}}">x 1</view>
+                
               </view>
             </view>
           </view>
         </view>
-      </checkbox-group>
-      
-    </view>
-    
-    <!-- 非选择列表 -->
-    <view wx:else>
-
-      <view class="commodity-item flex" wx:for="{{commodityList}}" wx:key="index">
-        <image class="commodity-img" mode="aspecFill" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg" />
-        <view class="commodity-info ml-10 mr-10">
-          <view class="title line-overflow">{{item.name}}</view>
-
-          <!-- 根据使用场景：规格或者配送信息 -->
-          <view class="flex space-between flex-align-center mt-10">
-            <text class="value">399购买</text>
-            <text class="value">免费配送</text>
-          </view>
-
-          <view class="price">
-            <view class="num">¥ {{item.price}}</view>
-
-            <!-- 根据使用场景：购物车或商品数量或空 -->
-            <view class="shoping-car cuIcon-cart text-cyan"></view>
-          </view>
-        </view>
       </view>
-
-    </view>
+    </checkbox-group>
+      
 
   </view>
 </view>

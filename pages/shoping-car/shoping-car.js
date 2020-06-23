@@ -88,7 +88,7 @@ Page({
       // selectedList: arr
       commodityList: arr
     })
-    console.log('已选商品', this.data.commodityList, ids)
+    console.log('已选商品', this.data.commodityList.filter(item => ids.includes(item.id.toString())), ids)
     // // 获取总价和已选总件数
     this.calculationAmountAndNumber()
     // // 设置全选状态
@@ -99,7 +99,6 @@ Page({
   setAllSelectedStatus() {
     let arr = this.data.commodityList
     let selectedList = arr.filter(item => item.checked)
-    console.log(selectedList.length == this.data.commodityList.length)
 
     this.setData({
       isAllSelected: this.data.commodityList.length == selectedList.length ? true : false
@@ -117,7 +116,7 @@ Page({
       commodityList: arr,
       isAllSelected: selectedList.length > 0 ? true : false
     })
-    console.log(this.data.commodityList, '===============')
+    console.log('已选商品', this.data.commodityList.filter(item => item.checked))
     this.calculationAmountAndNumber()
   },
 
