@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/modify-address/modify-address",
+    "pages/address-list/address-list",
     "pages/pay-success/pay-success",
     "pages/order-confirm/order-confirm",
     "pages/shoping-car/shoping-car",
@@ -11,8 +13,7 @@
     "pages/comment-list/comment-list",
     "pages/bind-phone/bind-phone",
     "pages/setting/setting",
-    "pages/person-info/person-info",
-    "pages/address-list/address-list"
+    "pages/person-info/person-info"
   ],
   "window": {
     "backgroundTextStyle": "light",

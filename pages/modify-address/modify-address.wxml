@@ -1,0 +1,51 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+
+<view class="box" style="top: {{CustomBar}}px;">
+  <view class="bg-white">
+    <view class="cu-form-group">
+      <view class='title'>姓名</view>
+      <input placeholder="请填写收货人的姓名" class='radius text-right' name='input'></input>
+    </view>
+
+    <view class="cu-form-group">
+      <view class='title'>电话</view>
+      <input placeholder="请填写收货人的电话号码" class='radius text-right' name='input'></input>
+    </view>
+    <!-- <view class="flex-row1 text-center">
+      <view class="cuIcon-addressbook fz-20"></view>
+      <view class="text-gray" bindtap="phoneContact">联系人</view>
+    </view> -->
+  </view>
+
+  <view class="cu-form-group" style="border-top: 1px solid #eee">
+    <view class='title'>医院</view>
+    <view class="text-black">湘雅三医院</view>
+  </view>
+  <view class="cu-form-group" style="border-top: 1px solid #eee">
+    <view class='title'>楼栋名/楼层</view>
+    <picker mode="multiSelector" bindchange="RegionChange" range="{{floors}}" value="{{floor}}" custom-item="{{customItem}}">
+      <view class="picker">
+          {{floors[0][0]}}/{{floors[1][0]}}
+      </view>
+    </picker>
+  </view>
+
+  <view class="cu-form-group">
+    <view class='title'>房间号</view>
+    <input placeholder="请填写收货人房间号" class='radius text-right' name='input'></input>
+  </view>
+
+  <view class="cu-form-group">
+    <view class='title'>设置默认地址</view>
+    <switch class='cyan sm' checked></switch>
+  </view>
+
+  <!-- 确定按钮 -->
+  <view class="qs-btn-box mt-30">
+    <button class="qs-btn qs-bg" bindtap="chooseStandard">保存</button>
+  </view>
+
+</view>

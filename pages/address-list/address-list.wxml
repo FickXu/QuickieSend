@@ -1,6 +1,6 @@
 <!--pages/home/home.wxml-->
 <cu-custom bgColor="bg-white" isBack="{{true}}">
-	<view slot="content">{{ title }}</view>
+	<view slot="content" class="bold">{{ title }}</view>
 </cu-custom>
 
 <!-- 购买商品 -->
@@ -19,22 +19,19 @@
       data-id="{{item.id}}"
       >
       <view class="box">
-        <view class="icon" wx:if="{{item.isDefault==0}}">
-          <view class="cuIcon-favorfill text-blue"></view>
-        </view>
-        <view wx:else><text decode="{{true}}">&emsp;</text></view>
         <view class="contact-info">
-          <view>
-            <text>{{item.contact}}</text>
-            <text decode="{{true}}">&emsp;&emsp;{{item.mobilePhone}}</text>
+          <view class="mb-10">
+            <text wx:if="{{item.isDefault==0}}" class="cu-tag round bg-cyan">默认</text>
+            <text class="bold text-black fz-16 margin-left-sm">{{item.contact}}</text>
+            <text class="bold text-black fz-16" decode="{{true}}">&emsp;{{item.mobilePhone}}</text>
           </view>
-          <view>{{item.contactAddress}}</view>
+          <view class="text-gray">{{item.contactAddress}}</view>
         </view>
       </view>
     </slideView>
   </view>
 </view>
 
-<view class="address-add">
-  <button bindtap="chooseAddress" type="primary">添加新地址</button>
+<view class="address-add bg-white">
+  <button bindtap="chooseAddress" class="cu-btn round bg-cyan">添加新地址</button>
 </view>
