@@ -1,0 +1,6 @@
+{
+    "backgroundColor": "#f7f7f7",
+    "usingComponents": {
+        "commodity-list": "../components/commodity-list/commodity-list"
+    }
+}

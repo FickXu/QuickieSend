@@ -1,0 +1,98 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content">{{ title }}</view>
+</cu-custom>
+
+<view class="order-page">
+  <!-- tag -->
+  <scroll-view scroll-x class="nav text-center tabs-order">
+    <view class="flex">
+      <view
+        class="cu-item flex-sub {{item.value==TabCur?'text-cyan cur':''}}"
+        wx:for="{{ orderStatus }}"
+        wx:key="index"
+        bindtap="tabSelect"
+        data-id="{{item.value}}">
+        {{item.label}}
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 订单列表 -->
+  <view class="list-order" wx:if="{{orderList.length>0}}">
+    <view class="list-order-item" wx:for="{{orderList}}" wx:key="index">
+      <view class="list-order-item-header">
+        <!-- <text class="tag">【定制】</text> -->
+        <text class="order-number"><text class="fz-16 bold"> 订单编号：</text>{{item.orderNo}}</text>
+        <text class="order-status {{item.statueId==3 ? 'text-gray' : 'text-red'}}">{{item.statueName}}</text>
+      </view>
+      <!-- 商品列表 -->
+      <!-- <commodity-list info="{{item.busOrderInfoList}}" layout="row" isSelect="{{false}}"></commodity-list> -->
+      <view
+        class="list-order-item-body"
+        bindtap="goToGoodsDetail"
+        wx:for="{{item.busOrderInfoList}}"
+        wx:key="goodsIndex"
+        wx:for-item="goodsItem"
+        wx:for-index="goodsIndex"
+        data-order-info="{{item}}"
+        data-goods-item="{{goodsItem}}"
+        data-goods-item-status-id="{{item.statueId}}"
+        data-goods-item-status-name="{{item.statueName}}"
+        >
+        <view class="shop-view">
+          <image class="img" src="{{goodsItem.goodsImg||defalultImageUrlTz}}" alt="diamond" />
+        </view>
+        <view class="shop-attr">
+          <view class="shop-attr-shape">
+            {{goodsItem.goodsTypeName}}
+          </view>
+          <view class="shop-attr-specs">
+            {{goodsItem.goodsDesc}}
+          </view>
+          <view class="shop-attr-total flex justify-between flex-align-center">
+            <text class="price">¥ {{goodsItem.goodsRealPrice}}</text>
+            <text class="text-gray">x {{goodsItem.goodsDiscount}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="list-order-item-footer">
+        <view class="flex justify-between flex-align-center fz-14">
+          <view class="text-gray">订单总价</view>
+          <view class="text-black">¥{{item.orderOriginalPrice}}</view>
+        </view>
+        <view class="flex justify-between flex-align-center fz-14 mt-10">
+          <view class="text-gray">运费</view>
+          <view class="text-black">免费配送</view>
+        </view>
+        <!-- <view class="order-mark">订单备注：{{item. contactAddress}}</view> -->
+        <view class="order-total">总计：{{item.orderNums}}件，共计：<text class="price">¥{{item.orderOriginalPrice}}</text></view>
+        <!-- 待支付 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==0}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">取消订单</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">立即支付</button>
+        </view>
+        <!-- 待发货 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==1}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">取消订单</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">提醒发货</button>
+        </view>
+        <!-- 待发货 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==2}}">
+          <!-- <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">查看物流</button> -->
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">确认收货</button>
+        </view>
+        <!-- 已完成 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==3}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">删除订单</button>
+          <button class="cu-btn round line text-cyan ml-10" data-order-id="{{item.id}}" bindtap="cancelOrder">我要评价</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">再次购买</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="list-order-none">
+    <image class="padding-xl" src="../images/no-data.png" />
+    <view>抱歉，您还没有相关订单</view>
+  </view>
+</view>
