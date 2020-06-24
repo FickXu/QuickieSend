@@ -10,7 +10,7 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
-    title: "确认订单",
+    title: "支付成功",
     // 搜索条件
     commodityList: [
       {
@@ -56,79 +56,15 @@ Page({
         price: 37.3
       },
     ],
-    selectedList: [],
-    // 总价
-    totalAmount: 0,
-    // 已选中间数
-    selectedTotal: 0,
-    // 是否全选
-    isAllSelected: false,
-    modalStatus: false,
-    // 筛选条件参数
-    params: {
-      minPrice: '',
-      maxPrice: ''
-    },
     layoutType: 'row',
-    isShow: false
-  },
-  onShow () {
   },
 
-  // 去支付
-  pay() {
-    this.setData({
-      isShow: true
-    })
-  },
-
-  // 支付失败
-  payFail() {
-    this.setData({
-      isShow: false
-    })
-  },
-  
-  // 支付成功
-  paySuccess() {
-    wx.navigateTo({
-      url: '../pay-success/pay-success',
-      success: res => {
-        this.setData({
-          isShow: false
-        })
-      }
-    })
-  },
-
-  // 商品数量发生变化时
-  numberChange(e) {
-    let detail = e.detail
-    let arr = this.data.commodityList
-    let index = arr.findIndex(item => item.id == detail.id)
-
-    arr[index] = { ...detail }
-
-    this.setData({
-      commodityList: arr
-    })
-
-    this.calcualtionTotalAmount()
-    // console.log('支付', this.data.commodityList)
-  },
-
-  // 计算总价格
-  calcualtionTotalAmount() {
-    let arr = this.data.commodityList
-    let total = 0
-    arr.forEach(item => {
-      if (item.CURRENT_QUANTITY) {
-        total += item.price * item.CURRENT_QUANTITY
-      }
-    });
-
-    this.setData({
-      totalAmount: calculationMoney(total)
+  // 返回首页
+  openHomePage() {
+    // 获取当前页面栈
+    let pages = getCurrentPages()
+    wx.navigateBack({
+      delta: pages.length - 1
     })
   }
 })

@@ -75,26 +75,26 @@
 <!-- 底部导航 -->
 <view class="cu-bar tabbar bg-white shadow foot flex flex-align-center detail-bottom-nav">
   <view class="flex flex-align-center flex-row1">
-    <view class="action text-grey}}" bindtap="routerPage">
+    <view class="action text-grey}}" bindtap="collectCommodity">
       <view>
         <view class="cuIcon-favor"></view>
         收藏
       </view>
     </view>
-    <view class="action text-grey}}" bindtap="routerPage">
+    <view class="action text-grey}}" bindtap="customerService">
       <view>
         <view class="cuIcon-mark"></view>
         客服
       </view>
     </view>
-    <view class="action text-grey}}" bindtap="routerPage">
+    <view class="action text-grey}}" bindtap="shopingCart">
       <view>
         <view class="cuIcon-cart"></view>
         购物车
       </view>
     </view>
   </view>
-  <view class="btn-buy-now flex-row1 flex flex-align-center">立即购买</view>
+  <view class="btn-buy-now flex-row1 flex flex-align-center" bindtap="buyNow">立即购买</view>
 </view>
 
 <!-- 选择规格 -->
@@ -146,7 +146,7 @@
 
         <!-- 确定按钮 -->
         <view class="qs-btn-box mt-30">
-          <button class="qs-btn qs-bg">确定</button>
+          <button class="qs-btn qs-bg" bindtap="chooseStandard">确定</button>
         </view>
       </view>
 

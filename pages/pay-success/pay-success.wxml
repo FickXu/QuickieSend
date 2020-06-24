@@ -1,0 +1,27 @@
+<!-- 顶部导航 -->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+  <view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+
+<scroll-view
+  class="scroll-page"
+  scroll-y
+  scroll-with-animation
+  style="height: calc(~'100vh - {{CustomBar}}px - 50px')"
+  >
+
+  <view class="commdity-info mt-10">
+    <!-- 商品列表 -->
+    <commodity-list
+      info="{{commodityList}}"
+      layout="{{layoutType}}"
+      >
+    </commodity-list>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="cu-bar bg-white text-center justify-center">
+    <button class="cu-btn round" bindtap="openHomePage">返回首页</button>
+  </view>
+
+</scroll-view>

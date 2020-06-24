@@ -111,8 +111,8 @@
       </view>
     </view>
     <view class="cu-bar bg-white text-center justify-center">
-      <button class="cu-btn round">支付遇到问题</button>
-      <button class="cu-btn round bg-cyan ml-15">已经支付成功</button>
+      <button class="cu-btn round" bindtap="payFail">支付遇到问题</button>
+      <button class="cu-btn round bg-cyan ml-15" bindtap="paySuccess">已经支付成功</button>
     </view>
   </view>
 </view>

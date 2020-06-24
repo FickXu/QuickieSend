@@ -116,22 +116,6 @@ Page({
     console.log('附近店铺列表')
   },
 
-  // 选择热门分类
-  chooseCategory: function (event) {
-    let index = event.currentTarget.dataset.index
-    this.setData({
-      categoryIndex: index
-    })
-
-    // 刷新商品列表
-    this.getCommodityByCategoryId()
-  },
-
-  // 获取商品列表
-  getCommodityByCategoryId: function () {
-    let id = this.data.categoryIndex
-    console.log('获取商品列表', id)
-  },
 
   // 通知登录状态
   login: function (res) {
@@ -144,47 +128,20 @@ Page({
     }
   },
 
-  // 页面导航
-  routerPage: function(event) {
-    let self = this
-    let data = event.currentTarget.dataset.page;
-    self.setData({
-      PageCur: data,
-      loginCode: 0,
-      showSearch: 'block'
-    })
-    
-    // if (!this.data.isLogin && data == 'person-center') {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '用户未登录，请重新登录',
-    //     success (res) {
-    //       if (res.confirm) {
-    //         wx.navigateTo({
-    //           url: '../../pages/login/login'
-    //         })
-    //         // wx.clearStorage({
-    //         //   success () {
-    //         //     app.globalData.loginCode = 10007
-    //         //     self.setData({
-    //         //       isLogin: false,
-    //         //       showSearch: 'none',
-    //         //       loginCode: app.globalData.loginCode
-    //         //     })
-    //         //   }
-    //         // })
-    //       }
-    //     }
-    //   })
-    //   return
-    // } else {
-    //   self.setData({
-    //     PageCur: data,
-    //     loginCode: 0,
-    //     showSearch: 'block'
-    //   })
-    // }
-  },
+  // 收藏
+  collectCommodity() {},
+
+  // 客服
+  collectCommodity() {},
+
+  // 添加到购物车
+  collectCommodity() {},
+
+  // 立即购买
+  buyNow() {},
+
+  // 选择规格
+  chooseStandard() {},
 
   // 页面显示时检查登录状态
   onShow: function () {
