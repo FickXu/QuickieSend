@@ -2,7 +2,7 @@
 <view class="person-center">
   <!-- nav-bar -->
   <cu-custom isBack="{{true}}" bgColor="bg-white">
-    <view slot="content" class="bold">{{ title }}</view>
+    <view slot="content" class="bold text-gray">{{ title }}</view>
   </cu-custom>
   
   <!-- 设置 -->
