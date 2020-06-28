@@ -2,7 +2,7 @@
 <view class="person-center">
   <!-- nav-bar -->
   <cu-custom isBack="{{true}}" bgColor="bg-white">
-    <view slot="content" class="bold text-gray">{{ title }}</view>
+    <view slot="content" class="bold text-black">{{ title }}</view>
   </cu-custom>
   
   <!-- 设置 -->
@@ -14,8 +14,8 @@
     <view class="title fz-16 padding">提现金额</view>
     <view class="cu-item">
       <view class="flex flex-align-center">
-        <view class="flex-row1 bold" style="font-size: 30px">¥</view>
-        <input class="flex-row5" placeholder="请输入体现金额" type="digit"></input>
+        <view class="flex-row1 bold" style="font-size: 24px">¥</view>
+        <input class="flex-row5 fz-20" placeholder="请输入提现金额" type="digit"></input>
       </view>
     </view>
     <view class="tips text-red">余额9403元，单次提现在100-2000元之间</view>
