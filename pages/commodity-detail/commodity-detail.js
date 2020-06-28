@@ -132,10 +132,19 @@ Page({
   collectCommodity() {},
 
   // 客服
-  collectCommodity() {},
+  customerService() {
+    
+  },
 
   // 添加到购物车
-  collectCommodity() {},
+  shopingCart() {
+    wx.showToast({
+      title: '已添加到购物车'
+    })
+    // wx.navigateTo({
+    //   url: '../shoping-car/shoping-car'
+    // })
+  },
 
   // 立即购买
   buyNow() {},
