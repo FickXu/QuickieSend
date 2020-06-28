@@ -24,12 +24,12 @@
 			"outputPath": ""
 		},
 		"useIsolateContext": true,
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.3",
-	"appid": "wxec62e934c43063ab",
+	"appid": "wx6ccf702132ec39f4",
 	"projectname": "QuickieSend",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},

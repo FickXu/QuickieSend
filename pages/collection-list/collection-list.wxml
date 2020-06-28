@@ -1,0 +1,32 @@
+<!--pages/collection-list/collection-list.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+
+<!-- 购买商品 -->
+<view class="collect-list bg-white">
+  <slideView
+    buttons="{{slideButtons}}"
+    bindbuttontap="slideButtonTap"
+    bindshow="bindshow"
+    data-id="{{item.id}}"
+    wx:for="{{commodityList}}"
+    >
+    <view class="list-order-item-body padding-lr">
+      <view class="shop-view">
+        <image class="img" src="{{item.goodsImg||defalultImageUrlTz}}" alt="diamond" />
+      </view>
+      <view class="shop-attr">
+        <view class="shop-attr-shape">
+          {{item.goodsTypeName}}
+        </view>
+        <view class="shop-attr-specs">
+          {{item.goodsDesc}}
+        </view>
+        <view class="shop-attr-total flex justify-between flex-align-center">
+          <text class="price">¥ {{item.goodsRealPrice}}</text>
+        </view>
+      </view>
+    </view>
+  </slideView>
+</view>

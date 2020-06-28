@@ -1,0 +1,134 @@
+.order-detail-page .order-info {
+  background-color: #EEFFFE;
+  padding: 20px 15px 40px;
+  margin-bottom: -20px;
+}
+.order-detail-page .order-info .infos .right {
+  width: 145px;
+  height: 120px;
+  overflow: hidden;
+}
+.order-detail-page .order-info .infos .right image {
+  width: 100%;
+  height: 100%;
+}
+.order-detail-page .order-info .countdown {
+  background-color: #D6F6F4;
+  height: 38px;
+  line-height: 38px;
+  border-radius: 50px;
+}
+.order-detail-page .address {
+  background: #ffffff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.07);
+  border-radius: 10px;
+}
+.order-detail-page .tabs-order {
+  background: #ffffff;
+}
+.order-detail-page .list-order {
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+}
+.order-detail-page .list-order-item {
+  background-color: #fff;
+  padding: 0 20rpx 30rpx 20rpx;
+  margin: 0 30rpx;
+  border-radius: 30rpx;
+}
+.order-detail-page .list-order-item:not(:first-child) {
+  margin-top: 20rpx;
+}
+.order-detail-page .list-order-item-header {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  border-bottom: 1px solid #e2e2e2;
+}
+.order-detail-page .list-order-item-header .tag {
+  color: #883c41;
+  float: left;
+}
+.order-detail-page .list-order-item-header .order-number {
+  color: #3d3d3d;
+  float: left;
+}
+.order-detail-page .list-order-item-header .order-status {
+  float: right;
+}
+.order-detail-page .list-order-item-body {
+  width: 100%;
+  display: inline-flex;
+  padding: 30rpx 0 30rpx 0;
+  border-bottom: 1px solid #e2e2e2;
+}
+.order-detail-page .list-order-item-body .shop-view {
+  min-width: 200rpx;
+  max-width: 200rpx;
+  min-height: 200rpx;
+  max-height: 200rpx;
+}
+.order-detail-page .list-order-item-body .shop-view .img {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+}
+.order-detail-page .list-order-item-body .shop-attr {
+  width: 100%;
+  margin-left: 48rpx;
+}
+.order-detail-page .list-order-item-body .shop-attr-shape {
+  color: #3d3d3d;
+}
+.order-detail-page .list-order-item-body .shop-attr-specs {
+  color: #b3b3b3;
+  margin-top: 10rpx;
+}
+.order-detail-page .list-order-item-body .shop-attr-total {
+  width: 100%;
+  margin-top: 10rpx;
+}
+.order-detail-page .list-order-item-footer {
+  margin-top: 24rpx;
+}
+.order-detail-page .list-order-item-footer .order-mark {
+  color: #3d3d3d;
+}
+.order-detail-page .list-order-item-footer .order-total {
+  color: #3d3d3d;
+  text-align: right;
+  padding-top: 30rpx;
+  margin-top: 10px;
+  border-top: 1px solid #e2e2e2;
+}
+.order-detail-page .list-order-item-footer .btn-delete-order {
+  overflow: hidden;
+  margin-top: 20rpx;
+}
+.order-detail-page .list-order-item-footer .btn-delete-order .button {
+  float: right;
+  font-size: 28rpx;
+  border: 1px solid #22BFB7;
+  color: #22BFB7;
+  background-color: transparent;
+  border-radius: 50rpx;
+  text-align: center;
+  width: 164rpx;
+  height: 54rpx;
+  line-height: 54rpx;
+  padding: 0;
+  box-sizing: content-box;
+}
+.order-detail-page .list-order-item-footer .btn-delete-order .button::after {
+  border: none;
+}
+.order-detail-page .list-order-none {
+  text-align: center;
+  color: #888888;
+  background-color: #fff;
+  padding: 0 20rpx 30rpx 20rpx;
+  margin: 10px 30rpx;
+  border-radius: 30rpx;
+}

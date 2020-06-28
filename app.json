@@ -1,6 +1,10 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/orders-detail/orders-detail",
+    "pages/login/login",
+    "pages/collection-list/collection-list",
+    "pages/consumer-details/consumer-details",
     "pages/orders/orders",
     "pages/modify-address/modify-address",
     "pages/address-list/address-list",
@@ -10,7 +14,6 @@
     "pages/commodity-detail/commodity-detail",
     "pages/commodity-list/commodity-list",
     "pages/my-scan/my-scan",
-    "pages/login/login",
     "pages/comment-list/comment-list",
     "pages/bind-phone/bind-phone",
     "pages/setting/setting",

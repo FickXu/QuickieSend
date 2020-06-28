@@ -8,7 +8,7 @@ Page({
    */
   data: {
     TabCur: '',
-    title: '我的订单',
+    title: '订单详情',
     orderStatus: [
       {
         value: '',

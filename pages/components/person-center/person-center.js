@@ -101,23 +101,34 @@ Component({
 			}
 		},
 		// 获取所有订单
-		getAllOrders: function () {},
-		// 我的明细
-		getMydetails: function () {
+		openOrdersPage: function (e) {
+			let type = e.currentTarget.dataset.orderType
 			wx.navigateTo({
-				url: '../../pages/address-list/address-list'
+				url: `../../pages/orders/orders?type=${type}`,
+				fail: e => {
+					console.log(e)
+				}
+			})
+		},
+		// 我的明细
+		openConsumerDetailsPage: function () {
+			wx.navigateTo({
+				url: '../../pages/consumer-details/consumer-details',
+				fail: e => {
+					console.log(e)
+				}
 			})
 		},
 		// 我的收藏
-		getMyCollected: function () {
+		openCollectionPage: function () {
 			wx.navigateTo({
-				url: '../../pages/shop-car/shop-car'
+				url: '../../pages/collection-list/collection-list'
 			})
 		},
 		// 购物车
-		getShopingCar: function () {
+		openShopingCarPage: function () {
 			wx.navigateTo({
-				url: '../../pages/orders/orders'
+				url: '../../pages/shoping-car/shoping-car'
 			})
 		},
 		

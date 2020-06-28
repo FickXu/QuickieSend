@@ -413,7 +413,7 @@ Component({
   },
   methods: {
     // 商品列表
-    goToCommodityList(e) {
+    openCommodityListPage(e) {
       wx.navigateTo({
         url: '../../pages/commodity-list/commodity-list',
         fail(err) {

@@ -21,17 +21,17 @@
     <view class="list-menu">
       <!-- 购物车 -->
       <view class="cu-list grid col-3 no-border">
-        <view class="cu-item"  bindtap="getMydetails">
+        <view class="cu-item"  bindtap="openConsumerDetailsPage">
           <view class="cuIcon-cart text-grey"></view>
           <text>消费明细</text>
         </view>
         <!-- 订单 -->
-        <view class="cu-item" bindtap="getMyCollected">
-          <view class="cuIcon-form text-grey"></view>
+        <view class="cu-item" bindtap="openCollectionPage">
+          <view class="cuIcon-favor text-grey"></view>
           <text>收藏</text>
         </view>
         <!-- 地址 -->
-        <view class="cu-item" bindtap="getShopingCar">
+        <view class="cu-item" bindtap="openShopingCarPage">
           <view class="cuIcon-location text-grey"></view>
           <text>购物车</text>
         </view>
@@ -42,29 +42,29 @@
     <view class="list-menu my-orders">
       <view class="header">
         <view class="title">我的订单</view>
-        <view class="btn-all-order" bindtap="getAllOrders">
+        <view class="btn-all-order" bindtap="openOrdersPage" data-order-type="">
           <text decode="{{true}}">所有订单&nbsp;</text>
           <view class="cuIcon-right text-grey"></view>
         </view>
       </view>
       <view class="cu-list grid col-4 no-border">
         <!-- 代付款 -->
-        <view class="cu-item"  bindtap="chooseAddress">
+        <view class="cu-item"  bindtap="openOrdersPage" data-order-type="">
           <view class="cuIcon-cart text-grey"></view>
           <text>代付款</text>
         </view>
         <!-- 代发货 -->
-        <view class="cu-item" bindtap="getOrders">
+        <view class="cu-item" bindtap="openOrdersPage" data-order-type="待发货">
           <view class="cuIcon-form text-grey"></view>
           <text>代发货</text>
         </view>
         <!-- 待收货 -->
-        <view class="cu-item" bindtap="getShopCar">
+        <view class="cu-item" bindtap="openOrdersPage" data-order-type="待收货">
           <view class="cuIcon-location text-grey"></view>
           <text>待收货</text>
         </view>
         <!-- 已完成 -->
-        <view class="cu-item" bindtap="getShopCar">
+        <view class="cu-item" bindtap="openOrdersPage" data-order-type="已完成">
           <view class="cuIcon-location text-grey"></view>
           <text>已完成</text>
         </view>

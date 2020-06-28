@@ -1,0 +1,8 @@
+{
+    "backgroundColor": "#f7f7f7",
+    "usingComponents": {
+        "slideView":"../../components/slideview/slideview",
+        "cells":"../../components/cells/cells",
+        "cell":"../../components/cell/cell"
+    }
+}

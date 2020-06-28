@@ -2,7 +2,7 @@ const app = new getApp()
 
 // 服务器地址
 // let serviceUrl = 'https://dssjewel.com/applet/'
-let serviceUrl = 'http://skybin115.oicp.net/api/'
+let serviceUrl = 'http://fengchuhui.5gzvip.idcfengye.com/api/'
 
 /* 
 * path, 业务借口的请求路径
@@ -21,7 +21,7 @@ let request = (path, params = {}, type='POST') => {
       method: type,
       data: params,
       success (res) {
-        if (res.data.code == 0 || isUrl) {
+        if (res.data.code == 10000 || isUrl) {
           resolve(res)
           app.globalData.loginCode = 0
         } else {

@@ -11,7 +11,7 @@ Page({
   data: {
     apis:  {
       login: 'base/info',
-      auth: 'auth'
+      auth: 'auth/login'
     },
     loginPageInfo: {
       iconUrl: '../images/bg-login.png',
@@ -55,12 +55,13 @@ Page({
       iv: e.detail.iv
     }
 
-    // this.setData({
-    //   'loginPageInfo.encryptedData': userInfo.encryptedData,
-    //   'loginPageInfo.iv': userInfo.iv
-    // })
+    this.setData({
+      'loginPageInfo.encryptedData': userInfo.encryptedData,
+      'loginPageInfo.iv': userInfo.iv
+    })
   
-    this._wxLogin(userInfo)
+    // this._wxLogin(userInfo)
+    this._getUserInfo()
   },
   // 获取用户授权
   customerAuthor(encryptedData, iv, data) {
@@ -88,8 +89,8 @@ Page({
           }
           // 通过code获取session_key和openid
           request(this.data.apis.auth, params).then(res => {
-            if (res.data.code == 0) {
-              let data = JSON.parse(res.data.data)
+            if (res.data.code == 10000) {
+              let data = res.data.data
               resolve(Object.assign(params, data))
             } else {
               reject(res)

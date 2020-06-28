@@ -1,0 +1,142 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content">{{ title }}</view>
+</cu-custom>
+
+<view class="order-detail-page">
+  <!-- 订单状态 -->
+  <view class="order-info">
+    <view class="infos flex">
+      <view class="left">
+        
+        <!-- 第一行 -->
+        <view class="flex felx-align-center">
+          <view class="cuIcon-noticefill fz-20 text-cyan"></view>
+          <view class="bold fz-18 text-cyan margin-left-xs">代付款</view>
+          <view class="fz-16 ml-20">
+            <text class="text-cyan">需支付</text>
+            <text class="text-red"> ¥ 653.02</text>
+          </view>
+        </view>
+
+        <!-- 第二行 -->
+        <view class="text-black fz-16 mt-10 margin-left-xl">
+          <text decode="{{true}}">订单编号：</text>
+          <text decode="{{true}}">63857464132135465</text>
+        </view>
+
+        <!-- 第三行 -->
+        <view class="text-black fz-16 mt-10 margin-left-xl">
+          <text decode="{{true}}">下单时间：</text>
+          <text decode="{{true}}">2020-6-28 15:21:57</text>
+        </view>
+
+      </view>
+      <!-- <view class="right">
+        <image src="../images/no-data.png" />
+      </view> -->
+    </view>
+    <!-- 倒计时 -->
+    <view class="countdown mt-10">
+      <text class="text-cyan margin-left-xl">剩余23小时59分将自动取消订单</text>
+    </view>
+  </view>
+
+  <!-- 送货人信息 -->
+  <view class="mr-15 ml-15 address padding mb-15">
+    <view class="text-black fz-20 bold">送货人</view>
+    <view class="text-black mt-10">
+      <text class="fz-16">安其拉</text>
+      <text class="fz-16 ml-15">1353685266</text>
+    </view>
+  </view>
+
+  <!-- 收货人地址 -->
+  <view class="mr-15 ml-15 address padding">
+    <view class="text-black fz-20 bold">收获地址</view>
+    <view class="text-darkGray mt-10 fz-16">广东省 深圳市 南山区 深南大道9684号大冲商务大楼A座301</view>
+    <view class="text-black mt-10">
+      <text class="fz-16">安其拉</text>
+      <text class="fz-16 ml-15">1353685266</text>
+    </view>
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="list-order" wx:if="{{orderList.length>0}}">
+    <view class="list-order-item" wx:for="{{orderList}}" wx:key="index">
+      <view class="list-order-item-header">
+        <!-- <text class="tag">【定制】</text> -->
+        <text class="order-number"><text class="fz-16 bold"> 订单编号：</text>{{item.orderNo}}</text>
+        <text class="order-status {{item.statueId==3 ? 'text-gray' : 'text-red'}}">{{item.statueName}}</text>
+      </view>
+      <!-- 商品列表 -->
+      <!-- <commodity-list info="{{item.busOrderInfoList}}" layout="row" isSelect="{{false}}"></commodity-list> -->
+      <view
+        class="list-order-item-body"
+        bindtap="goToGoodsDetail"
+        wx:for="{{item.busOrderInfoList}}"
+        wx:key="goodsIndex"
+        wx:for-item="goodsItem"
+        wx:for-index="goodsIndex"
+        data-order-info="{{item}}"
+        data-goods-item="{{goodsItem}}"
+        data-goods-item-status-id="{{item.statueId}}"
+        data-goods-item-status-name="{{item.statueName}}"
+        >
+        <view class="shop-view">
+          <image class="img" src="{{goodsItem.goodsImg||defalultImageUrlTz}}" alt="diamond" />
+        </view>
+        <view class="shop-attr">
+          <view class="shop-attr-shape">
+            {{goodsItem.goodsTypeName}}
+          </view>
+          <view class="shop-attr-specs">
+            {{goodsItem.goodsDesc}}
+          </view>
+          <view class="shop-attr-total flex justify-between flex-align-center">
+            <text class="price">¥ {{goodsItem.goodsRealPrice}}</text>
+            <text class="text-gray">x {{goodsItem.goodsDiscount}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="list-order-item-footer">
+        <view class="flex justify-between flex-align-center fz-14">
+          <view class="text-gray">订单总价</view>
+          <view class="text-black">¥{{item.orderOriginalPrice}}</view>
+        </view>
+        <view class="flex justify-between flex-align-center fz-14 mt-10">
+          <view class="text-gray">运费</view>
+          <view class="text-black">免费配送</view>
+        </view>
+        <!-- <view class="order-mark">订单备注：{{item. contactAddress}}</view> -->
+        <view class="order-total">总计：{{item.orderNums}}件，共计：<text class="price">¥{{item.orderOriginalPrice}}</text></view>
+        <!-- 待支付 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==0}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">取消订单</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">立即支付</button>
+        </view>
+        <!-- 待发货 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==1}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">取消订单</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">提醒发货</button>
+        </view>
+        <!-- 待发货 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==2}}">
+          <!-- <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">查看物流</button> -->
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">确认收货</button>
+        </view>
+        <!-- 已完成 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.statueId==3}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">删除订单</button>
+          <button class="cu-btn round line text-cyan ml-10" data-order-id="{{item.id}}" bindtap="cancelOrder">我要评价</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">再次购买</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="list-order-none">
+    <image class="padding-xl" src="../images/no-data.png" />
+    <view>抱歉，您还没有相关订单</view>
+  </view>
+</view>
