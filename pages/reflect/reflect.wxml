@@ -18,7 +18,7 @@
         <input class="flex-row5" placeholder="请输入体现金额" type="digit"></input>
       </view>
     </view>
-    <view class="tips text-red">余额9403元，单次体现在100-2000元之间</view>
+    <view class="tips text-red">余额9403元，单次提现在100-2000元之间</view>
     <view class="cu-item">
 
       <view class="title">提现认证</view>
