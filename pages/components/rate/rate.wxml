@@ -1,0 +1,10 @@
+<!-- 计数器 -->
+<view class="rate flex flex-align-center">
+  <view class="flex rate-box">
+    <view class="mr-10 rate-item" wx:for="{{rates}}" bindtap="clickStart" data-item-value="{{item}}">
+      <image class="img" src="../../images/rate1.png" wx:if="{{item > currentIndex}}"/>
+      <image class="img" src="../../images/rate2.png" wx:else="{{item < currentIndex}}" />
+    </view>
+  </view>
+  <view class="text-gray {{showLabel ? 'show' : 'hide'}}">{{desc[(currentIndex-1)||0]}}</view>
+</view>

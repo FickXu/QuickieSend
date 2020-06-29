@@ -1,0 +1,9 @@
+{
+    "backgroundColor": "#f7f7f7",
+    "usingComponents": {
+        "uploader":"../../components/uploader/uploader",
+        "cells":"../../components/cells/cells",
+        "cell":"../../components/cell/cell",
+        "rate": "../components/rate/rate"
+    }
+}

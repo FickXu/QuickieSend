@@ -1,0 +1,48 @@
+.add-comment-page {
+  background-color: #fff;
+}
+.add-comment-page .list-order-item {
+  width: 100%;
+  display: inline-flex;
+  padding: 30rpx;
+}
+.add-comment-page .list-order-item .shop-view {
+  min-width: 200rpx;
+  max-width: 200rpx;
+  min-height: 200rpx;
+  max-height: 200rpx;
+}
+.add-comment-page .list-order-item .shop-view .img {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+}
+.add-comment-page .list-order-item .shop-attr {
+  width: 100%;
+  margin-left: 30rpx;
+}
+.add-comment-page .list-order-item .shop-attr-shape {
+  color: #3d3d3d;
+}
+.add-comment-page .list-order-item .shop-attr-specs {
+  color: #b3b3b3;
+  margin-top: 10rpx;
+}
+.add-comment-page .list-order-item .shop-attr-total {
+  width: 100%;
+  margin-top: 10rpx;
+}
+.add-comment-page .textarea {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  height: 100px;
+}
+.add-comment-page .uploader {
+  width: 50px;
+  height: 50px;
+  background-color: #f7f7f7;
+}
