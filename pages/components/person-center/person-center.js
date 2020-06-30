@@ -73,6 +73,13 @@ Component({
 		// })
 	},
 	methods: {
+		// 打开二维码页面
+		openMyScanOpenPage() {
+			wx.navigateTo({
+				url: '../../pages/my-scan/my-scan'
+			})
+		},
+
 		// 跳转到设置页面
 		goToSettingPage: function () {
 			wx.navigateTo({

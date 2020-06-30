@@ -1,6 +1,6 @@
 <!--pages/home/home.wxml-->
 <cu-custom bgColor="bg-white" isBack="{{true}}">
-	<view slot="content">{{ title }}</view>
+	<view slot="content" class="bold">{{ title }}</view>
 </cu-custom>
 
 <view class="order-detail-page">

@@ -1,6 +1,5 @@
 .scrollPage {
   position: relative;
-  height: 100vh;
 }
 .scrollPage .screen-swiper {
   height: 300px;
