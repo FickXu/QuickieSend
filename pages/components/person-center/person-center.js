@@ -9,13 +9,13 @@ Component({
 		title: '个人中心',
 		cuCustomBGColor: '',
 		userInfo: {
-			avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
-			city: "Shenzhen",
-			country: "China",
-			gender: 1,
-			language: "zh_CN",
-			nickName: "Fick",
-			province: "Guangdong"
+			// avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
+			// city: "Shenzhen",
+			// country: "China",
+			// gender: 1,
+			// language: "zh_CN",
+			// nickName: "Fick",
+			// province: "Guangdong"
 		},
 		commodityList: [
       {
@@ -51,7 +51,7 @@ Component({
     ],
 	},
 	ready: function () {
-		// let self = this
+		let self = this
 		// // console.log(app.globalData)
 		// let userInfo = {
 		// 	avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
@@ -63,14 +63,14 @@ Component({
 		// 	province: "Guangdong"
 		// }
 		
-		// wx.getStorage({
-		// 	key: 'userInfo',
-		// 	success (res) {
-		// 		self.setData({
-		// 			userInfo: res.data
-		// 		})
-		// 	}
-		// })
+		wx.getStorage({
+			key: 'userInfo',
+			success (res) {
+				self.setData({
+					userInfo: res.data
+				})
+			}
+		})
 	},
 	methods: {
 		// 打开二维码页面

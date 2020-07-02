@@ -9,14 +9,12 @@
   <view class="cu-list menu list-menu settings">
     <view class="cu-form-group">
       <view class="title">手机号码</view>
-      <input placeholder="请输入手机号码"></input>
-      <view class="cu-tag radius bg-cyan">
-        获取验证码
-      </view>
+      <input placeholder="请输入手机号码" bindinput="bindinput" data-key="telephone"></input>
+      <view class="cu-tag radius bg-cyan" bindtap="getMsg">{{btnCodeText}}</view>
     </view>
     <view class="cu-form-group">
       <view class="title">验证码</view>
-      <input placeholder="请输入验证码"></input>
+      <input placeholder="请输入验证码" bindinput="bindinput" data-key="code"></input>
     </view>
   </view>
 
@@ -26,6 +24,6 @@
   
   <!-- 退出登录 -->
   <view class="qs-btn-box">
-    <button class="qs-btn qs-bg">确定</button>
+    <button class="qs-btn qs-bg" bindtap="bindPhone">确定</button>
   </view>
 </view>

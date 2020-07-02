@@ -7,32 +7,49 @@
   
   <!-- 设置 -->
   <view class="cu-list menu list-menu settings">
+    <view class="text-right bg-white padding text-cyan">
+      <text class="cuIcon-edit fz-16" bindtap="editInfo" wx:if="{{!isEdit}}"><text class="fz-14">编辑</text></text>
+      <text wx:if="{{isEdit}}" class="fz-14 value" bindtap="cancelEdit">取消</text>
+      <text wx:if="{{isEdit}}" class="fz-14 text-cyan ml-10" bindtap="confirmEdit">完成</text>
+    </view>
     <!-- 需要接口控制 -->
     <view class="cu-item arrow" bindtap="personInfo">
       <view class="content">头像</view>
-      <view class="cu-avatar round" style="background-image:url({{userInfo.avatarUrl}});"></view>
+      <view
+        wx:if="{{isEdit}}"
+        class="cu-avatar round"
+        style="background-image:url({{userInfo.headPortrait}});"
+        >
+      </view>
+      <view wx:else class="cu-avatar round" style="background-image:url({{userInfo.headPortrait}});"></view>
     </view>
     <!-- 需要接口控制 -->
     <view class="cu-item arrow">
       <view class="content">昵称</view>
-      <view class="value">{{userInfo.nickName}}</view>
+      <input wx:if="{{isEdit}}" class="value text-right" value="{{userInfo.nickName}}" bindinput="bindinput" data-key="nickName" />
+      <view wx:else class="value text-gray">{{userInfo.nickName}}</view>
     </view>
-    <view class="cu-form-group">
+    <view class="cu-item {{userInfo.telephone ? 'arrow' : ''}}">
+      <view class="content">手机号</view>
+      <view class="value fz-14" data-key="{{userInfo.telephone}}" bindtap="openBindPhonePage">{{userInfo.telephone}}</view>
+    </view>
+    <view class="cu-item">
 		  <view class="title">性别</view>
-      <picker bindchange="PickerChange" value="{{genderIndex}}" range="{{genderArray}}">
+		  <view class="value">{{genderArray[userInfo.sex]}}</view>
+      <!-- <picker bindchange="PickerChange" value="{{userInfo.sex}}" range="{{genderArray}}">
         <view class="picker value">
-          {{genderArray[genderIndex]}}
+          {{genderArray[userInfo.sex]}}
         </view>
-      </picker>
+      </picker> -->
     </view>
-    <view class="cu-form-group">
+    <!-- <view class="cu-form-group">
       <view class="title">日期选择</view>
       <picker mode="date" value="{{birthday}}" start="1920-01-01" end="2020-01-01" bindchange="DateChange">
         <view class="picker value">
           {{birthday}}
         </view>
       </picker>
-    </view>
+    </view> -->
   </view>
 
 </view>

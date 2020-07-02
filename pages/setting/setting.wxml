@@ -15,10 +15,10 @@
     <view class="cu-item arrow" bindtap="addressListPage">
       <view class="content">地址管理</view>
     </view>
-    <view class="cu-item arrow">
+    <!-- <view class="cu-item arrow">
       <view class="content">绑定号码</view>
       <view class="value">未设置</view>
-    </view>
+    </view> -->
     <view class="cu-item arrow">
       <view class="content">实名认证</view>
       <view class="value">未认证</view>

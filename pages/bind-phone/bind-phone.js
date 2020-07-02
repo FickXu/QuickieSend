@@ -1,3 +1,5 @@
+import request from '../api/request'
+
 // 获取app实例，包含了用户信息和全局方法
 const app = getApp();
 
@@ -7,39 +9,55 @@ Page({
   },
 	data: {
 		title: '绑定手机号',
-	// ready: function () {
-		// let self = this
-		// // console.log(app.globalData)
-		// let userInfo = {
-		// 	avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
-		// 	city: "Shenzhen",
-		// 	country: "China",
-		// 	gender: 1,
-		// 	language: "zh_CN",
-		// 	nickName: "Fick",
-		// 	province: "Guangdong"
+		btnCodeText: '获取验证码',
+		params: {
+			// 短信验证码
+			code: '',
+			// 手机号
+			telephone: '',
+		}
+	},
+
+	// 获取短信验证码
+	getMsg() {
+		// let params = {
+		// 	telephone: this.data.params.telephone
 		// }
-		
-		// wx.getStorage({
-		// 	key: 'userInfo',
-		// 	success (res) {
-		// 		self.setData({
-		// 			userInfo: res.data
+		// request('user/bindphonecode', params).then(res => {
+		// 	if (res.data.code == 10000) {
+		// 		wx.showToast({
+		// 			title: res.data.msg
 		// 		})
 		// 	}
 		// })
-	// },
-	// 个人信息
 	},
-	personInfoPage: function () {
-		wx.navigateTo({
-			url: '../person-info/person-info'
+
+	// 获取表单数据
+	bindinput(e) {
+		let key = e.currentTarget.dataset.key
+		let value = e.detail.value
+		let params = {
+			...this.data.params
+		}
+		params[key] = value
+
+		this.setData({
+			params: params
 		})
 	},
-	// 地址列表
-	addressListPage: function () {
-		wx.navigateTo({
-			url: '../address-list/address-list'
+
+	bindPhone() {
+		let params = {
+			...this.data.params
+		}
+		request('user/bindphone', params).then(res => {
+			if (res.data.code == 10000) {
+				wx.showToast({
+					title: res.data.msg
+				})
+
+				wx.navigateBack()
+			}
 		})
 	},
 })

@@ -73,7 +73,7 @@ Page({
     let self = this
 
     request('user/queryshopaddresslist', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         self.setData({
           addressList: res.data.data,
         })
@@ -124,7 +124,7 @@ Page({
     // }
 
     // request('user/updateshopaddress', params).then(res => {
-    //   if (res.data.code == 0) {
+    //   if (res.data.code == 10000) {
     //     wx.showToast({
     //       title: res.data.msg,
     //       success() {
@@ -163,7 +163,7 @@ Page({
     }
 
     request('user/setdefaultshopaddress', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {
@@ -190,7 +190,7 @@ Page({
     })
 
     request('user/saveshopaddress', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {
@@ -209,7 +209,7 @@ Page({
     }
 
     request('user/delshopaddress', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {

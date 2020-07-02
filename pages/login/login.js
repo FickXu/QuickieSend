@@ -9,10 +9,6 @@ Page({
     addGlobalClass: true,
   },
   data: {
-    apis:  {
-      login: 'base/info',
-      auth: 'auth/login'
-    },
     loginPageInfo: {
       iconUrl: '../images/bg-login.png',
       title: '账户登录',
@@ -25,14 +21,6 @@ Page({
       iv: ''
     },
     isAuthorPhone: false,
-    buttons:[
-      {
-        type: 'primary',
-        className: '',
-        text: '同意',
-        value: 0
-      }
-    ],
     // 是否显示用户信息授权按钮
     isAuth: false,
     // 用户信息
@@ -60,23 +48,24 @@ Page({
       'loginPageInfo.iv': userInfo.iv
     })
   
-    // this._wxLogin(userInfo)
     this._getUserInfo()
   },
+
   // 获取用户授权
   customerAuthor(encryptedData, iv, data) {
     let params = {
-      appid: 'wx6ccf702132ec39f4',
-      secret: '2a0e2b2f99a9bbb2cf7cffa23a261cae',
+      appid: 'wxec62e934c43063ab',
+      secret: '4869bbe98e309bd0822be8ce31e3e8da',
       grant_type: 'authorization_code',
       js_code: data.code
     }
 
-    let pc = new WXBizDataCrypt(data.appid, data.session_key)
+    let pc = new WXBizDataCrypt(params.appid, data.sessionKey)
     let userInfo = pc.decryptData(encryptedData, iv)
     
     return userInfo
   },
+
   // 微信登录获取code
   _wxLogin: function(data) {
     return new Promise((resolve, reject) => {
@@ -88,7 +77,7 @@ Page({
             ...data
           }
           // 通过code获取session_key和openid
-          request(this.data.apis.auth, params).then(res => {
+          request('auth/sessioninfo', params).then(res => {
             if (res.data.code == 10000) {
               let data = res.data.data
               resolve(Object.assign(params, data))
@@ -100,6 +89,7 @@ Page({
       })
     })
   },
+
   // 微信登录
   _getUserInfo: function() {
     let self = this
@@ -114,17 +104,8 @@ Page({
       // 缓存到本地的openId，持久化登录
       wx.setStorage({
         key: 'openId',
-        data: userInfo.openId
+        data: userInfo.openId || ''
       })
-
-      // 登录信息缓存到本地（个人信息页获取）
-      wx.setStorage({
-        key: 'userInfo',
-        data: userInfo
-      })
-
-      // 全局缓存openId，接口调用使用
-      app.globalData.openId = userInfo.openId
 
       // 弹出手机号授权确认
       self.setData({
@@ -134,6 +115,7 @@ Page({
       })
     })
   },
+
   // 获取手机号
   getPhoneNumber(e) {
     let self = this
@@ -151,25 +133,28 @@ Page({
 
       // 用户注册
       let params = {
-        city: self.data.userInfo.city,
-        gender: self.data.userInfo.gender,
-        headPortrait: self.data.userInfo.avatarUrl,
-        nickName: self.data.userInfo.nickName,
-        openId: self.data.userInfo.openId,
-        province: self.data.userInfo.province,
-        phoneNumber: phoneInfo.phoneNumber
+        ...self.data.userInfo,
+        phone: phoneInfo.phoneNumber
       }
+
+      params.watermark && delete params.watermark
+
       // console.log('用户注册信息：', params)
-      request('wechatapplet/registered', params).then(res => {
-        if (res.data.code == 0) {
-          
-          let loginInfo = {
-            status: 200
-          }
-          self.triggerEvent('login', loginInfo)
+      request('auth/login', params).then(res => {
+        if (res.data.code == 10000) {
+          wx.navigateBack()
+          wx.setStorage({
+            key: 'isLogin',
+            data: true
+          })
+          wx.setStorage({
+            key: 'userInfo',
+            data: res.data.data
+          })
         }
       })
 
     })
   }
+
 })

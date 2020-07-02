@@ -19,7 +19,7 @@
     <view class="author-phone-desc">马上送到需要您授权来获取手机号</view>
     <view class="cu-bar bg-white btn-argee">
       <button
-        class="action margin-0 flex-sub solid-left bg-gold btn-i-know"
+        class="action margin-0 flex-sub solid-left bg-cyan btn-i-know"
         open-type="getPhoneNumber"
         bindgetphonenumber="getPhoneNumber"
         >同意</button>

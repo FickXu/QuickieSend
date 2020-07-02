@@ -53,7 +53,7 @@ Page({
     // let self = this
 
     // request('user/queryshopaddresslist', params).then(res => {
-    //   if (res.data.code == 0) {
+    //   if (res.data.code == 10000) {
     //     self.setData({
     //       addressList: res.data.data,
     //     })

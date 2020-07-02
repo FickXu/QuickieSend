@@ -11,10 +11,10 @@
     <!-- 个人信息 -->
     <view class="flex justify-between flex-align-center padding" bindtap="goToSettingPage">
       <view class="user-info">
-        <image src="{{userInfo.avatarUrl}}"  class="user-photo" />
+        <image src="{{userInfo.headPortrait}}"  class="user-photo" />
         <view class="user-info-name">
           <text>{{userInfo.nickName}}</text>
-          <text class="small">{{userInfo.province}}</text>
+          <!-- <text class="small">{{userInfo.nickName}}</text> -->
         </view>
       </view>
       <view class="cuIcon-qrcode text-white fz-20" bindtap="openMyScanOpenPage"></view>

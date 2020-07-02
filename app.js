@@ -21,7 +21,9 @@ App({
     })
   },
 	globalData: {
-    userInfo: null,
+    // 用户是否已经登录
+    isLoin: wx.getStorageSync('isLogin'),
+    userInfo: wx.getStorageSync('userInfo'),
     // 默认图片-联系我们
     defalultImageUrlLXWM: 'https://dssjewel.com/file/basic/lxwm.png',
     // 默认图片-客服跟进
@@ -30,8 +32,6 @@ App({
     defalultImageUrlTz: 'https://dssjewel.com/file/basic/tzdefault.png',
     // 默认图片-gia
     defalultImageUrlGia: 'https://dssjewel.com/file/basic/giadefault.png',
-    openId: wx.getStorageSync('openId'),
     isIpx: false,   //适配IPhoneX
-    loginCode: 0
 	}
 })

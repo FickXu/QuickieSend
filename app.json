@@ -1,26 +1,26 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/bind-phone/bind-phone",
+    "pages/address-list/address-list",
+    "pages/modify-address/modify-address",
+    "pages/person-info/person-info",
+    "pages/login/login",
     "pages/my-scan/my-scan",
     "pages/shoping-detail/shoping-detail",
     "pages/withdraw/withdraw",
-    "pages/address-list/address-list",
     "pages/add-comment/add-comment",
     "pages/orders-detail/orders-detail",
-    "pages/login/login",
     "pages/collection-list/collection-list",
     "pages/consumer-details/consumer-details",
     "pages/orders/orders",
-    "pages/modify-address/modify-address",
     "pages/pay-success/pay-success",
     "pages/order-confirm/order-confirm",
     "pages/shoping-car/shoping-car",
     "pages/commodity-list/commodity-list",
     "pages/commodity-detail/commodity-detail",
     "pages/comment-list/comment-list",
-    "pages/bind-phone/bind-phone",
-    "pages/setting/setting",
-    "pages/person-info/person-info"
+    "pages/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",

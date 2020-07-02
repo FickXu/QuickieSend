@@ -15,11 +15,16 @@ let request = (path, params = {}, type='POST') => {
   // 如果匹配到域名就使用传入的path，否则使用配置的服务器地址
   let isUrl = path.match(urlReg)
 
+  console.log('open id:', wx.getStorageSync('openId'))
+
   return new Promise((resolve, reject) => {
      return wx.request({
       url: !isUrl ? (serviceUrl + path) : path,
       method: type,
-      data: params,
+      data: {
+        ...params,
+        openId: wx.getStorageSync('openId') || ''
+      },
       success (res) {
         if (res.data.code == 10000 || isUrl) {
           resolve(res)
@@ -34,17 +39,22 @@ let request = (path, params = {}, type='POST') => {
                 if (res.confirm) {
                   wx.clearStorage({
                     success () {
-
+                      wx.clearStorage()
                       wx.navigateTo({
-                        url: '../../pages/login/login',
-                        success: function (res) {
-                          app.globalData.loginCode = 10007
-                        }
+                        url: '../../pages/login/login'
                       })
                     }
                   })
                 }
               }
+            })
+            return
+          }
+
+          if (res.data.code == 10003 || res.data.code == 10001) {
+            wx.showToast({
+              title: res.data.msg,
+              icon: 'none'
             })
             return
           }

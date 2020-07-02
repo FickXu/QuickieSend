@@ -157,7 +157,7 @@ Page({
     }
     let self = this
     request('order/queryorderlist', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         if (res.data.data) {
           self.setData({
             orderList: res.data.data
@@ -218,7 +218,7 @@ Page({
     //         openId: app.globalData.openId
     //       }
     //       request('order/placeshopcar', params).then(res => {
-    //         if (res.data.code == 0) {
+    //         if (res.data.code == 10000) {
     //           wx.showToast({
     //             title: res.data.msg,
     //             success() {
@@ -253,7 +253,7 @@ Page({
             openId: app.globalData.openId
           }
           request('order/canelorder', params).then(res => {
-            if (res.data.code == 0) {
+            if (res.data.code == 10000) {
               wx.showToast({
                 title: res.data.msg,
                 success() {
@@ -275,7 +275,7 @@ Page({
     }
     let self = this
     request('order/confirmgoods', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {

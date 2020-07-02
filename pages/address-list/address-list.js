@@ -23,29 +23,7 @@ Page({
         text: '删除'
       }
     ],
-    addressList: [
-      {
-        id: 1,
-        contact: '赵四',
-        isDefault: 0,
-        mobilePhone: 13567890987,
-        contactAddress: '广东省 广州市 海珠区 新港中路397号'
-      },
-      {
-        id: 1,
-        contact: '张三',
-        isDefault: 1,
-        mobilePhone: 13567890987,
-        contactAddress: '广东省 广州市 海珠区 新港中路397号'
-      },
-      {
-        id: 1,
-        contact: '牛逼',
-        isDefault: 1,
-        mobilePhone: 13567890987,
-        contactAddress: '广东省 广州市 海珠区 新港中路397号'
-      }
-    ],
+    addressList: [],
     currentAddressId: '',
     // 联系人
     contact: '',
@@ -54,17 +32,17 @@ Page({
     isEdit: false
   },
   onLoad() {
-    // this.queryshopaddresslist()
+    this.queryList()
   },
   // 获取收货地址列表
-  queryshopaddresslist() {
+  queryList() {
     let params = {
-      openId: app.globalData.openId
+      shopId: 0
     }
     let self = this
 
-    request('user/queryshopaddresslist', params).then(res => {
-      if (res.data.code == 0) {
+    request('user/address/list', params).then(res => {
+      if (res.data.code == 10000) {
         self.setData({
           addressList: res.data.data,
         })
@@ -115,7 +93,7 @@ Page({
     // }
 
     // request('user/updateshopaddress', params).then(res => {
-    //   if (res.data.code == 0) {
+    //   if (res.data.code == 10000) {
     //     wx.showToast({
     //       title: res.data.msg,
     //       success() {
@@ -154,7 +132,7 @@ Page({
     }
 
     request('user/setdefaultshopaddress', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {
@@ -180,8 +158,8 @@ Page({
       isEdit: false
     })
 
-    request('user/saveshopaddress', params).then(res => {
-      if (res.data.code == 0) {
+    request('user/address/add', params).then(res => {
+      if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {
@@ -200,7 +178,7 @@ Page({
     }
 
     request('user/delshopaddress', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {

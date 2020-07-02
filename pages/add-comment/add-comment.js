@@ -49,7 +49,7 @@ Page({
     }
     let self = this
     request('order/queryorderlist', params).then(res => {
-      if (res.data.code == 0) {
+      if (res.data.code == 10000) {
         if (res.data.data) {
           self.setData({
             orderList: res.data.data
