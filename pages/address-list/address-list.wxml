@@ -25,7 +25,7 @@
             <text class="bold text-black fz-16 margin-left-sm">{{item.contact}}</text>
             <text class="bold text-black fz-16" decode="{{true}}">&emsp;{{item.mobilePhone}}</text>
           </view>
-          <view class="text-gray">{{item.contactAddress}}</view>
+          <view class="text-gray">{{item.areaTypeOneName + ' ' + item.areaTypeThreeName + ' ' + item.areaTypeTwoName + ' ' + item.contactAddress}}</view>
         </view>
       </view>
     </slideView>
@@ -33,5 +33,5 @@
 </view>
 
 <view class="address-add bg-white">
-  <button bindtap="chooseAddress" class="cu-btn round bg-cyan">添加新地址</button>
+  <button bindtap="addAddress" class="cu-btn round bg-cyan">添加新地址</button>
 </view>

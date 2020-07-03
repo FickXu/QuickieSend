@@ -18,12 +18,41 @@ Page({
     contactAddress: '',
     mobilePhone: '',
     isEdit: false,
-    floors: [
-      ['30栋', '23栋'],
-      ['50L', '28L']
+    hospitals: [
+      {
+        id: 1,
+        name: '湘雅三医院'
+      },
+      {
+        id: 2,
+        name: '市妇幼'
+      }
     ],
-    floor: [],
+    hospitalIndex: -1,
+    buildings: [
+      {
+        id: 1,
+        name: '1#'
+      },
+      {
+        id: 2,
+        name: '2#'
+      }
+    ],
+    buildingIndex: -1,
+    floors: [
+      {
+        id: 1,
+        name: '1L'
+      },
+      {
+        id: 2,
+        name: '2L'
+      }
+    ],
+    floorIndex: -1,
     params: {
+      id: '',
       // 医院id
       areaTypeOne: '',
       // 医院名称
@@ -43,191 +72,146 @@ Page({
       // 电话号码
       mobilePhone: '',
       // 商家id
-      shopId: 0
+      shopId: 0,
+      // 是否为默认地址
+      isDefault: 0
     }
   },
   onLoad() {
-    this.queryshopaddresslist()
+    
+    const eventChannel = this.getOpenerEventChannel()
+    eventChannel.on('sendData', data => {
+      this.setData({
+        isEdit: data.isEdit,
+        params: data.isEdit ? data : this.data.params
+      })
+
+      if (data.isEdit) {
+        this.queryInfo()
+      }
+
+      console.log(this.data.isEdit, this.data.params)
+    })
   },
 
-  // 选择联系人
-  // phoneContact() {
-  //   wx.addPhoneContact({
-  //     success: res => {
-  //       console.log(res)
-  //     }
+  // 获取收货地址详情
+  queryInfo() {
+    let params = {
+      ...this.data.params
+    }
+
+    this.setData({
+      // 医院
+      hospitalIndex: this.data.hospitals.findIndex(item => item.id == params.areaTypeOne),
+      // 楼栋
+      buildingIndex: this.data.buildings.findIndex(item => item.id == params.areaTypeTwo),
+      // 楼层
+      floorIndex: this.data.floors.findIndex(item => item.id == params.areaTypeThree),
+    })
+
+    console.log(this.data.hospitals.findIndex(item => item.id == params.areaTypeOne))
+
+  },
+
+  // // 拼接地址
+  // joinAddress() {
+  //   let params = this.data.params
+  //   this.setData({
+  //     'params.contactAddress': `${params.areaTypeOneName} ${params.areaTypeTwoName} ${params.areaTypeThreeName} ${params.contactAddress}`
   //   })
   // },
 
-  // 获取收货地址列表
-  queryshopaddresslist() {
-    let params = {
-      openId: app.globalData.openId
-    }
-    let self = this
-
-    request('user/queryshopaddresslist', params).then(res => {
-      if (res.data.code == 10000) {
-        self.setData({
-          addressList: res.data.data,
-        })
-      }
-    })
-  },
-  bindshow(e) {
-    let id = e.currentTarget.dataset.id
-    this.setData({
-      currentAddressId: id
-    })
-  },
-  // 选择收货地址
-  chooseAddress() {
-    let self = this
-    wx.chooseAddress({
-    	success: res => {
-        console.log('address', res)
-        // self.setData({
-        //   contact: res.userName,
-        //   mobilePhone: res.telNumber,
-        //   contactAddress: res.provinceName + ' ' + res.cityName + ' ' + res.countyName + ' ' + res.detailInfo
-        // })
-
-        // if (this.data.isEdit) {
-        //   self.updateshopaddress()
-        // } else {
-        //   self.saveshopaddress()
-        // }
-    	},
-    	fail: err => {
-    		console.log('md:', err)
-    	}
-    })
-  },
-  // 修改收货地址
-  updateshopaddress() {
-    let self = this
-    let params = {
-      id: this.data.currentAddressId,
-      contact: this.data.contact,
-      contactAddress: this.data.contactAddress,
-      isDefault: 0, // 1,非默认;0,默认
-      mobilePhone: this.data.mobilePhone,
-      openId: app.globalData.openId
-    }
-
-    request('user/updateshopaddress', params).then(res => {
-      if (res.data.code == 10000) {
-        wx.showToast({
-          title: res.data.msg,
-          success() {
-            self.queryshopaddresslist()
-          }
-        })
-      }
-    })
-  },
-  // 设置收货地址
-  setAddress(e) {
-    let index = e.currentTarget.dataset.index
-    let currentAddress = this.data.addressList[index]
-    let self = this
-
-    // 弹窗确认是否选择地址
-    wx.showModal({
-      title: '确认收货地址',
-      content: `否将收货地址设置为：${currentAddress.contactAddress}。【点击“确定”按钮立刻下单，点击“取消”按钮更换地址】`,
-      success (res) {
-        if (res.confirm) {
-          // url中的参数通过option.query接收；其他通过自定义事件通信
-          const eventChannel = self.getOpenerEventChannel()
-          eventChannel.emit('setShippingAddress', currentAddress)
-          wx.navigateBack()
-        }
-      }
-    })
-  },
-  // 设置默认地址
-  setdefaultshopaddress() {
-    let self = this
-    let params = {
-      id: this.data.currentAddressId,
-      openId: app.globalData.openId
-    }
-
-    request('user/setdefaultshopaddress', params).then(res => {
-      if (res.data.code == 10000) {
-        wx.showToast({
-          title: res.data.msg,
-          success() {
-            self.queryshopaddresslist()
-          }
-        })
-      }
-    })
-  },
-  // 新增收货地址
-  saveshopaddress() {
-    let self = this
-    let params = {
-      contact: this.data.contact,
-      contactAddress: this.data.contactAddress,
-      isDefault: 0, // 1,非默认;0,默认
-      mobilePhone: this.data.mobilePhone,
-      openId: app.globalData.openId
-    }
-
-    // 新增地址
-    this.setData({
-      isEdit: false
-    })
-
-    request('user/saveshopaddress', params).then(res => {
-      if (res.data.code == 10000) {
-        wx.showToast({
-          title: res.data.msg,
-          success() {
-            self.queryshopaddresslist()
-          }
-        })
-      }
-    })
-  },
-  // 删除收货地址
-  delshopaddress() {
-    let self = this
-    let params = {
-      id: this.data.currentAddressId,
-      openId: app.globalData.openId
-    }
-
-    request('user/delshopaddress', params).then(res => {
-      if (res.data.code == 10000) {
-        wx.showToast({
-          title: res.data.msg,
-          success() {
-            self.queryshopaddresslist()
-          }
-        })
-      }
-    })
-  },
-  slideButtonTap(e) {
-    let btnIndex = e.detail.index
-
-    if (btnIndex == 0) {
-      // 设置默认地址
-      this.setdefaultshopaddress()
-    } else if(btnIndex == 1) {
-      // 编辑地址
+  // 表单输入
+  bindinput(e) {
+    let key = e.currentTarget.dataset.key
+    let value = e.detail.value
+    if (key == 'contact') {
       this.setData({
-        isEdit: true
+        'params.contact': value
       })
-      this.chooseAddress()
-
-    } else {
-      // 删除
-      this.delshopaddress()
     }
-    console.log('slide button tap', e.detail)
-  }
+    if (key == 'mobilePhone') {
+      this.setData({
+        'params.mobilePhone': value
+      })
+    }
+    if (key == 'contactAddress') {
+      this.setData({
+        'params.contactAddress': value
+      })
+    }
+  },
+
+  // 是否为默认地址
+  switchChange(e) {
+    this.setData({
+      'params.isDefault': e.detail.value ? 0 : 1
+    })
+  },
+
+  // 选择医院
+  regionChange1(e) {
+    let index = e.detail.value
+
+    this.setData({
+      hospitalIndex: index,
+      'params.areaTypeOne': this.data.hospitals[index].id,
+      'params.areaTypeOneName': this.data.hospitals[index].name
+    })
+  },
+
+  // 选择楼栋
+  regionChange2(e) {
+    let index = e.detail.value
+
+    this.setData({
+      buildingIndex: index,
+      'params.areaTypeTwo': this.data.buildings[index].id,
+      'params.areaTypeTwoName': this.data.buildings[index].name
+    })
+  },
+
+  // 选择楼层
+  regionChange3(e) {
+    let index = e.detail.value
+
+    this.setData({
+      floorIndex: index,
+      'params.areaTypeThree': this.data.floors[index].id,
+      'params.areaTypeThreeName': this.data.floors[index].name
+    })
+  },
+  
+  // 保存收货地址（新增或编辑）
+  saveAddress() {
+    let self = this
+    
+    // this.joinAddress()
+
+    let params = {
+      ...this.data.params
+    }
+
+
+    let api = ''
+    if (this.data.isEdit) {
+      api = 'user/address/update'
+    } else {
+      api = 'user/address/add'
+    }
+
+    request(api, params).then(res => {
+      if (res.data.code == 10000) {
+        wx.showToast({
+          title: res.data.msg,
+          success() {
+            // 返回列表
+            const eventChannel = self.getOpenerEventChannel()
+            eventChannel.emit('refresh')
+            wx.navigateBack()
+          }
+        })
+      }
+    })
+  },
 })

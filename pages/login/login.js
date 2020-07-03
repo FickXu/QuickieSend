@@ -104,7 +104,7 @@ Page({
       // 缓存到本地的openId，持久化登录
       wx.setStorage({
         key: 'openId',
-        data: userInfo.openId || ''
+        data: (userInfo && userInfo.openId) || ''
       })
 
       // 弹出手机号授权确认

@@ -3,16 +3,28 @@
 	<view slot="content" class="bold">{{ title }}</view>
 </cu-custom>
 
-<view class="box" style="top: {{CustomBar}}px;">
+<view class="box">
   <view class="bg-white">
     <view class="cu-form-group">
       <view class='title'>姓名</view>
-      <input placeholder="请填写收货人的姓名" class='radius text-right' name='input'></input>
+      <input
+        placeholder="请填写收货人的姓名"
+        class='radius text-right'
+        data-key="contact"
+        value="{{params.contact}}"
+        bindinput="bindinput"
+      />
     </view>
 
     <view class="cu-form-group">
       <view class='title'>电话</view>
-      <input placeholder="请填写收货人的电话号码" class='radius text-right' name='input'></input>
+      <input
+        placeholder="请填写收货人的电话号码"
+        class='radius text-right'
+        data-key="mobilePhone"
+        value="{{params.mobilePhone}}"
+        bindinput="bindinput"
+      />
     </view>
     <!-- <view class="flex-row1 text-center">
       <view class="cuIcon-addressbook fz-20"></view>
@@ -20,32 +32,73 @@
     </view> -->
   </view>
 
+  <!-- 医院 -->
   <view class="cu-form-group" style="border-top: 1px solid #eee">
     <view class='title'>医院</view>
-    <view class="text-black">湘雅三医院</view>
-  </view>
-  <view class="cu-form-group" style="border-top: 1px solid #eee">
-    <view class='title'>楼栋名/楼层</view>
-    <picker mode="multiSelector" bindchange="RegionChange" range="{{floors}}" value="{{floor}}" custom-item="{{customItem}}">
+    <picker
+      mode="selector"
+      bindchange="regionChange1"
+      range="{{hospitals}}"
+      range-key="name"
+      value="{{hospitalIndex}}"
+      >
       <view class="picker">
-          {{floors[0][0]}}/{{floors[1][0]}}
+          {{hospitals[hospitalIndex].name}}
+      </view>
+    </picker>
+  </view>
+
+  <!-- 楼栋 -->
+  <view class="cu-form-group" style="border-top: 1px solid #eee">
+    <view class='title'>楼栋</view>
+    <picker
+      mode="selector"
+      bindchange="regionChange2"
+      range="{{buildings}}"
+      range-key="name"
+      value="{{buildingIndex}}"
+      >
+      <view class="picker">
+          {{buildings[buildingIndex].name}}
+      </view>
+    </picker>
+  </view>
+
+  <!-- 楼层 -->
+  <view class="cu-form-group" style="border-top: 1px solid #eee">
+    <view class='title'>楼层</view>
+    <picker
+      mode="selector"
+      bindchange="regionChange3"
+      range="{{floors}}"
+      range-key="name"
+      value="{{floorIndex}}"
+      >
+      <view class="picker">
+          {{floors[floorIndex].name}}
       </view>
     </picker>
   </view>
 
   <view class="cu-form-group">
-    <view class='title'>房间号</view>
-    <input placeholder="请填写收货人房间号" class='radius text-right' name='input'></input>
+    <view class='title'>详细地址</view>
+    <input
+      placeholder="请填写详细地址"
+      class='radius text-right'
+      data-key="contactAddress"
+      value="{{params.contactAddress}}"
+      bindinput="bindinput"
+    />
   </view>
 
   <view class="cu-form-group">
     <view class='title'>设置默认地址</view>
-    <switch class='cyan sm' checked></switch>
+    <switch class='cyan sm' checked="{{params.isDefault == 0 ? true : false}}" bindchange="switchChange"></switch>
   </view>
 
   <!-- 确定按钮 -->
   <view class="qs-btn-box mt-30">
-    <button class="qs-btn qs-bg" bindtap="chooseStandard">保存</button>
+    <button class="qs-btn qs-bg" bindtap="saveAddress">保存</button>
   </view>
 
 </view>

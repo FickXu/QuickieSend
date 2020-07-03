@@ -51,77 +51,49 @@ Page({
   },
   bindshow(e) {
     let id = e.currentTarget.dataset.id
+    console.log(id, '=================================')
     this.setData({
       currentAddressId: id
     })
   },
-  // 选择收货地址
-  chooseAddress() {
-    let self = this
-    wx.chooseAddress({
-    	success: res => {
-        self.setData({
-          contact: res.userName,
-          mobilePhone: res.telNumber,
-          contactAddress: res.provinceName + ' ' + res.cityName + ' ' + res.countyName + ' ' + res.detailInfo
-        })
 
-        if (this.data.isEdit) {
-          self.updateshopaddress()
-        } else {
-          self.saveshopaddress()
-        }
-    	},
-    	fail: err => {
-    		console.log('md:', err)
-    	}
-    })
-  },
   // 修改收货地址
   updateshopaddress() {
     wx.navigateTo({
-      url: '../modify-address/modify-address'
+      url: '../modify-address/modify-address',
+      events: {
+        refresh: () => {
+          this.queryList()
+        }
+      },
+      success: res => {
+        let params = {
+          isEdit: true,
+          ...this.data.addressList[this.data.addressList.findIndex(item => item.id == this.data.currentAddressId)]
+        }
+        res.eventChannel.emit('sendData', params)
+      }
     })
-    // let self = this
-    // let params = {
-    //   id: this.data.currentAddressId,
-    //   contact: this.data.contact,
-    //   contactAddress: this.data.contactAddress,
-    //   isDefault: 0, // 1,非默认;0,默认
-    //   mobilePhone: this.data.mobilePhone,
-    //   openId: app.globalData.openId
-    // }
-
-    // request('user/updateshopaddress', params).then(res => {
-    //   if (res.data.code == 10000) {
-    //     wx.showToast({
-    //       title: res.data.msg,
-    //       success() {
-    //         self.queryshopaddresslist()
-    //       }
-    //     })
-    //   }
-    // })
   },
   // 设置收货地址
   setAddress(e) {
-    let index = e.currentTarget.dataset.index
-    let currentAddress = this.data.addressList[index]
-    let self = this
+    // let index = e.currentTarget.dataset.index
+    // let currentAddress = this.data.addressList[index]
+    // let self = this
 
-    // 弹窗确认是否选择地址
-    wx.showModal({
-      title: '确认收货地址',
-      content: `否将收货地址设置为：${currentAddress.contactAddress}。【点击“确定”按钮立刻下单，点击“取消”按钮更换地址】`,
-      success (res) {
-        if (res.confirm) {
-          // url中的参数通过option.query接收；其他通过自定义事件通信
-          const eventChannel = self.getOpenerEventChannel()
-          eventChannel.emit('setShippingAddress', currentAddress)
-          wx.navigateBack()
-        }
-      }
-    })
+    // // 弹窗确认是否选择地址
+    // wx.showModal({
+    //   title: '确认收货地址',
+    //   content: `否将收货地址设置为：${currentAddress.contactAddress}。【点击“确定”按钮立刻下单，点击“取消”按钮更换地址】`,
+    //   success (res) {
+    //     if (res.confirm) {
+    //       // url中的参数通过option.query接收；其他通过自定义事件通信
+    //       const eventChannel = self.getOpenerEventChannel()
+    //       eventChannel.emit('setShippingAddress', currentAddress)
+    //       wx.navigateBack()
+    //     }
+    //   }
+    // })
   },
   // 设置默认地址
   setdefaultshopaddress() {
@@ -143,29 +115,20 @@ Page({
     })
   },
   // 新增收货地址
-  saveshopaddress() {
-    let self = this
-    let params = {
-      contact: this.data.contact,
-      contactAddress: this.data.contactAddress,
-      isDefault: 0, // 1,非默认;0,默认
-      mobilePhone: this.data.mobilePhone,
-      openId: app.globalData.openId
-    }
-
+  addAddress() {
     // 新增地址
-    this.setData({
-      isEdit: false
-    })
-
-    request('user/address/add', params).then(res => {
-      if (res.data.code == 10000) {
-        wx.showToast({
-          title: res.data.msg,
-          success() {
-            self.queryshopaddresslist()
-          }
-        })
+    wx.navigateTo({
+      url: '../modify-address/modify-address',
+      events: {
+        refresh: () => {
+          this.queryList()
+        }
+      },
+      success: res => {
+        let params = {
+          isEdit: false,
+        }
+        res.eventChannel.emit('sendData', params)
       }
     })
   },
@@ -177,12 +140,12 @@ Page({
       openId: app.globalData.openId
     }
 
-    request('user/delshopaddress', params).then(res => {
+    request('user/address/del', params).then(res => {
       if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,
           success() {
-            self.queryshopaddresslist()
+            self.queryList()
           }
         })
       }

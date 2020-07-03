@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/home/home",
-    "pages/bind-phone/bind-phone",
     "pages/address-list/address-list",
     "pages/modify-address/modify-address",
+    "pages/bind-phone/bind-phone",
     "pages/person-info/person-info",
     "pages/login/login",
     "pages/my-scan/my-scan",
