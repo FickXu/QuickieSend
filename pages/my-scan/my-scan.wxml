@@ -5,7 +5,7 @@
 
   <!-- 二维码 -->
   <view class="scan mt-20">
-    <image src="../images/rich.png" alt="扫我"  />
+    <image src="{{iconUrl}}" alt="扫我"  />
   </view>
 
   <!-- 操作按钮 -->
@@ -13,6 +13,6 @@
     <button class="button bg-fill" bindtap="openShopingDetailPage">购物详情</button>
   </view>
   <view class="mt-20">
-    <button class="button border" bindtap="openConsumeRecordPage">用户消费记录</button>
+    <button class="button border" bindtap="openConsumeRecordPage">收支记录</button>
   </view>
 </view>

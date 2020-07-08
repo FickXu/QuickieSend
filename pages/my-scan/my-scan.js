@@ -1,7 +1,5 @@
 import request from '../api/request'
 
-var WXBizDataCrypt = require('../../RdWXBizDataCrypt/RdWXBizDataCrypt.js')
-
 const app = getApp()
 
 Page({
@@ -9,13 +7,13 @@ Page({
     addGlobalClass: true,
   },
   data: {
-    apis:  {
-      login: 'base/info',
-      auth: 'auth'
-    },
     customBar: app.globalData.CustomBar,
     title: '我的二维码',
     iconUrl: '../images/bg-scan.png'
+  },
+
+  onLoad() {
+    request('user/referralcode').then(res => {})
   },
 
   // 购物详情页

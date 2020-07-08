@@ -4,15 +4,15 @@
 </cu-custom>
 
 <!-- 明细列表 -->
-<view class="margin-top bg-white">
+<view class="margin-top-sm bg-white">
   <view class="padding qs-border-bottom flex justify-between flex-align-center" wx:for="{{list}}">
     <view>
       <view class="text-black fz-14">{{item.title}}</view>
       <view class="text-gray fz-12">{{item.createDate}}</view>
     </view>
     <view>
-      <view class="text-gray fz-12 text-right">{{item.status == 0 ? '' : (itme.status == 1 ? '审核中' : '提现失败')}}</view>
-      <view class="mt-5 price fz-14 text-right">{{item.money}}</view>
+      <view class="text-gray fz-12 text-right">{{item.withdrawalStatue == 0 ? '待审' : (itme.status == 1 ? '审核中' : '提现失败')}}</view>
+      <view class="mt-5 price fz-14 text-right">{{item.amount}}</view>
     </view>
   </view>
 </view>

@@ -1,15 +1,15 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/my-scan/my-scan",
+    "pages/shoping-detail/shoping-detail",
+    "pages/withdraw/withdraw",
     "pages/user-auth/user-auth",
     "pages/address-list/address-list",
     "pages/modify-address/modify-address",
     "pages/bind-phone/bind-phone",
     "pages/person-info/person-info",
     "pages/login/login",
-    "pages/my-scan/my-scan",
-    "pages/shoping-detail/shoping-detail",
-    "pages/withdraw/withdraw",
     "pages/add-comment/add-comment",
     "pages/orders-detail/orders-detail",
     "pages/collection-list/collection-list",

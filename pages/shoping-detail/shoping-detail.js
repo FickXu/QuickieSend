@@ -177,5 +177,12 @@ Page({
       url: '../withdraw-record/withdraw-record'
     })
   },
+
+  // 提现页面
+  openWithdrawalPage() {
+    wx.navigateTo({
+      url: '../withdraw/withdraw'
+    })
+  },
 })
 

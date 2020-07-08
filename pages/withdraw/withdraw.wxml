@@ -6,29 +6,29 @@
   </cu-custom>
   
   <!-- 设置 -->
-  <view class="cu-list menu list-menu settings">
+  <view class="cu-list menu list-menu margin-top-sm">
     <!-- 开户行，卡号，姓名，手机号，提现金额 -->
     <view class="cu-item">
       <view class="title">开户行</view>
-      <input class="flex-row5 text-right" placeholder="请输入开户行" type="text"></input>
+      <input class="flex-row5 text-right" placeholder="请输入开户行" type="text" data-key="bankName" bindinput="bindinput"></input>
     </view>
     <view class="cu-item">
       <view class="title">开户姓名</view>
-      <input class="flex-row5 text-right" placeholder="请输入开户姓名" type="text"></input>
+      <input class="flex-row5 text-right" placeholder="请输入开户姓名" type="text" data-key="bankCardholder" bindinput="bindinput"></input>
     </view>
     <view class="cu-item">
       <view class="title">银行卡号</view>
-      <input class="flex-row5 text-right" placeholder="请输入银行卡号" type="number"></input>
+      <input class="flex-row5 text-right" placeholder="请输入银行卡号" type="number" data-key="bankAccount" bindinput="bindinput"></input>
     </view>
     <view class="cu-item">
       <view class="title">手机号</view>
-      <input class="flex-row5 text-right" placeholder="请输入手机号" type="number"></input>
+      <input class="flex-row5 text-right" placeholder="请输入手机号" type="number" data-key="telephone" bindinput="bindinput"></input>
     </view>
     <view class="title fz-16 padding">提现金额</view>
     <view class="cu-item">
       <view class="flex flex-align-center">
         <view class="flex-row1 bold" style="font-size: 24px">¥</view>
-        <input class="flex-row5 fz-18" placeholder="请输入提现金额" type="digit"></input>
+        <input class="flex-row5 fz-18" placeholder="请输入提现金额" type="digit" data-key="amount" bindinput="bindinput"></input>
       </view>
     </view>
     <view class="tips text-red">余额9403元，单次提现在100-2000元之间（预计48小时到账）</view>
@@ -56,6 +56,6 @@
   
   <!-- 退出登录 -->
   <view class="qs-btn-box">
-    <button class="qs-btn qs-bg">确定</button>
+    <button class="qs-btn qs-bg" bindtap="confirmWithdraw">确定</button>
   </view>
 </view>

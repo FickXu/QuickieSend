@@ -67,5 +67,5 @@
 </view>
 
 <view class="qs-btn-box mb-30">
-  <button class="qs-btn qs-bg">提现</button>
+  <button class="qs-btn qs-bg" bindtap="openWithdrawalPage">提现</button>
 </view>

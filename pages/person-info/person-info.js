@@ -89,7 +89,6 @@ Page({
 
 	// 输入时间
 	bindinput(e) {
-		console.log(e)
 		let key = e.currentTarget.dataset.key
 		let value = e.detail.value
 		let params = {
