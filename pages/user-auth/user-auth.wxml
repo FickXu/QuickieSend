@@ -13,13 +13,26 @@
     <!-- 姓名 -->
     <view class="cu-form-group">
       <view class="title">姓名</view>
-      <input class="text-right" placeholder="请输入真实姓名"></input>
+      <input
+        class="text-right"
+        placeholder="请输入真实姓名"
+        data-key="realName"
+        disabled="{{disabled}}"
+        value="{{details.realName}}"
+        bindinput="bindinput"
+        >
+      </input>
     </view>
 
     <!-- 性别 -->
     <view class="cu-form-group">
 		  <view class="title">性别</view>
-      <picker bindchange="PickerChange" value="{{genderIndex}}" range="{{genderArray}}">
+      <picker
+        disabled="{{disabled}}"
+        value="{{genderIndex}}"
+        range="{{genderArray}}"
+        bindchange="PickerChange"
+        >
         <view class="picker value">
           {{genderArray[genderIndex]}}
         </view>
@@ -29,7 +42,14 @@
     <!-- 身份证号码 -->
     <view class="cu-form-group">
       <view class="title">身份证号码</view>
-      <input class="text-right" placeholder="请输入身份证号码"></input>
+      <input
+        class="text-right"
+        placeholder="请输入身份证号码"
+        data-key="idCard"
+        disabled="{{disabled}}"
+        value="{{details.idCard}}"
+        bindinput="bindinput"
+        ></input>
     </view>
 
   </view>
@@ -40,20 +60,20 @@
     </view>
 
     <view class="id-card flex space-between flex-align-center mt-15">
-      <view class="front">
-        <image src="../images/rich.png" />
+      <view class="front" bindtap="uploaderImage" data-key="idCardFrong">
+        <image src="{{details.idCardFrong || ''}}" />
         <view class="desc">身份证正面</view>
       </view>
-      <view class="back">
-        <image src="../images/rich.png" />
+      <view class="back" bindtap="uploaderImage" data-key="idCardFrong">
+        <image src="{{details.idCardReverse || ''}}" />
         <view class="desc">身份证反面</view>
       </view>
     </view>
   </view>
 
   <!-- 操作按钮 -->
-  <view class="qs-btn-box mt-30">
-    <button class="qs-btn qs-bg" open-type='getUserInfo' bindgetuserinfo="bindgetuserinfo">提交</button>
+  <view class="qs-btn-box mt-30" wx:if='{{!disabled}}'>
+    <button class="qs-btn qs-bg" bindtap="confirmUserAuth">提交</button>
   </view>
 
 </view>

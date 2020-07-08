@@ -19,9 +19,9 @@
       <view class="content">绑定号码</view>
       <view class="value">未设置</view>
     </view> -->
-    <view class="cu-item arrow">
+    <view class="cu-item arrow" bindtap="userAuthPage">
       <view class="content">实名认证</view>
-      <view class="value">未认证</view>
+      <view class="value">{{isRealNameText}}</view>
     </view>
   </view>
   
