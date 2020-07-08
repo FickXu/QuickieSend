@@ -1,0 +1,17 @@
+<!--pages/consumer-details/consumer-details.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold text-black">{{ title }}</view>
+</cu-custom>
+
+<!-- 医院列表 -->
+<view class="bg-white">
+  <view class="padding qs-border-bottom flex justify-between flex-align-center" wx:for="{{list}}" bindtap="selectHospital" data-latitude="{{item.latitude}}" data-longitude="{{item.longitude}}">
+    <view>
+      <view class="text-black fz-14">{{item.title}}</view>
+      <view class="text-gray fz-12">{{item.address}}</view>
+    </view>
+    <view>
+      <view class="mt-5 fz-14 text-right cu-tag round">{{item.distance}}</view>
+    </view>
+  </view>
+</view>

@@ -7,7 +7,7 @@
   
     <!-- 搜索组件 -->
     <view class="search-box">
-      <view class="location cuIcon-location text-white" bindtap="getLocation">
+      <view class="location cuIcon-location text-white" bindtap="openHospitalListPage">
         <text class="label">定位</text>
       </view>
       <view class="search">

@@ -1,3 +1,5 @@
+const { default: request } = require("../api/request");
+
 const app = getApp();
 
 Page({
@@ -11,35 +13,12 @@ Page({
     loginCode: 10007,
     commodityList: [
       {
-        id: 1,
-        name: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
-        price: 88.0,
+        spuId: 1,
+        spuMainImg: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg',
+        spuName: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
+        showPrice: 88.0,
         postType: '免费配送'
-      },
-      {
-        id: 2,
-        name: '红烧鱼',
-        price: 30,
-        postType: '免费配送'
-      },
-      {
-        id: 4,
-        name: '红烧肘子',
-        price: 30,
-        postType: '免费配送'
-      },
-      {
-        id: 4,
-        name: '红烧肘子',
-        price: 30,
-        postType: '免费配送'
-      },
-      {
-        id: 3,
-        name: '清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼清蒸鲈鱼',
-        price: 38.0,
-        postType: '免费配送'
-      },
+      }
     ],
     searchPlaceholder: '一次性一用口罩',
     // 热门分类列表
@@ -62,7 +41,9 @@ Page({
       }
     ],
     // 当前热门分类下标
-    categoryIndex: 0
+    categoryIndex: 0,
+    // 当前查询的店铺详情
+    shopDetails: {}
   },
 
   // 打开购物车
@@ -71,28 +52,36 @@ Page({
       url: '../shoping-car/shoping-car'
     })
   },
+  
+  // 查询已选医院最近店铺
+  queryShopInfo(obj) {
+    let params = {
+      ...obj
+    }
+    request('area/getlatelyareaone', params).then(res => {
+      this.setData({
+        shopDetails: res.data.data
+      })
+    })
+    console.log('选择了：', params)
+  },
 
   // 下拉刷新
   bindrefresherpulling: function () {
     console.log(234)
   },
 
-  // 获取定位信息
-  getLocation: function () {
-    // 获取位置
-    wx.getLocation({
-      type: 'wgs84',
-      success (res) {
-        console.log('get location', res)
+  // 获取最近的医院列表
+  openHospitalListPage: function () {
+    let slef = this
+    wx.navigateTo({
+      url: '../hospital-list/hospital-list',
+      events: {
+        refresh(params) {
+          slef.queryShopInfo(params)
+        }
       }
     })
-    // 通过位置获取附近的店铺列表
-    this.getNearShopsList()
-  },
-
-  // 获取附近的店铺列表
-  getNearShopsList: function () {
-    console.log('附近店铺列表')
   },
 
   // 选择热门分类

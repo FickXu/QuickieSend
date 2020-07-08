@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/hospital-list/hospital-list",
     "pages/my-scan/my-scan",
     "pages/shoping-detail/shoping-detail",
     "pages/withdraw/withdraw",
