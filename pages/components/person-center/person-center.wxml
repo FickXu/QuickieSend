@@ -12,9 +12,10 @@
     <view class="flex justify-between flex-align-center padding" bindtap="goToSettingPage">
       <view class="user-info">
         <image src="{{userInfo.headPortrait}}"  class="user-photo" />
+        <image class="user-auth" src="./img/user-auth.png" wx:if='{{userInfo.isRealName == 2}}' />
         <view class="user-info-name">
           <text>{{userInfo.nickName}}</text>
-          <!-- <text class="small">{{userInfo.nickName}}</text> -->
+          <text class="small">{{userInfo.telephone}}</text>
         </view>
       </view>
       <view class="cuIcon-qrcode text-white fz-20" bindtap="openMyScanOpenPage"></view>

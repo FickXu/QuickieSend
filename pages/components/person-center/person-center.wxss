@@ -12,11 +12,19 @@
   padding: 20rpx;
   display: flex;
   align-items: center;
+  position: relative;
 }
 .person-center .user-info .user-photo {
   width: 120rpx;
   height: 120rpx;
   border-radius: 100%;
+}
+.person-center .user-info .user-auth {
+  position: absolute;
+  width: 17px;
+  height: 20px;
+  bottom: 10rpx;
+  left: 98rpx;
 }
 .person-center .user-info-name {
   font-size: 48rpx;

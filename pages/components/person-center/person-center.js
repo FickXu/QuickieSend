@@ -1,3 +1,5 @@
+import request from '../../api/request'
+
 // 获取app实例，包含了用户信息和全局方法
 const app = getApp();
 
@@ -51,26 +53,16 @@ Component({
     ],
 	},
 	ready: function () {
-		let self = this
-		// // console.log(app.globalData)
-		// let userInfo = {
-		// 	avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
-		// 	city: "Shenzhen",
-		// 	country: "China",
-		// 	gender: 1,
-		// 	language: "zh_CN",
-		// 	nickName: "Fick",
-		// 	province: "Guangdong"
-		// }
-		
-		wx.getStorage({
-			key: 'userInfo',
-			success (res) {
-				self.setData({
-					userInfo: res.data
-				})
-			}
+		request('user/info').then(res => {
+			this.setData({
+				userInfo: res.data.data
+			})
+			wx.setStorage({
+				key: 'userInfo',
+				data: res.data.data
+			})
 		})
+		
 	},
 	methods: {
 		// 打开二维码页面
