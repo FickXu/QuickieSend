@@ -27,6 +27,7 @@ Page({
   },
   // 获取消费明细
   queryList() {
+    let self = this
     // 获取位置
     wx.getLocation({
       type: 'wgs84',
@@ -37,7 +38,10 @@ Page({
         }
         request('area/getlatelyarealist', params).then(res => {
           let arr = [].concat(res.data.data)
-          this.setData({
+          arr.forEach(item => {
+            item.distance = item.distance > 99 ? (item.distance/1000).toFixed(2) + 'km' : item.distance + 'm'
+          })
+          self.setData({
             list: arr
           })
         })

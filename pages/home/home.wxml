@@ -22,16 +22,16 @@
   <!-- 附近店铺信息 -->
   <view class="near-shop-info">
     <view class="shop-img">
-      <image class="img" src="https://fick-db-1257045447.cos.ap-chengdu.myqcloud.com/test-img/top-bg-home.png" />
+      <image class="img" src="{{shopDetails.imgPath}}" />
     </view>
     <view class="shop-desc">
-      <view class="title">麓谷小镇美宜佳</view>
-      <view class="title1">美宜佳</view>
+      <view class="title">{{shopDetails.shopName}}</view>
+      <view class="title1">{{shopDetails.areaName}}</view>
     </view>
-    <view class="attr-item">
+    <!-- <view class="attr-item">
       <view class="value orange">1000</view>
       <view class="label">粉丝数</view>
-    </view>
+    </view> -->
     <view class="attr-item">
       <view class="value red">3.9万</view>
       <view class="label">购买指数</view>

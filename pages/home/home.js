@@ -1,4 +1,4 @@
-const { default: request } = require("../api/request");
+import request from '../api/request'
 
 const app = getApp();
 
@@ -62,8 +62,11 @@ Page({
       this.setData({
         shopDetails: res.data.data
       })
+      wx.setStorage({
+        key: 'shopDetails',
+        data: res.data.data
+      })
     })
-    console.log('选择了：', params)
   },
 
   // 下拉刷新
@@ -154,26 +157,16 @@ Page({
     }
   },
 
-  // 页面显示时检查登录状态
+  // 页面显示时检查店铺信息
   onShow: function () {
     let self = this
-    if (app.globalData.loginCode == 10007) {
-      self.setData({
-        isLogin: false,
-        loginCode: app.globalData.loginCode
-      })
-      return
-    }
-
     wx.getStorage({
-      key: 'userInfo',
+      key: 'shopDetails',
       success (res) {
-        // console.log('Page home:', res)
+        console.log('Page home:', res)
         self.setData({
-          isLogin: true,
+          shopDetails: res.data,
         })
-        // 缓存到全局
-        app.globalData.userInfo = res.data
       },
       fail (err) {
         console.log('get storage fail:', err)

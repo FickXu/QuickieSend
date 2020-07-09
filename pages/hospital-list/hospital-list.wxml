@@ -7,8 +7,8 @@
 <view class="bg-white">
   <view class="padding qs-border-bottom flex justify-between flex-align-center" wx:for="{{list}}" bindtap="selectHospital" data-latitude="{{item.latitude}}" data-longitude="{{item.longitude}}">
     <view>
-      <view class="text-black fz-14">{{item.title}}</view>
-      <view class="text-gray fz-12">{{item.address}}</view>
+      <view class="text-black fz-14">{{item.areaName}}</view>
+      <!-- <view class="text-gray fz-12">{{item.address}}</view> -->
     </view>
     <view>
       <view class="mt-5 fz-14 text-right cu-tag round">{{item.distance}}</view>
