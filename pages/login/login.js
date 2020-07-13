@@ -147,6 +147,10 @@ Page({
             key: 'isLogin',
             data: true
           })
+          // 首单奖励金额
+          // firstOrderRewardNewAamount: "1000"
+          // 首单有效期 天
+          // firstOrderRewardNewValidity: "1"
           wx.setStorage({
             key: 'userInfo',
             data: res.data.data

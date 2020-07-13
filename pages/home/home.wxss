@@ -143,3 +143,28 @@
   height: calc(100vh - 384rpx - 144rpx - -80rpx - calc(100rpx + env(safe-area-inset-bottom) / 2));
   width: 100%;
 }
+.cu-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cu-modal .action {
+  position: absolute;
+  right: 40rpx;
+  top: 30rpx;
+  z-index: 9;
+}
+.cu-modal .modal-body {
+  position: relative;
+  width: 640rpx;
+  height: 800rpx;
+}
+.cu-modal .modal-body image {
+  width: 100%;
+  height: 100%;
+}
+.cu-modal .modal-body .label {
+  position: absolute;
+  top: 300rpx;
+  width: 100%;
+}

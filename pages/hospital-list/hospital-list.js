@@ -25,7 +25,8 @@ Page({
 
     this.queryList()
   },
-  // 获取消费明细
+  
+  // 获取最近的医院列表
   queryList() {
     let self = this
     // 获取位置

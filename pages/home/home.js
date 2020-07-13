@@ -1,4 +1,5 @@
 import request from '../api/request'
+import {convertRMB} from '../../utils/util'
 
 const app = getApp();
 
@@ -9,41 +10,48 @@ Page({
   data: {
     title: '马上送到',
     PageCur: 'home',
-    isLogin: true,
+    isLogin: false,
     loginCode: 10007,
     commodityList: [
-      {
-        spuId: 1,
-        spuMainImg: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg',
-        spuName: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
-        showPrice: 88.0,
-        postType: '免费配送'
-      }
+      // {
+      //   spuId: 1,
+      //   spuMainImg: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg',
+      //   spuName: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
+      //   showPrice: 88.0,
+      //   postType: '免费配送'
+      // }
     ],
     searchPlaceholder: '一次性一用口罩',
     // 热门分类列表
-    hotCategoryList: [
-      {
-        id: 1,
-        name: '营养餐'
-      },
-      {
-        id: 2,
-        name: '陪护餐'
-      },
-      {
-        id: 3,
-        name: '营养品'
-      },
-      {
-        id: 4,
-        name: '住院相关'
-      }
-    ],
+    hotCategoryList: [],
     // 当前热门分类下标
     categoryIndex: 0,
     // 当前查询的店铺详情
-    shopDetails: {}
+    shopDetails: {},
+    // 是否显示首单奖励
+    isShow: false,
+    // 首单减免金额
+    firstOrderRewardNewAamount: '',
+    // 首单减免有效期
+    firstOrderRewardNewValidity: '',
+    // 商品列表查询参数
+    commodityListQueryParams: {
+      goodsTypeIdOne: '',
+      goodsTypeIdTwo: '',
+      goodsTypeIdThree: '',
+      goodsTypeIdFour: '',
+      goodsTypeIdFive: '',
+      shopId: '',
+      spuCode: '',
+      spuName: '',
+    }
+  },
+
+  // 关闭弹窗
+  hideModal() {
+    this.setData({
+      isShow: false
+    })
   },
 
   // 打开购物车
@@ -60,8 +68,14 @@ Page({
     }
     request('area/getlatelyareaone', params).then(res => {
       this.setData({
-        shopDetails: res.data.data
+        shopDetails: res.data.data,
+        // 'commodityListQueryParams.shopId': res.data.data.shopId
+        'commodityListQueryParams.shopId': 21
       })
+      
+      // 获取店铺分类
+      this.getCategroyListByShopId()
+      
       wx.setStorage({
         key: 'shopDetails',
         data: res.data.data
@@ -89,41 +103,48 @@ Page({
 
   // 选择热门分类
   chooseCategory: function (event) {
-    let index = event.currentTarget.dataset.index
+    let id = event.currentTarget.dataset.id
     this.setData({
-      categoryIndex: index
+      'commodityListQueryParams.goodsTypeIdTwo': id
     })
 
     // 刷新商品列表
-    this.getCommodityByCategoryId()
+    this.getCommodityList()
+  },
+
+  // 获取店铺的分类
+  getCategroyListByShopId: function () {
+    let shopId = this.data.commodityListQueryParams.shopId
+    request(`shop/getshopgoodstype/${shopId}`).then(res => {
+
+      this.setData({
+        hotCategoryList: res.data.data.splice(0, 4),
+        // 'commodityListQueryParams.goodsTypeIdTwo': res.data.data[0].id
+        'commodityListQueryParams.goodsTypeIdTwo': 38
+      })
+      
+      this.getCommodityList()
+    })
   },
 
   // 获取商品列表
-  getCommodityByCategoryId: function () {
-    let id = this.data.categoryIndex
-    console.log('获取商品列表', id)
-  },
-
-  // 通知登录状态
-  login: function (res) {
-    let detail = res.detail
-    if (detail.status == 200) {
-      this.setData({
-        isLogin: true,
-        loginCode: 0
-      })
+  getCommodityList: function () {
+    let params = {
+      ...this.data.commodityListQueryParams
     }
+    
+    request('shop/shopspupagelist', params).then(res => {
+      this.setData({
+        commodityList: res.data.data
+      })
+      
+    })
   },
 
   // 页面导航
   routerPage: function(event) {
     let self = this
     let data = event.currentTarget.dataset.page;
-    // self.setData({
-    //   PageCur: data,
-    //   loginCode: 0,
-    //   showSearch: 'block'
-    // })
     
     if (!this.data.isLogin && data == 'person-center') {
       wx.showModal({
@@ -157,23 +178,78 @@ Page({
     }
   },
 
+  // 获取最近的医院
+  queryNearHospitalInfo() {
+    let self = this
+    // 获取位置
+    wx.getLocation({
+      type: 'wgs84',
+      success (res) {
+        let params = {
+          latitude: res.latitude,
+          longitude: res.longitude
+        }
+        request('area/getlatelyarealist', params).then(res => {
+          let params = {
+            latitude: res.data.data[0].latitude,
+            longitude: res.data.data[0].longitude
+          }
+          self.queryShopInfo(params)
+        })
+      }
+    })
+  },
+  
   // 页面显示时检查店铺信息
   onShow: function () {
+    
+    // 加载商品分类和商品列表
     let self = this
     wx.getStorage({
       key: 'shopDetails',
       success (res) {
         console.log('Page home:', res)
         self.setData({
-          shopDetails: res.data,
+          shopDetails: res.data
         })
+        
+        self.queryNearHospitalInfo()
       },
       fail (err) {
         console.log('get storage fail:', err)
-        self.setData({
-          isLogin: false
+        self.queryNearHospitalInfo()
+      }
+    })
+    
+    // 新用户首单减免，只弹出一次。后端已经做了首次登录判断，所以前端只需根据字段判断，有值显示没值不显示，且只显示一次
+    let isFirstShow = wx.getStorageSync('isFirstShow')
+    
+    if (!isFirstShow) {
+      // 减免金额，分
+      let firstOrderRewardNewAamount = wx.getStorageSync('userInfo').firstOrderRewardNewAamount
+      
+      if (firstOrderRewardNewAamount) {
+        firstOrderRewardNewAamount = convertRMB(parseInt(firstOrderRewardNewAamount), 'cent')
+        
+        // 活动有效期，天
+        let firstOrderRewardNewValidity = wx.getStorageSync('userInfo').firstOrderRewardNewValidity
+        this.setData({
+          isShow: true,
+          firstOrderRewardNewAamount: firstOrderRewardNewAamount,
+          firstOrderRewardNewValidity: firstOrderRewardNewValidity
+        })
+        
+        wx.setStorage({
+          key: 'isFirstShow',
+          data: true
         })
       }
+    }
+
+    // 是否已经登录
+    let isLogin = wx.getStorageSync('isLogin')
+    this.setData({
+      isLogin: isLogin ? true : false
     })
   }
 })

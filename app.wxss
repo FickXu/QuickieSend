@@ -4264,6 +4264,9 @@ scroll-view.cu-steps .cu-item {
 .fz-20 {
   font-size: 20px;
 }
+.fz-30 {
+  font-size: 30px;
+}
 .line-overflow {
   display: -webkit-box;
   word-break: break-all;
