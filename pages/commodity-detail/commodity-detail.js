@@ -1,3 +1,5 @@
+const { default: request } = require("../api/request");
+
 const app = getApp();
 
 Page({
@@ -7,10 +9,7 @@ Page({
   data: {
     customBar: app.globalData.CustomBar,
     title: '商品详情',
-    detail: {
-      nickName: 'Fick',
-      avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
-    },
+    detail:{"id":62,"shopSpuId":"21-62","spuId":62,"spuMainImg":"spuMainImg","spuBannerImgList":[{"id":168,"spuId":62,"spuInfoImg":"spuBannerImgArr","orderNo":1,"imgType":2}],"mallSpuSpecModelList":[{"value":"52","label":null,"spuId":62,"id":52,"childs":[{"value":"81","label":"单开门","id":81,"spuSpecId":52},{"value":"82","label":"双开门","id":82,"spuSpecId":52}]}],"spuInfoImgList":[{"id":167,"spuId":62,"spuInfoImg":"spuInfoImgArr","orderNo":1,"imgType":1}],"spuCode":"001","spuAbstract":"spuAbstract","goodsTypeIdOne":37,"goodsTypeIdTwo":38,"goodsTypeIdThree":null,"goodsTypeIdFour":null,"goodsTypeIdFive":null,"goodsTypeIdOneName":"家电","goodsTypeIdTwoName":"冰箱","goodsTypeIdThreeName":"","goodsTypeIdFourName":"","goodsTypeIdFiveName":"","brandId":14,"brandName":"亮亮","brandIcon":null,"spuName":"蔡徐坤奶粉1","showPrice":null,"realPrice":null,"skuKey":null,"filialeId":23,"filialeName":"长沙分公司01","saleQty":62,"evaluateQty":0,"shopId":21},
     swiperList: [
       {
         id: 0,
@@ -42,13 +41,29 @@ Page({
         postType: '免费配送'
       }
     ],
-    showSelectStandard: false 
+    // 规格选择
+    showSelectStandard: false,
+    // 已选规格
+    SPEC_OBJ: {},
+    // 页面显示的已选规格
+    standardLabel: '请选择规格',
+    // 显示购物车
+    showShopCar: false,
+    // 购物车数据
+    shopcarList: [],
+    // 购物车商品数量
+    shopCarCommodityNums: 0,
+    // 购物车商品的总价
+    totalAmount: 0
   },
 
   // 商品数量发生变化
   numberChange(e) {
-    let numbers = e.detail
-    console.log('number', numbers)
+    let detail = e.detail
+    this.setData({
+      detail: detail
+    })
+    console.log('number', detail)
   },
 
   // 查看所有评论
@@ -61,14 +76,84 @@ Page({
     })
   },
 
+  // 页面显示的已选中规格
+  getStandardLabes() {
+    let label = ''
+    for (let key in this.data.SPEC_OBJ) {
+      label += this.data.SPEC_OBJ[key].label + '&emsp;'
+    }
+    this.setData({
+      standardLabel: label
+    })
+  },
+
   // 选择规格
+  selectStandard(e) {
+    let parentValue = e.currentTarget.dataset.parentValue
+    let value = e.currentTarget.dataset.value
+    let label = e.currentTarget.dataset.label
+    let params = {
+      ...this.data.SPEC_OBJ,
+    }
+    params[parentValue] = {
+      label: label,
+      value: value
+    }
+
+    // 保存选中的规格
+    this.setData({
+      SPEC_OBJ: params,
+      detail: {
+        ...this.data.detail,
+        SPEC_OBJ: params
+      }
+    })
+
+    this.getStandardLabes()
+
+    console.log('已选规格：', this.data.SPEC_OBJ)
+  },
+
+  // 根据规格获取单品
+  getCommodityBySpec() {
+    let params = {
+      skuKey: '',
+      spuId: ''
+    }
+    request('shop/shopspupagespecinfo', params).then(res => {
+
+    })
+  },
+
+  // 显示选择规格弹窗
+  shopCarModal() {
+    
+    this.setData({
+      showShopCar: !this.data.showShopCar
+    })
+
+    if (this.data.showShopCar) {
+      this.setData({
+        shopcarList: wx.getStorageSync('shopcarList')
+      })
+    }
+  },
+
+  // 关闭规格选择弹窗
+  hideShopCarModal(e) {
+    this.setData({
+      showShopCar: false
+    })
+  },
+
+  // 显示选择规格弹窗
   showSelectStandardModal() {
     this.setData({
       showSelectStandard: true
     })
   },
 
-  // 关闭规格选择
+  // 关闭规格选择弹窗
   hideSelectStandardModal(e) {
     this.setData({
       showSelectStandard: false
@@ -93,18 +178,6 @@ Page({
     console.log('附近店铺列表')
   },
 
-
-  // 通知登录状态
-  login: function (res) {
-    let detail = res.detail
-    if (detail.status == 200) {
-      this.setData({
-        isLogin: true,
-        loginCode: 0
-      })
-    }
-  },
-
   // 收藏
   collectCommodity() {},
 
@@ -115,23 +188,90 @@ Page({
 
   // 添加到购物车
   shopingCart() {
-    wx.showToast({
-      title: '已添加到购物车'
+
+    // 商品的默认数量为0，添加购物车需要选择规格
+    if (!this.data.detail.SPEC_OBJ) {
+      wx.showToast({
+        title: '请选择商品规格',
+        icon: 'none'
+      })
+      return
+    }
+    
+    // 商品的默认数量为1，添加购物车需要选择商品数量
+    if (!this.data.detail.CURRENT_QUANTITY) {
+      wx.showToast({
+        title: '请选择商品数量',
+        icon: 'none'
+      })
+      return
+    }
+
+    let self = this
+    // 获取购物车数据
+    let shopcarList = wx.getStorageSync("shopcarList") || []
+    wx.setStorage({
+      key: 'shopcarList',
+      data: shopcarList.concat([this.data.detail]),
+      success() {
+        wx.showToast({
+          title: '已添加到购物车'
+        })
+
+        self.hideSelectStandardModal()
+        self.getShopCarCommodityNums()
+      }
     })
+
     // wx.navigateTo({
     //   url: '../shoping-car/shoping-car'
     // })
   },
 
-  // 立即购买
-  buyNow() {},
+  // 清空购物车
+  clearShopCar() {
+    let self = this
 
-  // 选择规格
-  chooseStandard() {},
+    let shopcarList = wx.getStorageSync('shopcarList')
+
+    if (shopcarList) {
+      wx.showModal({
+        title: '提示',
+        content: '确定要清空购物车吗',
+        success(res) {
+          if (res.confirm) {
+            wx.removeStorage({
+              key: 'shopcarList',
+              success() {
+                self.getShopCarCommodityNums()
+                self.setData({
+                  shopcarList: wx.getStorageSync('shopcarList') || []
+                })
+              }
+            })
+          }
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '购物车是空的哦',
+        icon: 'none'
+      })
+    }
+  },
+
+  // 获取购物车商品数量
+  getShopCarCommodityNums() {
+    // 购物车商品数量
+    this.setData({
+      shopCarCommodityNums: wx.getStorageSync('shopcarList').length || 0
+    })
+  },
 
   // 页面显示时检查登录状态
   onShow: function () {
-    let self = this
+    this.getShopCarCommodityNums()
+    // let self = this
 
     // 页面通信
     // const eventChannel = this.getOpenerEventChannel()
@@ -139,11 +279,10 @@ Page({
     // eventChannel.on('sendData', function(data) {
     //   self.setData({
     //     detail: {
-    //       ...self.data.detail,
     //       ...data
     //     }
     //   })
-    //   console.log('获取到的参数：', data, self.data.detail)
+    //   console.log('获取到的参数：', JSON.stringify(data))
     // })
 
     // if (app.globalData.loginCode == 10007) {

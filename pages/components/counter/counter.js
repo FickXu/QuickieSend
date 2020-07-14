@@ -19,6 +19,9 @@ Component({
   },
   lifetimes: {
     ready () {
+      this.setData({
+        number: this.data.item.CURRENT_QUANTITY || 0
+      })
     },
   },
   methods: {

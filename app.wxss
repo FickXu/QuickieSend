@@ -4378,52 +4378,52 @@ scroll-view.cu-steps .cu-item {
 }
 /* 外边距 */
 .mt-10 {
-  margin-top: 10px;
+  margin-top: 20rpx;
 }
 .mt-15 {
-  margin-top: 15px;
+  margin-top: 30rpx;
 }
 .mt-20 {
-  margin-top: 20px;
+  margin-top: 40rpx;
 }
 .mt-30 {
-  margin-top: 30px;
+  margin-top: 60rpx;
 }
 .mr-10 {
-  margin-right: 10px;
+  margin-right: 20rpx;
 }
 .mr-15 {
-  margin-right: 15px;
+  margin-right: 30rpx;
 }
 .mr-20 {
-  margin-right: 20px;
+  margin-right: 40rpx;
 }
 .mr-30 {
-  margin-right: 30px;
+  margin-right: 60rpx;
 }
 .mb-10 {
-  margin-bottom: 10px;
+  margin-bottom: 20rpx;
 }
 .mb-15 {
-  margin-bottom: 15px;
+  margin-bottom: 30rpx;
 }
 .mb-20 {
-  margin-bottom: 20px;
+  margin-bottom: 40rpx;
 }
 .mb-30 {
-  margin-bottom: 30px;
+  margin-bottom: 60rpx;
 }
 .ml-10 {
-  margin-left: 10px;
+  margin-left: 20rpx;
 }
 .ml-15 {
-  margin-left: 15px;
+  margin-left: 30rpx;
 }
 .ml-20 {
-  margin-left: 20px;
+  margin-left: 40rpx;
 }
 .ml-30 {
-  margin-left: 30px;
+  margin-left: 60rpx;
 }
 /* 计数器 */
 .btn-minus {

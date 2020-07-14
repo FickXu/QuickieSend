@@ -11,8 +11,8 @@
   <!-- 详情主图 -->
   <view class="commodity-banner">
     <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true">
-    <swiper-item wx:for="{{swiperList}}" wx:key="index">
-      <image src="{{item.url}}" mode="aspectFill"></image>
+    <swiper-item wx:for="{{detail.spuBannerImgList}}" wx:key="index">
+      <image src="{{item.spuInfoImg}}" mode="aspectFill"></image>
     </swiper-item>
   </swiper>
   </view>
@@ -21,14 +21,14 @@
   <view class="commodity-info">
     <!-- 商品名称 -->
     <view class="header">
-      <view class="title line-overflow">{{detail.name}}</view>
+      <view class="title line-overflow">{{detail.spuName}}</view>
       <view class="flex space-between flex-align-center">
         <view class="left">
-          <text class="price">¥ {{detail.price}}</text>
-          <text class="value throw-line expired-price ml-10">¥  {{detail.price}}</text>
+          <text class="price">¥ {{detail.showPrice}}</text>
+          <text class="value throw-line expired-price ml-10">¥  {{detail.realPrice}}</text>
         </view>
         <view class="flex flex-align-center">
-          <text class="label-info">销量：22</text>
+          <text class="label-info">销量：{{detail.saleQty}}</text>
           <view class="shop-car cuIcon-share text-cyan ml-10" style="font-size: 18px"></view>
         </view>
       </view>
@@ -39,7 +39,7 @@
   <view class="standard-select mt-10">
     <view class="standard-container flex flex-align-center" bindtap="showSelectStandardModal">
       <text class="value">选择</text>
-      <text class="line-overflow ml-10" decode="{{true}}">重量&emsp;尺寸</text>
+      <text class="line-overflow ml-10" decode="{{true}}">{{standardLabel}}</text>
     </view>
   </view>
 
@@ -72,8 +72,21 @@
   
 </scroll-view>
 
-<!-- 底部导航 -->
-<view class="cu-bar tabbar bg-white shadow foot flex flex-align-center detail-bottom-nav">
+<!-- 购物车 -->
+<view class="btn-shop-car {{showShopCar?'bg-white zIndex-1111':'hide-zIndex'}}">
+  <view class="cu-bar flex detail-bottom-nav">
+    <view class="shop-car flex-row5 bg-cyan" bindtap="shopCarModal">
+      <text class="bg-red text-white badge" wx:if="{{shopCarCommodityNums>0}}">{{shopCarCommodityNums}}</text>
+      <image class="icon-shop-car" src="../images/logo1.png" />
+      <view class="ml-15">
+        <view class="text-white fz-20">¥ {{totalAmount}}</view>
+        <view class="text-white fz-12">免费配送</view>
+      </view>
+    </view>
+    <view class="settlement flex-row2">结算</view>
+  </view>
+</view>
+<!-- <view class="cu-bar tabbar bg-white shadow foot flex flex-align-center detail-bottom-nav">
   <view class="flex flex-align-center flex-row1">
     <view class="action text-grey}}" bindtap="collectCommodity">
       <view>
@@ -94,12 +107,13 @@
       </view>
     </view>
   </view>
-  <view class="btn-buy-now flex-row1 flex flex-align-center" bindtap="buyNow">立即购买</view>
-</view>
+  <view class="btn-buy-now flex-row1 flex flex-align-center" bindtap="shopingCart">
+    <text class="cuIcon-cart" decode="{{true}}">&ensp;</text>购物车</view>
+</view> -->
 
 <!-- 选择规格 -->
 <view class="cu-modal bottom-modal {{showSelectStandard ?'show':''}}">
-  <view class="cu-dialog">
+  <view class="cu-dialog" style="z-index: 1111">
     <view class="padding-xl bg-white">
       <view class="cu-bar icon-close" bindtap="hideSelectStandardModal">
         <view class="cuIcon-roundclose text-grey ml-10" style="font-size: 18px"></view>
@@ -120,34 +134,74 @@
       </view>
       
       <!-- 规格信息 -->
-      <view class="commodity-standard-list mt-20">
-        <view class="standard-item">
-          <view class="title">属性</view>
-          <view class="values">
-            <text class="cu-tag round mb-10">纯农家糯米5斤</text>
-            <text class="cu-tag round mb-10">纯农家5斤</text>
-            <text class="cu-tag round mb-10 bg-cyan">纯农家5斤</text>
-          </view>
-        </view>
-        <view class="standard-item">
-          <view class="title">产地</view>
-          <view class="values">
-            <text class="cu-tag round mb-10">福建</text>
-            <text class="cu-tag round mb-10">东北</text>
-            <text class="cu-tag round mb-10 bg-cyan">泰国</text>
+      <view
+        class="commodity-standard-list mt-20"
+        wx:if="{{detail.mallSpuSpecModelList.length > 0}}"
+        >
+        <view
+          class="standard-item"
+          wx:for="{{detail.mallSpuSpecModelList}}"
+          wx:for-index="{{item.value}}"
+          >
+          <view class="title">{{item.label}}</view>
+          <view
+            class="values"
+            wx:if="{{item.childs.length > 0}}"
+            >
+            <text
+              class="cu-tag round mb-10 {{SPEC_OBJ[item.value] && SPEC_OBJ[item.value]['value'] == childs.value ? 'qs-bg' : ''}}"
+              wx:for="{{item.childs}}"
+              wx:for-item="childs"
+              wx:for-index="{{childs.value}}"
+              bindtap="selectStandard"
+              data-parent-value="{{item.value}}"
+              data-value="{{childs.value}}"
+              data-label="{{childs.label}}"
+              >{{childs.label}}</text>
           </view>
         </view>
 
         <!-- 规格计数器 -->
         <view class="standard-item flex algin-center space-between">
           <view class="title flex-row4" style="min-width: 200px">数量</view>
-          <counter bind:numberChange="numberChange"></counter>
+          <counter bind:numberChange="numberChange" item="{{detail}}"></counter>
         </view>
 
         <!-- 确定按钮 -->
         <view class="qs-btn-box mt-30">
-          <button class="qs-btn qs-bg" bindtap="chooseStandard">确定</button>
+          <button class="qs-btn qs-bg" bindtap="shopingCart">添加到购物车</button>
         </view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+<!-- 购物车列表 -->
+<view class="cu-modal bottom-modal {{showShopCar ?'show':''}}">
+  <view class="cu-dialog pb-100">
+    <view class="padding-xl bg-white">
+      <view class="cu-bar icon-close" bindtap="hideShopCarModal">
+        <view class="cuIcon-roundclose text-grey ml-10" style="font-size: 18px"></view>
+      </view>
+
+      <!-- header -->
+      <view class="bg-white flex justify-between mt-15">
+        <text class="text-black bold fz-14">已选商品</text>
+        <text class="text-gray fz-14" bindtap="clearShopCar">清空购物车</text>
+      </view>
+
+      <view style="max-height: 1000rpx;overflow-y: auto" wx:if="{{shopcarList.length>0}}">
+        <!-- 商品列表 -->
+        <commodity-list
+          layout="row"
+          isCount="{{true}}"
+          info="{{shopcarList}}"
+          >
+        </commodity-list>
+      </view>
+      <view wx:else style="min-height: 300rpx; text-align: center;margin-top: 200rpx">
+        <text class="mt-30">购物车没有商品哦~</text>
       </view>
 
     </view>
