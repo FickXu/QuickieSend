@@ -48,7 +48,7 @@
 </scroll-view>
 
 <!-- 底部导航 -->
-<view class="cu-bar tabbar bg-white shadow foot flex flex-align-center detail-bottom-nav">
+<!-- <view class="cu-bar tabbar bg-white shadow foot flex flex-align-center detail-bottom-nav">
   <view class="flex flex-align-center flex-row1">
     <view class="action text-grey}}" bindtap="routerPage">
       <view>
@@ -70,4 +70,4 @@
     </view>
   </view>
   <view class="btn-buy-now flex-row1 flex flex-align-center">立即购买</view>
-</view>
+</view> -->

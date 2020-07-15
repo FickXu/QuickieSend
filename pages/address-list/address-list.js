@@ -77,23 +77,24 @@ Page({
   },
   // 设置收货地址
   setAddress(e) {
-    // let index = e.currentTarget.dataset.index
-    // let currentAddress = this.data.addressList[index]
-    // let self = this
+    let index = e.currentTarget.dataset.index
+    let currentAddress = this.data.addressList[index]
+    let self = this
 
-    // // 弹窗确认是否选择地址
-    // wx.showModal({
-    //   title: '确认收货地址',
-    //   content: `否将收货地址设置为：${currentAddress.contactAddress}。【点击“确定”按钮立刻下单，点击“取消”按钮更换地址】`,
-    //   success (res) {
-    //     if (res.confirm) {
-    //       // url中的参数通过option.query接收；其他通过自定义事件通信
-    //       const eventChannel = self.getOpenerEventChannel()
-    //       eventChannel.emit('setShippingAddress', currentAddress)
-    //       wx.navigateBack()
-    //     }
-    //   }
-    // })
+    let contactAddress = `${currentAddress.areaTypeOneName} ${currentAddress.areaTypeTwoName} ${currentAddress.areaTypeThreeName} ${currentAddress.contactAddress}`
+    // 弹窗确认是否选择地址
+    wx.showModal({
+      title: '确认收货地址',
+      content: `否将收货地址设置为：${contactAddress}。【点击“确定”按钮立刻下单，点击“取消”按钮更换地址】`,
+      success (res) {
+        if (res.confirm) {
+          // url中的参数通过option.query接收；其他通过自定义事件通信
+          const eventChannel = self.getOpenerEventChannel()
+          eventChannel.emit('refreshAddresss', currentAddress)
+          wx.navigateBack()
+        }
+      }
+    })
   },
   // 设置默认地址
   setdefaultshopaddress() {

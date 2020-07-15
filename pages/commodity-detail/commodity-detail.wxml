@@ -46,23 +46,25 @@
   <!-- 评论 -->
   <view class="comment mt-10">
     <view class="flex flex-align-center space-between">
-      <text class="header">商品评论（23）</text>
-      <text class="text-cyan" bindtap="allComment">查看全部</text>
+      <text class="header">商品评论（{{commentList.length}}）</text>
+      <text class="text-cyan" bindtap="allComment" wx:if="{{commentList.length>0}}">查看全部</text>
     </view>
-    <view class="info mt-10 flex flex-align-center">
-      <view class="cu-avatar round" style="background-image:url({{detail.avatarUrl}});"></view>
-      <view class="nick-name ml-10">{{detail.nickName}}</view>
+    <view class=" mt-10" wx:if="{{commentList.length>0}}">
+      <view class="info flex flex-align-center">
+        <view class="cu-avatar round" style="background-image:url({{detail.avatarUrl}});"></view>
+        <view class="nick-name ml-10">{{detail.nickName}}</view>
+      </view>
+      <view class="content mt-10">没想到这么便宜的大米还挺好吃的，物流好快两天就到了,卖家服务态度也挺好的</view>
     </view>
-    <view class="content mt-10">没想到这么便宜的大米还挺好吃的，物流好快两天就到了,卖家服务态度也挺好的</view>
   </view>
   
   <!-- 商品列表 -->
-  <view class="hot mt-10 mb-10">
+  <!-- <view class="hot mt-10 mb-10">
      <view class="icon-banner">
         <image src="../images/recommend.png" mode="aspectFill" />
       </view>
     <commodity-list info="{{commodityList}}"></commodity-list>
-  </view>
+  </view> -->
 
   <!-- 商品介绍 -->
   <view class="describe mt-10">
@@ -83,7 +85,7 @@
         <view class="text-white fz-12">免费配送</view>
       </view>
     </view>
-    <view class="settlement flex-row2">结算</view>
+    <view class="settlement flex-row2" bindtap="openConfirmOrderPage">结算</view>
   </view>
 </view>
 <!-- <view class="cu-bar tabbar bg-white shadow foot flex flex-align-center detail-bottom-nav">
@@ -127,8 +129,8 @@
 
         <!-- 商品名称价格 -->
         <view class="summary ml-10 mt-10">
-          <view class="price">¥ 33.9</view>
-          <view class="value line-overflow">已选择长粒香10斤已选择长粒香10斤已选择长粒香10斤已选择长粒香10斤已选择长粒香10斤</view>
+          <view class="price">¥ {{shopcarDetail.realPrice}}</view>
+          <view class="value line-overflow">{{detail.spuName}}</view>
         </view>
 
       </view>

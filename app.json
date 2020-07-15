@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/orders/orders",
     "pages/commodity-detail/commodity-detail",
     "pages/shoping-car/shoping-car",
     "pages/hospital-list/hospital-list",
@@ -17,7 +18,6 @@
     "pages/orders-detail/orders-detail",
     "pages/collection-list/collection-list",
     "pages/consumer-details/consumer-details",
-    "pages/orders/orders",
     "pages/pay-success/pay-success",
     "pages/order-confirm/order-confirm",
     "pages/commodity-list/commodity-list",

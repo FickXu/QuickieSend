@@ -139,6 +139,8 @@ Page({
       this.setData({
         'params.contactAddress': value
       })
+
+      console.log(this.data.params.contactAddress)
     }
   },
 
@@ -191,7 +193,6 @@ Page({
     let params = {
       ...this.data.params
     }
-
 
     let api = ''
     if (this.data.isEdit) {

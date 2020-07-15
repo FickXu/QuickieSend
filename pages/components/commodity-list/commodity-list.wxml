@@ -19,7 +19,7 @@
       <view class="line-overflow title">{{ item.spuName }}</view>
     </view>
     <view class="commodity-attr-item">
-      <view class="price">¥ {{ item.showPrice }}</view>
+      <view class="price">¥ {{ item.realPrice }}</view>
       <view class="label-info">{{ item.postType }}</view>
     </view>
   </view>
@@ -50,7 +50,7 @@
               </view>
 
               <view class="price flex justify-center flex-align-center mt-10">
-                <view class="price">¥ {{item.showPrice}}</view>
+                <view class="price">¥ {{item.realPrice}}</view>
 
                 <!-- 购物车 -->
                 <view wx:if="{{isShopingCart}}" class="shoping-car cuIcon-cart text-cyan"></view>

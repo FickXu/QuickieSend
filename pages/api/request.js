@@ -1,7 +1,7 @@
 const app = new getApp()
 
 // 服务器地址
-let serviceUrl = 'http://fengchuhui.5gzvip.idcfengye.com/api/'
+let serviceUrl = 'http://skybin.vipgz4.idcfengye.com/api/'
 // let serviceUrl = 'https://m.quickssend.com/wechaapplet/api/'
 
 /* 

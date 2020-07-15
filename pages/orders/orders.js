@@ -1,4 +1,5 @@
 import request from '../api/request'
+import {calculationMoney} from '../utils/tools'
 
 const app = getApp();
 // pages/home/home.js
@@ -14,115 +15,118 @@ Page({
         value: '',
         label: '全部'
       },
-      
       {
         value: 1,
+        label: '待支付'
+      },
+      {
+        value: 4,
         label: '待发货'
       },
       {
-        value: 2,
+        value: 5,
         label: '待收货'
       },
       {
-        value: 3,
+        value: 6,
         label: '已完成'
       }
     ],
     orderList: [
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '代付款',
-        statueId: 0,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 1,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109
-          },
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109
-          }
-        ]
-      },
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '待发货',
-        statueId: 1,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 1,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsRealPrice: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2
-          }
-        ]
-      },
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '待收货',
-        statueId: 2,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 1,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109,
-          }
-        ]
-      },
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '已完成',
-        statueId: 3,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 3,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109
-          }
-        ]
-      }
+      // {
+      //   id: 1,
+      //   orderNo: 92859834589384,
+      //   statueName: '代付款',
+      //   statueId: 0,
+      //   contactAddress: '北京市 朝阳区 dddd',
+      //   orderNums: 1,
+      //   orderOriginalPrice: 109,
+      //   busOrderInfoList: [
+      //     {
+      //       id: 2,
+      //       goodsImg: '../images/rich.png',
+      //       goodsTypeName: '香香大米',
+      //       name: '香香大米',
+      //       price: 109,
+      //       goodsDesc: '1kg,进口',
+      //       goodsDiscount: 2,
+      //       goodsRealPrice: 109
+      //     },
+      //     {
+      //       id: 2,
+      //       goodsImg: '../images/rich.png',
+      //       goodsTypeName: '香香大米',
+      //       name: '香香大米',
+      //       price: 109,
+      //       goodsDesc: '1kg,进口',
+      //       goodsDiscount: 2,
+      //       goodsRealPrice: 109
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 1,
+      //   orderNo: 92859834589384,
+      //   statueName: '待发货',
+      //   statueId: 1,
+      //   contactAddress: '北京市 朝阳区 dddd',
+      //   orderNums: 1,
+      //   orderOriginalPrice: 109,
+      //   busOrderInfoList: [
+      //     {
+      //       id: 2,
+      //       goodsImg: '../images/rich.png',
+      //       goodsTypeName: '香香大米',
+      //       name: '香香大米',
+      //       price: 109,
+      //       goodsRealPrice: 109,
+      //       goodsDesc: '1kg,进口',
+      //       goodsDiscount: 2
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 1,
+      //   orderNo: 92859834589384,
+      //   statueName: '待收货',
+      //   statueId: 2,
+      //   contactAddress: '北京市 朝阳区 dddd',
+      //   orderNums: 1,
+      //   orderOriginalPrice: 109,
+      //   busOrderInfoList: [
+      //     {
+      //       id: 2,
+      //       goodsImg: '../images/rich.png',
+      //       goodsTypeName: '香香大米',
+      //       name: '香香大米',
+      //       price: 109,
+      //       goodsDesc: '1kg,进口',
+      //       goodsDiscount: 2,
+      //       goodsRealPrice: 109,
+      //     }
+      //   ]
+      // },
+      // {
+      //   id: 1,
+      //   orderNo: 92859834589384,
+      //   statueName: '已完成',
+      //   statueId: 3,
+      //   contactAddress: '北京市 朝阳区 dddd',
+      //   orderNums: 3,
+      //   orderOriginalPrice: 109,
+      //   busOrderInfoList: [
+      //     {
+      //       id: 2,
+      //       goodsImg: '../images/rich.png',
+      //       goodsTypeName: '香香大米',
+      //       name: '香香大米',
+      //       price: 109,
+      //       goodsDesc: '1kg,进口',
+      //       goodsDiscount: 2,
+      //       goodsRealPrice: 109
+      //     }
+      //   ]
+      // }
     ],
     // 默认图片-空托
     defalultImageUrlTz: app.globalData.defalultImageUrlTz,
@@ -131,14 +135,17 @@ Page({
     let type = params.type
     let value = ''
     switch (type) {
-      case '待发货':
+      case '待支付':
         value = 1
         break;
+      case '待发货':
+        value = 4
+        break;
       case '待收货':
-        value = 2
+        value = 5
         break;
       case '已完成':
-        value = 3
+        value = 6
         break;
       default:
         value = ''
@@ -147,20 +154,23 @@ Page({
     this.setData({
       TabCur: value
     })
-    // this.queryorderlist()
+    this.queryorderlist()
   },
   // 获取订单列表
   queryorderlist() {
     let params = {
-      goodsType: this.data.TabCur,   // 订单状态 0, 订单失效/取消;1, 待付款;2, 已付款待发货;3, 已下单待快递拿货; 4, 已发货待收货;5, 已收货待评价;6, 已评价)
-      openId: app.globalData.openId
+      status: this.data.TabCur   // 订单状态 0, 订单失效/取消;1, 待付款;2, 已付款待发货;3, 已下单待快递拿货; 4, 已发货待收货;5, 已收货待评价;6, 已评价)
     }
     let self = this
-    request('order/queryorderlist', params).then(res => {
+    request('order/list', params).then(res => {
       if (res.data.code == 10000) {
         if (res.data.data) {
+          let data = res.data.data
+          data.forEach(item => {
+            item.payAmount = item.payAmount / 100
+          })
           self.setData({
-            orderList: res.data.data
+            orderList: data
           })
         } else {
           self.setData({

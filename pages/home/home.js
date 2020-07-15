@@ -120,7 +120,7 @@ Page({
       this.setData({
         hotCategoryList: res.data.data.splice(0, 4),
         // 'commodityListQueryParams.goodsTypeIdTwo': res.data.data[0].id
-        'commodityListQueryParams.goodsTypeIdTwo': 38
+        // 'commodityListQueryParams.goodsTypeIdTwo': 38
       })
       
       this.getCommodityList()

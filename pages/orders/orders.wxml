@@ -51,7 +51,7 @@
           </view>
           <view class="shop-attr-total flex justify-between flex-align-center">
             <text class="price">¥ {{goodsItem.goodsRealPrice}}</text>
-            <text class="text-gray">x {{goodsItem.goodsDiscount}}</text>
+            <text class="text-gray">x {{item.goodsDiscount}}</text>
           </view>
         </view>
       </view>
@@ -66,7 +66,7 @@
           <view class="text-black">免费配送</view>
         </view>
         <!-- <view class="order-mark">订单备注：{{item. contactAddress}}</view> -->
-        <view class="order-total">总计：{{item.orderNums}}件，共计：<text class="price">¥{{item.orderOriginalPrice}}</text></view>
+        <view class="order-total">总计：{{item.totalQty}}件，共计：<text class="price">¥{{item.payAmount}}</text></view>
         <!-- 待支付 -->
         <view class="btn-delete-order text-right" wx:if="{{item.statueId==0}}">
           <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">取消订单</button>
