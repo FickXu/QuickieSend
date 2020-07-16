@@ -28,6 +28,9 @@ Page({
   
   // 获取最近的医院列表
   queryList() {
+    wx.showLoading({
+      title: '加载中...'
+    })
     let self = this
     // 获取位置
     wx.getLocation({
@@ -45,6 +48,7 @@ Page({
           self.setData({
             list: arr
           })
+          wx.hideLoading()
         })
       }
     })
