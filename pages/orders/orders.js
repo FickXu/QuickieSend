@@ -1,5 +1,4 @@
 import request from '../api/request'
-import {calculationMoney} from '../utils/tools'
 
 const app = getApp();
 // pages/home/home.js
@@ -32,104 +31,8 @@ Page({
         label: '已完成'
       }
     ],
-    orderList: [
-      // {
-      //   id: 1,
-      //   orderNo: 92859834589384,
-      //   statueName: '代付款',
-      //   statueId: 0,
-      //   contactAddress: '北京市 朝阳区 dddd',
-      //   orderNums: 1,
-      //   orderOriginalPrice: 109,
-      //   busOrderInfoList: [
-      //     {
-      //       id: 2,
-      //       goodsImg: '../images/rich.png',
-      //       goodsTypeName: '香香大米',
-      //       name: '香香大米',
-      //       price: 109,
-      //       goodsDesc: '1kg,进口',
-      //       goodsDiscount: 2,
-      //       goodsRealPrice: 109
-      //     },
-      //     {
-      //       id: 2,
-      //       goodsImg: '../images/rich.png',
-      //       goodsTypeName: '香香大米',
-      //       name: '香香大米',
-      //       price: 109,
-      //       goodsDesc: '1kg,进口',
-      //       goodsDiscount: 2,
-      //       goodsRealPrice: 109
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 1,
-      //   orderNo: 92859834589384,
-      //   statueName: '待发货',
-      //   statueId: 1,
-      //   contactAddress: '北京市 朝阳区 dddd',
-      //   orderNums: 1,
-      //   orderOriginalPrice: 109,
-      //   busOrderInfoList: [
-      //     {
-      //       id: 2,
-      //       goodsImg: '../images/rich.png',
-      //       goodsTypeName: '香香大米',
-      //       name: '香香大米',
-      //       price: 109,
-      //       goodsRealPrice: 109,
-      //       goodsDesc: '1kg,进口',
-      //       goodsDiscount: 2
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 1,
-      //   orderNo: 92859834589384,
-      //   statueName: '待收货',
-      //   statueId: 2,
-      //   contactAddress: '北京市 朝阳区 dddd',
-      //   orderNums: 1,
-      //   orderOriginalPrice: 109,
-      //   busOrderInfoList: [
-      //     {
-      //       id: 2,
-      //       goodsImg: '../images/rich.png',
-      //       goodsTypeName: '香香大米',
-      //       name: '香香大米',
-      //       price: 109,
-      //       goodsDesc: '1kg,进口',
-      //       goodsDiscount: 2,
-      //       goodsRealPrice: 109,
-      //     }
-      //   ]
-      // },
-      // {
-      //   id: 1,
-      //   orderNo: 92859834589384,
-      //   statueName: '已完成',
-      //   statueId: 3,
-      //   contactAddress: '北京市 朝阳区 dddd',
-      //   orderNums: 3,
-      //   orderOriginalPrice: 109,
-      //   busOrderInfoList: [
-      //     {
-      //       id: 2,
-      //       goodsImg: '../images/rich.png',
-      //       goodsTypeName: '香香大米',
-      //       name: '香香大米',
-      //       price: 109,
-      //       goodsDesc: '1kg,进口',
-      //       goodsDiscount: 2,
-      //       goodsRealPrice: 109
-      //     }
-      //   ]
-      // }
-    ],
-    // 默认图片-空托
-    defalultImageUrlTz: app.globalData.defalultImageUrlTz,
+    orderList: [],
+    orderListShow: true,
   },
   onLoad(params) {
     let type = params.type
@@ -158,6 +61,30 @@ Page({
   },
   // 获取订单列表
   queryorderlist() {
+    wx.showLoading({
+      title: '加载中...'
+    })
+    // mallOrderInfoList: [,…]
+    // 0: {orderInfoNo: "YY20071616434974320067_1", orderNo: "YY20071616434974320067", skuId: 7, skuKey: null,…}
+    // costPrice: null
+    // createBy: 1
+    // createDate: "2020-07-16T08:43:50.000+0000"
+    // finalPrice: null
+    // image: "http://yykjoss.oss-cn-shenzhen.aliyuncs.com/jpg/2020/07/16/c6e2dc76-eb55-4660-9568-37846e9a14af.jpg"
+    // modifiedBy: null
+    // modifiedDate: null
+    // name: "长沙小龙虾"
+    // orderInfoNo: "YY20071616434974320067_1"
+    // orderNo: "YY20071616434974320067"
+    // price: 30
+    // qty: 1
+    // skuCode: null
+    // skuId: 7
+    // skuKey: null
+    // specName: "中辣-大份"
+    // taxPrice: null
+    // totalMoney: null
+
     let params = {
       status: this.data.TabCur   // 订单状态 0, 订单失效/取消;1, 待付款;2, 已付款待发货;3, 已下单待快递拿货; 4, 已发货待收货;5, 已收货待评价;6, 已评价)
     }
@@ -170,13 +97,16 @@ Page({
             item.payAmount = item.payAmount / 100
           })
           self.setData({
-            orderList: data
+            orderList: data,
+            orderListShow: true
           })
         } else {
           self.setData({
-            orderList: []
+            orderList: [],
+            orderListShow: false
           })
         }
+        wx.hideLoading()
       }
     })
   },
@@ -189,67 +119,35 @@ Page({
   },
   // 商品详情
   goToGoodsDetail(e) {
-    let goodsInfo = {
-      orderInfo: e.currentTarget.dataset.orderInfo,
-      goods: e.currentTarget.dataset.goodsItem,
-      status: {
-        id: e.currentTarget.dataset.goodsItemStatusId,
-        name: e.currentTarget.dataset.goodsItemStatusName
-      }
-    }
+    let orderNo = e.currentTarget.dataset.orderNo
 
     wx.navigateTo({
-      url: '../../pages/orders-detail/orders-detail',
-      events: {
-        acceptParams: function (data) {
-          console.log('accept params:', data)
-        }
-      },
-      success: function (res) {
-        res.eventChannel.emit('acceptParams', goodsInfo)
-      },
-      fail (err) {
-        console.log(err)
-      }
+      url: `../../pages/orders-detail/orders-detail?orderNo=${orderNo}`
     })
-    // wx.navigateTo({
-    //   url: '../../pages/orders-detail/orders-detail'
-    // })
-    // let self = this
-    // 先选择地址
-    // wx.navigateTo({
-    //   url: '../../pages/address-list/address-list',
-    //   events: {
-    //     setShippingAddress: function (data) {
-    //       console.log('已选地址:', data)
-    //       let params = {
-    //         shopCarIds: shopCarIds,
-    //         shopAddressId: data.id,
-    //         openId: app.globalData.openId
-    //       }
-    //       request('order/placeshopcar', params).then(res => {
-    //         if (res.data.code == 10000) {
-    //           wx.showToast({
-    //             title: res.data.msg,
-    //             success() {
-    //               // 打开先下操作窗口
-    //               self.setData({
-    //                 modalShow: true
-    //               })
-    //             }
-    //           })
-    //         }
-    //       })
-    //     }
-    //   },
-    //   success: function (res) {
-    //     res.eventChannel.on('setShippingAddress')
-    //   },
-    //   fail (err) {
-    //     console.log(err)
-    //   }
-    // })
   },
+
+  // 立即支付
+  nowPay() {},
+
+  // 提醒发货
+  remindShip() {},
+
+  // 确认收货
+  confirmReceipt() {},
+
+  // 删除订单
+  delOrder() {},
+
+  // 我要评价
+  openAddCommentPage() {
+    wx.navigateTo({
+      url: '../add-comment/add-comment'
+    })
+  },
+
+  // 再次购买
+  buyAgin() {},
+
   // 取消订单
   cancelOrder(e) {
     let self = this

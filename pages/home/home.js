@@ -69,8 +69,8 @@ Page({
     request('area/getlatelyareaone', params).then(res => {
       this.setData({
         shopDetails: res.data.data,
-        // 'commodityListQueryParams.shopId': res.data.data.shopId
-        'commodityListQueryParams.shopId': 21
+        'commodityListQueryParams.shopId': res.data.data.shopId
+        // 'commodityListQueryParams.shopId': 21
       })
       
       // 获取店铺分类
@@ -134,6 +134,13 @@ Page({
     }
     
     request('shop/shopspupagelist', params).then(res => {
+
+      let data = res.data.data
+      data.forEach(item => {
+        item.showPrice = item.showPrice / 100
+        item.realPrice = item.realPrice / 100
+      })
+
       this.setData({
         commodityList: res.data.data
       })

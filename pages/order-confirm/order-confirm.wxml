@@ -28,7 +28,7 @@
       <view class="text-black">商品信息</view>
       <view class="text-black fz-14">
         共
-        <text class="text-cyan fz-13">{{commodityList.length}}</text>
+        <text class="text-cyan fz-13">{{commodityTotalNumber}}</text>
         件
       </view>
     </view>
@@ -66,7 +66,7 @@
     <!-- 订单总计 -->
     <view class="order-total padding-tb mt-10">
       <view class="fz-14 text-black text-right">
-        共<text class="text-cyan">{{commodityList.length}}</text> 商品 
+        共<text class="text-cyan">{{commodityTotalNumber}}</text> 商品 
         总计：<text class="price fz-18">¥ {{realAmount}}</text>
       </view>
     </view>
@@ -103,7 +103,7 @@
       <text class="text-cyan" style="font-size: 18px;font-weight: 700">¥ {{realAmount}}</text>
     </view>
     <view class="radio-box flex align-center text-bold">
-      共<text class="text-cyan" decode="{{true}}">&nbsp;{{commodityList.length}}&nbsp;</text>件
+      共<text class="text-cyan" decode="{{true}}">&nbsp;{{commodityTotalNumber}}&nbsp;</text>件
     </view>
   </view>
   <view class="btn-box flex-row2 flex flex-align-center justify-center bg-cyan text-white" bindtap="pay">

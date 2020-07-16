@@ -1,5 +1,4 @@
 import request from '../api/request'
-import {calculationMoney} from '../utils/tools'
 
 const app = getApp();
 
@@ -64,13 +63,32 @@ Page({
     commentList: []
   },
 
-  // 商品数量发生变化
+  // 选择规格时商品数量发生变化
   numberChange(e) {
     let detail = e.detail
     this.setData({
       detail: detail
     })
-    console.log('number', detail)
+  },
+
+  // 购物车中商品数量发生变化  CURRENT_QUANTITY
+  numberChange1(e) {
+    let detail = e.detail
+    let shopcarList = wx.getStorageSync('shopcarList')
+
+    let index = shopcarList.findIndex(item => item.skuId == detail.skuId)
+    shopcarList[index].CURRENT_QUANTITY = detail.CURRENT_QUANTITY
+
+    wx.setStorage({
+      key: 'shopcarList',
+      data: shopcarList
+    })
+
+    // 计算购物车商品数量
+    this.getShopCarCommodityNums()
+
+    // 计算购物车商品总价格
+    this.computeTotalAmount()
   },
 
   // 查看所有评论
@@ -136,7 +154,7 @@ Page({
       let params = {
         ...res.data.data
       }
-      params.realPrice = calculationMoney(params.realPrice, 'cent')
+      params.realPrice = params.realPrice / 100
       this.setData({
         shopcarDetail: params
       })
@@ -235,6 +253,8 @@ Page({
       spuMainImg: this.data.detail.spuMainImg,
       spuName: this.data.detail.spuName,
       CURRENT_QUANTITY: this.data.detail.CURRENT_QUANTITY,
+      showPrice: this.data.shopcarDetail.showPrice,
+      realPrice: this.data.shopcarDetail.realPrice,
       skuId: this.data.shopcarDetail.skuId
     }
     wx.setStorage({
@@ -245,8 +265,14 @@ Page({
           title: '已添加到购物车'
         })
 
+        // 隐藏弹窗
         self.hideSelectStandardModal()
+
+        // 计算商品数量
         self.getShopCarCommodityNums()
+
+        // 计算购物车商品总价格
+        self.computeTotalAmount()
       }
     })
 
@@ -270,7 +296,12 @@ Page({
             wx.removeStorage({
               key: 'shopcarList',
               success() {
+                // 计算商品数量
                 self.getShopCarCommodityNums()
+
+                // 计算购物车商品总价格
+                self.computeTotalAmount()
+
                 self.setData({
                   shopcarList: wx.getStorageSync('shopcarList') || []
                 })
@@ -289,9 +320,30 @@ Page({
 
   // 获取购物车商品数量
   getShopCarCommodityNums() {
+    let arr = wx.getStorageSync('shopcarList') || []
+    let num = 0
+
+    arr.forEach(item => {
+      num += item.CURRENT_QUANTITY
+    })
+
     // 购物车商品数量
     this.setData({
-      shopCarCommodityNums: wx.getStorageSync('shopcarList').length || 0
+      shopCarCommodityNums: num
+    })
+  },
+
+  // 计算购物车商品总价
+  computeTotalAmount() {
+    let arr = wx.getStorageSync('shopcarList') || []
+    let price = 0
+    
+    arr.forEach(item => {
+      price += item.realPrice * 100 * item.CURRENT_QUANTITY
+    })
+
+    this.setData({
+      totalAmount: price / 100
     })
   },
 
@@ -309,6 +361,23 @@ Page({
 
   // 提交订单
   openConfirmOrderPage() {
+
+    let isLogin = wx.getStorageSync('isLogin') || false
+
+    if (!isLogin) {
+      wx.showModal({
+        title: '提示',
+        content: '用户未登录，是否登录？',
+        success: res => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../login/login'
+            })
+          }
+        }
+      })
+      return
+    }
 
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
       wx.showToast({
@@ -333,7 +402,6 @@ Page({
     })
   },
 
-  // 页面显示时检查登录状态
   onShow: function () {
     let self = this
     
@@ -346,9 +414,16 @@ Page({
           ...data
         }
       })
+
+      // 查询评论数量
       self.queryCommentList()
-      self.getShopCarCommodityNums()
+
       console.log('获取到的参数：', JSON.stringify(data))
     })
+    // 计算商品数量
+    self.getShopCarCommodityNums()
+    
+    // 计算商品总价格
+    self.computeTotalAmount()
   }
 })

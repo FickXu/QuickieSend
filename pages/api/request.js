@@ -37,13 +37,11 @@ let request = (path, params = {}, type='POST') => {
               content: '用户未登录，请重新登录',
               success (res) {
                 if (res.confirm) {
-                  wx.clearStorage({
-                    success () {
-                      wx.clearStorage()
-                      wx.navigateTo({
-                        url: '../../pages/login/login'
-                      })
-                    }
+                  wx.removeStorageSync('openId')
+                  wx.removeStorageSync('isLogin')
+                  wx.removeStorageSync('userInfo')
+                  wx.navigateTo({
+                    url: '../../pages/login/login'
                   })
                 }
               }

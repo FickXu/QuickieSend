@@ -27,8 +27,8 @@ Page({
     totalAmount: 0,
     // 订单实际应支付总价
     realAmount: 0,
-    // 已选中间数
-    selectedTotal: 0,
+    // 订单中的商品数量
+    commodityTotalNumber: 0,
     modalStatus: false,
     // 筛选条件参数
     params: {
@@ -76,6 +76,8 @@ Page({
         commodityList: data,
         'params.shopId': data[0].shopId
       })
+
+      self.calcualtionTotalAmount()
       console.log('获取到的参数：', data)
 
       // 获取默认地址
@@ -180,7 +182,7 @@ Page({
   numberChange(e) {
     let detail = e.detail
     let arr = this.data.commodityList
-    let index = arr.findIndex(item => item.id == detail.id)
+    let index = arr.findIndex(item => item.skuId == detail.skuId)
 
     arr[index] = { ...detail }
 
@@ -196,7 +198,7 @@ Page({
   calcualtionRealAmount() {
     let discountAmount = 0
     this.setData({
-      realAmount: this.data.totalAmount - discountAmount/100
+      realAmount: (this.data.totalAmount * 100 - discountAmount) / 100
     })
   },
 
@@ -204,10 +206,12 @@ Page({
   calcualtionTotalAmount() {
     let arr = this.data.commodityList
     let total = 0
+    let num = 0
     let skuOrderDtoArr = []
     arr.forEach(item => {
       if (item.CURRENT_QUANTITY) {
-        total += (item.realPrice || 0) * item.CURRENT_QUANTITY
+        total += item.realPrice * 100 * item.CURRENT_QUANTITY
+        num += item.CURRENT_QUANTITY
 
         // 订单单品参数
         let params =  {
@@ -227,8 +231,11 @@ Page({
     });
 
     this.setData({
-      totalAmount: calculationMoney(total),
-      'params.skuOrderDtoArr': skuOrderDtoArr
+      totalAmount: total / 100,
+      'params.skuOrderDtoArr': skuOrderDtoArr,
+      commodityTotalNumber: num
     })
+
+    this.calcualtionRealAmount()
   }
 })

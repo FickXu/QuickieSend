@@ -24,7 +24,7 @@
       <view class="title line-overflow">{{detail.spuName}}</view>
       <view class="flex space-between flex-align-center">
         <view class="left">
-          <text class="price">¥ {{detail.showPrice}}</text>
+          <text class="price">¥ {{detail.realPrice}}</text>
           <text class="value throw-line expired-price ml-10">¥  {{detail.realPrice}}</text>
         </view>
         <view class="flex flex-align-center">
@@ -69,7 +69,9 @@
   <!-- 商品介绍 -->
   <view class="describe mt-10">
     <view class="header mb-10 ml-10">商品详情</view>
-    <view class="imgs"></view>
+    <view class="spu-info">
+      <image class="img" src="{{item.spuInfoImg}}" wx:for="{{detail.spuInfoImgList}}" />
+    </view>
   </view>
   
 </scroll-view>
@@ -129,7 +131,7 @@
 
         <!-- 商品名称价格 -->
         <view class="summary ml-10 mt-10">
-          <view class="price">¥ {{shopcarDetail.realPrice}}</view>
+          <view class="price">¥ {{shopcarDetail.realPrice || '-'}}</view>
           <view class="value line-overflow">{{detail.spuName}}</view>
         </view>
 
@@ -199,6 +201,7 @@
           layout="row"
           isCount="{{true}}"
           info="{{shopcarList}}"
+          bind:numberChange="numberChange1"
           >
         </commodity-list>
       </view>
