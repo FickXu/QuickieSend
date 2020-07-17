@@ -1,0 +1,113 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+
+<view class="order-page">
+
+
+  <!-- tag -->
+  <scroll-view scroll-x class="nav text-center tabs-order">
+    <view class="flex">
+      <view
+        class="cu-item flex-sub {{item.value==TabCur?'text-cyan cur':''}}"
+        wx:for="{{ orderStatus }}"
+        wx:key="index"
+        bindtap="tabSelect"
+        data-id="{{item.value}}">
+        {{item.label}}
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 订单列表 -->
+  <view class="list-order">
+    <!-- 扫码送货 -->
+    <view class="pading" wx:if="{{TabCur==0}}">
+      <view class="text-black mt-10 ml-10">扫码已备好商品的二维码，开始送货</view>
+      <view class="text-center padding-lg">
+        <image src="./imgs/scan.png" class="scan" />
+      </view>
+      <view class="padding-lr">
+        <button class="qs-bg qs-btn" bindtap="scanSendGoods">扫码送货</button>
+      </view>
+    </view>
+    <view wx:if="{{orderListShow}}" class="list-order-item" wx:for="{{orderList}}" wx:key="index">
+      <view class="list-order-item-header">
+        <view class="text-gray">确认商品后点击送货按钮，开始派送。</view>
+        <!-- <text class="tag">【定制】</text> -->
+        <view class="order-number"><text class="fz-16 bold"> 订单编号：</text>{{item.orderNo}}</view>
+        <view class="text-gray">接单时间：{{item.expressTime}}</view>
+        <view class="buy-user">
+          <view class="flex-row4">
+            <text decode="{{true}}">{{item.name}}</text>
+            <text decode="{{true}}">&ensp;&ensp;&ensp;{{item.mobile}}</text>
+          </view>
+          <view class="flex-row1">
+            <text class="order-status">{{item.status==1?'待付款':(item.status==4?'代发货':(item.status==5?'待收货':(item.status==6?'已完成': '')))}}</text>
+          </view>
+        </view>
+        <view class="text-darkGray">{{item.address}}</view>
+        <view class="text-gray fz-12">备注：{{item.description}}</view>
+      </view>
+
+      <!-- 商品列表 -->
+      <view class="table-header bold fz-16">
+        <view class="label flex-row4">商品</view>
+        <view class="label flex-row1 text-center">数量</view>
+        <!-- <view class="label flex-row1 text-right">价格</view> -->
+      </view>
+      <view
+        class="list-order-item-body"
+        bindtap="goToGoodsDetail"
+        wx:for="{{item.mallOrderInfoList}}"
+        wx:key="goodsIndex"
+        wx:for-item="goodsItem"
+        wx:for-index="goodsIndex"
+        data-order-no="{{item.orderNo}}"
+        >
+
+        <view class="table-header fz-14">
+          <view class="label flex-row4">{{goodsItem.name}}</view>
+          <view class="label flex-row1 text-center">{{goodsItem.qty}}</view>
+          <!-- <view class="label flex-row1 text-right">¥ {{goodsItem.finalPrice / 100}}</view> -->
+        </view>
+        <!-- <view class="shop-view">
+          <image class="img" src="{{goodsItem.image}}" alt="{{goodsItem.name}}" />
+        </view> -->
+        <!-- <view class="shop-attr">
+          <view class="shop-attr-shape">
+            {{goodsItem.name}}
+          </view>
+          <view class="shop-attr-specs">
+            {{goodsItem.specName}}
+          </view>
+          <view class="shop-attr-total flex justify-between flex-align-center">
+            <text class="price">¥ {{goodsItem.finalPrice / 100}}</text>
+            <text class="text-gray">x {{goodsItem.qty}}</text>
+          </view>
+        </view> -->
+      </view>
+
+      <view class="list-order-item-footer">
+        <!-- <view class="flex justify-between flex-align-center fz-14">
+          <view class="text-gray">订单总价</view>
+          <view class="text-black">¥{{item.payAmount / 100}}</view>
+        </view> -->
+        <view class="flex justify-between flex-align-center fz-14 mt-10">
+          <view class="text-gray">运费</view>
+          <view class="text-black">免费配送</view>
+        </view>
+        <!-- <view class="order-mark">订单备注：{{item. contactAddress}}</view> -->
+        <!-- <view class="order-total">总计：{{item.totalQty}}件，共计：<text class="price">¥{{item.payAmount}}</text></view> -->
+        <!-- 确认送达 -->
+        <view class="btn-delete-order text-right" wx:if="{{item.status==5}}">
+          <button class="cu-btn round ml-10 bg-cyan" data-order-no="{{item.orderNo}}" bindtap="confirmReceiving">确认送达</button>
+        </view>
+      </view>
+    </view>
+    <view  wx:if="{{!orderListShow}}" class="list-order-none">
+      <image class="padding-xl" src="../images/no-data.png" />
+      <view>抱歉，您还没有相关订单</view>
+    </view>
+  </view>
+</view>

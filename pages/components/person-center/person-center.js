@@ -124,6 +124,16 @@ Component({
 					}
 			});
 		},
+
+		// 小二快跑
+		openReceivingOrderPage() {
+			wx.navigateTo({
+				url: '../../pages/receiving-order/receiving-order',
+				fail: err => {
+					console.log(err)
+				}
+			})
+		}
 		
 	}
 })

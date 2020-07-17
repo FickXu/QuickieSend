@@ -52,15 +52,15 @@
         </view>
       </view>
       <view class="cu-list grid col-4 no-border">
-        <!-- 代付款 -->
+        <!-- 待付款 -->
         <view class="cu-item"  bindtap="openOrdersPage" data-order-type="">
           <view class="cuIcon-cart text-grey"></view>
-          <text>代付款</text>
+          <text>待付款</text>
         </view>
-        <!-- 代发货 -->
+        <!-- 待发货 -->
         <view class="cu-item" bindtap="openOrdersPage" data-order-type="待发货">
           <view class="cuIcon-form text-grey"></view>
-          <text>代发货</text>
+          <text>待发货</text>
         </view>
         <!-- 待收货 -->
         <view class="cu-item" bindtap="openOrdersPage" data-order-type="待收货">
@@ -78,7 +78,7 @@
     <!-- 设置 -->
     <view class="cu-list menu list-menu settings">
       <!-- 需要接口控制 -->
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="openReceivingOrderPage">
         <view class="content">
           <text class="custome-icon-size cuIcon-lock text-cyan"></text>小二快跑
         </view>
