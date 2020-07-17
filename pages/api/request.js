@@ -31,6 +31,7 @@ let request = (path, params = {}, type='POST') => {
           app.globalData.loginCode = 0
         } else {
           if (res.data.code == 10007) {
+            wx.hideLoading()
             // 用户没有登录
             wx.showModal({
               title: '提示',

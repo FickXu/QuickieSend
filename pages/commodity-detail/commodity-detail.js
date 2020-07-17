@@ -145,6 +145,10 @@ Page({
 
   // 根据规格获取单品
   getCommodityBySpec() {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
     let params = {
       skuKey: this.data.standardLabel.split(',').join('-'),
       spuId: this.data.detail.spuId,
@@ -158,6 +162,7 @@ Page({
       this.setData({
         shopcarDetail: params
       })
+      wx.hideLoading()
     })
   },
 
@@ -196,31 +201,13 @@ Page({
     })
   },
 
-  // 获取定位信息
-  getLocation: function () {
-    // 获取位置
-    wx.getLocation({
-      type: 'wgs84',
-      success (res) {
-        console.log('get location', res)
-      }
-    })
-    // 通过位置获取附近的店铺列表
-    this.getNearShopsList()
-  },
+  // // 收藏
+  // collectCommodity() {},
 
-  // 获取附近的店铺列表
-  getNearShopsList: function () {
-    console.log('附近店铺列表')
-  },
-
-  // 收藏
-  collectCommodity() {},
-
-  // 客服
-  customerService() {
+  // // 客服
+  // customerService() {
     
-  },
+  // },
 
   // 添加到购物车
   shopingCart() {
@@ -349,6 +336,9 @@ Page({
 
   // 获取评论列表
   queryCommentList() {
+    wx.showLoading({
+      title: '加载中...'
+    })
     let params = {
       spuId: this.data.detail.id
     }
@@ -356,6 +346,7 @@ Page({
       this.setData({
         commentList: res.data.data
       })
+      wx.hideLoading()
     })
   },
 

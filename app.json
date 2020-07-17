@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/login/login",
     "pages/orders/orders",
     "pages/commodity-detail/commodity-detail",
     "pages/shoping-car/shoping-car",
@@ -13,7 +14,6 @@
     "pages/modify-address/modify-address",
     "pages/bind-phone/bind-phone",
     "pages/person-info/person-info",
-    "pages/login/login",
     "pages/add-comment/add-comment",
     "pages/orders-detail/orders-detail",
     "pages/collection-list/collection-list",

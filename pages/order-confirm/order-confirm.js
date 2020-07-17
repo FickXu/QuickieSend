@@ -87,11 +87,16 @@ Page({
 
   // 获取默认收货地址
   getDefaultAddress() {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
     let params = {
       shopId: this.data.params.shopId
     }
     request('user/address/default', params).then(res => {
       this.refreshAddresss(res.data.data)
+      wx.hideLoading()
     })
   },
 

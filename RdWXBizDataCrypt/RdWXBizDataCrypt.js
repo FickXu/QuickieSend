@@ -10,7 +10,7 @@ function RdWXBizDataCrypt(appId, sessionKey) {
 RdWXBizDataCrypt.prototype.decryptData = function (encryptedData, iv) {
   var encryptedData = encryptedData.replace(/%/g, '%25')
   // base64 decode ：使用 CryptoJS 中 Crypto.util.base64ToBytes()进行 base64解码
-  // var encryptedData = Crypto.util.base64ToBytes(encryptedData)
+  var encryptedData = Crypto.util.base64ToBytes(encryptedData)
   var key = Crypto.util.base64ToBytes(this.sessionKey);
   var iv = Crypto.util.base64ToBytes(iv);
 

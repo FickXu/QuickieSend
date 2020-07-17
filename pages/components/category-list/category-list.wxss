@@ -14,7 +14,7 @@
   background-color: #f7f7f7;
 }
 .VerticalNav.nav {
-  width: 210rpx;
+  width: 240rpx;
   white-space: initial;
 }
 .VerticalNav.nav .cu-item {

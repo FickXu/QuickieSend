@@ -12,7 +12,7 @@ Page({
     loginPageInfo: {
       iconUrl: '../images/bg-login.png',
       title: '账户登录',
-      btnText1: '立即登录',
+      btnText1: '微信授权登录',
       btnText2: '暂不登录',
       // sessionKey: ''
       // 用户加密信息
@@ -38,14 +38,9 @@ Page({
   bindgetuserinfo: function(e) {
     console.log('我是授权按钮：', e.detail)
 
-    let userInfo = {
-      encryptedData: e.detail.encryptedData,
-      iv: e.detail.iv
-    }
-
     this.setData({
-      'loginPageInfo.encryptedData': userInfo.encryptedData,
-      'loginPageInfo.iv': userInfo.iv
+      'loginPageInfo.encryptedData': e.detail.encryptedData,
+      'loginPageInfo.iv': e.detail.iv
     })
   
     this._getUserInfo()
@@ -62,7 +57,7 @@ Page({
 
     let pc = new WXBizDataCrypt(params.appid, data.sessionKey)
     let userInfo = pc.decryptData(encryptedData, iv)
-    
+
     return userInfo
   },
 
@@ -99,6 +94,15 @@ Page({
       let _iv = self.data.loginPageInfo.iv
       
       let userInfo = self.customerAuthor(_encryptedData, _iv, res)
+
+      if (!userInfo) {
+        wx.showToast({
+          title: '用户信息获取失败！请重新授权',
+          icon: 'none'
+        })
+        return
+      }
+
       console.log('解密后的用户信息：', userInfo)
 
       // 缓存到本地的openId，持久化登录

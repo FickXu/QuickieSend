@@ -14,7 +14,7 @@
         <view class="cuIcon-search"></view>
         <input type="text" class="search" placeholder="{{searchPlaceholder}}"/>
       </view>
-      <view class="shop-car cuIcon-cart text-white" bindtap="openShopingCartPage"></view>
+      <!-- <view class="shop-car cuIcon-cart text-white" bindtap="openShopingCartPage"></view> -->
     </view>
   
   </view>
@@ -50,6 +50,7 @@
       <view
         class="item {{categoryIndex == index ? 'active' : ''}}"
         data-id="{{item.id}}"
+        data-index="{{index}}"
         wx:for="{{hotCategoryList}}"
         wx:key="index"
         bindtap="chooseCategory"
@@ -67,7 +68,10 @@
     
     <!-- 商品列表 -->
     <commodity-list info="{{commodityList}}"></commodity-list>
-    
+    <view wx:if="{{isShowNoneData}}" class="list-order-none">
+      <image class="padding-xl" src="../images/no-data.png" />
+      <view>该分类没有商品</view>
+    </view>
   </scroll-view>
 </view>
 

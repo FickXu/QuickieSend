@@ -21,7 +21,7 @@ Page({
       //   postType: '免费配送'
       // }
     ],
-    searchPlaceholder: '一次性一用口罩',
+    searchPlaceholder: '请输入要搜索的商品',
     // 热门分类列表
     hotCategoryList: [],
     // 当前热门分类下标
@@ -44,7 +44,9 @@ Page({
       shopId: '',
       spuCode: '',
       spuName: '',
-    }
+    },
+    // 是否显示无数据提示页面
+    isShowNoneData: false
   },
 
   // 关闭弹窗
@@ -95,7 +97,7 @@ Page({
       url: '../hospital-list/hospital-list',
       events: {
         refresh(params) {
-          slef.queryShopInfo(params)
+        slef.queryShopInfo(params)
         }
       }
     })
@@ -104,8 +106,10 @@ Page({
   // 选择热门分类
   chooseCategory: function (event) {
     let id = event.currentTarget.dataset.id
+    let index = event.currentTarget.dataset.index
     this.setData({
-      'commodityListQueryParams.goodsTypeIdTwo': id
+      'commodityListQueryParams.goodsTypeIdTwo': id,
+      categoryIndex: index
     })
 
     // 刷新商品列表
@@ -122,6 +126,11 @@ Page({
         // 'commodityListQueryParams.goodsTypeIdTwo': res.data.data[0].id
         // 'commodityListQueryParams.goodsTypeIdTwo': 38
       })
+
+      wx.setStorage({
+        key: 'goodsTypeList',
+        data: res.data.data
+      })
       
       this.getCommodityList()
     })
@@ -129,21 +138,37 @@ Page({
 
   // 获取商品列表
   getCommodityList: function () {
+    wx.showLoading({
+      title: '加载中...'
+    })
     let params = {
       ...this.data.commodityListQueryParams
     }
     
+    this.setData({
+      isShowNoneData: false
+    })
+
     request('shop/shopspupagelist', params).then(res => {
 
-      let data = res.data.data
-      data.forEach(item => {
-        item.showPrice = item.showPrice / 100
-        item.realPrice = item.realPrice / 100
-      })
+      if (res.data.data && res.data.data.length > 0) {
+        let data = res.data.data
+        data.forEach(item => {
+          item.showPrice = item.showPrice / 100
+          item.realPrice = item.realPrice / 100
+        })
+  
+        this.setData({
+          commodityList: res.data.data
+        })
+      } else {
+        this.setData({
+          commodityList: res.data.data,
+          isShowNoneData: true
+        })
+      }
 
-      this.setData({
-        commodityList: res.data.data
-      })
+      wx.hideLoading()
       
     })
   },
@@ -208,8 +233,13 @@ Page({
   },
   
   // 页面显示时检查店铺信息
-  onShow: function () {
+  onLoad: function () {
     
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+
     // 加载商品分类和商品列表
     let self = this
     wx.getStorage({

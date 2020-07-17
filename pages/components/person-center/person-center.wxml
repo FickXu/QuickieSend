@@ -102,14 +102,13 @@
     </view>
     
     <!-- 猜你喜欢 -->
-    <view class="recommend">
+    <!-- <view class="recommend">
       <view class="icon-banner">
         <image src="../../images/recommend.png" mode="aspectFill" />
       </view>
       <view class="recommend-list">
-        <!-- 商品列表 -->
         <commodity-list info="{{commodityList}}"></commodity-list>
       </view>
-    </view>
+    </view> -->
   </view>
 </scroll-view>
