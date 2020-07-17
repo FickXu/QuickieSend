@@ -76,3 +76,11 @@
   border: 1px solid #22BFB7;
   color: #22BFB7;
 }
+.list-order-none {
+  text-align: center;
+  color: #888888;
+  background-color: #fff;
+  padding: 0 20rpx 30rpx 20rpx;
+  margin: 10px 30rpx;
+  border-radius: 30rpx;
+}

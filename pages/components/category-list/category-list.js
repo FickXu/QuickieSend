@@ -1,5 +1,7 @@
 // import request from '../api/request'
 
+const { default: request } = require("../../api/request");
+
 const app = getApp();
 
 Component({
@@ -18,39 +20,44 @@ Component({
     TabCur: 0,
     MainCur: 0,
     navList: [],
-    iconList: [{
-      icon: 'cardboardfill',
-      color: 'red',
-      badge: 120,
-      name: '营养快餐'
-    }, {
-      icon: 'recordfill',
-      color: 'orange',
-      badge: 1,
-      name: '防辐射围裙'
-    }, {
-      icon: 'picfill',
-      color: 'yellow',
-      badge: 0,
-      name: '防滑垫'
-    }, {
-      icon: 'noticefill',
-      color: 'olive',
-      badge: 22,
-      name: '空调被'
-    }],
-    load: true
+    iconList: [],
+    load: true,
+    shopId: wx.getStorageSync('shopDetails').shopId || ''
   },
   ready () {
-    this.setData({
-      navList: wx.getStorageSync('goodsTypeList')
-    })
+    this.getOneTypes()
   },
   methods: {
+    // 获取一级分类
+    getOneTypes() {
+      let params = {
+        shopId: this.data.shopId
+      }
+      request('dic/goodstypeone', params).then(res => {
+        this.setData({
+          navList: res.data.data
+        })
+        this.getTwoTypes(res.data.data[0].id)
+      })
+    },
+
+    // 获取二级分类
+    getTwoTypes(id) {
+      let params = {
+        shopId: this.data.shopId,
+        goodsTypeIdOne: id
+      }
+      request('dic/goodstypetwo', params).then(res => {
+        this.setData({
+          iconList: res.data.data
+        })
+      })
+    },
     // 商品列表
     openCommodityListPage(e) {
+      let type = e.currentTarget.dataset.id
       wx.navigateTo({
-        url: '../../pages/commodity-list/commodity-list',
+        url: `../../pages/commodity-list/commodity-list?type=${type}`,
         fail(err) {
           console.log(err)
         }
@@ -67,23 +74,23 @@ Component({
       const index = e.detail.index
       console.log('change', index)
     },
-    // 输入时搜索
-    inputSearch: function () {
+    // // 输入时搜索
+    // inputSearch: function () {
 
-    },
+    // },
     // 清空搜索框字符串
-    clearSearchText: function () {
-      this.setData({
-        searchText: ''
-      })
-    },
+    // clearSearchText: function () {
+    //   this.setData({
+    //     searchText: ''
+    //   })
+    // },
     tabSelect(e) {
       this.setData({
         TabCur: e.currentTarget.dataset.id,
         MainCur: e.currentTarget.dataset.id,
         VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
       })
-
+      this.getTwoTypes(e.currentTarget.dataset.navId)
 
     },
     VerticalMain(e) {

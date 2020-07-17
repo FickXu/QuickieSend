@@ -114,7 +114,7 @@
         <!-- 待发货 -->
         <view class="btn-delete-order text-right" wx:if="{{item.status==4}}">
           <button class="cu-btn round line text-cyan" data-order-id="{{details.id}}" bindtap="cancelOrder">取消订单</button>
-          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="remindShip">提醒发货</button>
+          <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="remindShip">提醒发货</button> -->
         </view>
         <!-- 待发货 -->
         <view class="btn-delete-order text-right" wx:if="{{details.status==5}}">
@@ -123,9 +123,9 @@
         </view>
         <!-- 已完成 -->
         <view class="btn-delete-order text-right" wx:if="{{item.status==6}}">
-          <button class="cu-btn round line text-cyan" data-order-id="{{details.id}}" bindtap="delOrder">删除订单</button>
+          <!-- <button class="cu-btn round line text-cyan" data-order-id="{{details.id}}" bindtap="delOrder">删除订单</button> -->
           <button class="cu-btn round line text-cyan ml-10" data-order-id="{{itedetailsm.id}}" bindtap="openAddCommentPage">我要评价</button>
-          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="buyAgin">再次购买</button>
+          <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="buyAgin">再次购买</button> -->
         </view>
       </view>
     </view>

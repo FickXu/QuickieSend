@@ -29,7 +29,14 @@
   <view class="commodity-row">
     
     <checkbox-group bindchange="checkboxChange">
-      <view class="commodity-item" wx:for="{{commodityList}}" wx:key="{{item.id}}">
+      <view
+        class="commodity-item"
+        wx:for="{{commodityList}}"
+        wx:key="index"
+        data-id="{{item.spuId}}"
+        data-index="{{index}}"
+        bindtap="goToDetail"
+        >
         <view class="flex flex-align-center">
           <view class="select-box mr-10" wx:if="{{isSelect}}">
             <checkbox

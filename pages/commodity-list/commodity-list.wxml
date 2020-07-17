@@ -33,6 +33,10 @@
   <!-- 商品列表 -->
   <view>
     <commodity-list info="{{commodityList}}" layout="{{layoutType}}"></commodity-list>
+    <view wx:if="{{commodityList.length==0}}" class="list-order-none">
+      <image class="padding-xl" src="../images/no-data.png" />
+      <view>抱歉，没有查询到商品</view>
+    </view>
   </view>
 </scroll-view>
 

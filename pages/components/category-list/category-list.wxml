@@ -3,7 +3,7 @@
   <view slot="content" class="bold">{{ title }}</view>
 </cu-custom>
 <!-- 搜索组件 -->
-<view class="cu-bar search bg-white fixed" style="top:{{CustomBar}}px">
+<!-- <view class="cu-bar search bg-white fixed" style="top:{{CustomBar}}px">
   <view class="search-form round">
     <text class="cuIcon-search"></text>
     <input type="text" placeholder="请输入要搜索的商品" confirm-type="search"></input>
@@ -11,7 +11,7 @@
   <view class="action">
     <button class="cu-btn bg-cyan shadow-blur round">搜索</button>
   </view>
-</view>
+</view> -->
 
 <view class="category-list">
   <!-- 分类列表 -->
@@ -28,6 +28,7 @@
         wx:key
         bindtap='tabSelect'
         data-id="{{index}}"
+        data-nav-id="{{item.id}}"
         >
         {{item.name}}
       </view>
@@ -41,13 +42,22 @@
       bindscroll="VerticalMain"
       >
       <view class="cu-list grid col-3 no-border">
-        <view class="cu-item" wx:for="{{iconList}}" wx:key="index">
-          <view class="cuIcon-{{item.icon}} text-{{item.color}}" bindtap="openCommodityListPage">
+        <view
+          class="cu-item"
+          wx:for="{{iconList}}"
+          wx:key="index"
+          data-id="{{iconItem.id}}"
+          bindtap="openCommodityListPage"
+          wx:key="iconIndex"
+          wx:for-item="iconItem"
+          >
+          <!-- <view class="cuIcon-{{item.icon}} text-{{item.color}}">
             <view class="cu-tag badge" wx:if="{{item.badge!=0}}">
               <block wx:if="{{item.badge!=1}}">{{item.badge>99?"99+":item.badge}}</block>
             </view>
-          </view>
-          <text>{{item.name}}</text>
+          </view> -->
+          <image class="types-icon" src="{{iconItem.logoImg || '../../images/bg-scan.png'}}" lazy-load="{{true}}" />
+          <text>{{iconItem.name}}</text>
         </view>
       </view>
       <!-- <view class="padding-top padding-lr" wx:for="{{navList}}" wx:key id="main-{{index}}">
