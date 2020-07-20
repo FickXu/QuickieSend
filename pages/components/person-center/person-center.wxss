@@ -46,9 +46,6 @@
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.07);
   overflow: hidden;
 }
-.person-center .my-orders {
-  margin-top: 20px;
-}
 .person-center .my-orders .header {
   margin: 15px 20px 0;
   height: 30rpx;

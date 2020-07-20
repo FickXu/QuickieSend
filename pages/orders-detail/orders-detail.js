@@ -30,6 +30,7 @@ Page({
     ],
     orderList: [],
     details: null,
+    isShow: false
   },
   onLoad(params) {
     let orderNo = params.orderNo
@@ -73,17 +74,59 @@ Page({
       }
     })
   },
-  tabSelect(e) {
-    let orderStatus = e.currentTarget.dataset.id
-    this.setData({
-      TabCur: orderStatus
+  
+  // 我要评价
+  openAddCommentPage(e) {
+    let self = this
+    let index = e.currentTarget.dataset.index
+    let data = this.data.details.mallOrderInfoList[index]
+    wx.navigateTo({
+      url: `../add-comment/add-comment`,
+      events: {
+        refresh: () => {
+          self.queryorderInfo(data.orderNo)
+        }
+      },
+      success(res) {
+        let params = {
+          ...data
+        }
+        res.eventChannel.emit('sendOrderInfo', {orderInfo: params})
+      }
     })
-    this.queryorderlist()
   },
 
   
   // 立即支付
-  nowPay() {},
+  nowPay() {
+    // this.setData({
+    //   isShow: true
+    // })
+  },
+
+  // 支付失败
+  payFail() {
+    this.setData({
+      isShow: false
+    })
+    // // 支付失败，跳转到进度页
+    // wx.navigateTo({
+    //   url: '../orders/orders?type=1'
+    // })
+  },
+  
+  // 支付成功
+  paySuccess() {
+    wx.navigateTo({
+      url: '../pay-success/pay-success',
+      success: res => {
+        this.setData({
+          isShow: false
+        })
+        res.eventChannel.emit('sendOrderInfo', { orderInfo: this.data.details })
+      }
+    })
+  },
 
   // 提醒发货
   remindShip() {},
@@ -93,13 +136,6 @@ Page({
 
   // 删除订单
   delOrder() {},
-
-  // 我要评价
-  openAddCommentPage() {
-    wx.navigateTo({
-      url: '../add-comment/add-comment'
-    })
-  },
 
   // 再次购买
   buyAgin() {},
@@ -117,7 +153,7 @@ Page({
             orderId: e.currentTarget.dataset.orderId,
             openId: app.globalData.openId
           }
-          request('order/canelorder', params).then(res => {
+          request('order/cancel', params).then(res => {
             if (res.data.code == 10000) {
               wx.showToast({
                 title: res.data.msg,

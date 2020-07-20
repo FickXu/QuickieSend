@@ -33,6 +33,7 @@ Page({
     ],
     orderList: [],
     orderListShow: true,
+    isShow: false,
   },
   onLoad(params) {
     let type = params.type
@@ -127,7 +128,45 @@ Page({
   },
 
   // 立即支付
-  nowPay() {},
+  nowPay(e) {
+    // this.setData({
+    //   isShow: true
+    // })
+    // let index = e.currentTarget.dataset.index
+    // wx.navigateTo({
+    //   url: '../pay-success/pay-success',
+    //   success: res => {
+    //     this.setData({
+    //       isShow: false
+    //     })
+    //     res.eventChannel.emit('sendOrderInfo', { orderInfo: this.data.orderList[index] })
+    //   }
+    // })
+  },
+  
+  // 支付失败
+  payFail() {
+    this.setData({
+      isShow: false
+    })
+    // // 支付失败，跳转到进度页
+    // wx.navigateTo({
+    //   url: '../orders/orders?type=1'
+    // })
+  },
+  
+  // 支付成功
+  paySuccess() {
+    wx.navigateTo({
+      url: '../pay-success/pay-success',
+      success: res => {
+        this.setData({
+          isShow: false
+        })
+        res.eventChannel.emit('sendOrderInfo', { orderInfo: this.data.details })
+      }
+    })
+  },
 
   // 提醒发货
   remindShip() {},
@@ -139,10 +178,22 @@ Page({
   delOrder() {},
 
   // 我要评价
-  openAddCommentPage() {
-    wx.navigateTo({
-      url: '../add-comment/add-comment'
-    })
+  openAddCommentPage(e) {
+    this.goToGoodsDetail(e)
+    // let self = this
+    // let index = e.currentTarget.dataset.index
+    // let data = this.data.orderList[index]
+    // wx.navigateTo({
+    //   url: `../add-comment/add-comment`,
+    //   events: {
+    //     refresh: () => {
+    //       self.queryorderlist()
+    //     }
+    //   },
+    //   success(res) {
+    //     res.eventChannel.emit('sendOrderInfo', {orderInfo: data})
+    //   }
+    // })
   },
 
   // 再次购买
@@ -157,10 +208,10 @@ Page({
       success (res) {
         if (res.confirm) {
           let params = {
-            orderId: e.currentTarget.dataset.orderId,
+            orderNo: e.currentTarget.dataset.orderNo,
             openId: app.globalData.openId
           }
-          request('order/canelorder', params).then(res => {
+          request('order/cancel', params).then(res => {
             if (res.data.code == 10000) {
               wx.showToast({
                 title: res.data.msg,

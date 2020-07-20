@@ -22,25 +22,22 @@
     </view>
   
     <!-- 我的明细，我的搜藏，购物车 -->
-    <view class="list-menu">
-      <!-- 购物车 -->
+    <!-- <view class="list-menu">
       <view class="cu-list grid col-3 no-border">
         <view class="cu-item"  bindtap="openConsumerDetailsPage">
           <view class="cuIcon-cart text-grey"></view>
           <text>消费明细</text>
         </view>
-        <!-- 订单 -->
         <view class="cu-item" bindtap="openCollectionPage">
           <view class="cuIcon-favor text-grey"></view>
           <text>收藏</text>
         </view>
-        <!-- 地址 -->
         <view class="cu-item" bindtap="openShopingCarPage">
           <view class="cuIcon-location text-grey"></view>
           <text>购物车</text>
         </view>
       </view>
-    </view>
+    </view> -->
     
     <!-- 我的订单 -->
     <view class="list-menu my-orders">
@@ -78,6 +75,11 @@
     <!-- 设置 -->
     <view class="cu-list menu list-menu settings">
       <!-- 需要接口控制 -->
+      <view class="cu-item arrow" bindtap="openConsumerDetailsPage">
+        <view class="content">
+          <text class="custome-icon-size cuIcon-lock text-cyan"></text>消费明细
+        </view>
+      </view>
       <view class="cu-item arrow" bindtap="openReceivingOrderPage">
         <view class="content">
           <text class="custome-icon-size cuIcon-lock text-cyan"></text>小二快跑

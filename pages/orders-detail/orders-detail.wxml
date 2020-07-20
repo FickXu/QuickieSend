@@ -12,8 +12,8 @@
         <!-- 第一行 -->
         <view class="flex felx-align-center">
           <view class="cuIcon-noticefill fz-20 text-cyan"></view>
-          <view class="bold fz-18 text-cyan margin-left-xs">{{details.status==1?'待付款':(details.status==4?'代发货':(details.status==5?'待收货':(details.status==6?'已完成': '')))}}</view>
-          <view class="fz-16 ml-20">
+          <view class="bold fz-18 text-cyan margin-left-xs">{{details.status==1?'待付款':(details.status==4?'代发货':(details.status==5?'待收货':(details.status==6?'已完成': (details.status==2?'已取消':''))))}}</view>
+          <view class="fz-16 ml-20" wx:if="{{details.status!=2}}">
             <text class="text-cyan">需支付</text>
             <text class="text-red"> ¥ {{details.payAmount / 100}}</text>
           </view>
@@ -89,8 +89,17 @@
             {{goodsItem.specName}}
           </view>
           <view class="shop-attr-total flex justify-between flex-align-center">
-            <text class="price">¥ {{goodsItem.totalMoney / 100}}</text>
+            <text class="price">¥ {{goodsItem.finalPrice / 100}}</text>
             <text class="text-gray">x {{goodsItem.qty}}</text>
+          </view>
+          <view class="btn-delete-order text-right" wx:if="{{details.status==6}}">
+            <button
+              class="cu-btn round line text-cyan ml-10"
+              data-index="{{goodsIndex}}"
+              bindtap="openAddCommentPage"
+              >
+              我要评价
+            </button>
           </view>
         </view>
       </view>
@@ -107,27 +116,41 @@
         <!-- <view class="order-mark">订单备注：{{item. contactAddress}}</view> -->
         <view class="order-total">总计：{{details.totalQty}}件，共计：<text class="price">¥{{details.payAmount / 100}}</text></view>
         <!-- 待支付 -->
-        <view class="btn-delete-order text-right" wx:if="{{item.status==1}}">
-          <button class="cu-btn round line text-cyan" data-order-id="{{details.id}}" bindtap="cancelOrder">取消订单</button>
-          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="nowPay">立即支付</button>
+        <view class="btn-delete-order text-right" wx:if="{{details.status==1}}">
+          <button class="cu-btn round line text-cyan" data-order-no="{{item.orderNo}}" bindtap="cancelOrder">取消订单</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-no="{{item.orderNo}}" bindtap="nowPay">立即支付</button>
+        </view>
+        <view class="btn-delete-order text-right" wx:if="{{details.status==2}}">
+          <view class="cu-btn round ml-10 bg-red">已取消</view>
         </view>
         <!-- 待发货 -->
-        <view class="btn-delete-order text-right" wx:if="{{item.status==4}}">
-          <button class="cu-btn round line text-cyan" data-order-id="{{details.id}}" bindtap="cancelOrder">取消订单</button>
+        <view class="btn-delete-order text-right" wx:if="{{details.status==4}}">
+          <button class="cu-btn round line text-cyan" data-order-no="{{item.orderNo}}" bindtap="cancelOrder">取消订单</button>
           <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="remindShip">提醒发货</button> -->
         </view>
         <!-- 待发货 -->
-        <view class="btn-delete-order text-right" wx:if="{{details.status==5}}">
-          <!-- <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">查看物流</button> -->
+        <!-- <view class="btn-delete-order text-right" wx:if="{{details.status==5}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">查看物流</button>
           <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="confirmReceipt">确认收货</button>
-        </view>
-        <!-- 已完成 -->
-        <view class="btn-delete-order text-right" wx:if="{{item.status==6}}">
-          <!-- <button class="cu-btn round line text-cyan" data-order-id="{{details.id}}" bindtap="delOrder">删除订单</button> -->
-          <button class="cu-btn round line text-cyan ml-10" data-order-id="{{itedetailsm.id}}" bindtap="openAddCommentPage">我要评价</button>
-          <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{details.id}}" bindtap="buyAgin">再次购买</button> -->
+        </view> -->
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{isShow ?'show':''}}">
+  <view class="cu-dialog">
+    <view class="text-black fz-18 text-algin padding-tb text-bold">支付中</view>
+    <view class="bg-img" style="background-image: url('https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg');height:200px;">
+      <view class="cu-bar justify-end text-white">
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close "></text>
         </view>
       </view>
+    </view>
+    <view class="cu-bar bg-white text-center justify-center">
+      <button class="cu-btn round" bindtap="payFail">支付遇到问题</button>
+      <button class="cu-btn round bg-cyan ml-15" bindtap="paySuccess">已经支付成功</button>
     </view>
   </view>
 </view>

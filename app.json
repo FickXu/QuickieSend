@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/orders/orders",
     "pages/receiving-order/receiving-order",
     "pages/login/login",
-    "pages/orders/orders",
     "pages/commodity-detail/commodity-detail",
     "pages/shoping-car/shoping-car",
     "pages/hospital-list/hospital-list",
@@ -11,11 +11,11 @@
     "pages/shoping-detail/shoping-detail",
     "pages/withdraw/withdraw",
     "pages/user-auth/user-auth",
+    "pages/add-comment/add-comment",
     "pages/address-list/address-list",
     "pages/modify-address/modify-address",
     "pages/bind-phone/bind-phone",
     "pages/person-info/person-info",
-    "pages/add-comment/add-comment",
     "pages/orders-detail/orders-detail",
     "pages/collection-list/collection-list",
     "pages/consumer-details/consumer-details",

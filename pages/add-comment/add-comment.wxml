@@ -8,17 +8,17 @@
   <!-- 商品信息 -->
   <view class="list-order-item">
     <view class="shop-view">
-      <image class="img" src="{{commodityDetails.goodsImg||defalultImageUrlTz}}" alt="diamond" />
+      <image class="img" src="{{commodityDetails.image}}" alt="diamond" />
     </view>
     <view class="shop-attr">
       <view class="shop-attr-shape">
-        {{commodityDetails.goodsTypeName}}
+        {{commodityDetails.name}}
       </view>
       <view class="shop-attr-specs">
-        {{commodityDetails.goodsDesc}}
+        {{commodityDetails.specName}}
       </view>
       <view class="shop-attr-total">
-        <text class="price">¥ {{commodityDetails.goodsRealPrice}}</text>
+        <text class="price">¥ {{commodityDetails.finalPrice / 100}}</text>
       </view>
     </view>
   </view>
@@ -29,14 +29,26 @@
     <rate bind:getStartValue="getStartValue" showLabel="{{true}}"></rate>
   </view>
 
+  <!-- 服务评分 -->
+  <view class="flex padding">
+    <view class="title bold text-black fz-18 mr-20">服务评分</view>
+    <rate bind:getStartValue="getStartValue1" showLabel="{{true}}"></rate>
+  </view>
+
   <!-- 评论输入 -->
   <view class="padding">
     <textarea class="textarea" placeholder="请输入评论内容" auto-focus bindinput="bindinput" />
-    <cells>
+    <!-- <cells>
       <cell>
         <uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" max-count="6" title="带图评论" tips="图片上传提示"></uploader>
       </cell>
-    </cells>
+    </cells> -->
+  </view>
+
+  <view class="padding">
+    <view class="qs-btn-box">
+      <button class="qs-btn qs-bg" bindtap="confirmComment">提交评论</button>
+    </view>
   </view>
 
 </view>

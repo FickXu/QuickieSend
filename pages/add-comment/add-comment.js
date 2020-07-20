@@ -1,3 +1,5 @@
+import request from '../api/request'
+
 const app = getApp();
 // pages/home/home.js
 Page({
@@ -6,60 +8,84 @@ Page({
    */
   data: {
     title: '发布评论',
-    commodityDetails: {
-      id: 2,
-      goodsImg: '../images/rich.png',
-      goodsTypeName: '香香大米',
-      name: '香香大米',
-      price: 109,
-      goodsDesc: '1kg,进口',
-      goodsDiscount: 2,
-      goodsRealPrice: 109
-    },
+    // 评论图片
     files: [],
-    // 默认图片-空托
-    defalultImageUrlTz: app.globalData.defalultImageUrlTz,
+    // 订单详情
+    commodityDetails: {},
+    // 评论参数
+    params: {
+      // 服务评分
+      serveScore: '',
+      // 商品评分
+      spuScore: '',
+      // 订单编号
+      orderNo: '',
+      // 订单详情编号
+      orderInfoNo: '',
+      // 评论类容
+      contentStr: '',
+      // 评论图片
+      commentImgArr: []
+    }
   },
 
-  onLoad(params) {
-    // this.queryorderlist()
-    this.setData({
-      selectFile: this.selectFile.bind(this),
-      uplaodFile: this.uplaodFile.bind(this)
+  onLoad() {
+    let self = this
+    const eventChannel = this.getOpenerEventChannel()
+
+    eventChannel.on('sendOrderInfo', function(data) {
+      console.log(data)
+      self.setData({
+        commodityDetails: data.orderInfo,
+        'params.orderNo': data.orderInfo.orderNo,
+        'params.orderInfoNo': data.orderInfo.orderInfoNo
+      })
     })
+
+    // 图片上传
+    // this.setData({
+    //   selectFile: this.selectFile.bind(this),
+    //   uplaodFile: this.uplaodFile.bind(this)
+    // })
   },
 
   // 获取评论级别
   getStartValue(e) {
     let starts = e.detail
-    console.log(starts)
+    this.setData({
+      'params.spuScore': starts
+    })
+  },
+  
+  // 获取服务级别
+  getStartValue1(e) {
+    let starts = e.detail
+    this.setData({
+      'params.serveScore': starts
+    })
   },
 
   // 输入评论内容
   bindinput(e) {
     let value = e.detail.value
-    console.log(value)
+    this.setData({
+      'params.contentStr': value
+    })
   },
 
-  // 获取订单列表
-  queryorderlist() {
+  // 新增评论
+  confirmComment() {
     let params = {
-      goodsType: this.data.TabCur,   // 订单状态 0, 订单失效/取消;1, 待付款;2, 已付款待发货;3, 已下单待快递拿货; 4, 已发货待收货;5, 已收货待评价;6, 已评价)
-      openId: app.globalData.openId
+      ...this.data.params
     }
     let self = this
-    request('order/queryorderlist', params).then(res => {
-      if (res.data.code == 10000) {
-        if (res.data.data) {
-          self.setData({
-            orderList: res.data.data
-          })
-        } else {
-          self.setData({
-            orderList: []
-          })
-        }
-      }
+    request('order/comment', params).then(res => {
+      wx.showToast({
+        title: res.data.msg
+      })
+      const eventChannel = self.getOpenerEventChannel()
+      eventChannel.emit('refresh');
+      wx.navigateBack()
     })
   },
 

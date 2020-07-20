@@ -66,12 +66,15 @@
         <view class="order-total">总计：{{item.totalQty}}件，共计：<text class="price">¥{{item.payAmount}}</text></view>
         <!-- 待支付 -->
         <view class="btn-delete-order text-right" wx:if="{{item.status==1}}">
-          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">取消订单</button>
-          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="nowPay">立即支付</button>
+          <button class="cu-btn round line text-cyan" data-order-no="{{item.orderNo}}" bindtap="cancelOrder">取消订单</button>
+          <button class="cu-btn round ml-10 bg-cyan" data-index="{{index}}" bindtap="nowPay">立即支付</button>
+        </view>
+        <view class="btn-delete-order text-right" wx:if="{{item.status==2}}">
+          <view class="cu-btn round ml-10 bg-red">已取消</view>
         </view>
         <!-- 待发货 -->
         <view class="btn-delete-order text-right" wx:if="{{item.status==4}}">
-          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="cancelOrder">取消订单</button>
+          <button class="cu-btn round line text-cyan" data-order-no="{{item.orderNo}}" bindtap="cancelOrder">取消订单</button>
           <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="remindShip">提醒发货</button> -->
         </view>
         <!-- 待发货 -->
@@ -82,7 +85,13 @@
         <!-- 已完成 -->
         <view class="btn-delete-order text-right" wx:if="{{item.status==6}}">
           <!-- <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="delOrder">删除订单</button> -->
-          <button class="cu-btn round line text-cyan ml-10" data-order-id="{{item.id}}" bindtap="openAddCommentPage">我要评价</button>
+          <button
+            class="cu-btn round line text-cyan ml-10"
+            data-order-no="{{item.orderNo}}"
+            bindtap="openAddCommentPage"
+            >
+            去评价
+          </button>
           <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="buyAgin">再次购买</button> -->
         </view>
       </view>
@@ -91,5 +100,22 @@
   <view wx:else class="list-order-none">
     <image class="padding-xl" src="../images/no-data.png" />
     <view>抱歉，您还没有相关订单</view>
+  </view>
+</view>
+
+<view class="cu-modal {{isShow ?'show':''}}">
+  <view class="cu-dialog">
+    <view class="text-black fz-18 text-algin padding-tb text-bold">支付中</view>
+    <view class="bg-img" style="background-image: url('https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg');height:200px;">
+      <view class="cu-bar justify-end text-white">
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close "></text>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar bg-white text-center justify-center">
+      <button class="cu-btn round" bindtap="payFail">支付遇到问题</button>
+      <button class="cu-btn round bg-cyan ml-15" bindtap="paySuccess">已经支付成功</button>
+    </view>
   </view>
 </view>

@@ -232,6 +232,16 @@ Page({
     })
   },
   
+  onShow: function () {
+    
+    // 是否已经登录
+    let isLogin = wx.getStorageSync('isLogin')
+    this.setData({
+      isLogin: isLogin ? true : false
+    })
+
+  },
+
   // 页面显示时检查店铺信息
   onLoad: function () {
     
@@ -288,5 +298,6 @@ Page({
     this.setData({
       isLogin: isLogin ? true : false
     })
+
   }
 })

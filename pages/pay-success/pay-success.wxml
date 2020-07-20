@@ -12,11 +12,27 @@
 
   <view class="commdity-info mt-10">
     <!-- 商品列表 -->
-    <commodity-list
+    <!-- <commodity-list
       info="{{commodityList}}"
       layout="{{layoutType}}"
       >
-    </commodity-list>
+    </commodity-list> -->
+    <view class="list-order-item" wx:for="{{commodityList}}">
+      <view class="shop-view">
+        <image class="img" src="{{item.image}}" alt="diamond" />
+      </view>
+      <view class="shop-attr">
+        <view class="shop-attr-shape">
+          {{item.name}}
+        </view>
+        <view class="shop-attr-specs">
+          {{item.specName}}
+        </view>
+        <view class="shop-attr-total">
+          <text class="price">¥ {{item.finalPrice / 100}}</text>
+        </view>
+      </view>
+    </view>
   </view>
 
   <!-- 操作按钮 -->
