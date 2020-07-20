@@ -47,14 +47,14 @@
   <view class="comment mt-10">
     <view class="flex flex-align-center space-between">
       <text class="header">商品评论（{{commentList.length}}）</text>
-      <text class="text-cyan" bindtap="allComment" wx:if="{{commentList.length>0}}">查看全部</text>
+      <text class="text-cyan" data-detail-id="{{detail.id}}" bindtap="allComment" wx:if="{{commentList.length>0}}">查看全部</text>
     </view>
     <view class=" mt-10" wx:if="{{commentList.length>0}}">
       <view class="info flex flex-align-center">
-        <view class="cu-avatar round" style="background-image:url({{detail.avatarUrl}});"></view>
-        <view class="nick-name ml-10">{{detail.nickName}}</view>
+        <view class="cu-avatar round" style="background-image:url({{commentList[0].headImg}});"></view>
+        <view class="nick-name ml-10">{{commentList[0].nickName}}</view>
       </view>
-      <view class="content mt-10">没想到这么便宜的大米还挺好吃的，物流好快两天就到了,卖家服务态度也挺好的</view>
+      <view class="content mt-10">{{commentList[0].contentStr}}</view>
     </view>
   </view>
   

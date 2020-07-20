@@ -2,7 +2,7 @@
 <scroll-view scroll-y="{{true}}" class="person-center" bindscroll="pageScroll">
   <view class="container">
     <!-- nav-bar -->
-    <cu-custom isBack="{{true}}" bgColor="{{cuCustomBGColor}}">
+    <cu-custom bgColor="{{cuCustomBGColor}}">
       <view slot="content" class="bold">{{ title }}</view>
     </cu-custom>
     <!-- <view class="nav-bar">
@@ -86,7 +86,7 @@
         </view>
       </view>
       <!-- 需要接口控制 -->
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="openReceivingBillPage">
         <view class="content">
           <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>快跑账单
         </view>

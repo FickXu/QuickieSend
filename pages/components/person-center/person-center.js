@@ -9,7 +9,7 @@ Component({
   },
 	data: {
 		title: '个人中心',
-		cuCustomBGColor: '',
+		cuCustomBGColor: 'bg-transparent',
 		userInfo: {
 			// avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
 			// city: "Shenzhen",
@@ -129,6 +129,16 @@ Component({
 		openReceivingOrderPage() {
 			wx.navigateTo({
 				url: '../../pages/receiving-order/receiving-order',
+				fail: err => {
+					console.log(err)
+				}
+			})
+		},
+
+		// 快跑账单
+		openReceivingBillPage() {
+			wx.navigateTo({
+				url: '../../pages/receiving-bill/receiving-bill',
 				fail: err => {
 					console.log(err)
 				}

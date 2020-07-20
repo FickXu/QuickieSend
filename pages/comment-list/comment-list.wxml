@@ -8,40 +8,27 @@
   >
 
   <!-- 分类标签 -->
-  <view class="type-tags mt-20 ml-15 mr-15">
+  <!-- <view class="type-tags mt-20 ml-15 mr-15">
     <text class="mr-10 tag active">全部</text>
     <text class="mr-10 tag">好评(12)</text>
     <text class="mr-10 tag">中评(3)</text>
     <text class="mr-10 tag">差评(0)</text>
-  </view>
+  </view> -->
 
   <!-- 评论 -->
-  <view class="comment mt-20">
-    <view class="comment-item mt-10 ml-15 mr-15">
+  <view class="comment mt-20" wx:if="{{commentList.length>0}}">
+    <view class="comment-item mt-10 ml-15 mr-15" wx:for="{{commentList}}">
       <view class="info flex flex-align-center">
-        <view class="cu-avatar round" style="background-image:url({{detail.avatarUrl}});"></view>
-        <view class="nick-name ml-10">{{detail.nickName}}</view>
+        <view class="cu-avatar round" style="background-image:url({{item.headImg}});"></view>
+        <view class="nick-name ml-10">{{item.nickName}}</view>
       </view>
-      <view class="mt-10 value">2020-6-18</view>
-      <view class="content mt-15">没想到这么便宜的大米还挺好吃的，物流好快两天就到了,卖家服务态度也挺好的</view>
-      <view class="imgs mt-10">
+      <view class="mt-10 value">{{item.createDate}}</view>
+      <view class="content mt-15">{{item.contentStr}}</view>
+      <!-- <view class="imgs mt-10">
         <view class="cu-avatar radius lg mr-10" style="background-image:url({{detail.avatarUrl}})"></view>
         <view class="cu-avatar radius lg mr-10" style="background-image:url({{detail.avatarUrl}})"></view>
         <view class="cu-avatar radius lg mr-10" style="background-image:url({{detail.avatarUrl}})"></view>
-      </view>
-    </view>
-    <view class="comment-item mt-10 ml-15 mr-15">
-      <view class="info flex flex-align-center">
-        <view class="cu-avatar round" style="background-image:url({{detail.avatarUrl}});"></view>
-        <view class="nick-name ml-10">{{detail.nickName}}</view>
-      </view>
-      <view class="mt-10 value">2020-6-18</view>
-      <view class="content mt-15">没想到这么便宜的大米还挺好吃的，物流好快两天就到了,卖家服务态度也挺好的</view>
-      <view class="imgs mt-10">
-        <view class="cu-avatar radius lg mr-10" style="background-image:url({{detail.avatarUrl}})"></view>
-        <view class="cu-avatar radius lg mr-10" style="background-image:url({{detail.avatarUrl}})"></view>
-        <view class="cu-avatar radius lg mr-10" style="background-image:url({{detail.avatarUrl}})"></view>
-      </view>
+      </view> -->
     </view>
   </view>
   

@@ -94,7 +94,7 @@ Page({
   // 查看所有评论
   allComment() {
     wx.navigateTo({
-      url: '../../pages/comment-list/comment-list',
+      url: `../../pages/comment-list/comment-list?detailId=${this.data.detail.id}`,
       fail(err) {
         console.log(err)
       }

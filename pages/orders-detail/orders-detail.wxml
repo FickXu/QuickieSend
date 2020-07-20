@@ -92,7 +92,7 @@
             <text class="price">¥ {{goodsItem.finalPrice / 100}}</text>
             <text class="text-gray">x {{goodsItem.qty}}</text>
           </view>
-          <view class="btn-delete-order text-right" wx:if="{{details.status==6}}">
+          <view class="btn-delete-order text-right" wx:if="{{goodsItem.isAppraise==0 && details.status==6}}">
             <button
               class="cu-btn round line text-cyan ml-10"
               data-index="{{goodsIndex}}"
@@ -122,6 +122,9 @@
         </view>
         <view class="btn-delete-order text-right" wx:if="{{details.status==2}}">
           <view class="cu-btn round ml-10 bg-red">已取消</view>
+        </view>
+        <view class="btn-delete-order text-right" wx:if="{{details.status==3}}">
+          <view class="cu-btn round ml-10 bg-gray">待配送</view>
         </view>
         <!-- 待发货 -->
         <view class="btn-delete-order text-right" wx:if="{{details.status==4}}">

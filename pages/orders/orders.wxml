@@ -72,6 +72,9 @@
         <view class="btn-delete-order text-right" wx:if="{{item.status==2}}">
           <view class="cu-btn round ml-10 bg-red">已取消</view>
         </view>
+        <view class="btn-delete-order text-right" wx:if="{{item.status==3}}">
+          <view class="cu-btn round ml-10 bg-gray">待配送</view>
+        </view>
         <!-- 待发货 -->
         <view class="btn-delete-order text-right" wx:if="{{item.status==4}}">
           <button class="cu-btn round line text-cyan" data-order-no="{{item.orderNo}}" bindtap="cancelOrder">取消订单</button>
