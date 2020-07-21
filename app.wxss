@@ -28,7 +28,7 @@ page {
   --black: #333333;
   --darkGray: #666666;
   --gray: #aaaaaa;
-  --ghostWhite: #f9f9f9;
+  --ghostWhite: #f1f1f1;
   --white: #ffffff;
   /* 浅色 */
   --redLight: #fadbd9;
@@ -4388,6 +4388,9 @@ scroll-view.cu-steps .cu-item {
 }
 .mt-30 {
   margin-top: 60rpx;
+}
+.mt-60 {
+  margin-top: 120rpx;
 }
 .mr-10 {
   margin-right: 20rpx;

@@ -11,19 +11,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    title: '接单明细',
-		cuCustomBGColor: 'bg-transparent',
-    details: {},
+    title: '快跑账单'
   },
-  onLoad() {
-    this.queryList()
+
+  // 账单明细
+  openReceivingBillPage () {
+    wx.navigateTo({
+      url: '../run-bill/run-bill'
+    })
   },
-  // 获取消费明细
-  queryList() {
-    request('order/receivingbill').then(res => {
-      this.setData({
-        details: res.data.data,
-      })
+
+  // 平台推广
+  openPlateformPage () {
+    wx.navigateTo({
+      url: '../plateform-card/plateform-card'
     })
   },
 })

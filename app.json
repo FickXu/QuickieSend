@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/plateform-card/plateform-card",
     "pages/receiving-bill/receiving-bill",
     "pages/orders/orders",
     "pages/receiving-order/receiving-order",

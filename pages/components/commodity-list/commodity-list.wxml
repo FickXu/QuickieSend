@@ -39,7 +39,7 @@
         data-index="{{index}}"
         bindtap="goToDetail"
         >
-        <view class="flex flex-align-center">
+        <view class="flex flex-align-center" style="width: 100%">
           <view class="select-box mr-10" wx:if="{{isSelect}}">
             <checkbox
               class="round cyan checkbox"
@@ -48,13 +48,13 @@
               >
             </checkbox>
           </view>
-          <view class="flex">
+          <view class="flex" style="width: 100%">
             <image class="commodity-img" mode="aspecFill" src="{{item.spuMainImg}}" />
-            <view class="commodity-info ml-10 mr-10">
-              <view class="title line-overflow">{{item.spuName}}</view>
+            <view class="commodity-info ml-10 mr-10 flex-row4">
+              <view class="title line-overflow mt-10">{{item.spuName}}</view>
               <!-- 编辑时为规格 -->
               <view class="flex space-between flex-align-center mt-10">
-                <text class="value">399购买</text>
+                <text class="value">{{item.saleQty}}购买</text>
                 <text class="value">免费配送</text>
               </view>
 

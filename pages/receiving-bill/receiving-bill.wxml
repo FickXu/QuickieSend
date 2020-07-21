@@ -1,31 +1,17 @@
 <!-- 明细列表 -->
-<view class="bg-white">
-  <view class="receiving-page">
-    <cu-custom isBack="{{true}}" bgColor="{{cuCustomBGColor}}">
-      <view slot="content" class="bold">{{ title }}</view>
-    </cu-custom>
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
   
-    <view class="mt-10">
-      <view class="flex justify-around">
-        <view class="text-center text-white">
-          <view class="fz-12">今日接单数</view>
-          <view class="fz-18 mt-15 bold">{{details.todayAlternative}}</view>
-        </view>
-        <view class="text-center text-white">
-          <view class="fz-12">已完成数</view>
-          <view class="fz-18 mt-15 bold">{{details.todayDeliverys}}</view>
-        </view>
-      </view>
+<view class="cu-list menu list-menu settings">
+  <view class="cu-item arrow" bindtap="openReceivingBillPage">
+    <view class="content">
+      <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>快跑账单
     </view>
   </view>
-
-  <view class="padding qs-border-bottom" wx:for="{{details.historyMapList}}">
-    <view>
-      <view class="text-gray fz-12">{{item.year+'年'+item.month+'月'}}</view>
-      <view class="text-black fz-16 flex justify-between" style="width: 100%">
-        <view>已接单数：{{item.alternative}}</view>
-        <view>已完成数：{{item.deliverys}}</view>
-      </view>
+  <view class="cu-item arrow" bindtap="openPlateformPage">
+    <view class="content">
+      <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>平台推广
     </view>
   </view>
 </view>

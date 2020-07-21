@@ -1,0 +1,24 @@
+<view class="my-scan">
+  <cu-custom isBack="{{true}}">
+    <view slot="content" class="bold">{{ title }}</view>
+  </cu-custom>
+
+  <scroll-view scroll-x class="nav text-center">
+    <view class="cu-item {{index==TabCur?'text-white cur':''}}" wx:for="{{menuList}}" wx:key bindtap="tabSelect" data-id="{{index}}">
+      {{item.label}}
+    </view>
+  </scroll-view>
+
+  <!-- 二维码 -->
+  <view class="scan mt-20">
+    <image src="{{iconUrl}}" alt="扫我"  />
+  </view>
+
+  <!-- 操作按钮 -->
+  <!-- <view class="mt-20">
+    <button class="button bg-fill" bindtap="openShopingDetailPage">购物详情</button>
+  </view>
+  <view class="mt-20">
+    <button class="button border" bindtap="openConsumeRecordPage">收支记录</button>
+  </view> -->
+</view>

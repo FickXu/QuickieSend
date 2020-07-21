@@ -31,7 +31,7 @@
   scroll-with-animation
   >
   <!-- 商品列表 -->
-  <view>
+  <view class="{{isLimitedBuying=='true' ? 'mt-60' : ''}}">
     <commodity-list info="{{commodityList}}" layout="{{layoutType}}"></commodity-list>
     <view wx:if="{{commodityList.length==0}}" class="list-order-none">
       <image class="padding-xl" src="../images/no-data.png" />

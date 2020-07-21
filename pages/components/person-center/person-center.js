@@ -19,15 +19,6 @@ Component({
 			// nickName: "Fick",
 			// province: "Guangdong"
 		},
-		commodityList: [
-      {
-        spuId: 1,
-        spuMainImg: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg',
-        spuName: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
-        showPrice: 88.0,
-        postType: '免费配送'
-      }
-    ],
 	},
 	ready: function () {
 		request('user/info').then(res => {

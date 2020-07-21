@@ -1,4 +1,5 @@
 import request from '../api/request'
+import {getStandardDate} from '../../utils/util'
 
 const app = getApp();
 
@@ -11,28 +12,7 @@ Page({
     title: '商品详情',
     // detail:{"id":62,"shopSpuId":"21-62","spuId":62,"spuMainImg":"spuMainImg","spuBannerImgList":[{"id":168,"spuId":62,"spuInfoImg":"spuBannerImgArr","orderNo":1,"imgType":2}],"mallSpuSpecModelList":[{"value":"52","label":null,"spuId":62,"id":52,"childs":[{"value":"81","label":"单开门","id":81,"spuSpecId":52},{"value":"82","label":"双开门","id":82,"spuSpecId":52}]}],"spuInfoImgList":[{"id":167,"spuId":62,"spuInfoImg":"spuInfoImgArr","orderNo":1,"imgType":1}],"spuCode":"001","spuAbstract":"spuAbstract","goodsTypeIdOne":37,"goodsTypeIdTwo":38,"goodsTypeIdThree":null,"goodsTypeIdFour":null,"goodsTypeIdFive":null,"goodsTypeIdOneName":"家电","goodsTypeIdTwoName":"冰箱","goodsTypeIdThreeName":"","goodsTypeIdFourName":"","goodsTypeIdFiveName":"","brandId":14,"brandName":"亮亮","brandIcon":null,"spuName":"蔡徐坤奶粉1","showPrice":null,"realPrice":null,"skuKey":null,"filialeId":23,"filialeName":"长沙分公司01","saleQty":62,"evaluateQty":0,"shopId":21},
     detail: {},
-    swiperList: [
-      {
-        id: 0,
-        url: '../images/rich.png'
-      },
-      {
-        id: 1,
-        url: '../images/rich.png'
-      },
-      {
-        id: 2,
-        url: '../images/rich.png'
-      },
-      {
-        id: 3,
-        url: '../images/rich.png'
-      },
-      {
-        id: 4,
-        url: '../images/rich.png'
-      }
-    ],
+    swiperList: [],
     // 猜你喜欢
     // commodityList: [
     //   {
@@ -62,7 +42,11 @@ Page({
     // 评论列表
     commentList: [],
     // 是否为活动商品
-    isLimitedBuying: false
+    isLimitedBuying: false,
+    // 抢购开始时间
+    limitedStartTime: [],
+    // 抢购结束时间
+    limitedEndTime: [],
   },
 
   // 选择规格时商品数量发生变化
@@ -397,9 +381,16 @@ Page({
 
   queryActivityCommodityInfo(id) {
     request(`shop/activityspupageinfo/${id}`).then(res => {
+      let detail = res.data.data
+      detail.id = res.data.data.spuId
+      
       this.setData({
-        detail: res.data.data
+        detail: detail,
+        limitedStartTime: getStandardDate(detail.startTime, 'hm').split(':'),
+        limitedEndTime: getStandardDate(detail.endTime, 'hm').split(':')
       })
+
+      this.queryCommentList()
     })
   },
 
@@ -423,9 +414,9 @@ Page({
             ...data
           }
         })
-      }
         // 查询评论数量
         self.queryCommentList()
+      }
   
         // console.log('获取到的参数：', JSON.stringify(data))
       })

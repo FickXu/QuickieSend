@@ -41,13 +41,13 @@
             <text class="text-cyan">活动时间</text>
           </view>
           <view class="ml-10 fz-18">
-            <text class="bg-red squer">10</text>
+            <text class="bg-red squer">{{limitedStartTime[0]||''}}</text>
             <text class="text-cyan">:</text>
-            <text class="bg-red squer">23</text>
+            <text class="bg-red squer">{{limitedStartTime[1]||''}}</text>
             <text class="text-cyan bold ml-10 mr-10">至</text>
-            <text class="bg-red squer">18</text>
+            <text class="bg-red squer">{{limitedEndTime[0]||''}}</text>
             <text class="text-cyan">:</text>
-            <text class="bg-red squer">00</text>
+            <text class="bg-red squer">{{limitedEndTime[1]||''}}</text>
           </view>
         </view>
       </view>
@@ -56,9 +56,13 @@
   
   <!-- 规格 -->
   <view class="standard-select mt-10">
-    <view class="standard-container flex flex-align-center" bindtap="showSelectStandardModal">
+    <view class="standard-container flex flex-align-center" bindtap="showSelectStandardModal" wx:if="{{isLimitedBuying=='false'}}">
       <text class="value">选择</text>
       <text class="line-overflow ml-10" decode="{{true}}">{{standardLabel}}</text>
+    </view>
+    <view class="standard-container flex flex-align-center" wx:else>
+      <text class="value">规格</text>
+      <text class="line-overflow ml-10" decode="{{true}}">{{detail.skuKey}}</text>
     </view>
   </view>
 
