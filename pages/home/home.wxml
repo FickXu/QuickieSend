@@ -11,8 +11,8 @@
         <text class="label">定位</text>
       </view>
       <view class="search">
-        <view class="cuIcon-search"></view>
-        <input type="text" class="search" placeholder="{{searchPlaceholder}}"/>
+        <view class="cuIcon-search" bindtap="openCommodityListPage"></view>
+        <input type="text" class="search" placeholder="{{searchPlaceholder}}" bindinput="bindinput"/>
       </view>
       <!-- <view class="shop-car cuIcon-cart text-white" bindtap="openShopingCartPage"></view> -->
     </view>

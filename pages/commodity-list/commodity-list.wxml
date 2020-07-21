@@ -6,10 +6,10 @@
 <view class="cu-bar search bg-white fixed" style="top:{{CustomBar}}px">
   <view class="search-form round">
     <text class="cuIcon-search"></text>
-    <input type="text" placeholder="请输入要搜索的商品" confirm-type="search"></input>
+    <input type="text" placeholder="请输入要搜索的商品" confirm-type="search" value="{{params.spuName}}" bindinput="bindinput"></input>
   </view>
   <view class="action">
-    <button class="cu-btn bg-cyan shadow-blur round">搜索</button>
+    <button class="cu-btn bg-cyan shadow-blur round" bindtap="queryList">搜索</button>
   </view>
 </view>
 

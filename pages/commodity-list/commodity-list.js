@@ -18,7 +18,8 @@ Page({
     // 筛选条件参数
     params: {
       goodsTypeIdTwo: '',
-      shopId: wx.getStorageSync('shopDetails').shopId || ''
+      shopId: wx.getStorageSync('shopDetails').shopId || '',
+      spuName: ''
     },
     layoutType: 'row',
     isLimitedBuying: ''
@@ -27,10 +28,17 @@ Page({
     this.setData({
       'params.goodsTypeIdTwo': e.type,
       isLimitedBuying: e.isLimitedBuying || 'false',
+      'params.spuName': e.searchStr || '',
+
       title: (e.isLimitedBuying && e.isLimitedBuying == 'true') ? '活动商品' : '商品列表'
     })
-    console.log(e)
     this.queryList()
+  },
+
+  bindinput(e) {
+    this.setData({
+      'params.spuName': e.detail.value
+    })
   },
 
   // 查询商品列表

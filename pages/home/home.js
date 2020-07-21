@@ -52,7 +52,17 @@ Page({
       spuName: '',
     },
     // 是否显示无数据提示页面
-    isShowNoneData: false
+    isShowNoneData: false,
+    // 搜索字符串
+    searchStr: ''
+  },
+
+  // 商品搜索
+  bindinput(e) {
+    let value = e.detail.value
+    this.setData({
+      searchStr: value
+    })
   },
 
   // 关闭弹窗
@@ -143,7 +153,7 @@ Page({
   // 普通商品列表
   openCommodityListPage() {
     wx.navigateTo({
-      url: `../../pages/commodity-list/commodity-list?isLimitedBuying=false`,
+      url: `../../pages/commodity-list/commodity-list?isLimitedBuying=false&searchStr=${this.data.searchStr}`,
       fail(err) {
         console.log(err)
       }
