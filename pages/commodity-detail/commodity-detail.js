@@ -47,6 +47,8 @@ Page({
     limitedStartTime: [],
     // 抢购结束时间
     limitedEndTime: [],
+    // 活动id
+    mallActivityId: ''
   },
 
   // 选择规格时商品数量发生变化
@@ -65,9 +67,17 @@ Page({
     let index = shopcarList.findIndex(item => item.skuId == detail.skuId)
     shopcarList[index].CURRENT_QUANTITY = detail.CURRENT_QUANTITY
 
+    if (detail.CURRENT_QUANTITY == 0) {
+      shopcarList.splice(index, 1)
+    }
+
     wx.setStorage({
       key: 'shopcarList',
       data: shopcarList
+    })
+
+    this.setData({
+      shopcarList: shopcarList
     })
 
     // 计算购物车商品数量
@@ -198,37 +208,40 @@ Page({
   // 添加到购物车
   shopingCart() {
 
-    // 商品的默认数量为0，添加购物车需要选择完整规格
-    let specKeys = Object.keys(this.data.detail.SPEC_OBJ)
-    if (!this.data.detail.SPEC_OBJ || specKeys.length != this.data.detail.mallSpuSpecModelList.length) {
-      wx.showToast({
-        title: '请选择商品规格',
-        icon: 'none'
-      })
-      return
-    }
-
-    // 商品的默认数量为1，添加购物车需要选择商品数量
-    if (!this.data.detail.CURRENT_QUANTITY) {
-      wx.showToast({
-        title: '请选择商品数量',
-        icon: 'none'
-      })
-      return
+    if (this.data.isLimitedBuying == 'false') {
+      // 商品的默认数量为0，添加购物车需要选择完整规格
+      let specKeys = Object.keys(this.data.detail.SPEC_OBJ)
+      if (!this.data.detail.SPEC_OBJ || specKeys.length != this.data.detail.mallSpuSpecModelList.length) {
+        wx.showToast({
+          title: '请选择商品规格',
+          icon: 'none'
+        })
+        return
+      }
+  
+      // 商品的默认数量为1，添加购物车需要选择商品数量
+      if (!this.data.detail.CURRENT_QUANTITY) {
+        wx.showToast({
+          title: '请选择商品数量',
+          icon: 'none'
+        })
+        return
+      }
     }
 
     let self = this
     // 获取购物车数据
     let shopcarList = wx.getStorageSync("shopcarList") || []
     let params = {
-      isActivity: this.data.detail.isActivity || false,
+      isActivity: this.data.isLimitedBuying || false,
       shopId: this.data.detail.shopId,
       spuMainImg: this.data.detail.spuMainImg,
       spuName: this.data.detail.spuName,
-      CURRENT_QUANTITY: this.data.detail.CURRENT_QUANTITY,
-      showPrice: this.data.shopcarDetail.showPrice,
-      realPrice: this.data.shopcarDetail.realPrice,
-      skuId: this.data.shopcarDetail.skuId
+      CURRENT_QUANTITY: this.data.isLimitedBuying=='true'?1:this.data.detail.CURRENT_QUANTITY,
+      showPrice: this.data.isLimitedBuying=='true'?this.data.detail.showPrice:this.data.shopcarDetail.showPrice,
+      realPrice: this.data.isLimitedBuying=='true'?this.data.detail.realPrice:this.data.shopcarDetail.realPrice,
+      skuId: this.data.isLimitedBuying=='true'?this.data.detail.skuId:this.data.shopcarDetail.skuId,
+      mallActivityId: this.data.mallActivityId
     }
     wx.setStorage({
       key: 'shopcarList',
@@ -249,9 +262,6 @@ Page({
       }
     })
 
-    // wx.navigateTo({
-    //   url: '../shoping-car/shoping-car'
-    // })
   },
 
   // 清空购物车
@@ -383,6 +393,8 @@ Page({
     request(`shop/activityspupageinfo/${id}`).then(res => {
       let detail = res.data.data
       detail.id = res.data.data.spuId
+      detail.realPrice = res.data.data.realPrice/100
+      detail.showPrice = res.data.data.showPrice/100
       
       this.setData({
         detail: detail,
@@ -406,8 +418,11 @@ Page({
     // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
     eventChannel.on('sendData', function(data) {
       if (query.isLimitedBuying == 'true') {
-        console.log(data)
+        console.log(data, '==================')
         self.queryActivityCommodityInfo(data.id)
+        self.setData({
+          mallActivityId: data.mallActivityId
+        })
       } else {
         self.setData({
           detail: {
@@ -419,7 +434,7 @@ Page({
       }
   
         // console.log('获取到的参数：', JSON.stringify(data))
-      })
+    })
     
     // 计算商品数量
     self.getShopCarCommodityNums()

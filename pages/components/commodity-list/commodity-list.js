@@ -40,6 +40,11 @@ Component({
     isLimitedBuying: {
       type: Boolean,
       value: false
+    },
+    // 是否跳转到详情，默认跳转
+    isGoToDetailPage: {
+      type: Boolean,
+      value: true
     }
   },
   observers: {
@@ -80,6 +85,9 @@ Component({
     },
     // 商品详情
     goToDetail (e) {
+
+      if (!this.data.isGoToDetailPage) return
+
       let dataset = e.currentTarget.dataset
       let self = this
 

@@ -51,7 +51,7 @@
           <view class="flex" style="width: 100%">
             <image class="commodity-img" mode="aspecFill" src="{{item.spuMainImg}}" />
             <view class="commodity-info ml-10 mr-10 flex-row4">
-              <view class="title line-overflow mt-10">{{item.spuName}}</view>
+              <view class="title line-overflow mt-10 text-left">{{item.spuName}}</view>
               <!-- 编辑时为规格 -->
               <view class="flex space-between flex-align-center mt-10">
                 <text class="value">{{item.saleQty}}购买</text>
