@@ -21,9 +21,9 @@
   
   <!-- 附近店铺信息 -->
   <view class="near-shop-info">
-    <view class="shop-img">
+    <!-- <view class="shop-img">
       <image class="img" src="{{shopDetails.imgPath}}" />
-    </view>
+    </view> -->
     <view class="shop-desc">
       <view class="title">{{shopDetails.shopName}}</view>
       <view class="title1">{{shopDetails.areaName}}</view>
@@ -45,10 +45,10 @@
     bindrefresherpulling="bindrefresherpulling"
     >
   
-    <!-- 店铺热门分类 -->
+    <!-- 店铺热门分类（二级） -->
     <view class="hot-category">
       <view
-        class="item {{categoryIndex == index ? 'active' : ''}}"
+        class="item"
         data-id="{{item.id}}"
         data-index="{{index}}"
         wx:for="{{hotCategoryList}}"
@@ -58,20 +58,60 @@
         {{item.name}}
       </view>
     </view>
+
+    <!-- 限时抢购 -->
+    <view class="discount-commodity" wx:if="{{limitedTimeCommodityList.length>0}}">
+      <view class="theme-header">
+        <view class="flex-row4 flex align-center">
+          <view class="fz-18 bold">
+            <text class="text-black">限时</text>
+            <text class="text-red">抢购</text>
+          </view>
+          <view class="ml-10 fz-18">
+            <text class="bg-red squer">{{limitedStartTime[0]||''}}</text>
+            <text class="text-cyan">:</text>
+            <text class="bg-red squer">{{limitedStartTime[1]||''}}</text>
+            <text class="text-cyan bold ml-10 mr-10">至</text>
+            <text class="bg-red squer">{{limitedEndTime[0]||''}}</text>
+            <text class="text-cyan">:</text>
+            <text class="bg-red squer">{{limitedEndTime[1]||''}}</text>
+          </view>
+        </view>
+        <view class="flex-row1 text-right" bindtap="openDiscountCommodityPage">
+          <text class="text-gray fz-12 more-limit">更多</text>
+        </view>
+      </view>
   
-    <!-- 商品banner -->
-    <view class="commodity-banner">
-      <view class="icon-banner">
-        <image src="../images/new-commodity.png" mode="aspectFill" />
+      <view class="mt-20">
+        <commodity-list info="{{limitedTimeCommodityList}}" isLimitedBuying></commodity-list>
       </view>
     </view>
-    
-    <!-- 商品列表 -->
-    <commodity-list info="{{commodityList}}"></commodity-list>
-    <view wx:if="{{isShowNoneData}}" class="list-order-none">
-      <image class="padding-xl" src="../images/no-data.png" />
-      <view>该分类没有商品</view>
+
+    <!-- 热卖商品 -->
+    <view class="hot-commodity">
+      <view class="theme-header">
+        <view class="flex-row4 flex align-center">
+          <view class="fz-18 bold">
+            <text class="text-red">热卖</text>
+            <text class="text-black">商品</text>
+          </view>
+        </view>
+        <view class="flex-row1 text-right" bindtap="openCommodityListPage">
+          <text class="text-gray fz-12 more-limit">更多</text>
+        </view>
+      </view>
+
+      <!-- 商品列表 -->
+      <view class="mt-20">
+        <commodity-list info="{{commodityList}}"></commodity-list>
+      </view>
+
+      <view wx:if="{{isShowNoneData}}" class="list-order-none">
+        <image class="padding-xl" src="../images/no-data.png" />
+        <view>该分类没有商品</view>
+      </view>
     </view>
+  
   </scroll-view>
 </view>
 

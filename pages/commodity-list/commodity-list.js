@@ -10,7 +10,7 @@ Page({
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     Custom: app.globalData.Custom,
-    title: "母婴用品",
+    title: "",
     // 搜索条件
     searchText: '请输入您要搜索的内容',
     commodityList: [],
@@ -20,13 +20,16 @@ Page({
       goodsTypeIdTwo: '',
       shopId: wx.getStorageSync('shopDetails').shopId || ''
     },
-    layoutType: 'row'
+    layoutType: 'row',
+    isLimitedBuying: ''
   },
   onLoad (e) {
-    let type = e.type
     this.setData({
-      'params.goodsTypeIdTwo': type
+      'params.goodsTypeIdTwo': e.type,
+      isLimitedBuying: e.isLimitedBuying || 'false',
+      title: (e.isLimitedBuying && e.isLimitedBuying == 'true') ? '活动商品' : '商品列表'
     })
+    console.log(e)
     this.queryList()
   },
 
@@ -35,8 +38,8 @@ Page({
     let params = {
       ...this.data.params
     }
-    console.log(params)
-    request('shop/shopspupagelist', params).then(res => {
+    let api = this.data.isLimitedBuying == 'true' ? 'shop/activityspupagelist' : 'shop/shopspupagelist'
+    request(api, params).then(res => {
       this.setData({
         commodityList: res.data.data
       })

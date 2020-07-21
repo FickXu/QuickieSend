@@ -6,8 +6,6 @@
 @margin-top-scrollpage: -80rpx;
 // .hot-category 高度
 @height_hot_category: 60rpx;
-// .hot-category margin top
-@margin_top_hot_category: 20rpx;
 // .commodity-banner 高度
 @height_commodity_banner: 48rpx;
 // .commodity-banner margin top
@@ -152,43 +150,70 @@
 
 // 热门分类
 .hot-category {
-  margin: @margin_top_hot_category 0;
+  margin: 40rpx 0;
   width: 100%;
   height: @height_hot_category;
   display: flex;
+  justify-content: space-around;
   align-items: center;
+  padding: 0 30rpx;
 
   .item {
-    flex: 1;
     font-size: 32rpx;
     text-align: center;
-    height: 100%;
+    padding: 16rpx 30rpx;
+    background:rgba(233,233,233,1);
+    color: #666666;
+    border-radius:6rpx;
+
+  }
+}
+
+// 限时抢购
+.theme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx;
+
+  .squer {
+    width:17px;
+    height:20px;
+    font-size:14px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    border-radius: 10rpx;
+    padding: 0 6rpx;
   }
 
-  .active {
-    font-family:PingFang SC;
-    font-weight:700;
-    color:#22BFB7;
+  .more-limit {
     position: relative;
+    padding-right: 30rpx;
 
     &::after {
       position: absolute;
-      content: '';
-      width: 100%;
-      bottom: 0;
-      left: 0;
-      height: 4rpx;
+      width: 20rpx;
+      height: 20rpx;
+      content: '>';
       background-color: #22BFB7;
+      color: #ffffff;
+      font-size: 16rpx;
+      text-align: center;
+      line-height: 22rpx;
+      right: 0;
+      top: 5rpx;
+      border-radius: 100rpx;
     }
   }
 }
 
-// 商品banner
-.commodity-banner {
-  text-align: center;
-  margin: @margin_top_commodity_banner 0;
-  height: 24px;
-  width: 100%;
+.discount-commodity {
+  margin-top: 60rpx;
+}
+
+.hot-commodity {
+  margin-top: 40rpx;
 }
 
 .scrollPage {

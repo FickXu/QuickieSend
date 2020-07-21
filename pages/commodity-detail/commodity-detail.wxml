@@ -33,6 +33,25 @@
         </view>
       </view>
     </view>
+    <!-- 活动时间 -->
+    <view class="dicouont-commodity" wx:if="{{isLimitedBuying=='true'}}">
+      <view class="theme-header">
+        <view class="flex-row4 flex align-center">
+          <view class="fz-18 bold">
+            <text class="text-cyan">活动时间</text>
+          </view>
+          <view class="ml-10 fz-18">
+            <text class="bg-red squer">10</text>
+            <text class="text-cyan">:</text>
+            <text class="bg-red squer">23</text>
+            <text class="text-cyan bold ml-10 mr-10">至</text>
+            <text class="bg-red squer">18</text>
+            <text class="text-cyan">:</text>
+            <text class="bg-red squer">00</text>
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
   
   <!-- 规格 -->

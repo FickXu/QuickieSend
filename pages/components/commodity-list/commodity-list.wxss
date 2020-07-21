@@ -16,6 +16,7 @@
   overflow: hidden;
   margin-bottom: 20rpx;
   padding-bottom: 20rpx;
+  position: relative;
 }
 .commodity-column .commodity-item .img {
   width: 100%;
@@ -37,6 +38,20 @@
   line-height: 18px;
   color: #333333;
 }
+.commodity-column .limited-buying {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ffffff;
+  font-size: 24rpx;
+  height: 48rpx;
+  line-height: 10rpx;
+  padding: 0 15rpx 0 0;
+  border-top-left-radius: 20rpx;
+  border-width: 28rpx;
+  border-style: solid;
+  border-color: rgba(245, 88, 88, 0.62) transparent rgba(245, 88, 88, 0.62) rgba(245, 88, 88, 0.62);
+}
 .commodity-row .commodity-count {
   color: #666666;
   font-size: 14px;
@@ -56,7 +71,7 @@
   max-width: 100px;
   height: 100px;
   border: 1px solid #f7f7f7;
-  /* padding: 5px; */
+  padding: 5px;
   border-radius: 5px;
 }
 .commodity-row .commodity-info .title {

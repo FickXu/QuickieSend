@@ -122,6 +122,24 @@
   align-items: center;
   font-size: 32rpx;
 }
+.dicouont-commodity {
+  margin-top: 30rpx;
+}
+.dicouont-commodity .theme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dicouont-commodity .theme-header .squer {
+  width: 17px;
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #ffffff;
+  border-radius: 10rpx;
+  padding: 0 6rpx;
+}
 .cu-dialog {
   border-top-left-radius: 10px!important;
   border-top-right-radius: 10px!important;

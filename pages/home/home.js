@@ -1,5 +1,5 @@
 import request from '../api/request'
-import {convertRMB} from '../../utils/util'
+import {convertRMB, getStandardDate} from '../../utils/util'
 
 const app = getApp();
 
@@ -21,6 +21,12 @@ Page({
       //   postType: '免费配送'
       // }
     ],
+    // 限时抢购商品
+    limitedTimeCommodityList: [],
+    // 抢购开始时间
+    limitedStartTime: [],
+    // 抢购结束时间
+    limitedEndTime: [],
     searchPlaceholder: '请输入要搜索的商品',
     // 热门分类列表
     hotCategoryList: [],
@@ -104,16 +110,44 @@ Page({
   },
 
   // 选择热门分类
-  chooseCategory: function (event) {
-    let id = event.currentTarget.dataset.id
-    let index = event.currentTarget.dataset.index
-    this.setData({
-      'commodityListQueryParams.goodsTypeIdTwo': id,
-      categoryIndex: index
+  chooseCategory: function (e) {
+    let type = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: `../../pages/commodity-list/commodity-list?type=${type}`,
+      fail(err) {
+        console.log(err)
+      }
     })
+    // 跳转到二级分类
+    // let id = event.currentTarget.dataset.id
+    // let index = event.currentTarget.dataset.index
+    // this.setData({
+    //   'commodityListQueryParams.goodsTypeIdTwo': id,
+    //   categoryIndex: index
+    // })
 
-    // 刷新商品列表
-    this.getCommodityList()
+    // // 刷新商品列表
+    // this.getCommodityList()
+  },
+
+  // 活动商品列表
+  openDiscountCommodityPage() {
+    wx.navigateTo({
+      url: `../../pages/commodity-list/commodity-list?isLimitedBuying=true`,
+      fail(err) {
+        console.log(err)
+      }
+    })
+  },
+
+  // 普通商品列表
+  openCommodityListPage() {
+    wx.navigateTo({
+      url: `../../pages/commodity-list/commodity-list?isLimitedBuying=false`,
+      fail(err) {
+        console.log(err)
+      }
+    })
   },
 
   // 获取店铺的分类
@@ -132,7 +166,43 @@ Page({
         data: res.data.data
       })
       
+      this.getActivityCommodityList()
       this.getCommodityList()
+    })
+  },
+
+  // 商家-商品-分页查询活动商品列表
+  getActivityCommodityList: function () {
+    wx.showLoading({
+      title: '加载中...'
+    })
+    let params = {
+      ...this.data.commodityListQueryParams
+    }
+    
+    request('shop/activityspupagelist', params).then(res => {
+
+      if (res.data.data && res.data.data.length > 0) {
+        let data = res.data.data
+        data.forEach(item => {
+          item.showPrice = item.showPrice / 100
+          item.realPrice = item.realPrice / 100
+        })
+        
+        this.setData({
+          limitedTimeCommodityList: [].concat(res.data.data).splice(0, 2),
+          limitedStartTime: getStandardDate(res.data.data[0].startTime, 'hm').split(':'),
+          limitedEndTime: getStandardDate(res.data.data[0].endTime, 'hm').split(':')
+        })
+        // console.log(this.data.limitedStartTime, this.data.limitedEndTime)
+      } else {
+        this.setData({
+          limitedTimeCommodityList: res.data.data,
+        })
+      }
+
+      wx.hideLoading()
+      
     })
   },
 
@@ -159,7 +229,7 @@ Page({
         })
   
         this.setData({
-          commodityList: res.data.data
+          commodityList: [].concat(res.data.data),
         })
       } else {
         this.setData({

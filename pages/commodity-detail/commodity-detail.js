@@ -60,7 +60,9 @@ Page({
     // 单品详情
     shopcarDetail: {},
     // 评论列表
-    commentList: []
+    commentList: [],
+    // 是否为活动商品
+    isLimitedBuying: false
   },
 
   // 选择规格时商品数量发生变化
@@ -393,24 +395,41 @@ Page({
     })
   },
 
-  onShow: function () {
+  queryActivityCommodityInfo(id) {
+    request(`shop/activityspupageinfo/${id}`).then(res => {
+      this.setData({
+        detail: res.data.data
+      })
+    })
+  },
+
+  onLoad: function (query) {
     let self = this
     
-    // 页面通信
+    self.setData({
+      isLimitedBuying: query.isLimitedBuying
+    })
+    
+    // 非活动商品
     const eventChannel = this.getOpenerEventChannel()
     // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
     eventChannel.on('sendData', function(data) {
-      self.setData({
-        detail: {
-          ...data
-        }
+      if (query.isLimitedBuying == 'true') {
+        console.log(data)
+        self.queryActivityCommodityInfo(data.id)
+      } else {
+        self.setData({
+          detail: {
+            ...data
+          }
+        })
+      }
+        // 查询评论数量
+        self.queryCommentList()
+  
+        // console.log('获取到的参数：', JSON.stringify(data))
       })
-
-      // 查询评论数量
-      self.queryCommentList()
-
-      console.log('获取到的参数：', JSON.stringify(data))
-    })
+    
     // 计算商品数量
     self.getShopCarCommodityNums()
     

@@ -35,6 +35,11 @@ Component({
     isShopingCart: {
       type: Boolean,
       value: false
+    },
+    // 是否为限时抢购商品，默认不是
+    isLimitedBuying: {
+      type: Boolean,
+      value: false
     }
   },
   observers: {
@@ -79,11 +84,7 @@ Component({
       let self = this
 
       wx.navigateTo({
-        url: '../../pages/commodity-detail/commodity-detail',
-        events: {
-          sendData: function (data) {
-          }
-        },
+        url: `../../pages/commodity-detail/commodity-detail?isLimitedBuying=${this.data.isLimitedBuying}`,
         success: function (res) {
           let params = {
             id:dataset.id,

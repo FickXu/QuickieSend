@@ -9,6 +9,8 @@
     data-id="{{item.spuId}}"
     data-index="{{index}}"
     >
+    <!-- 活动标识 -->
+    <view class="limited-buying" wx:if="{{isLimitedBuying}}">限时抢购</view>
     <!-- 商品属性 -->
     <view class="img">
     <!-- 商品图片 -->

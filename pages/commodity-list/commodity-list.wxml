@@ -14,7 +14,7 @@
 </view>
 
 <!-- 筛选条件 -->
-<view class="filter-list bg-white flex flex-align-center">
+<view class="filter-list bg-white flex flex-align-center" wx:if="{{isLimitedBuying=='false'}}">
   <view class="flex-row2">价格</view>
   <view class="flex-row2">销量</view>
   <view class="flex-row2">品牌</view>
