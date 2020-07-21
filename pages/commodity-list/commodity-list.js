@@ -18,7 +18,7 @@ Page({
     // 筛选条件参数
     params: {
       goodsTypeIdTwo: '',
-      shopId: wx.getStorageSync('shopDetails').shopId || '',
+      shopId: '',
       spuName: ''
     },
     layoutType: 'row',
@@ -29,7 +29,7 @@ Page({
       'params.goodsTypeIdTwo': e.type,
       isLimitedBuying: e.isLimitedBuying || 'false',
       'params.spuName': e.searchStr || '',
-
+      'params.shopId': wx.getStorageSync('shopDetails').shopId,
       title: (e.isLimitedBuying && e.isLimitedBuying == 'true') ? '活动商品' : '商品列表'
     })
     this.queryList()
@@ -48,6 +48,11 @@ Page({
     }
     let api = this.data.isLimitedBuying == 'true' ? 'shop/activityspupagelist' : 'shop/shopspupagelist'
     request(api, params).then(res => {
+      let arr = res.data.data
+      arr.forEach(item => {
+        item.showPrice = item.showPrice/100
+        item.realPrice = item.realPrice/100
+      })
       this.setData({
         commodityList: res.data.data
       })

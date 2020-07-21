@@ -418,7 +418,6 @@ Page({
     // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
     eventChannel.on('sendData', function(data) {
       if (query.isLimitedBuying == 'true') {
-        console.log(data, '==================')
         self.queryActivityCommodityInfo(data.id)
         self.setData({
           mallActivityId: data.mallActivityId
