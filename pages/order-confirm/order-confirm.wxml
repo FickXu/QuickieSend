@@ -53,15 +53,15 @@
       <view class="text-gray">订单金额</view>
       <view class="text-gray">¥ {{totalAmount}}</view>
     </view>
-    <view class="flex justify-between mt-10">
-      <view class="text-gray">运费</view>
-      <view class="text-gray">免费配送</view>
-    </view>
     <!-- 活动减免 -->
     <!-- <view class="flex justify-between mt-10">
       <view class="text-gray">活动减免</view>
       <view class="text-gray">¥ 8</view>
     </view> -->
+    <view class="flex justify-between mt-10">
+      <view class="text-gray">运费</view>
+      <view class="text-gray">免费配送</view>
+    </view>
 
     <!-- 订单总计 -->
     <view class="order-total padding-tb mt-10">
