@@ -13,7 +13,7 @@
       </view>
       <view class="search">
         <view class="cuIcon-search" bindtap="openCommodityListPage"></view>
-        <input type="text" class="search" placeholder="{{searchPlaceholder}}" bindinput="bindinput"/>
+        <input type="text" value="{{searchStr}}" class="search" placeholder="{{searchPlaceholder}}" bindinput="bindinput"/>
       </view>
       <!-- <view class="shop-car cuIcon-cart text-white" bindtap="openShopingCartPage"></view> -->
     </view>

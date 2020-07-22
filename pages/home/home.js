@@ -155,8 +155,14 @@ Page({
 
   // 普通商品列表
   openCommodityListPage() {
+    let self = this
     wx.navigateTo({
       url: `../../pages/commodity-list/commodity-list?isLimitedBuying=false&searchStr=${this.data.searchStr}`,
+      success() {
+        self.setData({
+          searchStr: ''
+        })
+      },
       fail(err) {
         console.log(err)
       }
