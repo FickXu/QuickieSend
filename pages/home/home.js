@@ -57,7 +57,8 @@ Page({
     // 是否显示无数据提示页面
     isShowNoneData: false,
     // 搜索字符串
-    searchStr: ''
+    searchStr: '',
+    refreshTrigger: false
   },
 
   // 商品搜索
@@ -104,9 +105,9 @@ Page({
     })
   },
 
-  // 下拉刷新
+  // 下拉刷新被触发
   bindrefresherpulling: function () {
-    console.log(234)
+    
   },
 
   // 获取最近的医院列表

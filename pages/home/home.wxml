@@ -20,12 +20,11 @@
   
   </view>
 
-    <!-- bindrefresherpulling="bindrefresherpulling" -->
   <scroll-view
     scroll-y
     refresher-enabled="{{true}}"
+    refresher-triggered="{{refreshTrigger}}"
     enable-flex="{{true}}"
-    bindscroll="bindscroll"
     style="height: calc(100vh - 276rpx)"
     class="scrollPage" 
     > 
