@@ -4,6 +4,12 @@
 .scrollPage .screen-swiper {
   height: 300px;
 }
+.scrollPage .btn-share {
+  background-color: #fff;
+}
+.scrollPage .btn-share::after {
+  border: none;
+}
 .scrollPage .commodity-info {
   background: #ffffff;
   border-radius: 10px 10px 0px 0px;

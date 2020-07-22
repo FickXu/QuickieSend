@@ -29,7 +29,8 @@
         </view>
         <view class="flex flex-align-center">
           <text class="label-info">销量：{{detail.saleQty}}</text>
-          <view class="shop-car cuIcon-share text-cyan ml-10" style="font-size: 18px"></view>
+          <!-- <button open-type="share" class="btn-share cuIcon-share text-cyan ml-10" ></button> -->
+          <!-- <view class="shop-car cuIcon-share text-cyan ml-10" style="font-size: 18px"></view> -->
         </view>
       </view>
     </view>

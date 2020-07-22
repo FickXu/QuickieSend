@@ -18,10 +18,10 @@ Page({
         value: 1,
         label: '待支付'
       },
-      {
-        value: 4,
-        label: '待发货'
-      },
+      // {
+      //   value: 4,
+      //   label: '待发货'
+      // },
       {
         value: 5,
         label: '待收货'

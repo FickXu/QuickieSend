@@ -48,17 +48,17 @@
           <view class="cuIcon-right text-grey"></view>
         </view>
       </view>
-      <view class="cu-list grid col-4 no-border">
+      <view class="cu-list grid col-3 no-border">
         <!-- 待付款 -->
         <view class="cu-item"  bindtap="openOrdersPage" data-order-type="">
           <view class="cuIcon-cart text-grey"></view>
           <text>待付款</text>
         </view>
         <!-- 待发货 -->
-        <view class="cu-item" bindtap="openOrdersPage" data-order-type="待发货">
+        <!-- <view class="cu-item" bindtap="openOrdersPage" data-order-type="待发货">
           <view class="cuIcon-form text-grey"></view>
           <text>待发货</text>
-        </view>
+        </view> -->
         <!-- 待收货 -->
         <view class="cu-item" bindtap="openOrdersPage" data-order-type="待收货">
           <view class="cuIcon-location text-grey"></view>

@@ -26,7 +26,7 @@
   </view>
   
   <!-- 退出登录 -->
-  <view class="qs-btn-box">
+  <!-- <view class="qs-btn-box">
     <button class="qs-btn qs-bg">退出登录</button>
-  </view>
+  </view> -->
 </view>
