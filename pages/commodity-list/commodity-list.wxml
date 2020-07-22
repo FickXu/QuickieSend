@@ -15,14 +15,22 @@
 
 <!-- 筛选条件 -->
 <view class="filter-list bg-white flex flex-align-center" wx:if="{{isLimitedBuying=='false'}}">
-  <view class="flex-row2">价格</view>
-  <view class="flex-row2">销量</view>
-  <view class="flex-row2">品牌</view>
-  <view class="flex-row2 btn-filter flex flex-align-center">
+  <view class="flex-row4 flex">
+    <view class="mr-30" bindtap="sortList" data-key="price">
+       <text class="bold cuIcon-order {{params.priceSorted===''?'':(params.priceSorted===0?'text-green':'text-red')}}"></text>
+      价格
+    </view>
+    <view bindtap="sortList" data-key="sales">
+      <text class="bold cuIcon-order {{params.salesSorted===''?'':(params.salesSorted===0?'text-green':'text-red')}}"></text>
+      销量
+    </view>
+  </view>
+  <!-- <view class="flex-row2">品牌</view> -->
+  <!-- <view class="flex-row2 btn-filter flex flex-align-center">
     <text bindtap="showModal">筛选<text class="cuIcon-filter"></text></text>
     <text class="split"></text>
-    <text class="cuIcon-sort" bindtap="changeLayout"></text>
-  </view>
+  </view> -->
+  <view class="cuIcon-sort" bindtap="changeLayout"></view>
 </view>
 
 <scroll-view

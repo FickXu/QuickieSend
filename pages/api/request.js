@@ -15,7 +15,7 @@ let request = (path, params = {}, type='POST') => {
   // 如果匹配到域名就使用传入的path，否则使用配置的服务器地址
   let isUrl = path.match(urlReg)
 
-  console.log('open id:', wx.getStorageSync('openId'))
+  console.log('api:', path, 'params:', JSON.stringify({...params, openId: wx.getStorageSync('openId')}))
 
   return new Promise((resolve, reject) => {
      return wx.request({

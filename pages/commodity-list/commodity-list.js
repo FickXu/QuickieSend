@@ -19,7 +19,11 @@ Page({
     params: {
       goodsTypeIdTwo: '',
       shopId: '',
-      spuName: ''
+      spuName: '',
+      // 价格排序（0，升序；1，降序）
+      priceSorted: '',
+      // 销量排序（0，升序；1，降序）
+      salesSorted: ''
     },
     layoutType: 'row',
     isLimitedBuying: ''
@@ -39,6 +43,25 @@ Page({
     this.setData({
       'params.spuName': e.detail.value
     })
+  },
+
+  // 商品排序
+  sortList(e) {
+    let key = e.currentTarget.dataset.key
+    if (key == 'price') {
+      let value = this.data.params.priceSorted
+      let priceSorted = value === '' ? 0 : (value === 0 ? 1 : '')
+      this.setData({
+        'params.priceSorted': priceSorted
+      })
+    } else {
+      let value = this.data.params.salesSorted
+      this.setData({
+        'params.salesSorted': value === '' ? 0 : (value === 0 ? 1 : '')
+      })
+    }
+
+    this.queryList()
   },
 
   // 查询商品列表
