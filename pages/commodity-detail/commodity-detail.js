@@ -349,8 +349,8 @@ Page({
   // 提交订单
   openConfirmOrderPage() {
 
+    // 用户是否已经登录
     let isLogin = wx.getStorageSync('isLogin') || false
-
     if (!isLogin) {
       wx.showModal({
         title: '提示',
@@ -366,6 +366,7 @@ Page({
       return
     }
 
+    // 购物车中是否有商品
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
       wx.showToast({
         title: '购物车中没有商品哦~',

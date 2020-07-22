@@ -37,6 +37,7 @@
       info="{{commodityList}}"
       layout="{{layoutType}}"
       isCount="{{true}}"
+      isGoToDetailPage="{{false}}"
       bind:numberChange="numberChange"
       >
     </commodity-list>
@@ -54,10 +55,10 @@
       <view class="text-gray">¥ {{totalAmount}}</view>
     </view>
     <!-- 活动减免 -->
-    <!-- <view class="flex justify-between mt-10">
-      <view class="text-gray">活动减免</view>
-      <view class="text-gray">¥ 8</view>
-    </view> -->
+    <view class="flex justify-between mt-10" wx:if="{{discountAmount > 0}}">
+      <view class="text-gray">{{discountName}}</view>
+      <view class="text-gray">¥ {{discountAmount/100}}</view>
+    </view>
     <view class="flex justify-between mt-10">
       <view class="text-gray">运费</view>
       <view class="text-gray">免费配送</view>

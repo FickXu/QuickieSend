@@ -59,7 +59,13 @@ Page({
       ]
     },
     layoutType: 'row',
-    isShow: false
+    isShow: false,
+    // 优惠券
+    discouont: {},
+    // 优惠券金额
+    discountAmount: 0,
+    // 优惠券名称
+    discountName: ''
   },
   onShow () {
 
@@ -82,7 +88,40 @@ Page({
 
       // 获取默认地址
       self.getDefaultAddress()
+      
+      // 获取优惠券
+      self.getCoupon()
     }) 
+  },
+
+  // 获取优惠券
+  getCoupon() {
+    // 获取优惠券
+    request('user/couponlist').then(res => {
+      if (res.data.data.length > 0) {
+        this.setData({
+          discouont: res.data.data[0]
+        })
+        
+        this.enableDiscount()
+      }
+    })
+  },
+
+  // 是否启用优惠券
+  enableDiscount() {
+    // 订单金额大于优惠券金额才能使用优惠券
+    if (this.data.totalAmount*100 > this.data.discouont.amount) {
+      this.setData({
+        discountAmount: this.data.discouont.amount,
+        discountName: this.data.discouont.name
+      })
+    } else {
+      this.setData({
+        discountAmount: 0,
+        discountName: ''
+      })
+    }
   },
 
   // 获取默认收货地址
@@ -136,23 +175,20 @@ Page({
   // 去支付
   pay() {
     this.calcualtionTotalAmount()
-    
     let params = {
-      ...this.data.params
+      ...this.data.params,
+      couponId: this.data.discountAmount/100 < this.data.totalAmount ? this.data.discouont.id : '' 
     }
-    
+    console.log(params)
     request('order/create', params).then(res => {
-      
-      // 清空购物车
+    // 清空购物车
       this.removeShopCar()
       
       // 调用支付
       this.setData({
         isShow: true
       })
-
     })
-    console.log(this.data.params)
   },
 
   // 清空购物车
@@ -189,6 +225,10 @@ Page({
     let arr = this.data.commodityList
     let index = arr.findIndex(item => item.skuId == detail.skuId)
 
+    // if (detail.CURRENT_QUANTITY == 0) {
+    //   arr.splice(index, 1)
+    // }
+
     arr[index] = { ...detail }
 
     this.setData({
@@ -201,9 +241,9 @@ Page({
 
   // 计算实际价格
   calcualtionRealAmount() {
-    let discountAmount = 0
+    let discountAmount = this.data.discountAmount
     this.setData({
-      realAmount: (this.data.totalAmount * 100 - discountAmount) / 100
+      realAmount: (parseInt(this.data.totalAmount * 100) - (discountAmount+'')) / 100
     })
   },
 
@@ -240,7 +280,8 @@ Page({
       'params.skuOrderDtoArr': skuOrderDtoArr,
       commodityTotalNumber: num
     })
-
+    
+    this.enableDiscount()
     this.calcualtionRealAmount()
   }
 })

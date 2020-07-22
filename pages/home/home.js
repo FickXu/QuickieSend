@@ -8,6 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
+    Custom: app.globalData.Custom,
     title: '马上送到',
     PageCur: 'home',
     isLogin: false,
@@ -297,6 +300,7 @@ Page({
     wx.getLocation({
       type: 'wgs84',
       success (res) {
+        console.log(res, '==================')
         let params = {
           latitude: res.latitude,
           longitude: res.longitude
@@ -310,6 +314,11 @@ Page({
         })
       }
     })
+  },
+
+  // 页面滚动
+  bindscroll(e) {
+    console.log(e.detail.scrollTop)
   },
   
   onShow: function () {

@@ -1,5 +1,6 @@
 <!--pages/home/home.wxml-->
 <view class="home-page" wx:if="{{PageCur == 'home'}}">
+  
   <view class="top-area">
     <cu-custom>
       <view slot="content" class="bold">{{ title }}</view>
@@ -18,12 +19,21 @@
     </view>
   
   </view>
-  
+
+    <!-- bindrefresherpulling="bindrefresherpulling" -->
+  <scroll-view
+    scroll-y
+    refresher-enabled="{{true}}"
+    enable-flex="{{true}}"
+    bindscroll="bindscroll"
+    style="height: calc(100vh - 276rpx)"
+    class="scrollPage" 
+    > 
   <!-- 附近店铺信息 -->
   <view class="near-shop-info">
-    <!-- <view class="shop-img">
-      <image class="img" src="{{shopDetails.imgPath}}" />
-    </view> -->
+    <view class="shop-img">
+      <image class="img" src="{{shopDetails.shopLogo}}" />
+    </view>
     <view class="shop-desc">
       <view class="title">{{shopDetails.shopName}}</view>
       <view class="title1">{{shopDetails.areaName}}</view>
@@ -33,17 +43,10 @@
       <view class="label">粉丝数</view>
     </view> -->
     <view class="attr-item">
-      <view class="value  ">3.9万</view>
+      <view class="value">1万</view>
       <view class="label">购买指数</view>
     </view>
   </view>
-  
-  <scroll-view
-    scroll-y class="scrollPage" 
-    refresher-enabled="{{true}}"
-    enable-flex="{{true}}" 
-    bindrefresherpulling="bindrefresherpulling"
-    >
   
     <!-- 店铺热门分类（二级） -->
     <view class="hot-category">
