@@ -6,12 +6,12 @@
 <view class="cu-list menu list-menu settings">
   <view class="cu-item arrow" bindtap="openUserAgreementPage">
     <view class="content">
-      <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>用户协议
+      <image class="icon-menu-status" src="./img/yhxy.png"></image>用户协议
     </view>
   </view>
   <view class="cu-item arrow" bindtap="openPrivacyAgreementPage">
     <view class="content">
-      <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>隐私协议
+      <image class="icon-menu-status" src="./img/ysxy.png"></image>隐私协议
     </view>
   </view>
 </view>

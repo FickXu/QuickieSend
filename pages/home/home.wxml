@@ -25,6 +25,7 @@
     refresher-enabled="{{true}}"
     refresher-triggered="{{refreshTrigger}}"
     enable-flex="{{true}}"
+    bindrefresherpulling="bindrefresherpulling"
     style="height: calc(100vh - 276rpx)"
     class="scrollPage" 
     > 
@@ -149,19 +150,25 @@
 <view class="cu-bar tabbar bg-white shadow foot">
   <view class="action text-grey {{PageCur == 'home' ? 'text-cyan' : ''}}" bindtap="routerPage" data-page="home">
     <view class="{{PageCur == 'home' ? 'text-cyan': ''}}">
-      <view class="cuIcon-homefill"></view>
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='home'?'./img/sy2.png':'./img/sy1.png'}}"></image>
+      </view>
       首页
     </view>
   </view>
   <view class="action text-grey" bindtap="routerPage" data-page="category-list">
     <view class="{{PageCur == 'category-list' ? 'text-cyan': ''}}">
-      <view class="cuIcon-apps"></view>
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='category-list'?'./img/fl2.png':'./img/fl1.png'}}"></image>
+      </view>
       分类
     </view>
   </view>
   <view class="action text-grey {{PageCur == 'person-center' ? 'text-cyan' : ''}}" bindtap="routerPage" data-page="person-center">
     <view class="{{PageCur == 'person-center' ? 'text-cyan': ''}}">
-      <view class="cuIcon-myfill"></view>
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='person-center'?'./img/wd2.png':'./img/wd1.png'}}"></image>
+      </view>
       我的
     </view>
   </view>

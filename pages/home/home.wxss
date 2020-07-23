@@ -4,6 +4,10 @@
   background-repeat: no-repeat;
   height: 100vh;
 }
+.icon-menu-status {
+  width: 45rpx!important;
+  height: 45rpx!important;
+}
 .top-area {
   height: 276rpx;
 }

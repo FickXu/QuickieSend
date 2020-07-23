@@ -35,29 +35,29 @@ Page({
     orderListShow: true,
     isShow: false,
   },
-  onLoad(params) {
-    let type = params.type
-    let value = ''
-    switch (type) {
-      case '待支付':
-        value = 1
-        break;
-      case '待发货':
-        value = 4
-        break;
-      case '待收货':
-        value = 5
-        break;
-      case '已完成':
-        value = 6
-        break;
-      default:
-        value = ''
-        break;
-    }
-    this.setData({
-      TabCur: value
-    })
+  onShow() {
+    // let type = params.type || ''
+    // let value = ''
+    // switch (type) {
+    //   case '待支付':
+    //     value = 1
+    //     break;
+    //   case '待发货':
+    //     value = 4
+    //     break;
+    //   case '待收货':
+    //     value = 5
+    //     break;
+    //   case '已完成':
+    //     value = 6
+    //     break;
+    //   default:
+    //     value = ''
+    //     break;
+    // }
+    // this.setData({
+    //   TabCur: value
+    // })
     this.queryorderlist()
   },
   // 获取订单列表
@@ -92,7 +92,7 @@ Page({
     let self = this
     request('order/list', params).then(res => {
       if (res.data.code == 10000) {
-        if (res.data.data) {
+        if (res.data.data.length > 0) {
           let data = res.data.data
           data.forEach(item => {
             item.payAmount = item.payAmount / 100

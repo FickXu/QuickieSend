@@ -4,3 +4,7 @@
   background-size: 100% 100%;
   padding-bottom: 40rpx;
 }
+.icon-menu-status {
+  width: 40rpx!important;
+  height: 40rpx!important;
+}

@@ -51,7 +51,8 @@
       <view class="cu-list grid col-3 no-border">
         <!-- 待付款 -->
         <view class="cu-item"  bindtap="openOrdersPage" data-order-type="">
-          <view class="cuIcon-cart text-grey"></view>
+          <!-- <view class="cuIcon-cart text-grey"></view> -->
+          <image class="icon-order-status" src="./img/dfk.png"></image>
           <text>待付款</text>
         </view>
         <!-- 待发货 -->
@@ -61,12 +62,14 @@
         </view> -->
         <!-- 待收货 -->
         <view class="cu-item" bindtap="openOrdersPage" data-order-type="待收货">
-          <view class="cuIcon-location text-grey"></view>
+          <!-- <view class="cuIcon-location text-grey"></view> -->
+          <image class="icon-order-status" src="./img/dsh.png"></image>
           <text>待收货</text>
         </view>
         <!-- 已完成 -->
         <view class="cu-item" bindtap="openOrdersPage" data-order-type="已完成">
-          <view class="cuIcon-location text-grey"></view>
+          <!-- <view class="cuIcon-location text-grey"></view> -->
+          <image class="icon-order-status" src="./img/ywc.png"></image>
           <text>已完成</text>
         </view>
       </view>
@@ -77,28 +80,28 @@
       <!-- 需要接口控制 -->
       <view class="cu-item arrow" bindtap="openConsumerDetailsPage">
         <view class="content">
-          <text class="custome-icon-size cuIcon-lock text-cyan"></text>消费明细
+          <image class="icon-menu-status" src="./img/xfmx.png"></image>消费明细
         </view>
       </view>
       <view class="cu-item arrow" bindtap="openReceivingOrderPage">
         <view class="content">
-          <text class="custome-icon-size cuIcon-lock text-cyan"></text>小二快跑
+          <image class="icon-menu-status" src="./img/xekp.png"></image>小二快跑
         </view>
       </view>
       <!-- 需要接口控制 -->
       <view class="cu-item arrow" bindtap="openReceivingBillPage">
         <view class="content">
-          <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>快跑账单
+          <image class="icon-menu-status" src="./img/kpzd.png"></image>快跑账单
         </view>
       </view>
       <view class="cu-item arrow" bindtap="openAboutUsPage">
         <view class="content">
-          <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>关于我们
+          <image class="icon-menu-status" src="./img/gywm.png"></image>关于我们
         </view>
       </view>
       <view class="cu-item arrow" bindtap="openLegalTermsPage">
         <view class="content">
-          <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>法律条款
+          <image class="icon-menu-status" src="./img/fltk.png"></image>法律条款
         </view>
       </view>
     </view>

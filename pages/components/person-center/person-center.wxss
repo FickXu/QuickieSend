@@ -2,6 +2,15 @@
   height: calc(100vh - calc(100rpx + env(safe-area-inset-bottom) / 2));
   /* 用户基本信息 */
 }
+.person-center .icon-order-status {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 24rpx auto 0;
+}
+.person-center .icon-menu-status {
+  width: 40rpx!important;
+  height: 40rpx!important;
+}
 .person-center .container {
   background-image: url('https://fick-db-1257045447.cos.ap-chengdu.myqcloud.com/test-img/top-bg-home.png');
   background-color: #f7f7f7;

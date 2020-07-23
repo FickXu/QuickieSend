@@ -107,7 +107,11 @@ Page({
 
   // 下拉刷新被触发
   bindrefresherpulling: function () {
-    
+    setTimeout(() => {
+      this.setData({
+        refreshTrigger: false
+      })
+    }, 1600)
   },
 
   // 获取最近的医院列表
