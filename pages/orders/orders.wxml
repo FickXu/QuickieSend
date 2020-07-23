@@ -86,8 +86,8 @@
           <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="confirmReceipt">确认收货</button> -->
         </view>
         <!-- 已完成 -->
-        <view class="btn-delete-order text-right" wx:if="{{item.status==6}}">
-          <!-- <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="delOrder">删除订单</button> -->
+        <!-- <view class="btn-delete-order text-right" wx:if="{{item.status==6}}">
+          <button class="cu-btn round line text-cyan" data-order-id="{{item.id}}" bindtap="delOrder">删除订单</button>
           <button
             class="cu-btn round line text-cyan ml-10"
             data-order-no="{{item.orderNo}}"
@@ -95,8 +95,8 @@
             >
             去评价
           </button>
-          <!-- <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="buyAgin">再次购买</button> -->
-        </view>
+          <button class="cu-btn round ml-10 bg-cyan" data-order-id="{{item.id}}" bindtap="buyAgin">再次购买</button>
+        </view> -->
       </view>
     </view>
   </view>

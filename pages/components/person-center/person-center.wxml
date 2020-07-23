@@ -50,10 +50,10 @@
       </view>
       <view class="cu-list grid col-3 no-border">
         <!-- 待付款 -->
-        <view class="cu-item"  bindtap="openOrdersPage" data-order-type="">
+        <view class="cu-item"  bindtap="openOrdersPage" data-order-type="待支付">
           <!-- <view class="cuIcon-cart text-grey"></view> -->
           <image class="icon-order-status" src="./img/dfk.png"></image>
-          <text>待付款</text>
+          <text>待支付</text>
         </view>
         <!-- 待发货 -->
         <!-- <view class="cu-item" bindtap="openOrdersPage" data-order-type="待发货">

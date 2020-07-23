@@ -35,29 +35,29 @@ Page({
     orderListShow: true,
     isShow: false,
   },
-  onShow() {
-    // let type = params.type || ''
-    // let value = ''
-    // switch (type) {
-    //   case '待支付':
-    //     value = 1
-    //     break;
-    //   case '待发货':
-    //     value = 4
-    //     break;
-    //   case '待收货':
-    //     value = 5
-    //     break;
-    //   case '已完成':
-    //     value = 6
-    //     break;
-    //   default:
-    //     value = ''
-    //     break;
-    // }
-    // this.setData({
-    //   TabCur: value
-    // })
+  onLoad(params) {
+    let type = params.type || ''
+    let value = ''
+    switch (type) {
+      case '待支付':
+        value = 1
+        break;
+      case '待发货':
+        value = 4
+        break;
+      case '待收货':
+        value = 5
+        break;
+      case '已完成':
+        value = 6
+        break;
+      default:
+        value = ''
+        break;
+    }
+    this.setData({
+      TabCur: value
+    })
     this.queryorderlist()
   },
   // 获取订单列表

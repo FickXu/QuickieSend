@@ -134,13 +134,14 @@ Page({
       shopId: this.data.params.shopId
     }
     request('user/address/default', params).then(res => {
-      this.refreshAddresss(res.data.data)
       wx.hideLoading()
+      this.refreshAddresss(res.data.data)
     })
   },
 
   // 刷新收货地址
   refreshAddresss(params) {
+    if (!params) return
     let contactAddress = `${params.areaTypeOneName} ${params.areaTypeTwoName} ${params.areaTypeThreeName} ${params.contactAddress}`
 
     this.setData({
