@@ -61,11 +61,11 @@
 
     <view class="id-card flex space-between flex-align-center mt-15">
       <view class="front" bindtap="uploaderImage" data-key="idCardFrong">
-        <image src="{{details.idCardFrong || ''}}" />
+        <image src="{{details.idCardFrong || params.idCardFrong}}" />
         <view class="desc">身份证正面</view>
       </view>
-      <view class="back" bindtap="uploaderImage" data-key="idCardFrong">
-        <image src="{{details.idCardReverse || ''}}" />
+      <view class="back" bindtap="uploaderImage" data-key="idCardReverse">
+        <image src="{{details.idCardReverse || params.idCardReverse}}" />
         <view class="desc">身份证反面</view>
       </view>
     </view>

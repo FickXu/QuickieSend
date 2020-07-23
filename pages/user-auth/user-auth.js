@@ -15,9 +15,9 @@ Page({
 			// 身份证号码
 			idCard: '',
 			// 身份证正面
-			idCardFrong: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132',
+			idCardFrong: '',
 			// 身份证反面
-			idCardReverse: 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132',
+			idCardReverse: '',
 			// 真实姓名
 			realName: '',
 			// 性别
@@ -66,23 +66,31 @@ Page({
 	uploaderImage(e) {
 
 		// 待审核和已通过不允许修改
-		if (disabled) return
+		if (this.data.disabled) return
 
+		let self = this
 		let key = e.currentTarget.dataset.key
 		wx.chooseImage({
 			success(e) {
 				const tempFilePaths = e.tempFilePaths
 				console.log('=============', tempFilePaths)
 				wx.uploadFile({
-					url: 'http://fengchuhui.5gzvip.idcfengye.com/api/base/uploadone', //仅为示例，非真实的接口地址
+					url: 'https://m.quickssend.com/wechaapplet/api/base/uploadone', //仅为示例，非真实的接口地址
 					filePath: tempFilePaths[0],
 					name: 'file',
 					// formData: {
 					// 	'file': tempFilePaths[0]
 					// },
 					success (res){
-						const data = res.data
-						console.log('upload file:', res)
+						const data = JSON.parse(res.data)
+						let params = {
+							...self.data.params
+						}
+						params[key] = data.data.reqUrl
+						self.setData({
+							params: params
+						})
+						console.log('upload file:', data.data.reqUrl)
 					},
 					fail (err) {
 						console.log('upload file fail', err)
