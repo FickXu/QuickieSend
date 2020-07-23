@@ -9,7 +9,7 @@
     </view> -->
 
     <!-- 个人信息 -->
-    <view class="flex justify-between flex-align-center padding" bindtap="goToSettingPage">
+    <view class="flex justify-between flex-align-center padding-lr padding-top" bindtap="goToSettingPage">
       <view class="user-info">
         <image src="{{userInfo.headPortrait}}"  class="user-photo" />
         <image class="user-auth" src="./img/user-auth.png" wx:if='{{userInfo.isRealName == 2}}' />
@@ -91,12 +91,12 @@
           <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>快跑账单
         </view>
       </view>
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="openAboutUsPage">
         <view class="content">
           <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>关于我们
         </view>
       </view>
-      <view class="cu-item arrow">
+      <view class="cu-item arrow" bindtap="openLegalTermsPage">
         <view class="content">
           <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>法律条款
         </view>

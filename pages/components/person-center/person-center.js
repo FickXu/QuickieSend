@@ -134,6 +134,26 @@ Component({
 					console.log(err)
 				}
 			})
+		},
+
+		// 关于我们
+		openAboutUsPage() {
+			wx.navigateTo({
+				url: '../../pages/about-us/about-us',
+				fail: err => {
+					console.log(err)
+				}
+			})
+		},
+
+		// 法律条款
+		openLegalTermsPage() {
+			wx.navigateTo({
+				url: '../../pages/legal-terms/legal-terms',
+				fail: err => {
+					console.log(err)
+				}
+			})
 		}
 		
 	}
