@@ -21,13 +21,13 @@ Page({
       // },
     ],
   },
-  onLoad() {
-
-    this.queryList()
+  onLoad(query) {
+    let localtion = query.localtion
+    this.queryList(localtion)
   },
   
   // 获取最近的医院列表
-  queryList() {
+  queryList(localtion) {
     wx.showLoading({
       title: '加载中...'
     })
@@ -38,7 +38,8 @@ Page({
       success (res) {
         let params = {
           latitude: res.latitude,
-          longitude: res.longitude
+          longitude: res.longitude,
+          city: localtion
         }
         request('area/getlatelyarealist', params).then(res => {
           let arr = [].concat(res.data.data)

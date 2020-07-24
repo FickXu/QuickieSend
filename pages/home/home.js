@@ -93,8 +93,8 @@ Page({
     request('area/getlatelyareaone', params).then(res => {
       this.setData({
         shopDetails: res.data.data,
-        'commodityListQueryParams.shopId': res.data.data.shopId
-        // 'commodityListQueryParams.shopId': 21
+        'commodityListQueryParams.shopId': res.data.data.shopId,
+        locationStr: res.data.data.city
       })
       
       // 获取店铺分类
@@ -120,7 +120,7 @@ Page({
   openHospitalListPage: function () {
     let slef = this
     wx.navigateTo({
-      url: '../hospital-list/hospital-list',
+      url: `../hospital-list/hospital-list?localtion=${this.data.locationStr}`,
       events: {
         refresh(params) {
           slef.queryShopInfo(params)
@@ -318,16 +318,16 @@ Page({
           latitude: res.latitude,
           longitude: res.longitude
         }
-        request('area/getlatelyarealist', params).then(res => {
-          self.setData({
-            locationStr: res.data.data[0].city
-          })
-          let params = {
-            latitude: res.data.data[0].latitude,
-            longitude: res.data.data[0].longitude
-          }
-          self.queryShopInfo(params)
-        })
+        self.queryShopInfo(params)
+        // request('area/getlatelyarealist', params).then(res => {
+        //   self.setData({
+        //     locationStr: res.data.data[0].city
+        //   })
+        //   let params = {
+        //     latitude: res.data.data[0].latitude,
+        //     longitude: res.data.data[0].longitude
+        //   }
+        // })
       }
     })
   },
