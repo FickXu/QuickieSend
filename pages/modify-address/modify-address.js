@@ -18,38 +18,11 @@ Page({
     contactAddress: '',
     mobilePhone: '',
     isEdit: false,
-    hospitals: [
-      {
-        id: 1,
-        name: '湘雅三医院'
-      },
-      {
-        id: 2,
-        name: '市妇幼'
-      }
-    ],
+    hospitals: [],
     hospitalIndex: -1,
-    buildings: [
-      {
-        id: 1,
-        name: '1#'
-      },
-      {
-        id: 2,
-        name: '2#'
-      }
-    ],
+    buildings: [],
     buildingIndex: -1,
-    floors: [
-      {
-        id: 1,
-        name: '1L'
-      },
-      {
-        id: 2,
-        name: '2L'
-      }
-    ],
+    floors: [],
     floorIndex: -1,
     params: {
       id: '',
@@ -72,7 +45,7 @@ Page({
       // 电话号码
       mobilePhone: '',
       // 商家id
-      shopId: 0,
+      shopId: wx.getStorageSync('shopDetails').id,
       // 是否为默认地址
       isDefault: 0
     }
@@ -92,6 +65,35 @@ Page({
 
       console.log(this.data.isEdit, this.data.params)
     })
+
+    this.getShopAreaList({
+      parentId: 0, 
+      shopId: this.data.params.shopId
+    }, 'hospital')
+  },
+
+  // 获取商家区域
+  getShopAreaList(params, areaFlag) {
+    let obj = {
+      ...params
+    }
+    request('shop/getshoparea', obj).then(res => {
+      if (areaFlag === 'hospital') {
+        this.setData({
+          hospitals: res.data.data
+        })
+      }
+      if (areaFlag === 'build') {
+        this.setData({
+          buildings: res.data.data
+        })
+      }
+      if (areaFlag === 'floor') {
+        this.setData({
+          floors: res.data.data
+        })
+      }
+    })
   },
 
   // 获取收货地址详情
@@ -100,16 +102,40 @@ Page({
       ...this.data.params
     }
 
+    // this.setData({
+    //   // 医院
+    //   hospitalIndex: this.data.hospitals.findIndex(item => item.id == params.areaTypeOne),
+    //   // 楼栋
+    //   buildingIndex: this.data.buildings.findIndex(item => item.id == params.areaTypeTwo),
+    //   // 楼层
+    //   floorIndex: this.data.floors.findIndex(item => item.id == params.areaTypeThree),
+    // })
+
     this.setData({
       // 医院
-      hospitalIndex: this.data.hospitals.findIndex(item => item.id == params.areaTypeOne),
+      'params.areaTypeOne': params.areaTypeOne,
+      'params.areaTypeOneName': params.areaTypeOneName,
       // 楼栋
-      buildingIndex: this.data.buildings.findIndex(item => item.id == params.areaTypeTwo),
+      'params.areaTypeTwo': params.areaTypeTwo,
+      'params.areaTypeTwoName': params.areaTypeTwoName,
       // 楼层
-      floorIndex: this.data.floors.findIndex(item => item.id == params.areaTypeThree),
+      'params.areaTypeThree': params.areaTypeThree,
+      'params.areaTypeThreeName': params.areaTypeThreeName,
+      
     })
 
-    console.log(this.data.hospitals.findIndex(item => item.id == params.areaTypeOne))
+    this.getShopAreaList({
+      parentId: 0, 
+      shopId: this.data.params.shopId
+    }, 'hospital')
+    this.getShopAreaList({
+      parentId: params.areaTypeOne, 
+      shopId: this.data.params.shopId
+    }, 'build')
+    this.getShopAreaList({
+      parentId: params.areaTypeTwo, 
+      shopId: this.data.params.shopId
+    }, 'floor')
 
   },
 
@@ -158,8 +184,16 @@ Page({
     this.setData({
       hospitalIndex: index,
       'params.areaTypeOne': this.data.hospitals[index].id,
-      'params.areaTypeOneName': this.data.hospitals[index].name
+      'params.areaTypeOneName': this.data.hospitals[index].areaName,
+      'params.areaTypeTwo': '',
+      'params.areaTypeTwoName': '',
+      'params.areaTypeThree': '',
+      'params.areaTypeThreeName': ''
     })
+    this.getShopAreaList({
+      parentId: this.data.hospitals[index].id, 
+      shopId: this.data.params.shopId
+    }, 'build')
   },
 
   // 选择楼栋
@@ -169,8 +203,14 @@ Page({
     this.setData({
       buildingIndex: index,
       'params.areaTypeTwo': this.data.buildings[index].id,
-      'params.areaTypeTwoName': this.data.buildings[index].name
+      'params.areaTypeTwoName': this.data.buildings[index].areaName,
+      'params.areaTypeThree': '',
+      'params.areaTypeThreeName': ''
     })
+    this.getShopAreaList({
+      parentId: this.data.buildings[index].id, 
+      shopId: this.data.params.shopId
+    }, 'floor')
   },
 
   // 选择楼层
@@ -180,7 +220,7 @@ Page({
     this.setData({
       floorIndex: index,
       'params.areaTypeThree': this.data.floors[index].id,
-      'params.areaTypeThreeName': this.data.floors[index].name
+      'params.areaTypeThreeName': this.data.floors[index].areaName
     })
   },
   

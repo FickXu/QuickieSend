@@ -36,12 +36,16 @@ Page({
   },
   // 获取收货地址列表
   queryList() {
+    wx.showLoading({
+      title: '加载中...',
+    })
     let params = {
-      shopId: 0
+      shopId: wx.getStorageSync('shopDetails').id
     }
     let self = this
 
     request('user/address/list', params).then(res => {
+      wx.hideLoading()
       if (res.data.code == 10000) {
         self.setData({
           addressList: res.data.data,
@@ -109,7 +113,7 @@ Page({
         wx.showToast({
           title: res.data.msg,
           success() {
-            self.queryshopaddresslist()
+            self.queryList()
           }
         })
       }

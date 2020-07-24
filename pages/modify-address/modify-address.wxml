@@ -39,11 +39,12 @@
       mode="selector"
       bindchange="regionChange1"
       range="{{hospitals}}"
-      range-key="name"
+      range-key="areaName"
       value="{{hospitalIndex}}"
+      data-parent-id="0"
       >
       <view class="picker">
-          {{hospitals[hospitalIndex].name}}
+          {{params.areaTypeOneName}}
       </view>
     </picker>
   </view>
@@ -55,11 +56,12 @@
       mode="selector"
       bindchange="regionChange2"
       range="{{buildings}}"
-      range-key="name"
+      range-key="areaName"
       value="{{buildingIndex}}"
+      data-parent-id="{{buildings[buildingIndex].id}}"
       >
       <view class="picker">
-          {{buildings[buildingIndex].name}}
+          {{params.areaTypeTwoName}}
       </view>
     </picker>
   </view>
@@ -71,11 +73,12 @@
       mode="selector"
       bindchange="regionChange3"
       range="{{floors}}"
-      range-key="name"
+      range-key="areaName"
       value="{{floorIndex}}"
+      data-parent-id="{{floors[floorIndex].id}}"
       >
       <view class="picker">
-          {{floors[floorIndex].name}}
+          {{params.areaTypeThreeName}}
       </view>
     </picker>
   </view>
