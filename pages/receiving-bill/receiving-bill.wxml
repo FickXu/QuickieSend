@@ -4,14 +4,15 @@
 </cu-custom>
   
 <view class="cu-list menu list-menu settings">
+
   <view class="cu-item arrow" bindtap="openReceivingBillPage">
     <view class="content">
-      <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>快跑账单
+      <image class="icon-menu-status" src="./img/kpzd.png"></image>快跑账单
     </view>
   </view>
   <view class="cu-item arrow" bindtap="openPlateformPage">
     <view class="content">
-      <text class="custome-icon-size cuIcon-newsfill text-cyan"></text>平台推广
+      <image class="icon-menu-status" src="./img/pttg.png"></image>平台推广
     </view>
   </view>
 </view>

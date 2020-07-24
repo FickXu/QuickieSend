@@ -43,7 +43,7 @@ Page({
         request('area/getlatelyarealist', params).then(res => {
           let arr = [].concat(res.data.data)
           arr.forEach(item => {
-            item.distance = item.distance.toFixed(2) + 'km'
+            item.distance = parseFloat(item.distance).toFixed(2) + 'km'
           })
           self.setData({
             list: arr

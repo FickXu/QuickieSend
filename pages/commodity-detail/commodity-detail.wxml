@@ -183,12 +183,12 @@
 </view>
 
 <!-- 购物车列表 -->
-<view class="cu-modal bottom-modal {{showShopCar ?'show':''}}">
+<view class="cu-modal bottom-modal {{showShopCar ?'show':''}}" bindtap="hideShopCarModal">
   <view class="cu-dialog pb-100">
     <view class="padding-xl bg-white">
-      <view class="cu-bar icon-close" bindtap="hideShopCarModal">
+      <!-- <view class="cu-bar icon-close" bindtap="hideShopCarModal">
         <view class="cuIcon-roundclose text-grey ml-10" style="font-size: 18px"></view>
-      </view>
+      </view> -->
 
       <!-- header -->
       <view class="bg-white flex justify-between mt-15">

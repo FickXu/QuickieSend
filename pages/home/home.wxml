@@ -26,7 +26,7 @@
     refresher-triggered="{{refreshTrigger}}"
     enable-flex="{{true}}"
     bindrefresherpulling="bindrefresherpulling"
-    style="height: calc(100vh - 276rpx)"
+    style="height: calc(100vh - 300rpx)"
     class="scrollPage" 
     > 
   <!-- 附近店铺信息 -->

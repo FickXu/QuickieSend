@@ -9,7 +9,7 @@
   height: 45rpx!important;
 }
 .top-area {
-  height: 276rpx;
+  height: 300rpx;
 }
 .top-area .search-box {
   height: 88rpx;
@@ -60,7 +60,6 @@
   display: flex;
   align-items: center;
   box-shadow: 0px 6rpx 12rpx rgba(0, 0, 0, 0.03);
-  margin-top: 40rpx;
 }
 .near-shop-info .shop-img {
   width: 94rpx;
@@ -118,7 +117,7 @@
   justify-content: space-around;
   align-items: center;
   padding: 80rpx 30rpx 40rpx;
-  background-color: #f1f1f1;
+  background-color: #F7F7F7;
 }
 .hot-category .item {
   font-size: 32rpx;
@@ -163,15 +162,16 @@
   border-radius: 100rpx;
 }
 .discount-commodity {
-  margin-top: 60rpx;
-  background-color: #f1f1f1;
+  padding-top: 60rpx;
+  background-color: #F7F7F7;
 }
 .hot-commodity {
   padding-top: 40rpx;
-  background-color: #f1f1f1;
+  background-color: #F7F7F7;
 }
 .scrollPage {
   width: 100%;
+  height: calc(100vh - 300rpx - calc(100rpx + env(safe-area-inset-bottom) / 2));
   padding-bottom: calc(100rpx + env(safe-area-inset-bottom) / 2);
 }
 .cu-modal {

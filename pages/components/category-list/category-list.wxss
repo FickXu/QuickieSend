@@ -27,7 +27,7 @@
   position: relative;
 }
 .VerticalNav.nav .cu-item.cur {
-  background-color: #f1f1f1;
+  background-color: #F7F7F7;
 }
 .VerticalNav.nav .cu-item.cur::after {
   content: "";

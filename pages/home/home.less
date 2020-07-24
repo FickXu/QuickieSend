@@ -28,10 +28,12 @@
 }
 
 .top-area {
-  height: 276rpx;
+  height: 300rpx;
+  // background-color: red;
 
   .search-box {
     height: 88rpx;
+    // background-color: #F7F7F7;
     padding: 20rpx 40rpx;
     display: flex;
     align-items: center;
@@ -94,7 +96,7 @@
   display: flex;
   align-items: center;
   box-shadow:0px 6rpx 12rpx rgba(0,0,0,0.03);
-  margin-top: 40rpx;
+  // margin-top: 20rpx;
 
   .shop-img {
     width: 94rpx;
@@ -164,7 +166,7 @@
   justify-content: space-around;
   align-items: center;
   padding: 80rpx 30rpx 40rpx;
-  background-color: #f1f1f1;
+  background-color: #F7F7F7;
 
   .item {
     font-size: 32rpx;
@@ -217,17 +219,18 @@
 }
 
 .discount-commodity {
-  margin-top: 60rpx;
-  background-color: #f1f1f1;
+  padding-top: 60rpx;
+  background-color: #F7F7F7;
 }
 
 .hot-commodity {
   padding-top: 40rpx;
-  background-color: #f1f1f1;
+  background-color: #F7F7F7;
 }
 
 .scrollPage {
   width: 100%;
+  height: calc(~'100vh - 300rpx - @{height-nav}');
   padding-bottom: @height-nav;
 }
 
