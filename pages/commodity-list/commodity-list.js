@@ -25,8 +25,8 @@ Page({
       // 销量排序（0，升序；1，降序）
       salesSorted: ''
     },
-    layoutType: 'row',
-    isLimitedBuying: ''
+    layoutType: 'column',
+    isLimitedBuying: false
   },
   onLoad (e) {
     this.setData({

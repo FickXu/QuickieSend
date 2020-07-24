@@ -38,8 +38,8 @@ Component({
     },
     // 是否为限时抢购商品，默认不是
     isLimitedBuying: {
-      type: Boolean,
-      value: false
+      type: String,
+      value: 'false'
     },
     // 是否跳转到详情，默认跳转
     isGoToDetailPage: {
