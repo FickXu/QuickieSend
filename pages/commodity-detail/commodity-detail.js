@@ -407,6 +407,14 @@ Page({
     })
   },
 
+  onShow: function () {
+    // 计算商品数量
+    this.getShopCarCommodityNums()
+    
+    // 计算商品总价格
+    this.computeTotalAmount()
+  },
+
   onLoad: function (query) {
     let self = this
     

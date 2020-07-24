@@ -94,7 +94,7 @@
   <view class="describe mt-10">
     <view class="header mb-10 ml-10">商品详情</view>
     <view class="spu-info">
-      <image class="img" src="{{item.spuInfoImg}}" wx:for="{{detail.spuInfoImgList}}" />
+      <image mode="widthFix" class="img" src="{{item.spuInfoImg}}" wx:for="{{detail.spuInfoImgList}}" />
     </view>
   </view>
   
