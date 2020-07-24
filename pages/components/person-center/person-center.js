@@ -10,29 +10,41 @@ Component({
 	data: {
 		title: '个人中心',
 		cuCustomBGColor: 'bg-transparent',
-		userInfo: {
-			// avatarUrl: "https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTINhLTx15w3Bm9iamcriaia0ELLTnyXtUJD9wHibQSOabeVSAqMmaDp8L1zTV1R2DlW9YnI5kOJ1fTlLg/132",
-			// city: "Shenzhen",
-			// country: "China",
-			// gender: 1,
-			// language: "zh_CN",
-			// nickName: "Fick",
-			// province: "Guangdong"
-		},
+		userInfo: {},
+		shopId: wx.getStorageSync('shopDetails').id,
+		isDelivery: false
 	},
 	ready: function () {
-		request('user/info').then(res => {
-			this.setData({
-				userInfo: res.data.data
-			})
-			wx.setStorage({
-				key: 'userInfo',
-				data: res.data.data
-			})
-		})
-		
+		this.getUserInfo()
+		this.getUserRole()
 	},
 	methods: {
+
+		// 是否为配送员
+		getUserRole() {
+			let params = {
+				shopId: this.data.shopId
+			}
+			request('user/isdelivery', params).then(res => {
+				this.setData({
+					isDelivery: res.data.data
+				})
+			})
+		},
+
+		// 获取用户信息
+		getUserInfo() {
+			request('user/info').then(res => {
+				this.setData({
+					userInfo: res.data.data
+				})
+				wx.setStorage({
+					key: 'userInfo',
+					data: res.data.data
+				})
+			})
+		},
+
 		// 打开二维码页面
 		openMyScanOpenPage() {
 			wx.navigateTo({

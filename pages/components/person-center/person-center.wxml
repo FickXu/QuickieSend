@@ -83,13 +83,13 @@
           <image class="icon-menu-status" src="./img/xfmx.png"></image>消费明细
         </view>
       </view>
-      <view class="cu-item arrow" bindtap="openReceivingOrderPage">
+      <view class="cu-item arrow" wx:if="{{isDelivery}}" bindtap="openReceivingOrderPage">
         <view class="content">
           <image class="icon-menu-status" src="./img/xekp.png"></image>小二快跑
         </view>
       </view>
       <!-- 需要接口控制 -->
-      <view class="cu-item arrow" bindtap="openReceivingBillPage">
+      <view class="cu-item arrow" wx:if="{{isDelivery}}" bindtap="openReceivingBillPage">
         <view class="content">
           <image class="icon-menu-status" src="./img/kpzd.png"></image>快跑账单
         </view>
