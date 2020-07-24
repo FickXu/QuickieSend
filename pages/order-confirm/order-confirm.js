@@ -271,6 +271,8 @@ Page({
           number: item.CURRENT_QUANTITY,
           // 单品id
           skuId: item.skuId,
+          // 单品规格
+          skuKey: item.skuKey
         }
         skuOrderDtoArr.push(params)
       }

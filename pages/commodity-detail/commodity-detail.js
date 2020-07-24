@@ -241,6 +241,7 @@ Page({
       showPrice: this.data.isLimitedBuying=='true'?this.data.detail.showPrice:this.data.shopcarDetail.showPrice,
       realPrice: this.data.isLimitedBuying=='true'?this.data.detail.realPrice:this.data.shopcarDetail.realPrice,
       skuId: this.data.isLimitedBuying=='true'?this.data.detail.skuId:this.data.shopcarDetail.skuId,
+      skuKey: this.data.isLimitedBuying=='true'?this.data.detail.skuKey:this.data.shopcarDetail.skuKey,
       mallActivityId: this.data.mallActivityId
     }
     wx.setStorage({
