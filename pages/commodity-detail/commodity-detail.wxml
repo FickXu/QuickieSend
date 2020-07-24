@@ -193,7 +193,7 @@
       <!-- header -->
       <view class="bg-white flex justify-between mt-15">
         <text class="text-black bold fz-14">已选商品</text>
-        <text class="text-gray fz-14" bindtap="clearShopCar">清空购物车</text>
+        <text class="text-gray fz-14" catchtap="clearShopCar">清空购物车</text>
       </view>
 
       <view style="max-height: 1000rpx;overflow-y: auto" wx:if="{{shopcarList.length>0}}">

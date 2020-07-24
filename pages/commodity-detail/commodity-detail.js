@@ -424,9 +424,11 @@ Page({
           mallActivityId: data.mallActivityId
         })
       } else {
+        let obj = data
+        obj.CURRENT_QUANTITY = 1
         self.setData({
           detail: {
-            ...data
+            ...obj
           }
         })
         // 查询评论数量
