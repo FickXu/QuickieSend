@@ -18,7 +18,7 @@
           <text class="small">{{userInfo.telephone}}</text>
         </view>
       </view>
-      <view class="cuIcon-qrcode text-white fz-20" bindtap="openMyScanOpenPage"></view>
+      <view class="cuIcon-qrcode text-white fz-30" bindtap="openMyScanOpenPage"></view>
     </view>
   
     <!-- 我的明细，我的搜藏，购物车 -->
