@@ -104,7 +104,7 @@ Page({
       openId: app.globalData.openId
     }
 
-    request('user/setdefaultshopaddress', params).then(res => {
+    request('user/address/setdefault', params).then(res => {
       if (res.data.code == 10000) {
         wx.showToast({
           title: res.data.msg,

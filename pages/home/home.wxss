@@ -116,7 +116,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 80rpx 30rpx 40rpx;
+  padding: 60rpx 30rpx 40rpx;
   background-color: #F7F7F7;
 }
 .hot-category .item {
@@ -162,7 +162,7 @@
   border-radius: 100rpx;
 }
 .discount-commodity {
-  padding-top: 60rpx;
+  padding-top: 40rpx;
   background-color: #F7F7F7;
 }
 .hot-commodity {

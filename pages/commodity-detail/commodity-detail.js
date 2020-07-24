@@ -434,6 +434,7 @@ Page({
       } else {
         let obj = data
         obj.CURRENT_QUANTITY = 1
+        obj.SPEC_OBJ = {}
         self.setData({
           detail: {
             ...obj
