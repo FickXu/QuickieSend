@@ -9,7 +9,7 @@
     <!-- 搜索组件 -->
     <view class="search-box">
       <view class="location cuIcon-location text-white" bindtap="openHospitalListPage">
-        <text class="label">定位</text>
+        <text>{{locationStr}}</text>
       </view>
       <view class="search">
         <view class="cuIcon-search" bindtap="openCommodityListPage"></view>

@@ -58,7 +58,9 @@ Page({
     isShowNoneData: false,
     // 搜索字符串
     searchStr: '',
-    refreshTrigger: false
+    refreshTrigger: false,
+    // 定位城市
+    locationStr: ''
   },
 
   // 商品搜索
@@ -121,7 +123,7 @@ Page({
       url: '../hospital-list/hospital-list',
       events: {
         refresh(params) {
-        slef.queryShopInfo(params)
+          slef.queryShopInfo(params)
         }
       }
     })
@@ -317,6 +319,9 @@ Page({
           longitude: res.longitude
         }
         request('area/getlatelyarealist', params).then(res => {
+          self.setData({
+            locationStr: res.data.data[0].city
+          })
           let params = {
             latitude: res.data.data[0].latitude,
             longitude: res.data.data[0].longitude
