@@ -1,3 +1,4 @@
+import {getStandardDate} from '../../utils/util'
 import request from '../api/request'
 
 const app = getApp();
@@ -44,7 +45,8 @@ Page({
         if (res.data.data.length>0) {
           let data = res.data.data
           data.forEach(item => {
-            item.payAmount = item.payAmount / 100
+            item.payAmount = item.payAmount / 100,
+            item.expressTime = getStandardDate(item.expressTime, 'year')
           })
           self.setData({
             orderList: data,
