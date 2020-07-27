@@ -127,7 +127,7 @@ Page({
   // 获取手机号
   getPhoneNumber(e) {
     wx.showLoading({
-      title: '获取手机号...',
+      title: '正在登录...',
     })
     let self = this
     self._wxLogin().then(res => {
