@@ -37,7 +37,9 @@ Page({
   // 获取用户信息
   bindgetuserinfo: function(e) {
     console.log('我是授权按钮：', e.detail)
-
+    wx.showLoading({
+      title: '授权中...',
+    })
     this.setData({
       'loginPageInfo.encryptedData': e.detail.encryptedData,
       'loginPageInfo.iv': e.detail.iv
@@ -96,6 +98,7 @@ Page({
       let userInfo = self.customerAuthor(_encryptedData, _iv, res)
 
       if (!userInfo) {
+        wx.hideLoading()
         wx.showToast({
           title: '用户信息获取失败！请重新授权',
           icon: 'none'
@@ -117,13 +120,16 @@ Page({
         // 写入用户信息
         userInfo: userInfo
       })
+      wx.hideLoading()
     })
   },
 
   // 获取手机号
   getPhoneNumber(e) {
+    wx.showLoading({
+      title: '获取手机号...',
+    })
     let self = this
-
     self._wxLogin().then(res => {
       let _encryptedData = e.detail.encryptedData
       let _iv = e.detail.iv
@@ -145,6 +151,12 @@ Page({
 
       // console.log('用户注册信息：', params)
       request('auth/login', params).then(res => {
+        wx.hideLoading()
+        setTimeout(() => {
+          wx.showToast({
+            title: '已登录',
+          })
+        }, 200);
         if (res.data.code == 10000) {
           wx.navigateBack()
           wx.setStorage({
