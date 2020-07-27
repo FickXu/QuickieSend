@@ -94,6 +94,11 @@ Page({
       this.setData({
         overTime: time
       })
+      // 倒计时结束
+      if (time === '00:00') {
+        this.queryorderInfo()
+        this.clearInterval()
+      }
       console.log('time', time)
     }, 1000)
   },

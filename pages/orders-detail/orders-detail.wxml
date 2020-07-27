@@ -12,9 +12,9 @@
         <!-- 第一行 -->
         <view class="flex felx-align-center">
           <view class="cuIcon-noticefill fz-20 text-cyan"></view>
-          <view class="bold fz-18 text-cyan margin-left-xs">{{details.status==1?'待支付':(details.status==4?'待发货':(details.status==5?'待收货':(details.status==6?'已完成': (details.status==2?'已取消':''))))}}</view>
+          <view class="bold fz-18 text-cyan margin-left-xs">{{details.status==1?'待支付':(details.status==3?'待发货':(details.status==5?'待收货':(details.status==6?'已完成': (details.status==2?'已取消':''))))}}</view>
           <view class="fz-16 ml-20" wx:if="{{details.status!=2}}">
-            <text class="text-cyan">需支付</text>
+            <text class="text-cyan">{{details.status==1?'需支付':'已支付'}}</text>
             <text class="text-red"> ¥ {{details.payAmount / 100}}</text>
           </view>
         </view>
