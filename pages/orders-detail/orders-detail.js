@@ -35,7 +35,8 @@ Page({
     orderList: [],
     details: null,
     isShow: false,
-    overTime: '30:00'
+    overTime: '30:00',
+    timeInterval: null
   },
   onLoad(params) {
     let orderNo = params.orderNo
@@ -82,7 +83,7 @@ Page({
   },
 
   onUnload() {
-    this.clearInterval()
+    this.clearInterval(this.data.timeInterval)
   },
 
   // 计时器
