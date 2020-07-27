@@ -11,7 +11,7 @@ Component({
 		title: '个人中心',
 		cuCustomBGColor: 'bg-transparent',
 		userInfo: {},
-		shopId: wx.getStorageSync('shopDetails').id,
+		shopId: wx.getStorageSync('shopDetails').shopId,
 		isDelivery: false
 	},
 	ready: function () {

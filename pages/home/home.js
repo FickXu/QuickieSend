@@ -284,15 +284,14 @@ Page({
             wx.navigateTo({
               url: '../../pages/login/login'
             })
-            wx.clearStorage({
-              success () {
-                app.globalData.loginCode = 10007
-                self.setData({
-                  isLogin: false,
-                  showSearch: 'none',
-                  loginCode: app.globalData.loginCode
-                })
-              }
+            wx.removeStorageSync('openId')
+            wx.removeStorageSync('isLogin')
+            wx.removeStorageSync('userInfo')
+            app.globalData.loginCode = 10007
+            self.setData({
+              isLogin: false,
+              showSearch: 'none',
+              loginCode: app.globalData.loginCode
             })
           }
         }
