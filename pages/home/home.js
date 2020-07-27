@@ -88,6 +88,7 @@ Page({
   // 查询已选医院最近店铺
   queryShopInfo(obj) {
     let params = {
+      // "latitude":28.239069,"longitude":112.874908,
       ...obj
     }
     request('area/getlatelyareaone', params).then(res => {

@@ -56,7 +56,7 @@
     <view class="text-black fz-20 bold">收获地址</view>
     <view class="text-darkGray mt-10 fz-16">{{details.address}}</view>
     <view class="text-black mt-10">
-      <text class="fz-16">{{details.customerName}}</text>
+      <text class="fz-16">{{details.name}}</text>
       <text class="fz-16 ml-15">{{details.mobile}}</text>
     </view>
   </view>
