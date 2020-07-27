@@ -45,13 +45,18 @@ Page({
       // 电话号码
       mobilePhone: '',
       // 商家id
-      shopId: wx.getStorageSync('shopDetails').shopId,
+      shopId: '',
       // 是否为默认地址
       isDefault: 0
     }
   },
   onLoad() {
     
+    let shopId = wx.getStorageSync('shopDetails').shopId
+    this.setData({
+      'params.shopId': shopId
+    })
+
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('sendData', data => {
       this.setData({
@@ -68,7 +73,7 @@ Page({
 
     this.getShopAreaList({
       parentId: 0, 
-      shopId: this.data.params.shopId
+      shopId: shopId
     }, 'hospital')
   },
 
@@ -124,10 +129,10 @@ Page({
       
     })
 
-    this.getShopAreaList({
-      parentId: 0, 
-      shopId: this.data.params.shopId
-    }, 'hospital')
+    // this.getShopAreaList({
+    //   parentId: 0, 
+    //   shopId: this.data.params.shopId
+    // }, 'hospital')
     this.getShopAreaList({
       parentId: params.areaTypeOne, 
       shopId: this.data.params.shopId

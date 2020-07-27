@@ -183,7 +183,7 @@ Page({
       success (res) {
         if (res.confirm) {
           let params = {
-            orderId: e.currentTarget.dataset.orderId,
+            orderNo: e.currentTarget.dataset.orderNo,
             openId: app.globalData.openId
           }
           request('order/cancel', params).then(res => {
@@ -191,7 +191,7 @@ Page({
               wx.showToast({
                 title: res.data.msg,
                 success() {
-                  self.queryorderlist()
+                  self.queryorderInfo(params.orderNo)
                 }
               })
             }
