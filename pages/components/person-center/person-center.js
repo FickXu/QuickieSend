@@ -11,7 +11,6 @@ Component({
 		title: '个人中心',
 		cuCustomBGColor: 'bg-transparent',
 		userInfo: {},
-		shopId: wx.getStorageSync('shopDetails').shopId,
 		isDelivery: false
 	},
 	ready: function () {
@@ -23,7 +22,7 @@ Component({
 		// 是否为配送员
 		getUserRole() {
 			let params = {
-				shopId: this.data.shopId
+				shopId: wx.getStorageSync('shopDetails').shopId
 			}
 			request('user/isdelivery', params).then(res => {
 				this.setData({
