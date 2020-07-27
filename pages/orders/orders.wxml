@@ -70,7 +70,7 @@
           <button class="cu-btn round ml-10 bg-cyan" data-index="{{index}}" bindtap="nowPay">立即支付</button>
         </view>
         <view class="btn-delete-order text-right" wx:if="{{item.status==2}}">
-          <view class="cu-btn round ml-10 bg-red">已取消</view>
+          <view class="cu-btn round ml-10 bg-gray">已取消</view>
         </view>
         <view class="btn-delete-order text-right" wx:if="{{item.status==3}}">
           <view class="cu-btn round ml-10 bg-gray">待配送</view>

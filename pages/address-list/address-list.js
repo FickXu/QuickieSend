@@ -40,7 +40,7 @@ Page({
       title: '加载中...',
     })
     let params = {
-      shopId: wx.getStorageSync('shopDetails').id
+      shopId: wx.getStorageSync('shopDetails').shopId
     }
     let self = this
 

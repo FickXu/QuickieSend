@@ -1,3 +1,4 @@
+import {getStandardDate} from '../../utils/util'
 import request from '../api/request'
 
 const app = getApp();
@@ -14,23 +15,27 @@ Page({
         value: '',
         label: '全部'
       },
-      
       {
         value: 1,
+        label: '待支付'
+      },
+      {
+        value: 4,
         label: '待发货'
       },
       {
-        value: 2,
+        value: 5,
         label: '待收货'
       },
       {
-        value: 3,
+        value: 6,
         label: '已完成'
       }
     ],
     orderList: [],
     details: null,
-    isShow: false
+    isShow: false,
+    overTime: '30:00'
   },
   onLoad(params) {
     let orderNo = params.orderNo
@@ -65,14 +70,37 @@ Page({
     let self = this
     request('order/info', params).then(res => {
       if (res.data.code == 10000) {
-        if (res.data.data) {
-          self.setData({
-            details: res.data.data
-          })
-        }
+        let obj = res.data.data
+        obj.submitTime = getStandardDate(obj.submitTime, 'year')
+        self.setData({
+          details: obj
+        })
         wx.hideLoading()
+        this.setInterval()
       }
     })
+  },
+
+  onUnload() {
+    this.clearInterval()
+  },
+
+  // 计时器
+  setInterval() {
+    let subTime = new Date(this.data.details.submitTime).getTime()
+    let overTime = subTime + 30 * 60 * 1000
+    this.data.timeInterval = setInterval(() => {
+      let time = getStandardDate(overTime - new Date().getTime(), 'ms')
+      this.setData({
+        overTime: time
+      })
+      console.log('time', time)
+    }, 1000)
+  },
+
+  // 清空定时器
+  clearInterval() {
+    clearInterval(this.data.timeInterval)
   },
   
   // 我要评价

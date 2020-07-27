@@ -17,6 +17,7 @@ export const getStandardDate = (timeStamp, startType) => {
   else if (startType === 'yearDate') resStr = year + '年' + month + '月' + date + '日'
   else if (startType === 'monthDate') resStr = month + '月' + date + '日'
   else if (startType === 'hm') resStr = hours + ':' + minutes
+  else if (startType === 'ms') resStr = minutes + ':' + second
   else resStr = month + '月' + date + '日' + ' ' + hours + ':' + minutes
   return resStr
 }
