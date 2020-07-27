@@ -45,7 +45,7 @@ Page({
       // 电话号码
       mobilePhone: '',
       // 商家id
-      shopId: wx.getStorageSync('shopDetails').id,
+      shopId: wx.getStorageSync('shopDetails').shopId,
       // 是否为默认地址
       isDefault: 0
     }

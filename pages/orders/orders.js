@@ -35,6 +35,10 @@ Page({
     orderListShow: true,
     isShow: false,
   },
+  onShow() {
+    this.queryorderlist()
+  },
+
   onLoad(params) {
     let type = params.type || ''
     let value = ''
@@ -58,7 +62,7 @@ Page({
     this.setData({
       TabCur: value
     })
-    this.queryorderlist()
+    // this.queryorderlist()
   },
   // 获取订单列表
   queryorderlist() {
