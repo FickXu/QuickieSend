@@ -13,15 +13,7 @@ Page({
     Custom: app.globalData.Custom,
     title: "确认订单",
     // 搜索条件
-    commodityList: [
-      {
-        spuId: 1,
-        spuMainImg: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg',
-        spuName: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
-        showPrice: 88.0,
-        postType: '免费配送'
-      }
-    ],
+    commodityList: [],
     selectedList: [],
     // 订单总价
     totalAmount: 0,
@@ -176,6 +168,9 @@ Page({
   // 去支付
   pay() {
     this.calcualtionTotalAmount()
+    wx.showLoading({
+      title: '正在下单...',
+    })
     let params = {
       ...this.data.params,
       couponId: this.data.discountAmount/100 < this.data.totalAmount ? this.data.discouont.id : '' 
@@ -186,9 +181,56 @@ Page({
       this.removeShopCar()
       
       // 调用支付
-      this.setData({
-        isShow: true
-      })
+      this.payCreatewxorder(res.data.data.orderNo)
+    })
+  },
+
+  payCreatewxorder(orderNo) {
+    let params = {
+      orderNo: orderNo
+    }
+    request('pay/createwxorder', params).then(res => {
+      wx.hideLoading()
+      let params = {
+        // 时间戳
+        timeStamp: res.data.data.timeStamp,
+        // 随机字符串
+        nonceStr: res.data.data.nonceStr,
+        // 统一下单借口返回的prepay_id，提交格式prepay_id=***
+        package: res.data.data.packageValue,
+        // 签名
+        paySign: res.data.data.paySign,
+      }
+      this.callPay(params)
+    })
+  },
+
+  // 调用支付
+  callPay(params) {
+    wx.requestPayment({
+      // 时间戳
+      timeStamp: params.timeStamp,
+      // 随机字符串
+      nonceStr: params.nonceStr,
+      // 统一下单借口返回的prepay_id，提交格式prepay_id=***
+      package: params.package,
+      // 签名
+      paySign: params.paySign,
+      signType: 'MD5',
+      success: res => {
+        console.log('pay success', res)
+        this.paySuccess()
+      },
+      fial: fail => {
+        console.log('pay fail', fail)
+        this.payFail()
+      },
+      complete: complete => {
+        console.log('pay complete', complete)
+        this.setData({
+          isShow: true
+        })
+      }
     })
   },
 
