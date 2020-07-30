@@ -10,7 +10,7 @@ Page({
     TabCur: '',
     customBar: app.globalData.CustomBar,
     title: '平台推广',
-    iconUrl: '../images/bg-scan.png',
+    iconUrl: '',
     menuList: [
       {
         value: '',
@@ -24,7 +24,11 @@ Page({
   },
 
   onLoad() {
-    request('user/referralcode').then(res => {})
+    request('user/referralcode').then(res => {
+      this.setData({
+        iconUrl: res.data.data
+      })
+    })
   },
 
   tabSelect(e) {
