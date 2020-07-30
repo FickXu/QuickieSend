@@ -37,17 +37,19 @@
     </view>
     <view class="shop-desc">
       <view class="title">
-        {{shopDetails.shopName}}
+        马上送到 | {{shopDetails.shopName}}
+      </view>
+      <view class="title1">
+        {{shopDetails.areaName}}
         <text class="qs-icon iconlocation text-orange" bindtap="openHospitalListPage">
           <text class="fz-12">{{locationStr}}</text>
-        </text>
+        </text>  
       </view>
-      <view class="title1">{{shopDetails.areaName}}</view>
     </view>
-    <view class="attr-item">
+    <!-- <view class="attr-item">
       <view class="value1 text-red">{{shopDetails.salesVolume}}</view>
       <view class="label">购买指数</view>
-    </view>
+    </view> -->
    </view>
   </view>
   
