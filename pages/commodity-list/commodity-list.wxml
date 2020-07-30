@@ -5,11 +5,11 @@
 <!-- 搜索组件 -->
 <view class="cu-bar search bg-white fixed" style="top:{{CustomBar}}px">
   <view class="search-form round">
-    <text class="cuIcon-search"></text>
+    <text class="qs-icon iconsearch"></text>
     <input type="text" placeholder="请输入要搜索的商品" confirm-type="search" value="{{params.spuName}}" bindinput="bindinput"></input>
   </view>
   <view class="action">
-    <button class="cu-btn bg-cyan shadow-blur round" bindtap="queryList">搜索</button>
+    <button class="cu-btn bg-red shadow-blur round" bindtap="queryList">搜索</button>
   </view>
 </view>
 
@@ -17,20 +17,20 @@
 <view class="filter-list bg-white flex flex-align-center" wx:if="{{isLimitedBuying=='false'}}">
   <view class="flex-row4 flex">
     <view class="mr-30" bindtap="sortList" data-key="price">
-       <text class="bold cuIcon-order {{params.priceSorted===''?'':(params.priceSorted===0?'text-green':'text-red')}}"></text>
+       <text class="bold qs-icon iconorder {{params.priceSorted===''?'':(params.priceSorted===0?'text-green':'text-red')}}"></text>
       价格
     </view>
     <view bindtap="sortList" data-key="sales">
-      <text class="bold cuIcon-order {{params.salesSorted===''?'':(params.salesSorted===0?'text-green':'text-red')}}"></text>
+      <text class="bold qs-icon iconorder {{params.salesSorted===''?'':(params.salesSorted===0?'text-green':'text-red')}}"></text>
       销量
     </view>
   </view>
   <!-- <view class="flex-row2">品牌</view> -->
   <!-- <view class="flex-row2 btn-filter flex flex-align-center">
-    <text bindtap="showModal">筛选<text class="cuIcon-filter"></text></text>
+    <text bindtap="showModal">筛选<text class="qs-icon iconfilter"></text></text>
     <text class="split"></text>
   </view> -->
-  <view class="cuIcon-sort" bindtap="changeLayout"></view>
+  <view class="qs-icon iconsort" bindtap="changeLayout"></view>
 </view>
 
 <scroll-view
@@ -42,7 +42,7 @@
   <view class="{{isLimitedBuying=='true' ? 'mt-60' : ''}}">
     <commodity-list info="{{commodityList}}" layout="{{layoutType}}" isLimitedBuying="{{isLimitedBuying}}"></commodity-list>
     <view wx:if="{{commodityList.length==0}}" class="list-order-none">
-      <image class="padding-xl" src="../images/no-data.png" />
+      <image class="padding-xl" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
       <view>抱歉，没有查询到商品</view>
     </view>
   </view>

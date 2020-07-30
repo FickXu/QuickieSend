@@ -88,8 +88,8 @@ Page({
   // 查询已选医院最近店铺
   queryShopInfo(obj) {
     let params = {
-      "latitude":28.239069,"longitude":112.874908,
-      // ...obj
+      // "latitude":28.239069,"longitude":112.874908,
+      ...obj
     }
     request('area/getlatelyareaone', params).then(res => {
       this.setData({
@@ -313,7 +313,6 @@ Page({
     wx.getLocation({
       type: 'wgs84',
       success (res) {
-        console.log(res, '==================')
         let params = {
           latitude: res.latitude,
           longitude: res.longitude
@@ -360,7 +359,6 @@ Page({
     wx.getStorage({
       key: 'shopDetails',
       success (res) {
-        console.log('Page home:', res)
         self.setData({
           shopDetails: res.data
         })
@@ -368,7 +366,6 @@ Page({
         self.queryNearHospitalInfo()
       },
       fail (err) {
-        console.log('get storage fail:', err)
         self.queryNearHospitalInfo()
       }
     })

@@ -9,11 +9,15 @@ Page({
   data: {
     customBar: app.globalData.CustomBar,
     title: '我的二维码',
-    iconUrl: '../images/bg-scan.png'
+    iconUrl: ''
   },
 
   onLoad() {
-    request('user/referralcode').then(res => {})
+    request('user/referralcode').then(res => {
+      this.setData({
+        iconUrl: res.data.data
+      })
+    })
   },
 
   // 购物详情页

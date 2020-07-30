@@ -2,21 +2,21 @@
 <view class="home-page" wx:if="{{PageCur == 'home'}}">
   
   <view class="top-area">
-    <cu-custom>
+    <!-- <cu-custom>
       <view slot="content" class="bold">{{ title }}</view>
     </cu-custom>
   
-    <!-- 搜索组件 -->
+    搜索组件
     <view class="search-box">
-      <view class="location cuIcon-location text-white" bindtap="openHospitalListPage">
+      <view class="location qs-icon iconlocation text-white" bindtap="openHospitalListPage">
         <text>{{locationStr}}</text>
       </view>
       <view class="search">
-        <view class="cuIcon-search" bindtap="openCommodityListPage"></view>
+        <view class="qs-icon iconsearch" bindtap="openCommodityListPage"></view>
         <input type="text" value="{{searchStr}}" class="search" placeholder="{{searchPlaceholder}}" bindinput="bindinput"/>
       </view>
-      <!-- <view class="shop-car cuIcon-cart text-white" bindtap="openShopingCartPage"></view> -->
-    </view>
+      <view class="shop-car qs-icon iconcart text-white" bindtap="openShopingCartPage"></view>
+    </view> -->
   
   </view>
 
@@ -26,26 +26,29 @@
     refresher-triggered="{{refreshTrigger}}"
     enable-flex="{{true}}"
     bindrefresherpulling="bindrefresherpulling"
-    style="height: calc(100vh - 300rpx)"
+    style="height: calc(100vh - 210rpx)"
     class="scrollPage" 
     > 
   <!-- 附近店铺信息 -->
-  <view class="near-shop-info">
+  <view style="margin: 0 30rpx">
+    <view class="near-shop-info">
     <view class="shop-img">
       <image class="img" src="{{shopDetails.shopLogo}}" />
     </view>
     <view class="shop-desc">
-      <view class="title">{{shopDetails.shopName}}</view>
+      <view class="title">
+        {{shopDetails.shopName}}
+        <text class="qs-icon iconlocation text-orange" bindtap="openHospitalListPage">
+          <text class="fz-12">{{locationStr}}</text>
+        </text>
+      </view>
       <view class="title1">{{shopDetails.areaName}}</view>
     </view>
-    <!-- <view class="attr-item">
-      <view class="value orange">1000</view>
-      <view class="label">粉丝数</view>
-    </view> -->
     <view class="attr-item">
-      <view class="value">{{shopDetails.salesVolume}}</view>
+      <view class="value1 text-red">{{shopDetails.salesVolume}}</view>
       <view class="label">购买指数</view>
     </view>
+   </view>
   </view>
   
     <!-- 店铺热门分类（二级） -->
@@ -58,7 +61,10 @@
         wx:key="index"
         bindtap="chooseCategory"
         >
-        {{item.name}}
+        <view class="text-center">
+          <image class="logo-img" src="{{item.logoImg}}"></image>
+        </view>
+        <view class="text-center">{{item.name}}</view>
       </view>
     </view>
 
@@ -72,11 +78,11 @@
           </view>
           <view class="ml-10 fz-18">
             <text class="bg-red squer">{{limitedStartTime[0]||''}}</text>
-            <text class="text-cyan">:</text>
+            <text class="text-red">:</text>
             <text class="bg-red squer">{{limitedStartTime[1]||''}}</text>
-            <text class="text-cyan bold ml-10 mr-10">至</text>
+            <text class="text-red bold ml-10 mr-10">至</text>
             <text class="bg-red squer">{{limitedEndTime[0]||''}}</text>
-            <text class="text-cyan">:</text>
+            <text class="text-red">:</text>
             <text class="bg-red squer">{{limitedEndTime[1]||''}}</text>
           </view>
         </view>
@@ -110,7 +116,7 @@
       </view>
 
       <view wx:if="{{isShowNoneData}}" class="list-order-none">
-        <image class="padding-xl" src="../images/no-data.png" />
+        <image class="padding-xl" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
         <view>该分类没有商品</view>
       </view>
     </view>
@@ -127,7 +133,7 @@
 <view class="cu-modal {{isShow ? 'show':''}}">
   <view class="modal-body">
     <view class="action" bindtap="hideModal">
-      <text class="cuIcon-close "></text>
+      <text class="qs-icon iconclose "></text>
     </view>
     <image src="http://m.quickssend.com/file/first-relief.png" />
     <view class="text-white bold fz-14 label">
@@ -148,8 +154,8 @@
 
 <!-- 底部导航 -->
 <view class="cu-bar tabbar bg-white shadow foot">
-  <view class="action text-grey {{PageCur == 'home' ? 'text-cyan' : ''}}" bindtap="routerPage" data-page="home">
-    <view class="{{PageCur == 'home' ? 'text-cyan': ''}}">
+  <view class="action text-grey {{PageCur == 'home' ? 'text-red' : ''}}" bindtap="routerPage" data-page="home">
+    <view class="{{PageCur == 'home' ? 'text-red': ''}}">
       <view>
         <image class="icon-menu-status" src="{{PageCur=='home'?'./img/sy2.png':'./img/sy1.png'}}"></image>
       </view>
@@ -157,15 +163,15 @@
     </view>
   </view>
   <view class="action text-grey" bindtap="routerPage" data-page="category-list">
-    <view class="{{PageCur == 'category-list' ? 'text-cyan': ''}}">
+    <view class="{{PageCur == 'category-list' ? 'text-red': ''}}">
       <view>
         <image class="icon-menu-status" src="{{PageCur=='category-list'?'./img/fl2.png':'./img/fl1.png'}}"></image>
       </view>
       分类
     </view>
   </view>
-  <view class="action text-grey {{PageCur == 'person-center' ? 'text-cyan' : ''}}" bindtap="routerPage" data-page="person-center">
-    <view class="{{PageCur == 'person-center' ? 'text-cyan': ''}}">
+  <view class="action text-grey {{PageCur == 'person-center' ? 'text-red' : ''}}" bindtap="routerPage" data-page="person-center">
+    <view class="{{PageCur == 'person-center' ? 'text-red': ''}}">
       <view>
         <image class="icon-menu-status" src="{{PageCur=='person-center'?'./img/wd2.png':'./img/wd1.png'}}"></image>
       </view>

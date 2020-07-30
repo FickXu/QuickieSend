@@ -18,22 +18,22 @@
           <text class="small">{{userInfo.telephone}}</text>
         </view>
       </view>
-      <view class="cuIcon-qrcode text-white fz-30" bindtap="openMyScanOpenPage"></view>
+      <view class="qs-icon iconqrcode text-white fz-30" bindtap="openMyScanOpenPage"></view>
     </view>
   
     <!-- 我的明细，我的搜藏，购物车 -->
     <!-- <view class="list-menu">
       <view class="cu-list grid col-3 no-border">
         <view class="cu-item"  bindtap="openConsumerDetailsPage">
-          <view class="cuIcon-cart text-grey"></view>
+          <view class="qs-icon iconcart text-grey"></view>
           <text>消费明细</text>
         </view>
         <view class="cu-item" bindtap="openCollectionPage">
-          <view class="cuIcon-favor text-grey"></view>
+          <view class="qs-icon iconfavor text-grey"></view>
           <text>收藏</text>
         </view>
         <view class="cu-item" bindtap="openShopingCarPage">
-          <view class="cuIcon-location text-grey"></view>
+          <view class="qs-icon iconlocation text-grey"></view>
           <text>购物车</text>
         </view>
       </view>
@@ -45,13 +45,13 @@
         <view class="title">我的订单</view>
         <view class="btn-all-order" bindtap="openOrdersPage" data-order-type="">
           <text decode="{{true}}">所有订单&nbsp;</text>
-          <view class="cuIcon-right text-grey"></view>
+          <view class="qs-icon iconright text-grey"></view>
         </view>
       </view>
       <view class="cu-list grid col-4 no-border">
         <!-- 待付款 -->
         <view class="cu-item"  bindtap="openOrdersPage" data-order-type="待支付">
-          <!-- <view class="cuIcon-cart text-grey"></view> -->
+          <!-- <view class="qs-icon iconcart text-grey"></view> -->
           <image class="icon-order-status" src="./img/dfk.png"></image>
           <text>待支付</text>
         </view>
@@ -62,13 +62,13 @@
         </view>
         <!-- 待收货 -->
         <view class="cu-item" bindtap="openOrdersPage" data-order-type="待收货">
-          <!-- <view class="cuIcon-location text-grey"></view> -->
+          <!-- <view class="qs-icon iconlocation text-grey"></view> -->
           <image class="icon-order-status" src="./img/dsh.png"></image>
           <text>待收货</text>
         </view>
         <!-- 已完成 -->
         <view class="cu-item" bindtap="openOrdersPage" data-order-type="已完成">
-          <!-- <view class="cuIcon-location text-grey"></view> -->
+          <!-- <view class="qs-icon iconlocation text-grey"></view> -->
           <image class="icon-order-status" src="./img/ywc.png"></image>
           <text>已完成</text>
         </view>

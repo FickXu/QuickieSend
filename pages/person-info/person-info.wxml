@@ -7,10 +7,10 @@
   
   <!-- 设置 -->
   <view class="cu-list menu list-menu settings">
-    <view class="text-right bg-white padding text-cyan">
-      <!-- <text class="cuIcon-edit fz-16" bindtap="editInfo" wx:if="{{!isEdit}}"><text class="fz-14">编辑</text></text> -->
+    <view class="text-right bg-white padding text-red">
+      <!-- <text class="qs-icon iconedit fz-16" bindtap="editInfo" wx:if="{{!isEdit}}"><text class="fz-14">编辑</text></text> -->
       <text wx:if="{{isEdit}}" class="fz-14 value" bindtap="cancelEdit">取消</text>
-      <text wx:if="{{isEdit}}" class="fz-14 text-cyan ml-10" bindtap="confirmEdit">完成</text>
+      <text wx:if="{{isEdit}}" class="fz-14 text-red ml-10" bindtap="confirmEdit">完成</text>
     </view>
     <!-- 需要接口控制 -->
     <view class="cu-item" bindtap="personInfo">

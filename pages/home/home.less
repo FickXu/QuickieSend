@@ -16,10 +16,11 @@
 @height-nav: calc(100rpx + env(safe-area-inset-bottom) / 2);
 
 .home-page {
-  background-image: url('https://fick-db-1257045447.cos.ap-chengdu.myqcloud.com/test-img/top-bg-home.png');
-  background-size: 100% 450rpx;
+  background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-home.jpg');
+  // background-size: 100% 400rpx;
   background-repeat: no-repeat;
   height: 100vh;
+  background-size: contain;
 }
 
 .icon-menu-status {
@@ -28,7 +29,7 @@
 }
 
 .top-area {
-  height: 300rpx;
+  height: 210rpx;
   // background-color: red;
 
   .search-box {
@@ -92,7 +93,7 @@
   background-color: #fff;
   height: @height_near_shop_info;
   padding: 24rpx 20rpx;
-  margin: 0 30rpx;
+  // margin: 0 30rpx;
   display: flex;
   align-items: center;
   box-shadow:0px 6rpx 12rpx rgba(0,0,0,0.03);
@@ -142,7 +143,7 @@
       color:rgba(245,88,88,1);
     }
 
-    .value {
+    .value1 {
       font-size: 30rpx;
       font-family:PingFang SC;
       font-weight:bold;
@@ -161,20 +162,28 @@
 // 热门分类
 .hot-category {
   width: 100%;
-  height: @height_hot_category;
+  // height: @height_hot_category;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 60rpx 30rpx 40rpx;
-  background-color: #F7F7F7;
+  padding: 40rpx 30rpx 40rpx;
+  background-color: #ffffff;
+  margin-top: 6rpx;
 
   .item {
-    font-size: 32rpx;
-    text-align: center;
-    padding: 16rpx 30rpx;
-    background:rgba(233,233,233,1);
-    color: #666666;
-    border-radius:6rpx;
+    flex-basis: 25%;
+    // font-size: 32rpx;
+    // text-align: center;
+    // padding: 16rpx 30rpx;
+    // background:rgba(233,233,233,1);
+    // color: #666666;
+    // border-radius:6rpx;
+
+    .logo-img {
+      width: 120rpx;
+      height: 120rpx;
+      border-radius: 100rpx;
+    }
 
   }
 }
@@ -206,7 +215,7 @@
       width: 20rpx;
       height: 20rpx;
       content: '>';
-      background-color: #22BFB7;
+      background-color: #FF7631;
       color: #ffffff;
       font-size: 16rpx;
       text-align: center;
@@ -230,7 +239,7 @@
 
 .scrollPage {
   width: 100%;
-  height: calc(~'100vh - 300rpx - @{height-nav}');
+  height: calc(~'100vh - 210rpx - @{height-nav}');
   padding-bottom: @height-nav;
 }
 
@@ -272,4 +281,8 @@
   padding: 0 20rpx 30rpx 20rpx;
   margin: 10px 30rpx;
   border-radius: 30rpx;
+  
+  image {
+    height: 600rpx;
+  }
 }

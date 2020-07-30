@@ -10,7 +10,7 @@
   <scroll-view scroll-x class="nav text-center tabs-order">
     <view class="flex">
       <view
-        class="cu-item flex-sub {{item.value==TabCur?'text-cyan cur':''}}"
+        class="cu-item flex-sub {{item.value==TabCur?'text-red cur':''}}"
         wx:for="{{ orderStatus }}"
         wx:key="index"
         bindtap="tabSelect"
@@ -101,12 +101,12 @@
         <!-- <view class="order-total">总计：{{item.totalQty}}件，共计：<text class="price">¥{{item.payAmount}}</text></view> -->
         <!-- 确认送达 -->
         <view class="btn-delete-order text-right" wx:if="{{item.status==5}}">
-          <button class="cu-btn round ml-10 bg-cyan" data-order-no="{{item.orderNo}}" bindtap="confirmReceiving">确认送达</button>
+          <button class="cu-btn round ml-10 bg-red" data-order-no="{{item.orderNo}}" bindtap="confirmReceiving">确认送达</button>
         </view>
       </view>
     </view>
     <view  wx:if="{{!orderListShow}}" class="list-order-none">
-      <image class="padding-xl" src="../images/no-data.png" />
+      <image class="padding-xl" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
       <view>抱歉，您还没有相关订单</view>
     </view>
   </view>

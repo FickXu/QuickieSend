@@ -22,13 +22,13 @@
   border: none;
 }
 .login-out-area .login-btn .bg-fill {
-  background-color: #22BFB7;
+  background-color: #F23131;
   color: #ffffff;
 }
 .login-out-area .login-btn .border {
-  border: 1px solid #22BFB7;
+  border: 1px solid #F23131;
   background-color: #fff;
-  color: #22BFB7;
+  color: #F23131;
 }
 .login-out-area .bg-login {
   height: 80rpx;

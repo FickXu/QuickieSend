@@ -29,8 +29,8 @@
         </view>
         <view class="flex flex-align-center">
           <text class="label-info">销量：{{detail.saleQty}}</text>
-          <!-- <button open-type="share" class="btn-share cuIcon-share text-cyan ml-10" ></button> -->
-          <!-- <view class="shop-car cuIcon-share text-cyan ml-10" style="font-size: 18px"></view> -->
+          <!-- <button open-type="share" class="btn-share qs-icon iconshare text-red ml-10" ></button> -->
+          <!-- <view class="shop-car qs-icon iconshare text-red ml-10" style="font-size: 18px"></view> -->
         </view>
       </view>
     </view>
@@ -39,15 +39,15 @@
       <view class="theme-header">
         <view class="flex-row4 flex align-center">
           <view class="fz-18 bold">
-            <text class="text-cyan">活动时间</text>
+            <text class="text-red">活动时间</text>
           </view>
           <view class="ml-10 fz-18">
             <text class="bg-red squer">{{limitedStartTime[0]||''}}</text>
-            <text class="text-cyan">:</text>
+            <text class="text-red">:</text>
             <text class="bg-red squer">{{limitedStartTime[1]||''}}</text>
-            <text class="text-cyan bold ml-10 mr-10">至</text>
+            <text class="text-red bold ml-10 mr-10">至</text>
             <text class="bg-red squer">{{limitedEndTime[0]||''}}</text>
-            <text class="text-cyan">:</text>
+            <text class="text-red">:</text>
             <text class="bg-red squer">{{limitedEndTime[1]||''}}</text>
           </view>
         </view>
@@ -71,7 +71,7 @@
   <view class="comment mt-10">
     <view class="flex flex-align-center space-between">
       <text class="header">商品评论（{{commentList.length}}）</text>
-      <text class="text-cyan" data-detail-id="{{detail.id}}" bindtap="allComment" wx:if="{{commentList.length>0}}">查看全部</text>
+      <text class="text-red" data-detail-id="{{detail.id}}" bindtap="allComment" wx:if="{{commentList.length>0}}">查看全部</text>
     </view>
     <view class=" mt-10" wx:if="{{commentList.length>0}}">
       <view class="info flex flex-align-center">
@@ -103,7 +103,7 @@
 <!-- 购物车 -->
 <view class="btn-shop-car {{showShopCar?'bg-white zIndex-1111':'hide-zIndex'}}">
   <view class="cu-bar flex detail-bottom-nav">
-    <view class="shop-car flex-row5 bg-cyan" bindtap="shopCarModal">
+    <view class="shop-car flex-row5 bg-black" bindtap="shopCarModal">
       <text class="bg-red text-white badge" wx:if="{{shopCarCommodityNums>0}}">{{shopCarCommodityNums}}</text>
       <image class="icon-shop-car" src="../images/logo1.png" />
       <view class="ml-15">
@@ -111,7 +111,7 @@
         <view class="text-white fz-12">免费配送</view>
       </view>
     </view>
-    <view class="settlement flex-row2" bindtap="openConfirmOrderPage">结算</view>
+    <view class="bg-red settlement flex-row2" bindtap="openConfirmOrderPage">结算</view>
   </view>
 </view>
 
@@ -120,7 +120,7 @@
   <view class="cu-dialog" style="z-index: 1111">
     <view class="padding-xl bg-white">
       <view class="cu-bar icon-close" bindtap="hideSelectStandardModal">
-        <view class="cuIcon-roundclose text-grey ml-10" style="font-size: 18px"></view>
+        <view class="qs-icon iconroundclose text-grey ml-10" style="font-size: 18px"></view>
       </view>
       <view class="commodity-summary flex">
 
@@ -187,7 +187,7 @@
   <view class="cu-dialog pb-100">
     <view class="padding-xl bg-white">
       <!-- <view class="cu-bar icon-close" bindtap="hideShopCarModal">
-        <view class="cuIcon-roundclose text-grey ml-10" style="font-size: 18px"></view>
+        <view class="qs-icon iconroundclose text-grey ml-10" style="font-size: 18px"></view>
       </view> -->
 
       <!-- header -->

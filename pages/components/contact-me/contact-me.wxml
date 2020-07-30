@@ -11,21 +11,21 @@
         <!-- telphone -->
         <view class="cu-item arrow" bindtap="callPhone" data-text="{{telNo}}">
             <view class="content">
-                <text class="custome-icon-size cuIcon-phone text-blue"></text>电话
+                <text class="custome-icon-size qs-icon iconphone text-blue"></text>电话
                 <text class="text-grey">{{ telNo }}</text>
             </view>
         </view>
         <!-- wechat -->
         <view class="cu-item arrow" bindtap="copyText" data-text="{{wechatNo}}">
             <view class="content">
-                <text class="custome-icon-size cuIcon-weixin text-blue"></text>微信
+                <text class="custome-icon-size qs-icon iconweixin text-blue"></text>微信
                 <text class="text-grey">{{ wechatNo }}</text>
             </view>
         </view>
         <!-- QQ -->
         <view class="cu-item arrow" bindtap="copyText" data-text="{{qqNo}}">
             <view class="content">
-                <text class="custome-icon-size cuIcon-mark text-blue"></text>QQ
+                <text class="custome-icon-size qs-icon iconmark text-blue"></text>QQ
                 <text class="text-grey">{{ qqNo }}</text>
             </view>
         </view>

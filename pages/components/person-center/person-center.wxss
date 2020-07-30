@@ -12,7 +12,7 @@
   height: 40rpx!important;
 }
 .person-center .container {
-  background-image: url('https://fick-db-1257045447.cos.ap-chengdu.myqcloud.com/test-img/top-bg-home.png');
+  background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-person.png');
   background-color: #f7f7f7;
   background-size: 100% 240px;
   background-repeat: no-repeat;

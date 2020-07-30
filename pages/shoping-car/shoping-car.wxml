@@ -27,16 +27,16 @@
   <view class="data-view flex-row2 flex align-center ml-10 mr-10">
     <view class="radio-box flex align-center">
       <checkbox-group bindchange="checkboxChange">
-        <checkbox class="round cyan checkbox" checked="{{isAllSelected}}"></checkbox>
+        <checkbox class="round red checkbox" checked="{{isAllSelected}}"></checkbox>
       </checkbox-group>
       <text class="margin-left-xs">全部</text>
     </view>
     <view class="total-amount ml-15">
-      <text class="text-cyan">合计 </text>
-      <text class="text-cyan" style="font-size: 18px;font-weight: 700">¥ {{totalAmount}}</text>
+      <text class="text-red">合计 </text>
+      <text class="text-red" style="font-size: 18px;font-weight: 700">¥ {{totalAmount}}</text>
     </view>
   </view>
-  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-cyan text-white">
+  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white">
     结算
   </view>
 </view>

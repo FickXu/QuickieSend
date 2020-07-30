@@ -1,10 +1,10 @@
 .my-scan {
-  background-color: #CDFAED;
+  background-color: #FFC1A2;
   height: 100vh;
 }
 .scan {
   height: 350px;
-  background-image: url('http://8.129.163.84/operat/upload/bg-scan.png');
+  background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-my-scan.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   display: flex;
@@ -29,11 +29,11 @@
   border: none;
 }
 .bg-fill {
-  background-color: #22BFB7;
+  background-color: #F23131;
   color: #ffffff;
 }
 .border {
-  border: 1px solid #22BFB7;
+  border: 1px solid #F23131;
   background-color: transparent;
-  color: #22BFB7;
+  color: #F23131;
 }

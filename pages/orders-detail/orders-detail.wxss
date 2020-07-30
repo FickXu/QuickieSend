@@ -1,5 +1,8 @@
 .order-detail-page .order-info {
-  background-color: #EEFFFE;
+  background-color: rgba(255, 193, 162, 0.13);
+  background-size: 200rpx;
+  background-repeat: no-repeat;
+  background-position: right;
   padding: 20px 15px 40px;
   margin-bottom: -20px;
 }
@@ -13,10 +16,11 @@
   height: 100%;
 }
 .order-detail-page .order-info .countdown {
-  background-color: #D6F6F4;
+  background-color: #FF7631;
   height: 38px;
   line-height: 38px;
   border-radius: 50px;
+  width: 75%;
 }
 .order-detail-page .address {
   background: #ffffff;
@@ -131,4 +135,7 @@
   padding: 0 20rpx 30rpx 20rpx;
   margin: 10px 30rpx;
   border-radius: 30rpx;
+}
+.order-detail-page .list-order-none image {
+  height: 600rpx;
 }

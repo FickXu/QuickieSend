@@ -133,27 +133,64 @@ Page({
 
   // 立即支付
   nowPay(e) {
-    // this.setData({
-    //   isShow: true
-    // })
-    // let index = e.currentTarget.dataset.index
-    // wx.navigateTo({
-    //   url: '../pay-success/pay-success',
-    //   success: res => {
-    //     this.setData({
-    //       isShow: false
-    //     })
-    //     res.eventChannel.emit('sendOrderInfo', { orderInfo: this.data.orderList[index] })
-    //   }
-    // })
+    wx.showLoading({
+      title: '正在下单...',
+    })
+    let orderNo = e.currentTarget.dataset.orderNo
+    let params = {
+      orderNo: orderNo
+    }
+    request('pay/createwxorder', params).then(res => {
+      wx.hideLoading()
+      let params = {
+        // 时间戳
+        timeStamp: res.data.data.timeStamp,
+        // 随机字符串
+        nonceStr: res.data.data.nonceStr,
+        // 统一下单借口返回的prepay_id，提交格式prepay_id=***
+        package: res.data.data.packageValue,
+        // 签名
+        paySign: res.data.data.paySign,
+      }
+      this.callPay(params)
+    })
+  },
+
+  // 调用支付
+  callPay(params) {
+    wx.requestPayment({
+      // 时间戳
+      timeStamp: params.timeStamp,
+      // 随机字符串
+      nonceStr: params.nonceStr,
+      // 统一下单借口返回的prepay_id，提交格式prepay_id=***
+      package: params.package,
+      // 签名
+      paySign: params.paySign,
+      signType: 'MD5',
+      success: res => {
+        console.log('pay success', res)
+        this.paySuccess()
+      },
+      fial: fail => {
+        console.log('pay fail', fail)
+        this.payFail()
+      },
+      complete: complete => {
+        console.log('pay complete', complete)
+        this.setData({
+          isShow: true
+        })
+      }
+    })
   },
   
-  // 支付失败
+   // 支付失败
   payFail() {
-    this.setData({
-      isShow: false
-    })
-    // // 支付失败，跳转到进度页
+    // this.setData({
+    //   isShow: false
+    // })
+    // 支付失败，跳转到进度页
     // wx.navigateTo({
     //   url: '../orders/orders?type=1'
     // })
@@ -161,15 +198,15 @@ Page({
   
   // 支付成功
   paySuccess() {
-    wx.navigateTo({
-      url: '../pay-success/pay-success',
-      success: res => {
-        this.setData({
-          isShow: false
-        })
-        res.eventChannel.emit('sendOrderInfo', { orderInfo: this.data.details })
-      }
-    })
+    // wx.navigateTo({
+    //   url: '../pay-success/pay-success',
+    //   success: res => {
+    //     this.setData({
+    //       isShow: false
+    //     })
+    //   }
+    // })
+    this.queryorderlist()
   },
 
   // 提醒发货

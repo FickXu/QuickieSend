@@ -39,19 +39,19 @@
   <view class="flex flex-align-center flex-row1">
     <view class="action text-grey}}" bindtap="routerPage">
       <view>
-        <view class="cuIcon-favor"></view>
+        <view class="qs-icon iconfavor"></view>
         收藏
       </view>
     </view>
     <view class="action text-grey}}" bindtap="routerPage">
       <view>
-        <view class="cuIcon-mark"></view>
+        <view class="qs-icon iconmark"></view>
         客服
       </view>
     </view>
     <view class="action text-grey}}" bindtap="routerPage">
       <view>
-        <view class="cuIcon-cart"></view>
+        <view class="qs-icon iconcart"></view>
         购物车
       </view>
     </view>

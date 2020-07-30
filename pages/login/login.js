@@ -10,7 +10,7 @@ Page({
   },
   data: {
     loginPageInfo: {
-      iconUrl: '../images/bg-login.png',
+      iconUrl: 'https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-login.png',
       title: '账户登录',
       btnText1: '微信授权登录',
       btnText2: '暂不登录',

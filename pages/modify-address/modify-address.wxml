@@ -27,7 +27,7 @@
       />
     </view>
     <!-- <view class="flex-row1 text-center">
-      <view class="cuIcon-addressbook fz-20"></view>
+      <view class="qs-icon iconaddressbook fz-20"></view>
       <view class="text-gray" bindtap="phoneContact">联系人</view>
     </view> -->
   </view>
@@ -96,7 +96,7 @@
 
   <view class="cu-form-group">
     <view class='title'>设置默认地址</view>
-    <switch class='cyan sm' checked="{{params.isDefault == 0 ? true : false}}" bindchange="switchChange"></switch>
+    <switch class='red sm' checked="{{params.isDefault == 0 ? true : false}}" bindchange="switchChange"></switch>
   </view>
 
   <!-- 确定按钮 -->

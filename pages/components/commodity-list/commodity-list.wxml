@@ -42,7 +42,7 @@
         <view class="flex flex-align-center" style="width: 100%">
           <view class="select-box mr-10" wx:if="{{isSelect}}">
             <checkbox
-              class="round cyan checkbox"
+              class="round red checkbox"
               value="{{item.id}}"
               checked="{{item.checked}}"
               >
@@ -62,7 +62,7 @@
                 <view class="price">¥ {{item.realPrice}}</view>
 
                 <!-- 购物车 -->
-                <view wx:if="{{isShopingCart}}" class="shoping-car cuIcon-cart text-cyan"></view>
+                <view wx:if="{{isShopingCart}}" class="shoping-car qs-icon iconcart text-red"></view>
 
                 <!-- 计数器-->
                 <counter wx:if="{{isCount}}" bind:numberChange="numberChange" item="{{item}}"></counter>

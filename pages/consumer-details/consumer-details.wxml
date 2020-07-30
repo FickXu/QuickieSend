@@ -15,7 +15,7 @@
     </view>
     <view>
       <!-- <view class="text-gray fz-12 text-right">{{item.status == 0 ? '' : (itme.status == 1 ? '审核中' : '提现失败')}}</view> -->
-      <view class="mt-5 price fz-14 text-right">{{item.amount}}</view>
+      <view class="mt-5 price fz-14 text-right">¥ {{item.amount}}</view>
     </view>
   </view>
 </view>

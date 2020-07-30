@@ -14,13 +14,13 @@
   <view class="address-list flex flex-align-center justify-between padding" bindtap="openAddressListPage">
     <view class="detail fz-16">
       <view class="flex mt-5">
-        <view class="cuIcon-location text-black"></view>
+        <view class="qs-icon iconlocation text-black"></view>
         <text class="text-black">{{params.address}}</text>
       </view>
       <!-- <view class="text-black margin-top-xs text-bold">深南大道9545号冲商务中心A座</view> -->
       <view class="text-black margin-top-xs text-bold">{{params.name + ' ' + params.mobile}}</view>
     </view>
-    <view class="cuIcon-right"></view>
+    <view class="qs-icon iconright"></view>
   </view>
 
   <view class="commdity-info mt-10">
@@ -28,7 +28,7 @@
       <view class="text-black">商品信息</view>
       <view class="text-black fz-14">
         共
-        <text class="text-cyan fz-13">{{commodityTotalNumber}}</text>
+        <text class="text-red fz-13">{{commodityTotalNumber}}</text>
         件
       </view>
     </view>
@@ -67,7 +67,7 @@
     <!-- 订单总计 -->
     <view class="order-total padding-tb mt-10">
       <view class="fz-14 text-black text-right">
-        共<text class="text-cyan">{{commodityTotalNumber}}</text> 商品 
+        共<text class="text-red">{{commodityTotalNumber}}</text> 商品 
         总计：<text class="price fz-18">¥ {{realAmount}}</text>
       </view>
     </view>
@@ -88,7 +88,7 @@
       <radio-group class="block">
         <view class="cu-form-group margin-top" style="border-top: 1px solid #eee">
           <view class="title">微信支付</view>
-          <radio class="cyan" checked></radio>
+          <view class="qs-icon icongouxuan2 text-red"></view>
         </view>
       </radio-group>
     </view>
@@ -100,31 +100,31 @@
 <view class="settle-accounts flex justify-center flex-align-center">
   <view class="data-view flex-row5 flex justify-between align-center ml-10 mr-10">
     <view class="total-amount ml-15">
-      <text class="text-cyan fz-18">合计 </text>
-      <text class="text-cyan" style="font-size: 18px;font-weight: 700">¥ {{realAmount}}</text>
+      <text class="text-red fz-18">合计 </text>
+      <text class="text-red" style="font-size: 18px;font-weight: 700">¥ {{realAmount}}</text>
     </view>
     <view class="radio-box flex align-center text-bold">
-      共<text class="text-cyan" decode="{{true}}">&nbsp;{{commodityTotalNumber}}&nbsp;</text>件
+      共<text class="text-red" decode="{{true}}">&nbsp;{{commodityTotalNumber}}&nbsp;</text>件
     </view>
   </view>
-  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-cyan text-white" bindtap="pay">
+  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pay">
     去支付
   </view>
 </view>
 
 <view class="cu-modal {{isShow ?'show':''}}">
   <view class="cu-dialog">
-    <view class="text-black fz-18 text-algin padding-tb text-bold">支付中</view>
-    <view class="bg-img" style="background-image: url('https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg');height:200px;">
+    <view class="text-black fz-18 text-algin padding-tb text-bold">支付中...</view>
+    <view class="bg-img" style="background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/pay-status.png');height:200px;">
       <view class="cu-bar justify-end text-white">
         <view class="action" bindtap="hideModal">
-          <text class="cuIcon-close "></text>
+          <text class="qs-icon iconclose "></text>
         </view>
       </view>
     </view>
     <view class="cu-bar bg-white text-center justify-center">
       <button class="cu-btn round" bindtap="payFail">支付遇到问题</button>
-      <button class="cu-btn round bg-cyan ml-15" bindtap="paySuccess">已经支付成功</button>
+      <button class="cu-btn round bg-red ml-15" bindtap="paySuccess">已经支付成功</button>
     </view>
   </view>
 </view>

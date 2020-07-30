@@ -1,15 +1,15 @@
 .home-page {
-  background-image: url('https://fick-db-1257045447.cos.ap-chengdu.myqcloud.com/test-img/top-bg-home.png');
-  background-size: 100% 450rpx;
+  background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-home.jpg');
   background-repeat: no-repeat;
   height: 100vh;
+  background-size: contain;
 }
 .icon-menu-status {
   width: 45rpx!important;
   height: 45rpx!important;
 }
 .top-area {
-  height: 300rpx;
+  height: 210rpx;
 }
 .top-area .search-box {
   height: 88rpx;
@@ -52,11 +52,11 @@
   text-align: right;
 }
 .near-shop-info {
+  margin: 0 30rpx;
   border-radius: 14rpx;
   background-color: #fff;
   height: 144rpx;
   padding: 24rpx 20rpx;
-  margin: 0 30rpx;
   display: flex;
   align-items: center;
   box-shadow: 0px 6rpx 12rpx rgba(0, 0, 0, 0.03);
@@ -98,7 +98,7 @@
 .near-shop-info .attr-item .red {
   color: #f55858;
 }
-.near-shop-info .attr-item .value {
+.near-shop-info .attr-item .value1 {
   font-size: 30rpx;
   font-family: PingFang SC;
   font-weight: bold;
@@ -112,20 +112,20 @@
 }
 .hot-category {
   width: 100%;
-  height: 60rpx;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 60rpx 30rpx 40rpx;
-  background-color: #F7F7F7;
+  padding: 40rpx 30rpx 40rpx;
+  background-color: #ffffff;
+  margin-top: 6rpx;
 }
 .hot-category .item {
-  font-size: 32rpx;
-  text-align: center;
-  padding: 16rpx 30rpx;
-  background: #e9e9e9;
-  color: #666666;
-  border-radius: 6rpx;
+  flex-basis: 25%;
+}
+.hot-category .item .logo-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 100rpx;
 }
 .theme-header {
   display: flex;
@@ -152,7 +152,7 @@
   width: 20rpx;
   height: 20rpx;
   content: '>';
-  background-color: #22BFB7;
+  background-color: #FF7631;
   color: #ffffff;
   font-size: 16rpx;
   text-align: center;
@@ -171,7 +171,7 @@
 }
 .scrollPage {
   width: 100%;
-  height: calc(100vh - 300rpx - calc(100rpx + env(safe-area-inset-bottom) / 2));
+  height: calc(100vh - 210rpx - calc(100rpx + env(safe-area-inset-bottom) / 2));
   padding-bottom: calc(100rpx + env(safe-area-inset-bottom) / 2);
 }
 .cu-modal {
@@ -206,4 +206,7 @@
   padding: 0 20rpx 30rpx 20rpx;
   margin: 10px 30rpx;
   border-radius: 30rpx;
+}
+.list-order-none image {
+  height: 600rpx;
 }

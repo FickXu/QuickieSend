@@ -11,7 +11,7 @@
 
   <!-- 当前可提现金额 -->
   <view class="bg-white padding">
-    <view class="mr-15 ml-15 bg-cyan text-center padding money-view">
+    <view class="mr-15 ml-15 bg-red text-center padding money-view">
       <view class="text-white fz-14">当前可提现金额</view>
       <view class="text-white mt-10 fz-20 bold">¥ 2000</view>
     </view>
