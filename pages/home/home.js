@@ -60,7 +60,9 @@ Page({
     searchStr: '',
     refreshTrigger: false,
     // 定位城市
-    locationStr: ''
+    locationStr: '',
+    // 骨架屏
+    loading: true
   },
 
   // 商品搜索
@@ -247,7 +249,9 @@ Page({
     })
 
     request('shop/shopspupagelist', params).then(res => {
-
+      this.setData({
+        loading: false
+      })
       if (res.data.data && res.data.data.length > 0) {
         let data = res.data.data
         data.forEach(item => {

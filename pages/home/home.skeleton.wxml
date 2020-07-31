@@ -1,0 +1,212 @@
+<!--
+此文件为开发者工具生成，生成时间: 2020/7/31 上午11:29:45 
+使用方法：
+在 pages\home\home.wxml 引入模板
+
+```
+<import src="home.skeleton.wxml"/>
+<template is="skeleton" wx-if="{{loading}}" />
+```
+
+在 pages\home\home.wxss 中引入样式
+```
+@import "./home.skeleton.wxss";
+```
+
+更多详细信息可以参考文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/skeleton.html
+-->
+<template name="skeleton">
+  <view class="sk-container">
+    <view class="home-page sk-image">
+      <view class="top-area">
+      </view>
+      <scroll-view scroll-y="true" class="scrollPage" enable-flex="true" style="height: calc(100vh - 105px)">
+        <view style="margin: 0 15px">
+          <view class="near-shop-info">
+            <view class="shop-img">
+              <image class="img sk-image">
+              </image>
+            </view>
+            <view class="shop-desc">
+              <view class="title sk-transparent sk-text-14-2857-544 sk-text">
+                马上送到 | 长沙海底捞
+              </view>
+              <view class="title1 sk-transparent">
+                湘雅三医院
+                <text class="qs-icon iconlocation text-orange sk-pseudo sk-pseudo-circle">
+                  <text class="fz-12 sk-transparent sk-text-14-2857-637 sk-text">
+                    长沙市
+                  </text>
+                </text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="hot-category">
+          <view class="item" data-id="5" data-index="0">
+            <view class="text-center">
+              <image class="logo-img sk-image">
+              </image>
+            </view>
+            <view class="text-center sk-transparent sk-text-14-2857-725 sk-text" style="background-position-x: 50%;">
+              营养餐
+            </view>
+          </view>
+          <view class="item" data-id="7" data-index="1">
+            <view class="text-center">
+              <image class="logo-img sk-image">
+              </image>
+            </view>
+            <view class="text-center sk-transparent sk-text-14-2857-466 sk-text" style="background-position-x: 50%;">
+              上衣
+            </view>
+          </view>
+          <view class="item" data-id="8" data-index="2">
+            <view class="text-center">
+              <image class="logo-img sk-image">
+              </image>
+            </view>
+            <view class="text-center sk-transparent sk-text-14-2857-265 sk-text" style="background-position-x: 50%;">
+              陪护餐
+            </view>
+          </view>
+          <view class="item" data-id="10" data-index="3">
+            <view class="text-center">
+              <image class="logo-img sk-image">
+              </image>
+            </view>
+            <view class="text-center sk-transparent sk-text-14-2857-236 sk-text" style="background-position-x: 50%;">
+              毛巾
+            </view>
+          </view>
+        </view>
+        <view class="hot-commodity">
+          <view class="theme-header">
+            <view class="flex-row4 flex align-center">
+              <view class="fz-18 bold">
+                <text class="text-red sk-transparent sk-text-14-2857-818 sk-text">
+                  热卖
+                </text>
+                <text class="text-black sk-transparent sk-text-14-2857-440 sk-text">
+                  商品
+                </text>
+              </view>
+            </view>
+            <view class="flex-row1 text-right">
+              <text class="text-gray fz-12 more-limit sk-transparent sk-text-14-2857-284 sk-text sk-pseudo sk-pseudo-circle" style="background-position-x: 100%;">
+                更多
+              </text>
+            </view>
+          </view>
+          <view class="mt-20">
+            <view is="pages/components/commodity-list/commodity-list">
+              <view class="commodity-column ml-15 mr-15">
+                <view class="commodity-item" data-id="3" data-index="0">
+                  <view class="img">
+                    <image mode="aspecFill" class="sk-image">
+                    </image>
+                  </view>
+                  <view class="desc">
+                    <view class="line-overflow title sk-transparent sk-text-11-1111-870 sk-text">
+                      长沙洗衣机
+                    </view>
+                  </view>
+                  <view class="commodity-attr-item">
+                    <view class="price sk-transparent sk-text-14-2857-435 sk-text">
+                      ¥ 500
+                    </view>
+                    <view class="label-info">
+                    </view>
+                  </view>
+                </view>
+                <view class="commodity-item" data-id="1" data-index="1">
+                  <view class="img">
+                    <image mode="aspecFill" class="sk-image">
+                    </image>
+                  </view>
+                  <view class="desc">
+                    <view class="line-overflow title sk-transparent sk-text-11-1111-482 sk-text">
+                      长沙猪肉铺
+                    </view>
+                  </view>
+                  <view class="commodity-attr-item">
+                    <view class="price sk-transparent sk-text-14-2857-367 sk-text">
+                      ¥ 0.01
+                    </view>
+                    <view class="label-info">
+                    </view>
+                  </view>
+                </view>
+                <view class="commodity-item" data-id="2" data-index="2">
+                  <view class="img">
+                    <image mode="aspecFill" class="sk-image">
+                    </image>
+                  </view>
+                  <view class="desc">
+                    <view class="line-overflow title sk-transparent sk-text-11-1111-494 sk-text">
+                      长沙空调
+                    </view>
+                  </view>
+                  <view class="commodity-attr-item">
+                    <view class="price sk-transparent sk-text-14-2857-622 sk-text">
+                      ¥ 1000
+                    </view>
+                    <view class="label-info">
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="cu-modal sk-pseudo sk-pseudo-circle">
+      <view class="modal-body">
+        <view class="action">
+          <text class="qs-icon iconclose sk-pseudo sk-pseudo-circle">
+          </text>
+        </view>
+        <image class="sk-image">
+        </image>
+        <view class="text-white bold fz-14 label sk-transparent">
+          <text class="fz-30">
+          </text>
+          元
+          <text decode="true" class="sk-transparent sk-text-14-2857-53 sk-text" style="background-position-x: 50%;">
+            有效期天
+          </text>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar tabbar bg-white shadow foot">
+      <view class="action text-grey text-red" data-page="home">
+        <view class="text-red sk-transparent">
+          <view>
+            <image class="icon-menu-status sk-image">
+            </image>
+          </view>
+          首页
+        </view>
+      </view>
+      <view class="action text-grey" data-page="category-list">
+        <view class="sk-transparent">
+          <view>
+            <image class="icon-menu-status sk-image">
+            </image>
+          </view>
+          分类
+        </view>
+      </view>
+      <view class="action text-grey" data-page="person-center">
+        <view class="sk-transparent">
+          <view>
+            <image class="icon-menu-status sk-image">
+            </image>
+          </view>
+          我的
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

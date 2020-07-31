@@ -1,4 +1,6 @@
 <!--pages/home/home.wxml-->
+<import src="home.skeleton.wxml"/>
+<template is="skeleton" wx-if="{{loading}}" data="{{commodityList}}"/>
 <view class="home-page" wx:if="{{PageCur == 'home'}}">
   
   <view class="top-area">
