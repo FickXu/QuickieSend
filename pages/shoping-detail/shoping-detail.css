@@ -10,9 +10,6 @@
   height: 260rpx;
   border-radius: 10px;
 }
-.order-detail-page .list-order {
-  padding-top: 30rpx;
-}
 .order-detail-page .list-order-item {
   background-color: #fff;
   padding: 0 20rpx 30rpx 20rpx;
@@ -22,6 +19,7 @@
   height: 100rpx;
   line-height: 100rpx;
   font-size: 28rpx;
+  border-bottom: 1px solid #e2e2e2;
 }
 .order-detail-page .list-order-item-header .tag {
   color: #883c41;
@@ -38,7 +36,6 @@
   width: 100%;
   display: inline-flex;
   padding: 30rpx 0 30rpx 0;
-  border-top: 1px solid #e2e2e2;
 }
 .order-detail-page .list-order-item-body .shop-view {
   flex-basis: 74rpx;

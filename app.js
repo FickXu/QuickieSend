@@ -20,28 +20,35 @@ App({
       }
     })
   },
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      // 来自页面内转发按钮
-      console.log(res.target)
-    }
-    return {
-      title: '自定义转发标题',
-      path: '/page/user?id=123'
-    }
+  isLogin() {
+    return new Promise((resolve, reject) => {
+      let isLogin = wx.getStorageSync('isLogin') || false
+      if (!isLogin) {
+        // 用户没有登录
+        wx.showModal({
+          title: '提示',
+          content: '用户未登录，请重新登录',
+          success (res) {
+            if (res.confirm) {
+              wx.removeStorageSync('openId')
+              wx.removeStorageSync('isLogin')
+              wx.removeStorageSync('userInfo')
+              wx.navigateTo({
+                url: '/pages/login/login'
+              })
+            }
+          }
+        })
+        reject()
+      } else {
+        resolve()
+      }
+    })
   },
 	globalData: {
     // 用户是否已经登录
     isLoin: wx.getStorageSync('isLogin'),
     userInfo: wx.getStorageSync('userInfo'),
-    // 默认图片-联系我们
-    defalultImageUrlLXWM: 'https://dssjewel.com/file/basic/lxwm.png',
-    // 默认图片-客服跟进
-    defalultImageUrlKFGJ: 'https://dssjewel.com/file/basic/4.png',
-    // 默认图片-空托
-    defalultImageUrlTz: 'https://dssjewel.com/file/basic/tzdefault.png',
-    // 默认图片-gia
-    defalultImageUrlGia: 'https://dssjewel.com/file/basic/giadefault.png',
     isIpx: false,   //适配IPhoneX
 	}
 })

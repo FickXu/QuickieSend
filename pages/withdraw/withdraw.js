@@ -45,7 +45,7 @@ Page({
 
 		// 元转分
 		if (key === 'amount') {
-			value = convertRMB(value, 'yuan')
+			value = convertRMB(parseFloat(value), 'yuan')
 		}
 
 		params[key] = value
@@ -60,6 +60,7 @@ Page({
 			...this.data.params
 		}
 		request('user/money/withdrawal', params).then(res => {
+			wx.navigateBack()
 			wx.showToast({
 				title: res.data.msg
 			})

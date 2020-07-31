@@ -9,7 +9,7 @@
     <view>
       <view class="text-black fz-14">
         {{item.title}}
-        <!-- <text class="text-gray" decode="{{true}}">&ensp;{{item.remark}}</text> -->
+        <text class="text-gray" decode="{{true}}">&ensp;{{item.remark || ''}}</text>
       </view>
       <view class="text-gray fz-12">{{item.createDate}}</view>
     </view>

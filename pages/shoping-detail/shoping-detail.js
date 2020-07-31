@@ -123,65 +123,35 @@ Page({
           }
         ]
       }
-    ],
-    // 默认图片-空托
-    defalultImageUrlTz: app.globalData.defalultImageUrlTz,
+    ]
   },
-  onLoad(params) {
-    let type = params.type
-    let value = ''
-    switch (type) {
-      case '待发货':
-        value = 1
-        break;
-      case '待收货':
-        value = 2
-        break;
-      case '已完成':
-        value = 3
-        break;
-      default:
-        value = ''
-        break;
-    }
-    this.setData({
-      TabCur: value
-    })
-    // this.queryorderlist()
+  onLoad() {
+    this.queryWithdrawlList()
   },
-  // 获取订单列表
-  queryorderlist() {
-    let params = {
-      goodsType: this.data.TabCur,   // 订单状态 0, 订单失效/取消;1, 待付款;2, 已付款待发货;3, 已下单待快递拿货; 4, 已发货待收货;5, 已收货待评价;6, 已评价)
-      openId: app.globalData.openId
-    }
-    let self = this
-    request('order/queryorderlist', params).then(res => {
-      if (res.data.code == 10000) {
-        if (res.data.data) {
-          self.setData({
-            orderList: res.data.data
-          })
-        } else {
-          self.setData({
-            orderList: []
-          })
-        }
-      }
+  // 获取提现列表
+  queryWithdrawlList() {
+    request('user/money/withdrawallist').then(res => {
+      self.setData({
+        orderList: res.data.data
+      })
     })
   },
 
   // 打开提现记录
   openWithdrawPage() {
-    wx.navigateTo({
-      url: '../withdraw-record/withdraw-record'
+    app.isLogin().then(() => {
+      wx.navigateTo({
+        url: '../withdraw-record/withdraw-record'
+      })
     })
   },
 
   // 提现页面
   openWithdrawalPage() {
-    wx.navigateTo({
-      url: '../withdraw/withdraw'
+    app.isLogin().then(() => {
+      wx.navigateTo({
+        url: '../withdraw/withdraw'
+      })
     })
   },
 })

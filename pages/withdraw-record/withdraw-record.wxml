@@ -7,7 +7,7 @@
 <view class="margin-top-sm bg-white">
   <view class="padding qs-border-bottom flex justify-between flex-align-center" wx:for="{{list}}">
     <view>
-      <view class="text-black fz-14">{{item.title}}</view>
+      <view class="text-black fz-14">{{item.title}}<text decode="{{true}}"> </text></view>
       <view class="text-gray fz-12">{{item.createDate}}</view>
     </view>
     <view>

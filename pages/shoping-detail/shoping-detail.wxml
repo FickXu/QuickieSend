@@ -10,26 +10,23 @@
   </view>
 
   <!-- 当前可提现金额 -->
-  <view class="bg-white padding">
-    <view class="mr-15 ml-15 bg-red text-center padding money-view">
+  <view class="top-banner">
+    <view class="mr-15 ml-15 text-center padding money-view">
       <view class="text-white fz-14">当前可提现金额</view>
-      <view class="text-white mt-10 fz-20 bold">¥ 2000</view>
+      <view class="text-white mt-10 fz-30 bold">¥ 2000</view>
+      <view class="margin-top-sm">
+        <text class="cu—tag bg-white text-red bold fz-16 padding-lr-lg padding-tb-xs round" bindtap="openWithdrawalPage">提现</text>
+      </view>
     </view>
   </view>
 
   <!-- 订单列表 -->
   <view class="list-order" wx:if="{{orderList.length>0}}">
     <view class="list-order-item" wx:for="{{orderList}}" wx:key="index">
-      <view class="list-order-item-header">
+      <!-- <view class="list-order-item-header">
         <text class="fz-16 bold"> 4月份</text>
-        <text class="order-status text-red">¥ 6545</text>
-      </view>
-      <view class="flex justify-between padding-tb">
-        <text class="fz-16 bold"> 王昭君</text>
-        <text class="text-gray">2020-6-30 10:33:20</text>
-      </view>
-      <!-- 商品列表 -->
-      <!-- <commodity-list info="{{item.busOrderInfoList}}" layout="row" isSelect="{{false}}"></commodity-list> -->
+        <text class="order-status text-red"><text class="text-gray">支出 </text>¥ 6545</text>
+      </view> -->
       <view
         class="list-order-item-body"
         bindtap="goToGoodsDetail"
@@ -43,29 +40,16 @@
         data-goods-item-status-name="{{item.statueName}}"
         >
         <view class="shop-view">
-          <image class="img" src="{{goodsItem.goodsImg||defalultImageUrlTz}}" alt="diamond" />
+          <image class="img" src="./img/bell.png" />
         </view>
-        <view class="shop-attr">
-          <view class="shop-attr-shape">
-            {{goodsItem.goodsTypeName}}
-          </view>
-          <view class="shop-attr-specs">
-            {{goodsItem.goodsDesc}}
-          </view>
-          <view class="shop-attr-total flex justify-between flex-align-center">
-            <text class="price">¥ {{goodsItem.goodsRealPrice}}</text>
-            <text class="text-gray">x {{goodsItem.goodsDiscount}}</text>
-          </view>
+        <view class="flex-row4 margin-left">
+          <view class="shop-attr-shape fz-16 bold">{{goodsItem.goodsTypeName}}</view>
+          <view class="text-darkGray fz-12 mt-10">王昭君</view>
+          <view class="text-gray fz-10 mt-10">2020年7月31日</view>
         </view>
-      </view>
-
-      <view class="list-order-item-footer">
-        <view class="order-total">共计：{{item.orderNums}}件商品，总计：<text class="price">¥{{item.orderOriginalPrice}}</text></view>
+        <view class="flex-row1 text-black fz-16 bold">¥32.5</view>
+          
       </view>
     </view>
   </view>
-</view>
-
-<view class="qs-btn-box mb-30">
-  <button class="qs-btn qs-bg" bindtap="openWithdrawalPage">提现</button>
 </view>
