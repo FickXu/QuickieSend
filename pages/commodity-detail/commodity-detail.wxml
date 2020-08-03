@@ -116,12 +116,12 @@
 </view>
 
 <!-- 选择规格 -->
-<view class="cu-modal bottom-modal {{showSelectStandard ?'show':''}}">
+<view class="cu-modal bottom-modal {{showSelectStandard ?'show':''}}" bindtap="hideSelectStandardModal">
   <view class="cu-dialog" style="z-index: 1111">
     <view class="padding-xl bg-white">
-      <view class="cu-bar icon-close" bindtap="hideSelectStandardModal">
+      <!-- <view class="cu-bar icon-close" bindtap="hideSelectStandardModal">
         <view class="qs-icon iconroundclose text-grey ml-10" style="font-size: 18px"></view>
-      </view>
+      </view> -->
       <view class="commodity-summary flex">
 
         <!-- 商品图片 -->
@@ -158,7 +158,7 @@
               wx:for="{{item.childs}}"
               wx:for-item="childs"
               wx:for-index="{{childs.value}}"
-              bindtap="selectStandard"
+              catchtap="selectStandard"
               data-parent-value="{{item.value}}"
               data-value="{{childs.value}}"
               data-label="{{childs.label}}"
@@ -184,7 +184,7 @@
 
 <!-- 购物车列表 -->
 <view class="cu-modal bottom-modal {{showShopCar ?'show':''}}" bindtap="hideShopCarModal">
-  <view class="cu-dialog pb-100">
+  <view class="cu-dialog pb-100" catchtap="stopBubble">
     <view class="padding-xl bg-white">
       <!-- <view class="cu-bar icon-close" bindtap="hideShopCarModal">
         <view class="qs-icon iconroundclose text-grey ml-10" style="font-size: 18px"></view>

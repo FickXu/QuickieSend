@@ -127,6 +127,7 @@ Page({
       events: {
         refresh(params) {
           slef.queryShopInfo(params)
+          wx.removeStorageSync('shopcarList')
         }
       }
     })

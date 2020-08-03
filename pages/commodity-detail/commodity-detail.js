@@ -317,6 +317,8 @@ Page({
     })
   },
 
+  stopBubble() {},
+
   // 计算购物车商品总价
   computeTotalAmount() {
     let arr = wx.getStorageSync('shopcarList') || []
