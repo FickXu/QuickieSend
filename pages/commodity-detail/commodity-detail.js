@@ -48,7 +48,9 @@ Page({
     // 抢购结束时间
     limitedEndTime: [],
     // 活动id
-    mallActivityId: ''
+    mallActivityId: '',
+    // 配送费
+    freeDisMoney: ''
   },
 
   // 选择规格时商品数量发生变化
@@ -238,8 +240,8 @@ Page({
       spuMainImg: this.data.detail.spuMainImg,
       spuName: this.data.detail.spuName,
       CURRENT_QUANTITY: this.data.isLimitedBuying=='true'?1:this.data.detail.CURRENT_QUANTITY,
-      showPrice: this.data.isLimitedBuying=='true'?this.data.detail.showPrice:this.data.shopcarDetail.showPrice,
-      realPrice: this.data.isLimitedBuying=='true'?this.data.detail.realPrice:this.data.shopcarDetail.realPrice,
+      showPrice: this.data.isLimitedBuying=='true'?this.data.detail.actPrice:this.data.shopcarDetail.showPrice,
+      realPrice: this.data.isLimitedBuying=='true'?this.data.detail.actPrice:this.data.shopcarDetail.realPrice,
       skuId: this.data.isLimitedBuying=='true'?this.data.detail.skuId:this.data.shopcarDetail.skuId,
       skuKey: this.data.isLimitedBuying=='true'?this.data.detail.skuKey:this.data.shopcarDetail.skuKey,
       mallActivityId: this.data.mallActivityId
@@ -410,12 +412,23 @@ Page({
     })
   },
 
+  // 设置起送金额
+  settingFreeDisMoney() {
+    let amount = wx.getStorageSync('shopDetails').freeDisMoney/100 || 0
+    this.setData({
+      freeDisMoney: amount
+    })
+  },
+
   onShow: function () {
     // 计算商品数量
     this.getShopCarCommodityNums()
     
     // 计算商品总价格
     this.computeTotalAmount()
+
+    // 设置起送金额
+    this.settingFreeDisMoney()
   },
 
   onLoad: function (query) {
@@ -455,5 +468,8 @@ Page({
     
     // 计算商品总价格
     self.computeTotalAmount()
+    
+    // 设置起送金额
+    this.settingFreeDisMoney()
   }
 })

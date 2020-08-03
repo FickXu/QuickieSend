@@ -62,7 +62,11 @@ Page({
     // 定位城市
     locationStr: '',
     // 骨架屏
-    loading: true
+    loading: true,
+    // 店铺营业开始时间
+    beginShopHours: '',
+    // 店铺营业结束时间
+    endShopHours: ''
   },
 
   // 商品搜索
@@ -97,7 +101,9 @@ Page({
       this.setData({
         shopDetails: res.data.data,
         'commodityListQueryParams.shopId': res.data.data.shopId,
-        locationStr: res.data.data.city
+        locationStr: res.data.data.city,
+        beginShopHours: getStandardDate(res.data.data.beginShopHours || 1596384000000, 'hm'),
+        endShopHours: getStandardDate(res.data.data.endShopHours || 1596384000000, 'hm')
       })
       
       // 获取店铺分类
@@ -215,8 +221,9 @@ Page({
       if (res.data.data && res.data.data.length > 0) {
         let data = res.data.data
         data.forEach(item => {
-          item.showPrice = item.showPrice / 100
-          item.realPrice = item.realPrice / 100
+          // 活动商品实际显示的价格为活动价格
+          item.showPrice = item.actPrice / 100
+          item.realPrice = item.actPrice / 100
         })
         
         this.setData({

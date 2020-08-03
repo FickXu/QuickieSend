@@ -41,6 +41,7 @@
       <view class="title">
         马上送到 | {{shopDetails.shopName}}
       </view>
+      <view class="text-gray">配送时间：{{beginShopHours}}-{{endShopHours}}</view>
       <view class="title1">
         {{shopDetails.areaName}}
         <text class="qs-icon iconlocation text-orange" bindtap="openHospitalListPage">
