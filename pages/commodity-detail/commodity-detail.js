@@ -395,8 +395,31 @@ Page({
     })
   },
 
+  // 查询活动商品详情
   queryActivityCommodityInfo(id) {
     request(`shop/activityspupageinfo/${id}`).then(res => {
+      let detail = res.data.data
+      detail.id = res.data.data.spuId
+      detail.realPrice = res.data.data.realPrice/100
+      detail.showPrice = res.data.data.showPrice/100
+      
+      this.setData({
+        detail: detail,
+        limitedStartTime: getStandardDate(detail.startTime, 'hm').split(':'),
+        limitedEndTime: getStandardDate(detail.endTime, 'hm').split(':')
+      })
+
+      this.queryCommentList()
+    })
+  },
+  
+  // 商家-商品-分页查询热卖商品详情
+  querySpuInfo(spuId) {
+    let params = {
+      spuId: spuId,
+      shopId: wx.getStorageSync('shopDetails').shopId
+    }
+    request(`shop/shopspupageinfo`, params).then(res => {
       let detail = res.data.data
       detail.id = res.data.data.spuId
       detail.realPrice = res.data.data.realPrice/100
@@ -433,6 +456,14 @@ Page({
 
   onLoad: function (query) {
     let self = this
+
+    // 邀请码
+    if (query.scene) {
+      wx.setStorage({
+        data: 'scene',
+        key: query.scene,
+      })
+    }
     
     self.setData({
       isLimitedBuying: query.isLimitedBuying
@@ -442,22 +473,30 @@ Page({
     const eventChannel = this.getOpenerEventChannel()
     // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
     eventChannel.on('sendData', function(data) {
-      if (query.isLimitedBuying == 'true') {
+      if (query.isLimitedBuying === 'true') {
         self.queryActivityCommodityInfo(data.id)
         self.setData({
           mallActivityId: data.mallActivityId
         })
       } else {
-        let obj = data
-        obj.CURRENT_QUANTITY = 1
-        obj.SPEC_OBJ = {}
-        self.setData({
-          detail: {
-            ...obj
-          }
-        })
-        // 查询评论数量
-        self.queryCommentList()
+        if (query.isAdvertising === 'true') {
+          // 广告商品
+          console.log('广告')
+          self.querySpuInfo(query.spuId)
+        } else {
+          console.log('非广告')
+          // 非广告商品
+          let obj = data
+          obj.CURRENT_QUANTITY = 1
+          obj.SPEC_OBJ = {}
+          self.setData({
+            detail: {
+              ...obj
+            }
+          })
+          // 查询评论数量
+          self.queryCommentList()
+        }
       }
   
         // console.log('获取到的参数：', JSON.stringify(data))

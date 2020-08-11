@@ -94,7 +94,7 @@
   <view class="describe mt-10">
     <view class="header mb-10 ml-10">商品详情</view>
     <view class="spu-info">
-      <image mode="widthFix" class="img" src="{{item.spuInfoImg}}" wx:for="{{detail.spuInfoImgList}}" />
+      <image mode="widthFix" class="img" src="{{item.spuInfoImg}}" wx:for="{{detail.spuInfoImgList}}" wx:key="id" />
     </view>
   </view>
   
@@ -146,6 +146,7 @@
         <view
           class="standard-item"
           wx:for="{{detail.mallSpuSpecModelList}}"
+          wx:key="id"
           wx:for-index="{{item.value}}"
           >
           <view class="title">{{item.label}}</view>
@@ -155,6 +156,7 @@
             >
             <text
               class="cu-tag round mb-10 {{SPEC_OBJ[item.value] && SPEC_OBJ[item.value]['value'] == childs.value ? 'qs-bg' : ''}}"
+              wx:key="label"
               wx:for="{{item.childs}}"
               wx:for-item="childs"
               wx:for-index="{{childs.value}}"

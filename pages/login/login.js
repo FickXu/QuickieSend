@@ -144,7 +144,8 @@ Page({
       // 用户注册
       let params = {
         ...self.data.userInfo,
-        phone: phoneInfo.phoneNumber
+        phone: phoneInfo.phoneNumber,
+        scene: wx.getStorageSync('scene') ? wx.getStorageSync('scene') : ''
       }
 
       params.watermark && delete params.watermark

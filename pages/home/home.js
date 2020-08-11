@@ -66,7 +66,9 @@ Page({
     // 店铺营业开始时间
     beginShopHours: '',
     // 店铺营业结束时间
-    endShopHours: ''
+    endShopHours: '',
+    // 轮播广告
+    swiperList: []
   },
 
   // 商品搜索
@@ -105,6 +107,9 @@ Page({
         beginShopHours: getStandardDate(res.data.data.beginShopHours || 1596384000000, 'hm'),
         endShopHours: getStandardDate(res.data.data.endShopHours || 1596384000000, 'hm')
       })
+
+      // 获取店铺广告
+      this.queryAdvertising(res.data.data.shopId)
       
       // 获取店铺分类
       this.getCategroyListByShopId()
@@ -330,15 +335,6 @@ Page({
           longitude: res.longitude
         }
         self.queryShopInfo(params)
-        // request('area/getlatelyarealist', params).then(res => {
-        //   self.setData({
-        //     locationStr: res.data.data[0].city
-        //   })
-        //   let params = {
-        //     latitude: res.data.data[0].latitude,
-        //     longitude: res.data.data[0].longitude
-        //   }
-        // })
       }
     })
   },
@@ -356,6 +352,42 @@ Page({
       isLogin: isLogin ? true : false
     })
 
+  },
+
+  // 获取店铺广告
+  queryAdvertising(shopId) {
+    let params = {
+      shopId: shopId
+    }
+    request('advertising/getadvertising', params).then(res => {
+      this.setData({
+        swiperList: res.data.data
+      })
+    })
+  },
+
+  // 点击首页广告
+  tapAdvertising(e) {
+    let dataset = e.currentTarget.dataset
+    let type = dataset.type
+    if (type == 1) {
+      // 链接广告
+      let htmlUrl = dataset.htmlUrl
+      wx.navigateTo({
+        url: `../advertising/advertising?htmlUrl=${htmlUrl}`,
+      })
+    } else if (type == 2) {
+      // 商品广告
+      let spuId = dataset.spuId
+      wx.navigateTo({
+        url: `../commodity-detail/commodity-detail?isAdvertising=true&isLimitedBuying=false&spuId=${spuId}`,
+        success: (res) => {
+          res.eventChannel.emit('sendData')
+        },
+      })
+    } else {
+      console.log('未知的广告类型', type)
+    }
   },
 
   // 页面显示时检查店铺信息

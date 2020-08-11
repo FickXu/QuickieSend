@@ -13,7 +13,11 @@ Component({
 		userInfo: {},
 		isDelivery: false
 	},
-	ready: function () {
+	// ready: function () {
+	// 	this.getUserInfo()
+	// 	this.getUserRole()
+	// },
+	attached: function () {
 		this.getUserInfo()
 		this.getUserRole()
 	},

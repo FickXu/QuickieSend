@@ -73,6 +73,14 @@
       </view>
     </view>
 
+    <!-- 广告 -->
+    <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{swiperList}}" wx:key="id" bindtap="tapAdvertising" data-type="{{item.type}}" data-spu-id="{{item.spuId}}" data-html-url="{{item.htmlUrl}}">
+        <image src="{{item.imgUrl}}" mode="aspectFill"></image>
+        <!-- <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video> -->
+      </swiper-item>
+    </swiper>
+
     <!-- 限时抢购 -->
     <view class="discount-commodity" wx:if="{{limitedTimeCommodityList.length>0}}">
       <view class="theme-header">
