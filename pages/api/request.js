@@ -1,8 +1,9 @@
 const app = new getApp()
 
 // 服务器地址
-// let serviceUrl = 'http://skybin.vipgz4.idcfengye.com/api/'
-let serviceUrl = 'https://m.quickssend.com/wechaapplet/api/'
+let serviceUrl = 'http://skybin.vipgz4.idcfengye.com/api/'
+// let serviceUrl = 'https://m.quickssend.com/wechaapplet/api/'
+// let serviceUrl = 'https://test.quickssend.com/wechaapplet/api/'
 
 /* 
 * path, 业务借口的请求路径

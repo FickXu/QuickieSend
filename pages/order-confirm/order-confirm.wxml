@@ -97,20 +97,22 @@
 </scroll-view>
 
 <!-- 结算 -->
-<view class="settle-accounts flex justify-center flex-align-center">
-  <view class="data-view flex-row5 flex justify-between align-center ml-10 mr-10">
-    <view class="total-amount ml-15">
-      <text class="text-red fz-18">合计 </text>
-      <text class="text-red" style="font-size: 18px;font-weight: 700">¥ {{realAmount}}</text>
-    </view>
-    <view class="radio-box flex align-center text-bold">
-      共<text class="text-red" decode="{{true}}">&nbsp;{{commodityTotalNumber}}&nbsp;</text>件
-    </view>
-  </view>
-  <view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pay">
-    去支付
-  </view>
-</view>
+<cover-view class="settle-accounts flex justify-center flex-align-center">
+  <cover-view class="data-view flex-row5 flex justify-between align-center ml-10 mr-10">
+    <cover-view class="total-amount ml-15 flex align-center">
+      <cover-view class="text-red fz-18">合计 </cover-view>
+      <cover-view class="text-red" style="font-size: 18px;font-weight: 700">¥ {{realAmount}}</cover-view>
+    </cover-view>
+    <cover-view class="radio-box flex align-center text-bold">
+      <cover-view>共</cover-view>
+      <cover-view class="text-red" decode="{{true}}"> {{commodityTotalNumber}} </cover-view>
+      <cover-view>件</cover-view>
+    </cover-view>
+  </cover-view>
+  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pay">
+    <cover-view>去支付</cover-view>
+  </cover-view>
+</cover-view>
 
 <view class="cu-modal {{isShow ?'show':''}}">
   <view class="cu-dialog">

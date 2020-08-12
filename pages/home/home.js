@@ -292,27 +292,33 @@ Page({
     let self = this
     let data = event.currentTarget.dataset.page;
     
-    if (!this.data.isLogin && data == 'person-center') {
-      wx.showModal({
-        title: '提示',
-        content: '用户未登录，请重新登录',
-        success (res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../../pages/login/login'
-            })
-            wx.removeStorageSync('openId')
-            wx.removeStorageSync('isLogin')
-            wx.removeStorageSync('userInfo')
-            app.globalData.loginCode = 10007
-            self.setData({
-              isLogin: false,
-              showSearch: 'none',
-              loginCode: app.globalData.loginCode
-            })
-          }
+    if (data == 'person-center') {
+      // 用户登录缓存是否失效
+      request('auth/islogin').then(res => {
+        if (!res.data.data) {
+          wx.showModal({
+            title: '提示',
+            content: '用户未登录，请重新登录',
+            success (res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '../../pages/login/login'
+                })
+                wx.removeStorageSync('openId')
+                wx.removeStorageSync('isLogin')
+                wx.removeStorageSync('userInfo')
+                app.globalData.loginCode = 10007
+                self.setData({
+                  isLogin: false,
+                  showSearch: 'none',
+                  loginCode: app.globalData.loginCode
+                })
+              }
+            }
+          })
         }
       })
+      
       return
     } else {
       self.setData({
@@ -339,11 +345,6 @@ Page({
     })
   },
 
-  // 页面滚动
-  bindscroll(e) {
-    console.log(e.detail.scrollTop)
-  },
-  
   onShow: function () {
     
     // 是否已经登录
