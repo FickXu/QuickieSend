@@ -1,4 +1,4 @@
-import {calculationMoney} from '../utils/tools'
+import {getStandardDate} from '../../utils/util'
 import request from '../api/request';
 
 const app = getApp();
@@ -163,6 +163,57 @@ Page({
     this.setData({
       'params.description': value
     })
+  },
+
+  // 判断订单是否超出配送时间
+  isOverDeliveryTime() {
+    let self = this
+    // 是否显示配送时间
+    let isShowDelivery = false
+    // 配送开始时间
+    let beginShopHours = wx.getStorageSync('shopDetails').beginShopHours
+    // let beginShopHours = '5:00'
+    let beginHours = beginShopHours.split(':')[0]
+    let beginMinutes = beginShopHours.split(':')[1]
+    // 配送结束时间
+    let endShopHours = wx.getStorageSync('shopDetails').endShopHours
+    // let endShopHours = '15:00'
+    let endHours = endShopHours.split(':')[0]
+    let endMinutes = endShopHours.split(':')[1]
+    // 当前时间：小时
+    let currentHours = new Date().getHours() 
+    // 当前时间：分钟
+    let currentMinutes = new Date().getMinutes() 
+    // 弹窗提示内容
+    let tipStr = ''
+
+    // 当前未到配送时间
+    if (currentHours < beginHours || (currentHours == beginHours && currentMinutes < beginMinutes)) {
+      tipStr = `订单不在配送时间，将在${beginShopHours}开始配送`
+      isShowDelivery = true
+    }
+
+    // 超出配送时间
+    if (currentHours > endHours || (currentHours == endHours && currentMinutes > endMinutes)) {
+      tipStr = `订单超过配送时间，将在次日${beginShopHours}开始配送`
+      isShowDelivery = true
+    }
+
+    if (isShowDelivery) {
+      wx.showModal({
+        title: '配送时间',
+        content: tipStr,
+        confirmText: '继续下单',
+        cancelText: '取消支付',
+        success(res) {
+          if (res.confirm) {
+            self.pay()
+          }
+        }
+      })
+    } else {
+      self.pay()
+    }
   },
 
   // 去支付

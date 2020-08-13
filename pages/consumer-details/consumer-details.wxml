@@ -3,19 +3,25 @@
 	<view slot="content" class="bold text-black">{{ title }}</view>
 </cu-custom>
 
-<!-- 明细列表 -->
-<view class="margin-top-sm bg-white">
-  <view class="padding qs-border-bottom flex justify-between flex-align-center" wx:for="{{list}}">
-    <view>
-      <view class="text-black fz-14">
-        {{item.title}}
-        <text class="text-gray" decode="{{true}}">&ensp;{{item.remark || ''}}</text>
+<scroll-view scroll-x class="nav text-center">
+  <!-- 明细列表 -->
+  <view class="margin-top-sm bg-white" wx:if="{{list.length>0}}">
+    <view class="padding qs-border-bottom flex justify-between flex-align-center" wx:for="{{list}}">
+      <view>
+        <view class="text-black fz-14">
+          {{item.title}}
+          <text class="text-gray" decode="{{true}}">&ensp;{{item.remark || ''}}</text>
+        </view>
+        <view class="text-gray fz-12">{{item.createDate}}</view>
       </view>
-      <view class="text-gray fz-12">{{item.createDate}}</view>
-    </view>
-    <view>
-      <!-- <view class="text-gray fz-12 text-right">{{item.status == 0 ? '' : (itme.status == 1 ? '审核中' : '提现失败')}}</view> -->
-      <view class="mt-5 price fz-14 text-right">¥ {{item.amount}}</view>
+      <view>
+        <!-- <view class="text-gray fz-12 text-right">{{item.status == 0 ? '' : (itme.status == 1 ? '审核中' : '提现失败')}}</view> -->
+        <view class="mt-5 price fz-14 text-right">¥ {{item.amount}}</view>
+      </view>
     </view>
   </view>
-</view>
+  <view wx:else class="list-order-none">
+    <image class="padding-xl" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
+    <view>抱歉，您还没有消费记录</view>
+  </view>
+</scroll-view>

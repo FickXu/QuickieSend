@@ -35,7 +35,7 @@
   <view style="margin: 0 30rpx">
     <view class="near-shop-info">
     <view class="shop-img">
-      <image class="img" src="{{shopDetails.shopLogo}}" />
+      <image mode="aspectFill" class="img" src="{{shopDetails.shopLogo}}" />
     </view>
     <view class="shop-desc">
       <view class="title">
@@ -74,7 +74,7 @@
     </view>
 
     <!-- 广告 -->
-    <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+    <swiper wx:if="{{swiperList.length>0}}" class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
       <swiper-item wx:for="{{swiperList}}" wx:key="id" bindtap="tapAdvertising" data-type="{{item.type}}" data-spu-id="{{item.spuId}}" data-html-url="{{item.htmlUrl}}">
         <image src="{{item.imgUrl}}" mode="aspectFill"></image>
         <!-- <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video> -->

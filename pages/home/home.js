@@ -104,8 +104,8 @@ Page({
         shopDetails: res.data.data,
         'commodityListQueryParams.shopId': res.data.data.shopId,
         locationStr: res.data.data.city,
-        beginShopHours: getStandardDate(res.data.data.beginShopHours || 1596384000000, 'hm'),
-        endShopHours: getStandardDate(res.data.data.endShopHours || 1596384000000, 'hm')
+        beginShopHours: res.data.data.beginShopHours,
+        endShopHours: res.data.data.endShopHours
       })
 
       // 获取店铺广告
@@ -316,6 +316,12 @@ Page({
               }
             }
           })
+        } else {
+          self.setData({
+            PageCur: data,
+            loginCode: 0,
+            showSearch: 'block'
+          })
         }
       })
       
@@ -381,7 +387,7 @@ Page({
       // 商品广告
       let spuId = dataset.spuId
       wx.navigateTo({
-        url: `../commodity-detail/commodity-detail?isAdvertising=true&isLimitedBuying=false&spuId=${spuId}`,
+        url: `../commodity-detail/commodity-detail?isAdvertising=true&isLimitedBuying=true&spuId=${spuId}`,
         success: (res) => {
           res.eventChannel.emit('sendData')
         },
