@@ -108,7 +108,8 @@
       <image class="icon-shop-car" src="../images/logo1.png" />
       <view class="ml-15">
         <view class="text-white fz-20">¥ {{totalAmount}}</view>
-        <view class="text-white fz-12">起送金额 ¥{{freeDisMoney}} 免费配送</view>
+        <view class="text-white fz-12" wx:if="{{totalAmount>freeDisMoney}}">免费配送</view>
+        <view class="text-white fz-12" wx:else>配送费 ¥{{disMoney}}</view>
       </view>
     </view>
     <view class="bg-red settlement flex-row2" bindtap="openConfirmOrderPage">结算</view>

@@ -49,8 +49,10 @@ Page({
     limitedEndTime: [],
     // 活动id
     mallActivityId: '',
+    // 免配送费金额
+    freeDisMoney: '',
     // 配送费
-    freeDisMoney: ''
+    disMoney: ''
   },
 
   // 选择规格时商品数量发生变化
@@ -437,9 +439,17 @@ Page({
 
   // 设置起送金额
   settingFreeDisMoney() {
-    let amount = wx.getStorageSync('shopDetails').freeDisMoney/100 || 0
+    let amount = wx.getStorageSync('shopDetails').freeDisMoney/100
     this.setData({
       freeDisMoney: amount
+    })
+  },
+
+  // 设置配送费
+  settingDisMoney() {
+    let amount = wx.getStorageSync('shopDetails').disMoney/100
+    this.setData({
+      disMoney: amount
     })
   },
 
@@ -450,8 +460,11 @@ Page({
     // 计算商品总价格
     this.computeTotalAmount()
 
-    // 设置起送金额
+    // 设置免配送费金额
     this.settingFreeDisMoney()
+
+    // 设置配送费
+    this.settingDisMoney()
   },
 
   onLoad: function (query) {
@@ -508,7 +521,10 @@ Page({
     // 计算商品总价格
     self.computeTotalAmount()
     
-    // 设置起送金额
+    // 设置免费送费
     this.settingFreeDisMoney()
+    
+    // 设置配送费
+    this.settingDisMoney()
   }
 })
