@@ -31,7 +31,7 @@
         <input class="flex-row5 fz-18" placeholder="请输入提现金额" type="digit" data-key="amount" bindinput="bindinput"></input>
       </view>
     </view>
-    <view class="tips text-red">余额9403元，单次提现在100-2000元之间（预计48小时到账）</view>
+    <view class="tips text-red">余额{{balance}}元，最低提现{{lowMoney}}元（预计48小时到账）</view>
     <!-- <view class="cu-item">
       <view class="content text-gray">提现至微信</view>
       <view class="text-black">Fick</view>

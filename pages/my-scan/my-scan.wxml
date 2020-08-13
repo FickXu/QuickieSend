@@ -9,10 +9,10 @@
   </view>
 
   <!-- 操作按钮 -->
-  <view class="mt-20">
-    <button class="button bg-fill" bindtap="openShopingDetailPage">购物详情</button>
+  <view class="mt-20" wx:if="{{isDelivery}}">
+    <button class="button bg-fill" bindtap="openShopingDetailPage">推广收入</button>
   </view>
-  <view class="mt-20">
+  <!-- <view class="mt-20">
     <button class="button border" bindtap="openConsumeRecordPage">收支记录</button>
-  </view>
+  </view> -->
 </view>

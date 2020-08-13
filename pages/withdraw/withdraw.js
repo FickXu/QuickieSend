@@ -20,7 +20,11 @@ Page({
 			// 银行名称
 			bankName: '',
 			// 手机号
-			telephone: ''
+			telephone: '',
+			// 账户余额
+			balance: '',
+			// 最低提现额度
+			lowMoney: ''
 		}
 	},
 	personInfoPage: function () {
@@ -51,6 +55,20 @@ Page({
 		params[key] = value
 		this.setData({
 			params: params
+		})
+	},
+
+	onLoad() {
+		this.userblance()
+	},
+
+	// 获取提现金额最低，提现金额
+	userblance() {
+		request('user/money/userblance').then(res => {
+			this.setData({
+				balance: res.data.data.balance/100,
+				lowMoney: res.data.data.lowest/100
+			})
 		})
 	},
 

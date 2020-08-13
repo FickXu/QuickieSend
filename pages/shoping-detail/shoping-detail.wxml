@@ -13,7 +13,7 @@
   <view class="top-banner">
     <view class="mr-15 ml-15 text-center padding money-view">
       <view class="text-white fz-14">当前可提现金额</view>
-      <view class="text-white mt-10 fz-30 bold">¥ 2000</view>
+      <view class="text-white mt-10 fz-30 bold">¥ {{balance}}</view>
       <view class="margin-top-sm">
         <text class="cu—tag bg-white text-red bold fz-16 padding-lr-lg padding-tb-xs round" bindtap="openWithdrawalPage">提现</text>
       </view>
@@ -27,27 +27,24 @@
         <text class="fz-16 bold"> 4月份</text>
         <text class="order-status text-red"><text class="text-gray">支出 </text>¥ 6545</text>
       </view> -->
-      <view
-        class="list-order-item-body"
-        bindtap="goToGoodsDetail"
-        wx:for="{{item.busOrderInfoList}}"
+        <!-- wx:for="{{orderList.mallCustomerReferrerRewards}}"
         wx:key="goodsIndex"
         wx:for-item="goodsItem"
         wx:for-index="goodsIndex"
         data-order-info="{{item}}"
         data-goods-item="{{goodsItem}}"
         data-goods-item-status-id="{{item.statueId}}"
-        data-goods-item-status-name="{{item.statueName}}"
-        >
+        data-goods-item-status-name="{{item.statueName}}" -->
+      <view class="list-order-item-body">
         <view class="shop-view">
           <image class="img" src="./img/bell.png" />
         </view>
         <view class="flex-row4 margin-left">
-          <view class="shop-attr-shape fz-16 bold">{{goodsItem.goodsTypeName}}</view>
-          <view class="text-darkGray fz-12 mt-10">王昭君</view>
-          <view class="text-gray fz-10 mt-10">2020年7月31日</view>
+          <view class="shop-attr-shape fz-16 bold">{{item.shopName}}</view>
+          <view class="text-darkGray fz-12 mt-10">{{item.orderCustomerName}}</view>
+          <view class="text-gray fz-10 mt-10">{{item.payTime}}</view>
         </view>
-        <view class="flex-row1 text-black fz-16 bold">¥32.5</view>
+        <view class="flex-row1 text-black fz-16 bold">¥{{item.cutAmount/100}}</view>
           
       </view>
     </view>

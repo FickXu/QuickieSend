@@ -9,13 +9,28 @@ Page({
   data: {
     customBar: app.globalData.CustomBar,
     title: '我的二维码',
-    iconUrl: ''
+    iconUrl: '',
+    // 是否为推广人员
+    isDelivery: false
   },
 
   onLoad() {
+    this.getUserRole()
     request('user/referralcode').then(res => {
       this.setData({
         iconUrl: res.data.data
+      })
+    })
+  },
+  
+  // 是否为推广人员
+  getUserRole() {
+    let params = {
+      shopId: wx.getStorageSync('shopDetails').shopId
+    }
+    request('user/ispromoters', params).then(res => {
+      this.setData({
+        isDelivery: res.data.data
       })
     })
   },

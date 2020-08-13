@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/shoping-detail/shoping-detail",
+    "pages/withdraw-record/withdraw-record",
     "pages/plateform-card/plateform-card",
     "pages/receiving-bill/receiving-bill",
     "pages/orders/orders",
@@ -10,7 +12,6 @@
     "pages/shoping-car/shoping-car",
     "pages/hospital-list/hospital-list",
     "pages/my-scan/my-scan",
-    "pages/shoping-detail/shoping-detail",
     "pages/withdraw/withdraw",
     "pages/user-auth/user-auth",
     "pages/add-comment/add-comment",

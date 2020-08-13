@@ -1,4 +1,5 @@
 import request from '../api/request'
+import {getStandardDate} from '../../utils/util'
 
 const app = getApp();
 // pages/home/home.js
@@ -8,7 +9,7 @@ Page({
    */
   data: {
     TabCur: '',
-    title: '购物详情',
+    title: '推广收入',
     orderStatus: [
       {
         value: '',
@@ -28,111 +29,27 @@ Page({
         label: '已完成'
       }
     ],
-    orderList: [
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '代付款',
-        statueId: 0,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 1,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109
-          },
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109
-          }
-        ]
-      },
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '待发货',
-        statueId: 1,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 1,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsRealPrice: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2
-          }
-        ]
-      },
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '待收货',
-        statueId: 2,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 1,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109,
-          }
-        ]
-      },
-      {
-        id: 1,
-        orderNo: 92859834589384,
-        statueName: '已完成',
-        statueId: 3,
-        contactAddress: '北京市 朝阳区 dddd',
-        orderNums: 3,
-        orderOriginalPrice: 109,
-        busOrderInfoList: [
-          {
-            id: 2,
-            goodsImg: '../images/rich.png',
-            goodsTypeName: '香香大米',
-            name: '香香大米',
-            price: 109,
-            goodsDesc: '1kg,进口',
-            goodsDiscount: 2,
-            goodsRealPrice: 109
-          }
-        ]
-      }
-    ]
+    orderList: [],
+    // 可提现金额
+    balance: ''
   },
   onLoad() {
-    this.queryWithdrawlList()
+    this.queryInfoList()
   },
+
   // 获取提现列表
-  queryWithdrawlList() {
-    request('user/money/withdrawallist').then(res => {
-      self.setData({
-        orderList: res.data.data
+  queryInfoList() {
+    request('user/money/referrerreward').then(res => {
+      let list = res.data.data
+      let rList = list.mallCustomerReferrerRewards
+      if (rList.length > 0) {
+        rList.forEach(item => {
+          item.payTime = getStandardDate(item.payTime, 'year')
+        })
+      }
+      this.setData({
+        balance: list.balance/100,
+        orderList: rList
       })
     })
   },

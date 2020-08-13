@@ -1,0 +1,10 @@
+.list-order-none {
+  text-align: center;
+  color: #888888;
+  padding: 0 20rpx 30rpx 20rpx;
+  margin: 10px 30rpx;
+  border-radius: 30rpx;
+}
+.list-order-none image {
+  height: 600rpx;
+}
