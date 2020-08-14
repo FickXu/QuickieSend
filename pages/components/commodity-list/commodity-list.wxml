@@ -6,7 +6,7 @@
     wx:for="{{ commodityList }}"
     wx:key="index"
     bindtap="goToDetail"
-    data-id="{{item.spuId}}"
+    data-id="{{item.id}}"
     data-index="{{index}}"
     >
     <!-- 活动标识 -->
@@ -21,7 +21,13 @@
       <view class="line-overflow title">{{ item.spuName }}</view>
     </view>
     <view class="commodity-attr-item">
-      <view class="price">¥ {{ item.realPrice }}</view>
+      <view class="price">
+        <text wx:if="{{item.showPrice==item.realPrice}}">¥ {{ item.realPrice }}</text>
+        <text wx:else>
+          <text decode="{{true}}">¥ {{ item.realPrice }}&ensp;</text>
+          <text class="throw-line text-gray fz-14">¥{{ item.showPrice }}</text>
+        </text>
+      </view>
       <view class="label-info">{{ item.postType }}</view>
     </view>
   </view>
@@ -35,7 +41,7 @@
         class="commodity-item"
         wx:for="{{commodityList}}"
         wx:key="index"
-        data-id="{{item.spuId}}"
+        data-id="{{item.id}}"
         data-index="{{index}}"
         bindtap="goToDetail"
         >
@@ -59,7 +65,13 @@
               </view>
 
               <view class="price flex justify-center flex-align-center mt-10">
-                <view class="price">¥ {{item.realPrice}}</view>
+                <view class="price">
+                  <text wx:if="{{item.showPrice==item.realPrice}}">¥ {{ item.realPrice }}</text>
+                  <text wx:else>
+                    <text decode="{{true}}">¥ {{ item.realPrice }}&ensp;</text>
+                    <text class="throw-line text-gray fz-14">¥{{ item.showPrice }}</text>
+                  </text>
+                </view>
 
                 <!-- 购物车 -->
                 <view wx:if="{{isShopingCart}}" class="shoping-car qs-icon iconcart text-red"></view>

@@ -10,19 +10,10 @@ Page({
   data: {
     customBar: app.globalData.CustomBar,
     title: '商品详情',
-    // detail:{"id":62,"shopSpuId":"21-62","spuId":62,"spuMainImg":"spuMainImg","spuBannerImgList":[{"id":168,"spuId":62,"spuInfoImg":"spuBannerImgArr","orderNo":1,"imgType":2}],"mallSpuSpecModelList":[{"value":"52","label":null,"spuId":62,"id":52,"childs":[{"value":"81","label":"单开门","id":81,"spuSpecId":52},{"value":"82","label":"双开门","id":82,"spuSpecId":52}]}],"spuInfoImgList":[{"id":167,"spuId":62,"spuInfoImg":"spuInfoImgArr","orderNo":1,"imgType":1}],"spuCode":"001","spuAbstract":"spuAbstract","goodsTypeIdOne":37,"goodsTypeIdTwo":38,"goodsTypeIdThree":null,"goodsTypeIdFour":null,"goodsTypeIdFive":null,"goodsTypeIdOneName":"家电","goodsTypeIdTwoName":"冰箱","goodsTypeIdThreeName":"","goodsTypeIdFourName":"","goodsTypeIdFiveName":"","brandId":14,"brandName":"亮亮","brandIcon":null,"spuName":"蔡徐坤奶粉1","showPrice":null,"realPrice":null,"skuKey":null,"filialeId":23,"filialeName":"长沙分公司01","saleQty":62,"evaluateQty":0,"shopId":21},
+    // 商品id
+    id: '',
     detail: {},
     swiperList: [],
-    // 猜你喜欢
-    // commodityList: [
-    //   {
-    //     spuId: 1,
-    //     spuMainImg: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg',
-    //     spuName: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
-    //     showPrice: 88.0,
-    //     postType: '免费配送'
-    //   }
-    // ],
     // 规格选择
     showSelectStandard: false,
     // 已选规格
@@ -52,7 +43,9 @@ Page({
     // 免配送费金额
     freeDisMoney: '',
     // 配送费
-    disMoney: ''
+    disMoney: '',
+    // 单品库存
+    inventoryQty: -1
   },
 
   // 选择规格时商品数量发生变化
@@ -160,7 +153,8 @@ Page({
       }
       params.realPrice = params.realPrice / 100
       this.setData({
-        shopcarDetail: params
+        shopcarDetail: params,
+        inventoryQty: params.inventoryQty
       })
       wx.hideLoading()
     })
@@ -209,6 +203,13 @@ Page({
     
   // },
 
+  noQty() {
+    // wx.showToast({
+    //   title: '当前商品库存大于0才可以添加到购物车',
+    //   icon: 'none'
+    // })
+  },
+
   // 添加到购物车
   shopingCart() {
 
@@ -242,10 +243,12 @@ Page({
       spuMainImg: this.data.detail.spuMainImg,
       spuName: this.data.detail.spuName,
       CURRENT_QUANTITY: this.data.isLimitedBuying=='true'?1:this.data.detail.CURRENT_QUANTITY,
-      showPrice: this.data.isLimitedBuying=='true'?this.data.detail.actPrice:this.data.shopcarDetail.showPrice,
-      realPrice: this.data.isLimitedBuying=='true'?this.data.detail.actPrice:this.data.shopcarDetail.realPrice,
-      skuId: this.data.isLimitedBuying=='true'?this.data.detail.skuId:this.data.shopcarDetail.skuId,
-      skuKey: this.data.isLimitedBuying=='true'?this.data.detail.skuKey:this.data.shopcarDetail.skuKey,
+      // 实际售价为realPrice,展示价为showPrice。在商品详情中realPrice和showPrice相等时，只显示一个价格
+      showPrice: this.data.isLimitedBuying==='true'?this.data.detail.realPrice:this.data.shopcarDetail.showPrice,
+      // 实际售价为realPrice,展示价为showPrice。在活动商品中actPrice才是实际售价
+      realPrice: this.data.isLimitedBuying==='true'?this.data.detail.actPrice:this.data.shopcarDetail.realPrice,
+      skuId: this.data.isLimitedBuying==='true'?this.data.detail.skuId:this.data.shopcarDetail.skuId,
+      skuKey: this.data.isLimitedBuying==='true'?this.data.detail.skuKey:this.data.shopcarDetail.skuKey,
       mallActivityId: this.data.mallActivityId
     }
     wx.setStorage({
@@ -402,11 +405,13 @@ Page({
     request(`shop/activityspupageinfo/${id}`).then(res => {
       let detail = res.data.data
       detail.id = res.data.data.spuId
-      detail.realPrice = res.data.data.realPrice/100
+      // 活动商品中actPrice为实际售价
+      detail.realPrice = res.data.data.actPrice/100
       detail.showPrice = res.data.data.showPrice/100
       
       this.setData({
         detail: detail,
+        mallActivityId: detail.mallActivityId,
         limitedStartTime: getStandardDate(detail.startTime, 'hm').split(':'),
         limitedEndTime: getStandardDate(detail.endTime, 'hm').split(':')
       })
@@ -416,23 +421,19 @@ Page({
   },
   
   // 商家-商品-分页查询热卖商品详情
-  querySpuInfo(spuId) {
-    let params = {
-      spuId: spuId,
-      shopId: wx.getStorageSync('shopDetails').shopId
-    }
-    request(`shop/shopspupageinfo`, params).then(res => {
+  querySpuInfo(id) {
+    request(`shop/shopspupageviewer/${id}`).then(res => {
       let detail = res.data.data
       detail.id = res.data.data.spuId
       detail.realPrice = res.data.data.realPrice/100
       detail.showPrice = res.data.data.showPrice/100
-      
+      detail.CURRENT_QUANTITY = 1
+      detail.SPEC_OBJ = {}
       this.setData({
         detail: detail,
         limitedStartTime: getStandardDate(detail.startTime, 'hm').split(':'),
         limitedEndTime: getStandardDate(detail.endTime, 'hm').split(':')
       })
-
       this.queryCommentList()
     })
   },
@@ -456,74 +457,37 @@ Page({
   onShow: function () {
     // 计算商品数量
     this.getShopCarCommodityNums()
-    
     // 计算商品总价格
     this.computeTotalAmount()
-
     // 设置免配送费金额
     this.settingFreeDisMoney()
-
     // 设置配送费
     this.settingDisMoney()
   },
 
   onLoad: function (query) {
-    let self = this
-
-    // 邀请码
-    if (query.scene) {
-      wx.setStorage({
-        data: 'scene',
-        key: query.scene,
-      })
+    // let self = this
+    // 是否为活动商品
+    let isLimitedBuying = query.isLimitedBuying
+    let id = query.id
+    this.setData({
+      isLimitedBuying: isLimitedBuying,
+      id: id
+    })
+    if (query.isLimitedBuying === 'true' || query.isActivity === 'true') {
+      // 活动商品或广告商品
+      this.queryActivityCommodityInfo(id)
+    } else {
+      // 热卖商品
+      this.querySpuInfo(id)
     }
-    
-    self.setData({
-      isLimitedBuying: query.isLimitedBuying
-    })
-    
-    // 非活动商品
-    const eventChannel = this.getOpenerEventChannel()
-    // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
-    eventChannel.on('sendData', function(data) {
-      if (query.isLimitedBuying === 'true') {
-        self.queryActivityCommodityInfo(data.id)
-        self.setData({
-          mallActivityId: data.mallActivityId
-        })
-      } else {
-        if (query.isAdvertising === 'true') {
-          // 广告商品
-          console.log('广告')
-          self.querySpuInfo(query.spuId)
-        } else {
-          console.log('非广告')
-          // 非广告商品
-          let obj = data
-          obj.CURRENT_QUANTITY = 1
-          obj.SPEC_OBJ = {}
-          self.setData({
-            detail: {
-              ...obj
-            }
-          })
-          // 查询评论数量
-          self.queryCommentList()
-        }
-      }
-  
-        // console.log('获取到的参数：', JSON.stringify(data))
-    })
-    
+    // 购物车信息
     // 计算商品数量
-    self.getShopCarCommodityNums()
-    
+    this.getShopCarCommodityNums()
     // 计算商品总价格
-    self.computeTotalAmount()
-    
+    this.computeTotalAmount()
     // 设置免费送费
     this.settingFreeDisMoney()
-    
     // 设置配送费
     this.settingDisMoney()
   }

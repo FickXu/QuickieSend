@@ -85,24 +85,21 @@ Component({
     },
     // 商品详情
     goToDetail (e) {
-
       if (!this.data.isGoToDetailPage) return
-
       let dataset = e.currentTarget.dataset
-      let self = this
-
+      // let self = this
       wx.navigateTo({
-        url: `../../pages/commodity-detail/commodity-detail?isLimitedBuying=${this.data.isLimitedBuying}`,
-        success: function (res) {
-          let params = {
-            id:dataset.id,
-            ...self.data.info[dataset.index]
-          }
-          res.eventChannel.emit('sendData', params)
-        },
-        fail: function(err) {
-          console.log(err)
-        }
+        url: `../../pages/commodity-detail/commodity-detail?isLimitedBuying=${this.data.isLimitedBuying}&id=${dataset.id}`,
+        // success: function (res) {
+        //   let params = {
+        //     id:dataset.id,
+        //     // ...self.data.info[dataset.index]
+        //   }
+        //   res.eventChannel.emit('sendData', params)
+        // },
+        // fail: function(err) {
+        //   console.log(err)
+        // }
       })
     }
   }

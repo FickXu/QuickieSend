@@ -220,17 +220,14 @@ Page({
     let params = {
       ...this.data.commodityListQueryParams
     }
-    
     request('shop/activityspupagelist', params).then(res => {
-
       if (res.data.data && res.data.data.length > 0) {
         let data = res.data.data
         data.forEach(item => {
           // 活动商品实际显示的价格为活动价格
-          item.showPrice = item.actPrice / 100
+          item.showPrice = item.realPrice / 100
           item.realPrice = item.actPrice / 100
         })
-        
         this.setData({
           limitedTimeCommodityList: [].concat(res.data.data).splice(0, 2),
           limitedStartTime: getStandardDate(res.data.data[0].startTime, 'hm').split(':'),
@@ -242,9 +239,7 @@ Page({
           limitedTimeCommodityList: res.data.data,
         })
       }
-
       wx.hideLoading()
-      
     })
   },
 
