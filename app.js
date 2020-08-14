@@ -1,7 +1,6 @@
-//app.js
+import request from './pages/api/request'
 App({
 	onLaunch: function() {
-
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;
@@ -20,6 +19,7 @@ App({
       }
     })
   },
+  // 是否已经登录
   isLogin() {
     return new Promise((resolve, reject) => {
       let isLogin = wx.getStorageSync('isLogin') || false
@@ -45,10 +45,73 @@ App({
       }
     })
   },
+  // 获取系统核心参数
+  getCoreparams() {
+    return new Promise(resolve => {
+      request('dic/coreparam').then(res => {
+        // this.globalData['wechat.applet.open.order'] = res.data.data['wechat.applet.open.order']
+        // this.globalData['wechat.applet.pay.order'] = res.data.data['wechat.applet.pay.order']
+        let data = res.data.data
+        let obj = {
+          // 是否可以创建订单
+          enableCreateOrder: data['wechat.applet.open.order'] === 'Y' ? true : false,
+          // 是否可以支付
+          enablePay: data['wechat.applet.pay.order'] === 'Y' ? true : false,
+        }
+        resolve(obj)
+      })
+    })
+  },
+  // 刷新核心参数，调用业务接口时可能用到
+  refreshCoreParams() {
+    return this.getCoreparams()
+  },
+  // 店铺是否在营业
+  isShopOpen() {
+    let statue = wx.getStorageSync('shopDetails').isBus.toString() === '1' ? true : false
+    return statue
+  },
+  // 判断订单是否超出配送时间
+  shopEnableDeliver() {
+    let obj = {
+      // 是否显示配送时间提示
+      isShowDelivery: false,
+      // 提示内容
+      tipStr: ''
+    }
+    // 配送开始时间
+    let beginShopHours = wx.getStorageSync('shopDetails').beginShopHours
+    // let beginShopHours = '5:00'
+    let beginHours = beginShopHours.split(':')[0]
+    let beginMinutes = beginShopHours.split(':')[1]
+    // 配送结束时间
+    let endShopHours = wx.getStorageSync('shopDetails').endShopHours
+    // let endShopHours = '15:00'
+    let endHours = endShopHours.split(':')[0]
+    let endMinutes = endShopHours.split(':')[1]
+    // 当前时间：小时
+    let currentHours = new Date().getHours() 
+    // 当前时间：分钟
+    let currentMinutes = new Date().getMinutes() 
+    // 当前未到配送时间
+    if (currentHours < beginHours || (currentHours == beginHours && currentMinutes < beginMinutes)) {
+      obj.isShowDelivery = true
+      obj.tipStr = `订单不在配送时间，将在${beginShopHours}开始配送`
+    }
+    // 超出配送时间
+    if (currentHours > endHours || (currentHours == endHours && currentMinutes > endMinutes)) {
+      obj.isShowDelivery = true
+      obj.tipStr = `订单超过配送时间，将在次日${beginShopHours}开始配送`
+    }
+    return obj
+  },
 	globalData: {
     // 用户是否已经登录
     isLoin: wx.getStorageSync('isLogin'),
     userInfo: wx.getStorageSync('userInfo'),
     isIpx: false,   //适配IPhoneX
+    'wechat.applet.open.order': '',
+    'wechat.applet.open.pay': '',
+    
 	}
 })

@@ -109,7 +109,7 @@
       <cover-view>件</cover-view>
     </cover-view>
   </cover-view>
-  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="isOverDeliveryTime">
+  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pullPay">
     <cover-view>去支付</cover-view>
   </cover-view>
 </cover-view>

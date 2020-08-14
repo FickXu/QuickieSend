@@ -29,7 +29,7 @@ let request = (path, params = {}, type='POST') => {
       success (res) {
         if (res.data.code == 10000 || isUrl) {
           resolve(res)
-          app.globalData.loginCode = 0
+          // app.globalData.loginCode = 0
         } else {
           if (res.data.code == 10007) {
             wx.hideLoading()

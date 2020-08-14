@@ -165,59 +165,60 @@ Page({
     })
   },
 
-  // 判断订单是否超出配送时间
-  isOverDeliveryTime() {
-    let self = this
-    // 是否显示配送时间
-    let isShowDelivery = false
-    // 配送开始时间
-    let beginShopHours = wx.getStorageSync('shopDetails').beginShopHours
-    // let beginShopHours = '5:00'
-    let beginHours = beginShopHours.split(':')[0]
-    let beginMinutes = beginShopHours.split(':')[1]
-    // 配送结束时间
-    let endShopHours = wx.getStorageSync('shopDetails').endShopHours
-    // let endShopHours = '15:00'
-    let endHours = endShopHours.split(':')[0]
-    let endMinutes = endShopHours.split(':')[1]
-    // 当前时间：小时
-    let currentHours = new Date().getHours() 
-    // 当前时间：分钟
-    let currentMinutes = new Date().getMinutes() 
-    // 弹窗提示内容
-    let tipStr = ''
-
-    // 当前未到配送时间
-    if (currentHours < beginHours || (currentHours == beginHours && currentMinutes < beginMinutes)) {
-      tipStr = `订单不在配送时间，将在${beginShopHours}开始配送`
-      isShowDelivery = true
-    }
-
-    // 超出配送时间
-    if (currentHours > endHours || (currentHours == endHours && currentMinutes > endMinutes)) {
-      tipStr = `订单超过配送时间，将在次日${beginShopHours}开始配送`
-      isShowDelivery = true
-    }
-
-    if (isShowDelivery) {
-      wx.showModal({
-        title: '配送时间',
-        content: tipStr,
-        confirmText: '继续下单',
-        cancelText: '取消支付',
-        success(res) {
-          if (res.confirm) {
-            self.pay()
-          }
-        }
+  // 支付流程：1.店铺是否营业 > 2.是否可以创建订单/是否可以支付 > 3.店铺是否在配送时间 > 4.创建订单 > 5.获取支付参数 > 6.唤起微信支付
+  pullPay() {
+    if (!app.isShopOpen()) {
+      wx.showToast({
+        title: '店铺已歇业，请在店铺开业时间下单',
+        icon: 'none'
       })
-    } else {
-      self.pay()
+      return
     }
+    wx.showLoading()
+    // 刷新核心参数
+    app.refreshCoreParams().then(res => {
+      wx.hideLoading()
+      let params = {
+        ...res
+      }
+      // 是否可以创建订单并支付
+      if (params.enableCreateOrder) {
+        let self = this
+        // 获取店铺配送时间
+        let obj = app.shopEnableDeliver()
+        if (obj.isShowDelivery) {
+          wx.showModal({
+            title: '配送时间',
+            content: obj.tipStr,
+            confirmText: '继续下单',
+            cancelText: '取消支付',
+            success(res) {
+              if (res.confirm) {
+                let _obj = {
+                  enablePay: obj.enablePay
+                }
+                self.createOrderAndPay(_obj)
+              }
+            }
+          })
+        } else {
+          let _obj = {
+            enablePay: obj.enablePay
+          }
+          self.createOrderAndPay(_obj)
+        }
+      } else {
+        wx.hideLoading()
+        wx.showToast({
+          title: '系统提示：该功能未开启，敬请期待！',
+          icon: 'none'
+        })
+      }
+    })
   },
 
-  // 去支付
-  pay() {
+  // 创建订单并获取支付参数
+  createOrderAndPay(obj) {
     this.calcualtionTotalAmount()
     wx.showLoading({
       title: '正在下单...',
@@ -228,14 +229,20 @@ Page({
     }
     console.log(params)
     request('order/create', params).then(res => {
-    // 清空购物车
+      // 清空购物车
       this.removeShopCar()
-      
-      // 调用支付
-      this.payCreatewxorder(res.data.data.orderNo)
+      if (obj.enablePay) {
+        // 获取支付参数并拉起微信支付
+        this.payCreatewxorder(res.data.data.orderNo)
+      } else {
+        wx.showToast({
+          title: '商家已关闭支付功能，请联系商家开启！',
+          icon: 'none'
+        })
+      }
     })
   },
-
+// 获取支付参数
   payCreatewxorder(orderNo) {
     let params = {
       orderNo: orderNo
@@ -252,11 +259,12 @@ Page({
         // 签名
         paySign: res.data.data.paySign,
       }
+      // 唤起微信支付
       this.callPay(params)
     })
   },
 
-  // 调用支付
+  // 调用微信支付
   callPay(params) {
     wx.requestPayment({
       // 时间戳
@@ -278,9 +286,9 @@ Page({
       },
       complete: complete => {
         console.log('pay complete', complete)
-        this.setData({
-          isShow: true
-        })
+        // this.setData({
+        //   isShow: true
+        // })
       }
     })
   },

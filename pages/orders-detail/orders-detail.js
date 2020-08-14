@@ -45,24 +45,6 @@ Page({
   },
   onLoad(params) {
     let orderNo = params.orderNo
-    // let value = ''
-    // switch (type) {
-    //   case '待发货':
-    //     value = 1
-    //     break;
-    //   case '待收货':
-    //     value = 2
-    //     break;
-    //   case '已完成':
-    //     value = 3
-    //     break;
-    //   default:
-    //     value = ''
-    //     break;
-    // }
-    // this.setData({
-    //   TabCur: value
-    // })
     this.queryorderInfo(orderNo)
   },
   // 获取订单列表
@@ -134,13 +116,57 @@ Page({
       }
     })
   },
-
   // 立即支付
-  nowPay() {
-    wx.showLoading({
-      title: '正在下单...',
+  nowPay(e) {
+    if (!app.isShopOpen()) {
+      wx.showToast({
+        title: '店铺已歇业，请在店铺开业时间支付',
+        icon: 'none'
+      })
+      return
+    }
+    wx.showLoading()
+    // 刷新核心参数
+    app.refreshCoreParams().then(res => {
+      wx.hideLoading()
+      let params = {
+        ...res
+      }
+      // 是否可以创建订单并支付
+      if (params.enableCreateOrder) {
+        let self = this
+        // 获取店铺配送时间
+        let obj = app.shopEnableDeliver()
+        if (obj.isShowDelivery) {
+          wx.showModal({
+            title: '配送时间',
+            content: obj.tipStr,
+            confirmText: '继续支付',
+            cancelText: '取消支付',
+            success(res) {
+              if (res.confirm) {
+                self.pullWXPay(e)
+              }
+            }
+          })
+        } else {
+          self.pullWXPay(e)
+        }
+      } else {
+        wx.hideLoading()
+        wx.showToast({
+          title: '系统提示：该功能未开启，敬请期待！',
+          icon: 'none'
+        })
+      }
     })
-    let orderNo = details.orderNo
+  },
+  // 拉起支付
+  pullWXPay(e) {
+    wx.showLoading({
+      title: '正在支付...',
+    })
+    let orderNo = e.currentTarget.dataset.orderNo
     let params = {
       orderNo: orderNo
     }
@@ -159,7 +185,6 @@ Page({
       this.callPay(params)
     })
   },
-
   // 调用支付
   callPay(params) {
     wx.requestPayment({
@@ -182,9 +207,9 @@ Page({
       },
       complete: complete => {
         console.log('pay complete', complete)
-        this.setData({
-          isShow: true
-        })
+        // this.setData({
+        //   isShow: true
+        // })
       }
     })
   },

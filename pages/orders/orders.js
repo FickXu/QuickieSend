@@ -69,27 +69,6 @@ Page({
     wx.showLoading({
       title: '加载中...'
     })
-    // mallOrderInfoList: [,…]
-    // 0: {orderInfoNo: "YY20071616434974320067_1", orderNo: "YY20071616434974320067", skuId: 7, skuKey: null,…}
-    // costPrice: null
-    // createBy: 1
-    // createDate: "2020-07-16T08:43:50.000+0000"
-    // finalPrice: null
-    // image: "http://yykjoss.oss-cn-shenzhen.aliyuncs.com/jpg/2020/07/16/c6e2dc76-eb55-4660-9568-37846e9a14af.jpg"
-    // modifiedBy: null
-    // modifiedDate: null
-    // name: "长沙小龙虾"
-    // orderInfoNo: "YY20071616434974320067_1"
-    // orderNo: "YY20071616434974320067"
-    // price: 30
-    // qty: 1
-    // skuCode: null
-    // skuId: 7
-    // skuKey: null
-    // specName: "中辣-大份"
-    // taxPrice: null
-    // totalMoney: null
-
     let params = {
       status: this.data.TabCur   // 订单状态 0, 订单失效/取消;1, 待付款;2, 已付款待发货;3, 已下单待快递拿货; 4, 已发货待收货;5, 已收货待评价;6, 已评价)
     }
@@ -130,11 +109,55 @@ Page({
       url: `../../pages/orders-detail/orders-detail?orderNo=${orderNo}`
     })
   },
-
   // 立即支付
   nowPay(e) {
+    if (!app.isShopOpen()) {
+      wx.showToast({
+        title: '店铺已歇业，请在店铺开业时间支付',
+        icon: 'none'
+      })
+      return
+    }
+    wx.showLoading()
+    // 刷新核心参数
+    app.refreshCoreParams().then(res => {
+      wx.hideLoading()
+      let params = {
+        ...res
+      }
+      // 是否可以创建订单并支付
+      if (params.enableCreateOrder) {
+        let self = this
+        // 获取店铺配送时间
+        let obj = app.shopEnableDeliver()
+        if (obj.isShowDelivery) {
+          wx.showModal({
+            title: '配送时间',
+            content: obj.tipStr,
+            confirmText: '继续支付',
+            cancelText: '取消支付',
+            success(res) {
+              if (res.confirm) {
+                self.pullWXPay(e)
+              }
+            }
+          })
+        } else {
+          self.pullWXPay(e)
+        }
+      } else {
+        wx.hideLoading()
+        wx.showToast({
+          title: '系统提示：该功能未开启，敬请期待！',
+          icon: 'none'
+        })
+      }
+    })
+  },
+  // 拉起支付
+  pullWXPay(e) {
     wx.showLoading({
-      title: '正在下单...',
+      title: '正在支付...',
     })
     let orderNo = e.currentTarget.dataset.orderNo
     let params = {
@@ -155,7 +178,6 @@ Page({
       this.callPay(params)
     })
   },
-
   // 调用支付
   callPay(params) {
     wx.requestPayment({
@@ -178,9 +200,9 @@ Page({
       },
       complete: complete => {
         console.log('pay complete', complete)
-        this.setData({
-          isShow: true
-        })
+        // this.setData({
+        //   isShow: true
+        // })
       }
     })
   },

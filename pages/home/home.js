@@ -107,20 +107,16 @@ Page({
         beginShopHours: res.data.data.beginShopHours,
         endShopHours: res.data.data.endShopHours
       })
-
       // 获取店铺广告
       this.queryAdvertising(res.data.data.shopId)
-      
       // 获取店铺分类
       this.getCategroyListByShopId()
-      
       wx.setStorage({
         key: 'shopDetails',
         data: res.data.data
       })
     })
   },
-
   // 下拉刷新被触发
   bindrefresherpulling: function () {
     setTimeout(() => {
@@ -129,7 +125,6 @@ Page({
       })
     }, 1600)
   },
-
   // 获取最近的医院列表
   openHospitalListPage: function () {
     let slef = this
@@ -143,7 +138,6 @@ Page({
       }
     })
   },
-
   // 选择热门分类
   chooseCategory: function (e) {
     let type = e.currentTarget.dataset.id
@@ -164,7 +158,6 @@ Page({
     // // 刷新商品列表
     // this.getCommodityList()
   },
-
   // 活动商品列表
   openDiscountCommodityPage() {
     wx.navigateTo({
@@ -174,7 +167,6 @@ Page({
       }
     })
   },
-
   // 普通商品列表
   openCommodityListPage() {
     let self = this
@@ -190,7 +182,6 @@ Page({
       }
     })
   },
-
   // 获取店铺的分类
   getCategroyListByShopId: function () {
     let shopId = this.data.commodityListQueryParams.shopId
@@ -211,7 +202,6 @@ Page({
       this.getCommodityList()
     })
   },
-
   // 商家-商品-分页查询活动商品列表
   getActivityCommodityList: function () {
     wx.showLoading({
@@ -242,7 +232,6 @@ Page({
       wx.hideLoading()
     })
   },
-
   // 获取商品列表
   getCommodityList: function () {
     wx.showLoading({
@@ -281,7 +270,6 @@ Page({
       
     })
   },
-
   // 页面导航
   routerPage: function(event) {
     let self = this
@@ -329,7 +317,6 @@ Page({
       })
     }
   },
-
   // 获取最近的医院
   queryNearHospitalInfo() {
     let self = this
@@ -345,9 +332,7 @@ Page({
       }
     })
   },
-
   onShow: function () {
-    
     // 是否已经登录
     let isLogin = wx.getStorageSync('isLogin')
     this.setData({
@@ -355,7 +340,6 @@ Page({
     })
 
   },
-
   // 获取店铺广告
   queryAdvertising(shopId) {
     let params = {
@@ -367,7 +351,6 @@ Page({
       })
     })
   },
-
   // 点击首页广告
   tapAdvertising(e) {
     let dataset = e.currentTarget.dataset
@@ -391,10 +374,8 @@ Page({
       console.log('未知的广告类型', type)
     }
   },
-
   // 页面显示时检查店铺信息
   onLoad: function () {
-    
     wx.showLoading({
       title: '加载中...',
       mask: true
