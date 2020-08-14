@@ -411,6 +411,7 @@ Page({
       
       this.setData({
         detail: detail,
+        inventoryQty: detail.inventoryQty,
         mallActivityId: detail.mallActivityId,
         limitedStartTime: getStandardDate(detail.startTime, 'hm').split(':'),
         limitedEndTime: getStandardDate(detail.endTime, 'hm').split(':')
