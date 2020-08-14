@@ -33,7 +33,7 @@ Component({
       let params = {
         shopId: this.data.shopId
       }
-      request('dic/goodstypeone', params).then(res => {
+      request('dic/goodstypetwoall', params).then(res => {
         this.setData({
           navList: res.data.data
         })

@@ -1,4 +1,3 @@
-@import "home.skeleton.wxss";
 .home-page {
   background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-home.jpg');
   background-repeat: no-repeat;
@@ -172,7 +171,7 @@
 }
 .scrollPage {
   width: 100%;
-  height: calc(100vh - 210rpx - calc(100rpx + env(safe-area-inset-bottom) / 2));
+  height: calc(100vh - 210rpx);
   padding-bottom: calc(100rpx + env(safe-area-inset-bottom) / 2);
 }
 .cu-modal {

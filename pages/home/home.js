@@ -6,6 +6,7 @@ const app = getApp();
 Page({
   /**
    * 页面的初始数据
+   * 获取所有二级分类 dic/goodstypetwo
    */
   data: {
     StatusBar: app.globalData.StatusBar,

@@ -2,14 +2,32 @@
 <import src="home.skeleton.wxml"/>
 <template is="skeleton" wx-if="{{loading}}" data="{{commodityList}}"/>
 <view class="home-page" wx:if="{{PageCur == 'home'}}">
- 
+  
+  <view class="top-area">
+    <!-- <cu-custom>
+      <view slot="content" class="bold">{{ title }}</view>
+    </cu-custom>
+  
+    搜索组件
+    <view class="search-box">
+      <view class="location qs-icon iconlocation text-white" bindtap="openHospitalListPage">
+        <text>{{locationStr}}</text>
+      </view>
+      <view class="search">
+        <view class="qs-icon iconsearch" bindtap="openCommodityListPage"></view>
+        <input type="text" value="{{searchStr}}" class="search" placeholder="{{searchPlaceholder}}" bindinput="bindinput"/>
+      </view>
+      <view class="shop-car qs-icon iconcart text-white" bindtap="openShopingCartPage"></view>
+    </view> -->
+  
+  </view>
+
   <scroll-view
     scroll-y
     refresher-enabled="{{true}}"
     refresher-triggered="{{refreshTrigger}}"
     enable-flex="{{true}}"
     bindrefresherpulling="bindrefresherpulling"
-    style="height: calc(100vh - 210rpx)"
     class="scrollPage" 
     > 
   <!-- 附近店铺信息 -->
