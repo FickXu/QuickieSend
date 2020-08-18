@@ -48,7 +48,7 @@ Component({
     }
   },
   observers: {
-    'info': function(info) {
+    'info.**': function(info) {
       this.setData({
         commodityList: info
       })

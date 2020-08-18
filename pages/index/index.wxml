@@ -1,0 +1,280 @@
+<!-- <import src="home.skeleton.wxml"/>
+<template is="skeleton" wx-if="{{loading}}" data="{{commodityList}}"/> -->
+<view class="home-page" wx:if="{{PageCur == 'home'}}">
+  <!-- 顶部填充区域 -->
+  <view class="top-area">
+  </view>
+  <!-- 页面滚动区域 -->
+  <scroll-view
+    scroll-y
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{refreshTrigger}}"
+    enable-flex="{{true}}"
+    bindrefresherpulling="bindrefresherpulling"
+    class="scrollPage" 
+    > 
+    <!-- 附近店铺信息 -->
+    <view style="margin: 0 30rpx">
+      <view class="near-shop-info">
+      <view class="shop-img">
+        <image mode="aspectFill" class="img" src="{{shopDetails.shopLogo}}" />
+      </view>
+      <view class="shop-desc">
+        <view class="title">
+          马上送到 | {{shopDetails.shopName}}
+        </view>
+        <view class="text-gray">配送时间：{{beginShopHours}}-{{endShopHours}}</view>
+        <view class="title1">
+          {{shopDetails.areaName}}
+          <text class="qs-icon iconlocation text-orange" bindtap="openHospitalListPage">
+            <text class="fz-12">{{locationStr}}</text>
+          </text>  
+        </view>
+      </view>
+      <!-- <view class="attr-item">
+        <view class="value1 text-red">{{shopDetails.salesVolume}}</view>
+        <view class="label">购买指数</view>
+      </view> -->
+    </view>
+    </view>
+    <!-- 广告模块 -->
+    <view class="swiper-advertising" wx:if="{{swiperList.length>0}}">
+      <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+        <swiper-item wx:for="{{swiperList}}" wx:key="id" bindtap="tapAdvertising" data-type="{{item.type}}" data-spu-id="{{item.spuId}}" data-html-url="{{item.htmlUrl}}">
+          <image src="{{item.imgUrl}}" mode="aspectFill" class="img-radius"></image>
+          <!-- <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video> -->
+        </swiper-item>
+      </swiper>
+    </view>
+    <!-- 热卖商品 -->
+    <view class="theme-header mt-15">
+      <view class="flex-row4 flex align-center">
+        <view class="fz-20 bold">
+          <text class="text-red">热卖</text>
+          <text class="text-black">商品</text>
+        </view>
+      </view>
+      <!-- <view class="flex-row1 text-right" bindtap="openCommodityListPage">
+        <text class="text-gray fz-12 more-limit">更多</text>
+      </view> -->
+    </view>
+    <!-- 分类列表 -->
+    <view class="VerticalBox">
+      <scroll-view
+        class="VerticalNav nav"
+        scroll-y
+        scroll-with-animation
+        scroll-top="{{VerticalNavTop}}" 
+        >
+        <view
+          class="cu-item {{index==TabCur?'text-red cur':''}}"
+          wx:for="{{navList}}"
+          wx:key
+          bindtap='tabSelect'
+          data-id="{{index}}"
+          data-nav-id="{{item.id}}"
+          >
+          <image class="types-icon" src="{{item.logoImg || '../../images/bg-scan.png'}}" lazy-load="{{true}}" />
+          {{item.name}}
+        </view>
+      </scroll-view>
+
+      <scroll-view
+        class="VerticalMain"
+        scroll-y
+        scroll-with-animation
+        scroll-into-view="main-{{MainCur}}"
+        bindscroll="VerticalMain"
+        >
+        <view class="cu-list col-3 no-border bg-white">
+          <view wx:if="{{commodityList.length>0}}">
+            <view
+              class="cu-item"
+              wx:for="{{commodityList}}"
+              wx:key="index"
+              wx:key="goodIndex"
+              wx:for-item="goodItem"
+              data-id="{{goodItem.id}}"
+              bindtap="goToDetail"
+              >
+              <!-- 已售完 -->
+              <view wx:if="{{goodItem.whetherSoldOut}}" class="commodity-sales-all">
+                <text>已售完</text>
+              </view>
+              <!-- 商品列表 -->
+              <view class="commodity-row">
+                <image class="commodity-img" mode="aspectFill" src="{{goodItem.spuMainImg}}" />
+                <view class="commodity-info ml-10 flex-row4" bindtap="">
+                  <view class="title line-overflow text-left">{{goodItem.spuName}}</view>
+                  <!-- 摘要 -->
+                  <view class="commodity-tags" wx:if="{{goodItem.spuAbstractTags.length>0}}">
+                    <text class="commodity-tags-item">{{goodItem.spuAbstractTags}}</text>
+                  </view>
+                  <!-- 销量 -->
+                  <view class="flex space-between flex-align-center mt-5">
+                    <text class="value fz-12" decode="{{true}}">销量&ensp;{{goodItem.saleQty}}</text>
+                    <!-- <text class="fz-12 text-orange">免费配送</text> -->
+                  </view>
+                  <!-- 规格按钮 -->
+                  <view class="flex space-between flex-align-center">
+                    <text class="fz-12 text-orange">免费配送</text>
+                    <text class="select-spec" catchtap="showSelectStandardModal" data-index="{{index}}">选规格</text>
+                  </view>
+                  <!-- 价格 -->
+                  <view class="price flex justify-center flex-align-center mt-5">
+                      <text wx:if="{{item.showPrice==item.realPrice}}">¥ {{ goodItem.realPrice }}</text>
+                      <text wx:else>
+                        <text decode="{{true}}">¥ {{ goodItem.realPrice }}&ensp;</text>
+                        <text class="throw-line text-gray fz-12">¥{{ goodItem.showPrice }}</text>
+                      </text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view wx:else class="cu-item list-order-none">
+            <image mode="widthFix" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
+            <view>该分类没有商品</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </scroll-view>
+  <!-- 选择规格 -->
+  <view class="cu-modal bottom-modal {{showSelectStandard ?'show':''}}" bindtap="hideSelectStandardModal">
+    <view class="cu-dialog" style="z-index: 1111">
+      <view class="padding-xl bg-white" catchtap="fixedCloseModal">
+        <view class="commodity-summary flex">
+          <!-- 商品图片 -->
+          <view class="img-box" wx:if="{{tempDetail.spuMainImg}}">
+            <image src="{{tempDetail.spuMainImg}}" mode="aspectFill" class="img"/>
+          </view>
+          <!-- 商品名称价格 -->
+          <view class="summary ml-10 mt-10">
+            <view class="price">¥ {{tempDetail.realPrice}}</view>
+            <view class="value line-overflow" wx:if="{{isLimitedBuying=='true'}}">{{tempDetail.skuKey}}</view>
+            <view class="value line-overflow">{{tempDetail.spuName}}</view>
+            <view class="value line-overflow" wx:if="{{isLimitedBuying=='false' && inventoryQty >= 0 }}">库存:{{inventoryQty}}</view>
+          </view>
+        </view>
+        <!-- 规格信息 -->
+        <view
+          class="commodity-standard-list mt-20"
+          wx:if="{{tempDetail.mallSpuSpecModelList.length > 0 && isLimitedBuying!='true'}}"
+          >
+          <view
+            class="standard-item"
+            wx:for="{{tempDetail.mallSpuSpecModelList}}"
+            wx:key="id"
+            wx:for-index="{{item.value}}"
+            >
+            <view class="title">{{item.label}}</view>
+            <view
+              class="values"
+              wx:if="{{item.childs.length > 0}}"
+              >
+              <text
+                class="cu-tag round mb-10 {{SPEC_OBJ[item.value] && SPEC_OBJ[item.value]['value'] == childs.value ? 'qs-bg' : ''}}"
+                wx:key="label"
+                wx:for="{{item.childs}}"
+                wx:for-item="childs"
+                wx:for-index="{{childs.value}}"
+                catchtap="selectStandard"
+                data-parent-value="{{item.value}}"
+                data-value="{{childs.value}}"
+                data-label="{{childs.label}}"
+                >{{childs.label}}</text>
+            </view>
+          </view>
+          <!-- 规格计数器 -->
+          <view class="standard-item flex algin-center space-between">
+            <view class="title flex-row4" style="min-width: 200px">数量</view>
+            <counter bind:numberChange="numberChange" item="{{tempDetail}}"></counter>
+          </view>
+        </view>
+        <!-- 确定按钮 -->
+        <view class="qs-btn-box mt-30">
+          <button class="qs-btn qs-bg" bindtap="shopingCart" wx:if="{{inventoryQty>0}}">添加到购物车</button>
+          <view catchtap="noQty" style="height:88rpx;line-height:88rpx;border-radius:50rpx;background-color:#f1f1f1;color:#aaa;font-size:32rpx" wx:else>添加到购物车</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 购物车按钮 -->
+  <view class="btn-shop-car {{showShopCar?'bg-white zIndex-1111':'hide-zIndex'}}">
+    <view class="cu-bar flex detail-bottom-nav">
+      <view class="shop-car flex-row5 bg-black" bindtap="showShopCarModal">
+        <text class="bg-red text-white badge" wx:if="{{shopCarCommodityNums>0}}">{{shopCarCommodityNums}}</text>
+        <image class="icon-shop-car" src="../images/logo1.png" />
+        <view class="ml-15">
+          <view class="text-white fz-20">¥ {{totalAmount}}</view>
+          <view class="text-white fz-12" wx:if="{{totalAmount>freeDisMoney}}">免费配送</view>
+          <view class="text-white fz-12" wx:if="{{disMoney}}">配送费 ¥{{disMoney}}</view>
+        </view>
+      </view>
+      <view class="bg-red settlement flex-row2" bindtap="openConfirmOrderPage">结算</view>
+    </view>
+  </view>
+  <!-- 购物车列表 -->
+  <view class="cu-modal bottom-modal {{showShopCar ?'show':''}}" bindtap="showShopCarModal">
+    <view class="cu-dialog pb-100" catchtap="stopBubble">
+      <view class="padding-xl bg-white">
+        <!-- header -->
+        <view class="bg-white flex justify-between mt-15">
+          <text class="text-black bold fz-14">已选商品</text>
+          <text class="text-gray fz-14" catchtap="clearShopCar">清空购物车</text>
+        </view>
+        <view style="max-height: 1000rpx;overflow-y: auto" wx:if="{{shopcarList.length>0}}">
+          <!-- 商品列表 -->
+          <commodity-list
+            layout="row"
+            isCount="{{true}}"
+            info="{{shopcarList}}"
+            isGoToDetailPage="{{false}}"
+            bind:numberChange="numberChange1"
+            >
+          </commodity-list>
+        </view>
+        <view wx:else style="min-height: 300rpx; text-align: center;margin-top: 200rpx">
+          <text class="mt-30">购物车没有商品哦~</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 个人中心 -->
+<person-center wx:if="{{PageCur == 'person-center'}}"></person-center>
+
+<view class="cu-modal {{isShow ? 'show':''}}">
+  <view class="modal-body">
+    <view class="action" bindtap="hideModal">
+      <text class="qs-icon iconclose "></text>
+    </view>
+    <image src="http://m.quickssend.com/file/first-relief.png" />
+    <view class="text-white bold fz-14 label">
+      <text class="fz-30">{{firstOrderRewardNewAamount}}</text>元
+      <text decode="{{true}}">&ensp;有效期{{firstOrderRewardNewValidity}}天</text>
+    </view>
+  </view>
+</view>
+
+<!-- 底部导航 -->
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action text-grey {{PageCur == 'home' ? 'text-red' : ''}}" bindtap="routerPage" data-page="home">
+    <view class="{{PageCur == 'home' ? 'text-red': ''}}">
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='home'?'./img/sy2.png':'./img/sy1.png'}}"></image>
+      </view>
+      首页
+    </view>
+  </view>
+  <view class="action text-grey {{PageCur == 'person-center' ? 'text-red' : ''}}" bindtap="routerPage" data-page="person-center">
+    <view class="{{PageCur == 'person-center' ? 'text-red': ''}}">
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='person-center'?'./img/wd2.png':'./img/wd1.png'}}"></image>
+      </view>
+      我的
+    </view>
+  </view>
+</view>

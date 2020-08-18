@@ -29,7 +29,7 @@ Page({
     // 购物车商品的总价
     totalAmount: 0,
     // 单品详情
-    shopcarDetail: {},
+    tempDetail: {},
     // 评论列表
     commentList: [],
     // 是否为活动商品
@@ -153,7 +153,7 @@ Page({
       }
       params.realPrice = params.realPrice / 100
       this.setData({
-        shopcarDetail: params,
+        tempDetail: params,
         inventoryQty: params.inventoryQty
       })
       wx.hideLoading()
@@ -191,7 +191,15 @@ Page({
   // 关闭规格选择弹窗
   hideSelectStandardModal(e) {
     this.setData({
-      showSelectStandard: false
+      showSelectStandard: false,
+      // 重置已选规格
+      SPEC_OBJ: {},
+      // 页面显示的已选规格
+      standardLabel: '请选择规格',
+      // 重置单品库存，即重置添加到购物车按钮样式
+      inventoryQty: 0,
+      // 重置临时的商品详情变量
+      tempDetail: {}
     })
   },
 
@@ -237,23 +245,31 @@ Page({
     let self = this
     // 获取购物车数据
     let shopcarList = wx.getStorageSync("shopcarList") || []
-    let params = {
-      isActivity: this.data.isLimitedBuying || false,
-      shopId: this.data.detail.shopId,
-      spuMainImg: this.data.detail.spuMainImg,
-      spuName: this.data.detail.spuName,
-      CURRENT_QUANTITY: this.data.isLimitedBuying=='true'?1:this.data.detail.CURRENT_QUANTITY,
-      // 实际售价为realPrice,展示价为showPrice。在商品详情中realPrice和showPrice相等时，只显示一个价格
-      showPrice: this.data.isLimitedBuying==='true'?this.data.detail.realPrice:this.data.shopcarDetail.showPrice,
-      // 实际售价为realPrice,展示价为showPrice。在活动商品中actPrice才是实际售价
-      realPrice: this.data.isLimitedBuying==='true'?this.data.detail.actPrice:this.data.shopcarDetail.realPrice,
-      skuId: this.data.isLimitedBuying==='true'?this.data.detail.skuId:this.data.shopcarDetail.skuId,
-      skuKey: this.data.isLimitedBuying==='true'?this.data.detail.skuKey:this.data.shopcarDetail.skuKey,
-      mallActivityId: this.data.mallActivityId
+    // 检查购物车是否有同一单品
+    let skuIndex = shopcarList.findIndex(item => this.data.tempDetail.skuId == item.skuId)
+    if (skuIndex > -1) {
+      // 存在同一单品时合并到购物车
+      shopcarList[skuIndex].CURRENT_QUANTITY += this.data.detail.CURRENT_QUANTITY
+    } else {
+      let params = {
+        isActivity: this.data.isLimitedBuying || false,
+        shopId: this.data.detail.shopId,
+        spuMainImg: this.data.detail.spuMainImg,
+        spuName: this.data.detail.spuName,
+        CURRENT_QUANTITY: this.data.isLimitedBuying=='true'?1:this.data.detail.CURRENT_QUANTITY,
+        // 实际售价为realPrice,展示价为showPrice。在商品详情中realPrice和showPrice相等时，只显示一个价格
+        showPrice: this.data.isLimitedBuying==='true'?this.data.detail.realPrice:this.data.tempDetail.showPrice,
+        // 实际售价为realPrice,展示价为showPrice。在活动商品中actPrice才是实际售价
+        realPrice: this.data.isLimitedBuying==='true'?this.data.detail.actPrice:this.data.tempDetail.realPrice,
+        skuId: this.data.isLimitedBuying==='true'?this.data.detail.skuId:this.data.tempDetail.skuId,
+        skuKey: this.data.isLimitedBuying==='true'?this.data.detail.skuKey:this.data.tempDetail.skuKey,
+        mallActivityId: this.data.mallActivityId
+      }
+      shopcarList.push(params)
     }
     wx.setStorage({
       key: 'shopcarList',
-      data: shopcarList.concat([params]),
+      data: shopcarList,
       success() {
         wx.showToast({
           title: '已添加到购物车'

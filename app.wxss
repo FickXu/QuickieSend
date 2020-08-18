@@ -12,7 +12,7 @@ page {
   /* Color 可以自定义相关配色 */
   /* var属性兼容性 --> https://www.caniuse.com/#feat=css-variables */
   /* 标准色 */
-  --red: #e54d42;
+  --red: #F23131;
   --orange: #f37b1d;
   --yellow: #fbbd08;
   --olive: #8dc63f;
@@ -28,7 +28,7 @@ page {
   --black: #333333;
   --darkGray: #666666;
   --gray: #aaaaaa;
-  --ghostWhite: #f1f1f1;
+  --ghostWhite: #f7f7f7;
   --white: #ffffff;
   /* 浅色 */
   --redLight: #fadbd9;
@@ -4249,6 +4249,9 @@ scroll-view.cu-steps .cu-item {
   padding: 0 18rpx;
 }
 /* 字体 */
+.fz-10 {
+  font-size: 20rpx;
+}
 .fz-12 {
   font-size: 24rpx;
 }
@@ -4377,6 +4380,9 @@ scroll-view.cu-steps .cu-item {
   flex: 8;
 }
 /* 外边距 */
+.mt-5 {
+  margin-top: 10rpx;
+}
 .mt-10 {
   margin-top: 20rpx;
 }

@@ -57,10 +57,10 @@
           <view class="flex" style="width: 100%">
             <image class="commodity-img" mode="aspectFill" src="{{item.spuMainImg}}" />
             <view class="commodity-info ml-10 mr-10 flex-row4">
-              <view class="title line-overflow mt-10 text-left">{{item.spuName}}</view>
+              <view class="title line-overflow text-left">{{item.spuName}}</view>
               <!-- 编辑时为规格 -->
               <view class="flex space-between flex-align-center mt-10">
-                <text class="value">{{item.saleQty}}购买</text>
+                <text class="value" decode="{{true}}">销量&ensp;{{item.saleQty}}</text>
                 <text class="value">免费配送</text>
               </view>
 
@@ -74,7 +74,7 @@
                 </view>
 
                 <!-- 购物车 -->
-                <view wx:if="{{isShopingCart}}" class="shoping-car qs-icon iconcart text-red"></view>
+                <view wx:if="{{isShopingCart}}" class="shoping-car qs-icon iconcart text-orange"></view>
 
                 <!-- 计数器-->
                 <counter wx:if="{{isCount}}" bind:numberChange="numberChange" item="{{item}}"></counter>

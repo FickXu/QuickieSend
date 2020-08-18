@@ -1,0 +1,465 @@
+// .top-area 高度
+@height_top_area: 210rpx;
+// .near-shop-info 高度
+@height_near_shop_info: 144rpx;
+// 底部导航高度
+@height_nav: calc(100rpx + env(safe-area-inset-bottom) / 2);
+
+.home-page {
+  background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-home.png');
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: contain;
+}
+
+.icon-menu-status {
+  width: 45rpx!important;
+  height: 45rpx!important;
+}
+
+.top-area {
+  height: @height_top_area;
+}
+
+// 附近店铺
+.near-shop-info {
+  margin: 0 30rpx;
+  border-radius: 14rpx;
+  background-color: #fff;
+  height: @height_near_shop_info;
+  padding: 24rpx 20rpx;
+  display: flex;
+  align-items: center;
+  box-shadow:0px 6rpx 12rpx rgba(0,0,0,0.03);
+
+  .shop-img {
+    width: 94rpx;
+    height: 94rpx;
+    border-radius: 14rpx;
+    overflow: hidden;
+
+    .img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .shop-desc {
+    flex: 7;
+    margin-left: 10px;
+
+    .title {
+      font-size: 36rpx;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: rgba(17,17,17,1);
+    }
+
+    .title1 {
+      font-size: 24rpx;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: rgba(187,187,187,1);
+    }
+  }
+
+  .attr-item {
+    text-align: center;
+    margin-right: 20rpx;
+
+    .orange {
+      color:rgba(255,182,54,1);
+    }
+
+    .red {
+      color:rgba(245,88,88,1);
+    }
+
+    .value1 {
+      font-size: 30rpx;
+      font-family:PingFang SC;
+      font-weight:bold;
+    }
+
+    .label {
+      font-size: 24rpx;
+      font-family:PingFang SC;
+      font-weight:500;
+      color:rgba(187,187,187,1);
+      margin-top: 10rpx;
+    }
+  }
+}
+// 广告
+.swiper-advertising {
+  padding: 30rpx;
+  height: 214rpx;
+  min-height: 214rpx;
+  background-color: #f7f7f7;
+  
+  .screen-swiper {
+    min-height: 100%;
+    max-height: 100%;
+  }
+  
+  .img-radius {
+    border-radius: 20rpx;
+  }
+}
+
+// 限时抢购
+.theme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx 20rpx;
+  background-color: #f7f7f7;
+
+  .squer {
+    width:17px;
+    height:20px;
+    font-size:14px;
+    font-family:PingFang SC;
+    font-weight:500;
+    color:rgba(255,255,255,1);
+    border-radius: 10rpx;
+    padding: 0 6rpx;
+  }
+
+  .more-limit {
+    position: relative;
+    padding-right: 30rpx;
+
+    &::after {
+      position: absolute;
+      width: 20rpx;
+      height: 20rpx;
+      content: '>';
+      background-color: #FF7631;
+      color: #ffffff;
+      font-size: 16rpx;
+      text-align: center;
+      line-height: 22rpx;
+      right: 0;
+      top: 5rpx;
+      border-radius: 100rpx;
+    }
+  }
+}
+
+.discount-commodity {
+  padding-top: 40rpx;
+  background-color: #F7F7F7;
+}
+
+.hot-commodity {
+  padding-top: 40rpx;
+  background-color: #F7F7F7;
+}
+
+.scrollPage {
+  width: 100%;
+  height: calc(~'100vh - @{height_top_area}');
+  padding-bottom: @height_nav;
+}
+
+.cu-modal {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  
+  .action {
+    position: absolute;
+    right: 40rpx;
+    top: 30rpx;
+    z-index: 9;
+  }
+  
+  .modal-body {
+    position: relative;
+    width: 640rpx;
+    height: 800rpx;
+  
+    image {
+      width: 100%;
+      height: 100%;
+    }
+
+    .label {
+      position: absolute;
+      top: 300rpx;
+      width: 100%;
+    }
+  }
+}
+
+.list-order-none {
+  text-align: center;
+  margin-top: 60rpx;
+  color: #888888;
+  background-color: #fff;
+  border-radius: 30rpx;
+  width: 100%;
+  image {
+    max-width: 80%;
+  }
+}
+.VerticalNav.nav {
+  min-width: 210rpx;
+  width: 210rpx;
+  white-space: initial;
+}
+
+.VerticalNav.nav .cu-item {
+  width: 100%;
+  height: 163rpx;
+  text-align: center;
+  background-color: #f1f1f1;
+  margin: 0;
+  border: none;
+  height: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.VerticalNav.nav .cu-item.cur {
+  background-color: #ffffff;
+}
+.VerticalNav.nav .cu-item.cur::after {
+  content: "";
+  width: 8rpx;
+  height: 30rpx;
+  border-radius: 10rpx 0 0 10rpx;
+  position: absolute;
+  background-color: currentColor;
+  top: 0;
+  right: 0rpx;
+  bottom: 0;
+  margin: auto;
+}
+.VerticalBox{
+  display: flex;
+  height: 100%;
+  // padding-top: 20rpx;
+  background-color: #f7f7f7;
+}
+.VerticalMain{
+  background-color: #ffffff;
+  width: calc(~'100% - 210rpx');
+  .cu-item {
+    position: relative;
+  }
+}
+.types-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+// 商品列表
+.commodity {
+  &-sales-all {
+    position: absolute;
+    left: 20rpx;
+    border-radius: 12rpx;
+    width: 95%;
+    height: 100%;
+    z-index: 1;
+    color: #ffffff;
+    font-size: 32rpx;
+    background-color: rgba(0, 0, 0, .42);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &-row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 30rpx;
+    padding: 0 20rpx;
+    &:first-child {
+      margin-top: 20rpx;
+    }
+  }
+  &-tags {
+    margin-top: 10rpx;
+    padding: 6rpx 0;
+    min-height: 44rpx;
+    &-item {
+      border-radius: 10rpx;
+      background-color: #f7f7f7;
+      padding: 6rpx 10rpx;
+      color: #999999;
+    }
+  }
+  &-img {
+    min-width: 100px;
+    max-width: 100px;
+    height: 100px;
+    border: 1px solid #f7f7f7;
+    // padding: 5px;
+    border-radius: 12rpx;
+
+  }
+  &-info {
+    .select-spec {
+      background-color: #F23131;
+      color: #ffffff;
+      font-size: 20rpx;
+      border-radius: 50rpx;
+      padding: 6rpx 14rpx;
+    }
+    .title {
+      margin-top: 10rpx;
+      font-size: 36rpx;
+      font-family: PingFang SC;
+      font-weight: 700;
+      color:rgba(51,51,51,1);
+    }
+    .price {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+// 购物车
+.btn-shop-car {
+  background-color: transparent;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+.zIndex-1111 {
+  z-index: 1111;
+  animation: show-zIndex .38s;
+  -webkit-animation: show-zIndex .38s;
+  padding-bottom: 40rpx;
+}
+@-webkit-keyframes show-zIndex {
+  from {
+    padding-bottom: calc(~'@{height_nav} + 20rpx');
+  }
+  to {
+    padding-bottom: 40rpx;
+  }
+}
+.hide-zIndex {
+  animation: hide-zIndex .38s;
+  -webkit-animation: hide-zIndex .38s;
+  padding-bottom: calc(~'@{height_nav} + 20rpx');
+}
+@-webkit-keyframes hide-zIndex {
+  from {
+    z-index: 1111;
+    padding-bottom: 40rpx;
+  }
+  to {
+    z-index: 1110;
+  }
+}
+.pb-100 {
+  padding-bottom: 100rpx;
+}
+.detail-bottom-nav {
+  width: 100%;
+  height: 100rpx;
+  padding: 0 30rpx!important;
+  background-color: transparent;
+
+  .shop-car {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    border-top-left-radius: 100rpx;
+    border-bottom-left-radius: 100rpx;
+    display: flex;
+    align-items: center;
+    padding: 0 60rpx;
+    position: relative;
+
+    .badge {
+      position: absolute;
+      z-index: 1112;
+      border-radius: 100rpx;
+      padding: 0 10rpx;
+      left: 100rpx;
+      top: 25rpx;
+    }
+
+    .icon-shop-car {
+      width: 60rpx;
+      height: 64rpx;
+    }
+  }
+  
+  .settlement {
+    width: 100%;
+    height: 100%;
+    min-width: 200rpx;
+    border-top-right-radius: 100rpx;
+    border-bottom-right-radius: 100rpx;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32rpx;
+  }
+}
+.cu-dialog {
+  border-top-left-radius: 10px!important;
+  border-top-right-radius: 10px!important;
+}
+.padding-xl {
+  padding: 15px;
+  position: relative;
+
+  .icon-close {
+    position: absolute;
+    top: -5px;
+    right: 15px;
+  }
+
+  .commodity-summary {
+    width: 100%;
+    height: 77px;
+
+    .img-box {
+      min-width: 77px;
+      max-width: 77px;
+      height: 77px;
+      border-radius: 10px;
+      overflow: hidden;
+
+      .img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .summary {
+      text-align: left;
+    }
+  }
+
+  .commodity-standard-list {
+    .standard-item {
+      text-align: left;
+      padding: 0 10px;
+
+      .title {
+        font-size:16px;
+        font-family:PingFang SC;
+        font-weight:bold;
+        color:rgba(51,51,51,1);
+      }
+
+      .values {
+        padding: 10px 0;
+      }
+    }
+  }
+}

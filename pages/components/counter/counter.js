@@ -13,6 +13,11 @@ Component({
     }
   },
   observers: {
+    'item.**': function(item) {
+      this.setData({
+        number: item.CURRENT_QUANTITY
+      })
+    }
   },
   data: {
     number: 0
