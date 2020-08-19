@@ -152,6 +152,7 @@ Page({
         ...res.data.data
       }
       params.realPrice = params.realPrice / 100
+      params.showPrice = params.showPrice / 100
       this.setData({
         tempDetail: params,
         inventoryQty: params.inventoryQty
@@ -162,11 +163,9 @@ Page({
 
   // 显示选择规格弹窗
   shopCarModal() {
-    
     this.setData({
       showShopCar: !this.data.showShopCar
     })
-
     if (this.data.showShopCar) {
       this.setData({
         shopcarList: wx.getStorageSync('shopcarList')
@@ -180,14 +179,16 @@ Page({
       showShopCar: false
     })
   },
-
   // 显示选择规格弹窗
   showSelectStandardModal() {
     this.setData({
-      showSelectStandard: true
+      showSelectStandard: true,
+      detail: {
+        ...this.data.detail,
+        CURRENT_QUANTITY: 1
+      }
     })
   },
-
   // 关闭规格选择弹窗
   hideSelectStandardModal(e) {
     this.setData({
@@ -195,33 +196,24 @@ Page({
       // 重置已选规格
       SPEC_OBJ: {},
       // 页面显示的已选规格
-      standardLabel: '请选择规格',
-      // 重置单品库存，即重置添加到购物车按钮样式
-      inventoryQty: 0,
-      // 重置临时的商品详情变量
-      tempDetail: {}
+      standardLabel: '请选择规格'
     })
+    if (this.data.isLimitedBuying === 'false') {
+      this.setData({
+        inventoryQty: 0,
+        tempDetail: {}
+      })
+    }
   },
-
-  // // 收藏
-  // collectCommodity() {},
-
-  // // 客服
-  // customerService() {
-    
-  // },
-
   noQty() {
     // wx.showToast({
     //   title: '当前商品库存大于0才可以添加到购物车',
     //   icon: 'none'
     // })
   },
-
   // 添加到购物车
   shopingCart() {
-
-    if (this.data.isLimitedBuying == 'false') {
+    if (this.data.isLimitedBuying === 'false') {
       // 商品的默认数量为0，添加购物车需要选择完整规格
       let specKeys = Object.keys(this.data.detail.SPEC_OBJ)
       if (!this.data.detail.SPEC_OBJ || specKeys.length != this.data.detail.mallSpuSpecModelList.length) {
@@ -246,21 +238,21 @@ Page({
     // 获取购物车数据
     let shopcarList = wx.getStorageSync("shopcarList") || []
     // 检查购物车是否有同一单品
-    let skuIndex = shopcarList.findIndex(item => this.data.tempDetail.skuId == item.skuId)
+    let skuIndex = shopcarList.findIndex(item => this.data.isLimitedBuying === 'true'? this.data.detail.skuId == item.skuId : this.data.tempDetail.skuId == item.skuId)
     if (skuIndex > -1) {
       // 存在同一单品时合并到购物车
       shopcarList[skuIndex].CURRENT_QUANTITY += this.data.detail.CURRENT_QUANTITY
     } else {
       let params = {
-        isActivity: this.data.isLimitedBuying || false,
+        isActivity: this.data.isLimitedBuying === 'true' ? true : false,
         shopId: this.data.detail.shopId,
         spuMainImg: this.data.detail.spuMainImg,
         spuName: this.data.detail.spuName,
-        CURRENT_QUANTITY: this.data.isLimitedBuying=='true'?1:this.data.detail.CURRENT_QUANTITY,
+        CURRENT_QUANTITY: this.data.detail.CURRENT_QUANTITY,
         // 实际售价为realPrice,展示价为showPrice。在商品详情中realPrice和showPrice相等时，只显示一个价格
-        showPrice: this.data.isLimitedBuying==='true'?this.data.detail.realPrice:this.data.tempDetail.showPrice,
+        showPrice: this.data.isLimitedBuying==='true'?this.data.detail.showPrice:this.data.tempDetail.showPrice,
         // 实际售价为realPrice,展示价为showPrice。在活动商品中actPrice才是实际售价
-        realPrice: this.data.isLimitedBuying==='true'?this.data.detail.actPrice:this.data.tempDetail.realPrice,
+        realPrice: this.data.isLimitedBuying==='true'?this.data.detail.realPrice:this.data.tempDetail.realPrice,
         skuId: this.data.isLimitedBuying==='true'?this.data.detail.skuId:this.data.tempDetail.skuId,
         skuKey: this.data.isLimitedBuying==='true'?this.data.detail.skuKey:this.data.tempDetail.skuKey,
         mallActivityId: this.data.mallActivityId
@@ -274,18 +266,14 @@ Page({
         wx.showToast({
           title: '已添加到购物车'
         })
-
         // 隐藏弹窗
         self.hideSelectStandardModal()
-
         // 计算商品数量
         self.getShopCarCommodityNums()
-
         // 计算购物车商品总价格
         self.computeTotalAmount()
       }
     })
-
   },
 
   // 清空购物车
@@ -329,19 +317,15 @@ Page({
   getShopCarCommodityNums() {
     let arr = wx.getStorageSync('shopcarList') || []
     let num = 0
-
     arr.forEach(item => {
       num += item.CURRENT_QUANTITY
     })
-
     // 购物车商品数量
     this.setData({
       shopCarCommodityNums: num
     })
   },
-
   stopBubble() {},
-
   // 计算购物车商品总价
   computeTotalAmount() {
     let arr = wx.getStorageSync('shopcarList') || []
@@ -355,7 +339,6 @@ Page({
       totalAmount: price / 100
     })
   },
-
   // 获取评论列表
   queryCommentList() {
     wx.showLoading({
@@ -371,10 +354,8 @@ Page({
       wx.hideLoading()
     })
   },
-
   // 提交订单
   openConfirmOrderPage() {
-
     // 用户是否已经登录
     let isLogin = wx.getStorageSync('isLogin') || false
     if (!isLogin) {
@@ -391,7 +372,6 @@ Page({
       })
       return
     }
-
     // 购物车中是否有商品
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
       wx.showToast({
@@ -400,7 +380,6 @@ Page({
       })
       return
     }
-
     let self = this
     wx.navigateTo({
       url: '../order-confirm/order-confirm',
@@ -415,15 +394,14 @@ Page({
       }
     })
   },
-
   // 查询活动商品详情
   queryActivityCommodityInfo(id) {
     request(`shop/activityspupageinfo/${id}`).then(res => {
       let detail = res.data.data
       detail.id = res.data.data.spuId
       // 活动商品中actPrice为实际售价
+      detail.showPrice = res.data.data.realPrice/100
       detail.realPrice = res.data.data.actPrice/100
-      detail.showPrice = res.data.data.showPrice/100
       
       this.setData({
         detail: detail,
@@ -436,7 +414,6 @@ Page({
       this.queryCommentList()
     })
   },
-  
   // 商家-商品-分页查询热卖商品详情
   querySpuInfo(id) {
     request(`shop/shopspupageviewer/${id}`).then(res => {
@@ -454,7 +431,6 @@ Page({
       this.queryCommentList()
     })
   },
-
   // 设置起送金额
   settingFreeDisMoney() {
     let amount = wx.getStorageSync('shopDetails').freeDisMoney/100
@@ -462,7 +438,6 @@ Page({
       freeDisMoney: amount
     })
   },
-
   // 设置配送费
   settingDisMoney() {
     let amount = wx.getStorageSync('shopDetails').disMoney/100
@@ -470,7 +445,6 @@ Page({
       disMoney: amount
     })
   },
-
   onShow: function () {
     // 计算商品数量
     this.getShopCarCommodityNums()
@@ -481,7 +455,6 @@ Page({
     // 设置配送费
     this.settingDisMoney()
   },
-
   onLoad: function (query) {
     // let self = this
     // 是否为活动商品

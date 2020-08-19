@@ -2,7 +2,7 @@
     "navigationBarTitleText": "马上送到",
     "usingComponents": {
         "commodity-list": "../components/commodity-list/commodity-list",
-        "category-list": "../components/category-list/category-list",
+        "counter": "../components/counter/counter",
         "person-center": "../components/person-center/person-center"
     }
 }

@@ -48,8 +48,12 @@ Page({
         //   // 单品id
         //   skuId: '',
         // }
-      ]
+      ],
     },
+    // 免运费条件金额
+    postAmount: 0,
+    // 免配送费
+    postStr: '',
     layoutType: 'row',
     isShow: false,
     // 优惠券
@@ -60,32 +64,26 @@ Page({
     discountName: ''
   },
   onShow () {
-
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
       wx.navigateBack()
     }
-
     let self = this
     const eventChannel = this.getOpenerEventChannel()
     // 监听sendData事件，获取上一页面通过eventChannel传送到当前页面的数据
     eventChannel.on('sendData', function(data) {
-
       self.setData({
         commodityList: data,
         'params.shopId': data[0].shopId
       })
-
-      self.calcualtionTotalAmount()
+      // self.calcualtionTotalAmount()
+      self.calcualtionPostCoast()
       console.log('获取到的参数：', data)
-
       // 获取默认地址
       self.getDefaultAddress()
-      
       // 获取优惠券
       self.getCoupon()
     }) 
   },
-
   // 获取优惠券
   getCoupon() {
     // 获取优惠券
@@ -94,12 +92,10 @@ Page({
         this.setData({
           discouont: res.data.data[0]
         })
-        
         this.enableDiscount()
       }
     })
   },
-
   // 是否启用优惠券
   enableDiscount() {
     // 订单金额大于优惠券金额才能使用优惠券
@@ -108,6 +104,7 @@ Page({
         discountAmount: this.data.discouont.amount,
         discountName: this.data.discouont.name
       })
+      this.calcualtionRealAmount()
     } else {
       this.setData({
         discountAmount: 0,
@@ -115,7 +112,6 @@ Page({
       })
     }
   },
-
   // 获取默认收货地址
   getDefaultAddress() {
     wx.showLoading({
@@ -123,14 +119,13 @@ Page({
       mask: true
     })
     let params = {
-      shopId: this.data.params.shopId
+      shopId: wx.getStorageSync('shopDetails').shopId
     }
     request('user/address/default', params).then(res => {
       wx.hideLoading()
       this.refreshAddresss(res.data.data)
     })
   },
-
   // 刷新收货地址
   refreshAddresss(params) {
     if (!params) return
@@ -143,7 +138,6 @@ Page({
     })
     console.log('刷新收获地址', params)
   },
-
   // 选择收获地址
   openAddressListPage() {
     let self = this
@@ -156,7 +150,6 @@ Page({
       }
     })
   },
-
   // 备注
   textareaBInput(e) {
     let value = e.detail.value
@@ -164,9 +157,24 @@ Page({
       'params.description': value
     })
   },
-
   // 支付流程：1.店铺是否营业 > 2.是否可以创建订单/是否可以支付 > 3.店铺是否在配送时间 > 4.创建订单 > 5.获取支付参数 > 6.唤起微信支付
   pullPay() {
+    // 判断地址是否为空
+    if (this.data.params.address === '') {
+      wx.showToast({
+        title: '收货地址不能为空',
+        icon: 'none'
+      })
+      return
+    }
+    // 备注不能超过50个字
+    if (this.params.description.length > 50) {
+      wx.showToast({
+        title: '备注不能超过50个字',
+        icon: 'none'
+      })
+      return
+    }
     if (!app.isShopOpen()) {
       wx.showToast({
         title: '店铺已歇业，请在店铺开业时间下单',
@@ -216,7 +224,6 @@ Page({
       }
     })
   },
-
   // 创建订单并获取支付参数
   createOrderAndPay(obj) {
     this.calcualtionTotalAmount()
@@ -227,7 +234,6 @@ Page({
       ...this.data.params,
       couponId: this.data.discountAmount/100 < this.data.totalAmount ? this.data.discouont.id : '' 
     }
-    console.log(params)
     request('order/create', params).then(res => {
       // 清空购物车
       this.removeShopCar()
@@ -239,6 +245,9 @@ Page({
           title: '商家已关闭支付功能，请联系商家开启！',
           icon: 'none'
         })
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 500);
       }
     })
   },
@@ -263,7 +272,6 @@ Page({
       this.callPay(params)
     })
   },
-
   // 调用微信支付
   callPay(params) {
     wx.requestPayment({
@@ -292,12 +300,10 @@ Page({
       }
     })
   },
-
   // 清空购物车
   removeShopCar() {
     wx.removeStorageSync('shopcarList')
   },
-
   // 支付失败
   payFail() {
     // this.setData({
@@ -308,7 +314,6 @@ Page({
       url: '../orders/orders?type=1'
     })
   },
-  
   // 支付成功
   paySuccess() {
     wx.navigateTo({
@@ -320,27 +325,43 @@ Page({
       }
     })
   },
-
   // 商品数量发生变化时
   numberChange(e) {
     let detail = e.detail
     let arr = this.data.commodityList
     let index = arr.findIndex(item => item.skuId == detail.skuId)
-
-    // if (detail.CURRENT_QUANTITY == 0) {
-    //   arr.splice(index, 1)
-    // }
-
     arr[index] = { ...detail }
-
     this.setData({
       commodityList: arr
     })
-
-    this.calcualtionTotalAmount()
-    // console.log('支付', this.data.commodityList)
+    // 计算价格
+    // this.calcualtionTotalAmount()
+    this.calcualtionPostCoast()
   },
-
+  // 计算实际运费
+  calcualtionPostCoast() {
+    let shopDetails = wx.getStorageSync('shopDetails')
+    // 条件免运费金额
+    let freeDisMoney = shopDetails.freeDisMoney
+    // 运费
+    let disMoney = shopDetails.disMoney
+    // 计算商品总价
+    this.calcualtionTotalAmount()
+    // 如果实际价格大于条件免运费金额，则免运费，否则需要运费
+    if (freeDisMoney < this.data.totalAmount * 100) {
+      this.setData({
+        postAmount: 0,
+        postStr: '免费配送'
+      })
+    } else {
+      // 设置运费
+      this.setData({
+        postAmount: disMoney/100
+      })
+      // 重新计算总价
+      this.calcualtionTotalAmount()
+    }
+  },
   // 计算实际价格
   calcualtionRealAmount() {
     let discountAmount = this.data.discountAmount
@@ -348,7 +369,6 @@ Page({
       realAmount: (parseInt(this.data.totalAmount * 100) - (discountAmount+'')) / 100
     })
   },
-
   // 计算订单总价格
   calcualtionTotalAmount() {
     let arr = this.data.commodityList
@@ -359,7 +379,6 @@ Page({
       if (item.CURRENT_QUANTITY) {
         total += item.realPrice * 100 * item.CURRENT_QUANTITY
         num += item.CURRENT_QUANTITY
-
         // 订单单品参数
         let params =  {
           // 是否活动商品
@@ -378,13 +397,11 @@ Page({
         skuOrderDtoArr.push(params)
       }
     });
-
     this.setData({
-      totalAmount: total / 100,
+      totalAmount: total / 100 + this.data.postAmount,
       'params.skuOrderDtoArr': skuOrderDtoArr,
       commodityTotalNumber: num
     })
-    
     this.enableDiscount()
     this.calcualtionRealAmount()
   }

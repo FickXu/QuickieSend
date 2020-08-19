@@ -45,6 +45,11 @@ Component({
     isGoToDetailPage: {
       type: Boolean,
       value: true
+    },
+    // 数据是否来自购物车
+    isInfoFromShopCar: {
+      type: Boolean,
+      value: false
     }
   },
   observers: {

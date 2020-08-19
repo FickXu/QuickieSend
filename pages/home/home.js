@@ -15,25 +15,14 @@ Page({
     title: '马上送到',
     PageCur: 'home',
     isLogin: false,
-    loginCode: 10007,
-    commodityList: [
-      // {
-      //   spuId: 1,
-      //   spuMainImg: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1591877770824&di=cdc675bd42b9d0859497ab1b79f1e98d&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Ffront%2F200%2Fw600h400%2F20181030%2FhL8E-hnaivxq8444371.jpg',
-      //   spuName: '酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼酸菜鱼',
-      //   showPrice: 88.0,
-      //   postType: '免费配送'
-      // }
-    ],
     // 限时抢购商品
-    limitedTimeCommodityList: [],
+    // limitedTimeCommodityList: [],
     // 抢购开始时间
     limitedStartTime: [],
     // 抢购结束时间
     limitedEndTime: [],
-    searchPlaceholder: '请输入要搜索的商品',
     // 热门分类列表
-    hotCategoryList: [],
+    // hotCategoryList: [],
     // 当前热门分类下标
     categoryIndex: 0,
     // 当前查询的店铺详情
@@ -69,9 +58,81 @@ Page({
     // 店铺营业结束时间
     endShopHours: '',
     // 轮播广告
-    swiperList: []
+    swiperList: [],
+    // 是否为活动商品
+    isLimitedBuying: true,
+    VerticalNavTop: 0,
+    vtabs: [],
+    activeTab: 0,
+    TabCur: 0,
+    MainCur: 0,
+    navList: [],
+    // 活动商品或热卖商品
+    commodityList: [],
+    // iconList: [],
+    load: true,
+    // 显示购物车
+    showShopCar: false,
+    // 购物车数据
+    shopcarList: [],
+    // 购物车商品数量
+    shopCarCommodityNums: 0,
+    // 购物车商品的总价
+    totalAmount: 0,
+    // 免配送费金额
+    freeDisMoney: '',
+    // 配送费
+    disMoney: '',
+    // 选择规格后获取商品列表中的信息
+    tempDetail: {},
+    // 选择规格后通过接口获取的单品详情
+    shopcarDetail: {},
+    // 已选规格
+    SPEC_OBJ: {},
+    standardLabel: [],
+    // 单品库存
+    inventoryQty: 0
   },
-
+  // 提交订单
+  openConfirmOrderPage() {
+    // 用户是否已经登录
+    let isLogin = wx.getStorageSync('isLogin') || false
+    if (!isLogin) {
+      wx.showModal({
+        title: '提示',
+        content: '用户未登录，是否登录？',
+        success: res => {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../login/login'
+            })
+          }
+        }
+      })
+      return
+    }
+    // 购物车中是否有商品
+    if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
+      wx.showToast({
+        title: '购物车中没有商品哦~',
+        icon: 'none'
+      })
+      return
+    }
+    let self = this
+    wx.navigateTo({
+      url: '../order-confirm/order-confirm',
+      events: {
+        clearShopCar() {
+          self.clearShopCar()
+        }
+      },
+      success(res) {
+        let params = wx.getStorageSync('shopcarList')
+        res.eventChannel.emit('sendData', params)
+      }
+    })
+  },
   // 商品搜索
   bindinput(e) {
     let value = e.detail.value
@@ -79,21 +140,18 @@ Page({
       searchStr: value
     })
   },
-
   // 关闭弹窗
   hideModal() {
     this.setData({
       isShow: false
     })
   },
-
   // 打开购物车
   openShopingCartPage() {
     wx.navigateTo({
       url: '../shoping-car/shoping-car'
     })
   },
-  
   // 查询已选医院最近店铺
   queryShopInfo(obj) {
     let params = {
@@ -139,26 +197,6 @@ Page({
       }
     })
   },
-  // 选择热门分类
-  chooseCategory: function (e) {
-    let type = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: `../../pages/commodity-list/commodity-list?type=${type}`,
-      fail(err) {
-        console.log(err)
-      }
-    })
-    // 跳转到二级分类
-    // let id = event.currentTarget.dataset.id
-    // let index = event.currentTarget.dataset.index
-    // this.setData({
-    //   'commodityListQueryParams.goodsTypeIdTwo': id,
-    //   categoryIndex: index
-    // })
-
-    // // 刷新商品列表
-    // this.getCommodityList()
-  },
   // 活动商品列表
   openDiscountCommodityPage() {
     wx.navigateTo({
@@ -168,39 +206,97 @@ Page({
       }
     })
   },
-  // 普通商品列表
-  openCommodityListPage() {
-    let self = this
+  // 商品详情
+  goToDetail (e) {
+    let dataset = e.currentTarget.dataset
+    // 已售完商品不进入详情
+    let whetherSoldOut = dataset.whetherSoldOut
+    if (whetherSoldOut) {
+      return
+    }
     wx.navigateTo({
-      url: `../../pages/commodity-list/commodity-list?isLimitedBuying=false&searchStr=${this.data.searchStr}`,
-      success() {
-        self.setData({
-          searchStr: ''
-        })
-      },
-      fail(err) {
-        console.log(err)
-      }
+      url: `../../pages/commodity-detail/commodity-detail?isLimitedBuying=${this.data.isLimitedBuying}&id=${dataset.id}`,
     })
   },
-  // 获取店铺的分类
-  getCategroyListByShopId: function () {
-    let shopId = this.data.commodityListQueryParams.shopId
-    request(`shop/getshopgoodstype/${shopId}`).then(res => {
-
+  // 商品列表页面
+  // openCommodityListPage() {
+  //   let self = this
+  //   wx.navigateTo({
+  //     url: `../../pages/commodity-list/commodity-list?isLimitedBuying=false&searchStr=${this.data.searchStr}`,
+  //     success() {
+  //       self.setData({
+  //         searchStr: ''
+  //       })
+  //     },
+  //     fail(err) {
+  //       console.log(err)
+  //     }
+  //   })
+  // },
+  tabSelect(e) {
+    this.setData({
+      TabCur: e.currentTarget.dataset.id,
+      MainCur: e.currentTarget.dataset.id,
+      VerticalNavTop: (e.currentTarget.dataset.id - 1) * 50
+    })
+    let navId = e.currentTarget.dataset.navId
+    // 区分活动商品和热卖商品
+    if (navId === -1) {
       this.setData({
-        hotCategoryList: res.data.data.splice(0, 4),
-        // 'commodityListQueryParams.goodsTypeIdTwo': res.data.data[0].id
-        // 'commodityListQueryParams.goodsTypeIdTwo': 38
+        isLimitedBuying: true
       })
-
-      wx.setStorage({
-        key: 'goodsTypeList',
-        data: res.data.data
-      })
-      
       this.getActivityCommodityList()
+    } else {
+      this.setData({
+        isLimitedBuying: false,
+        'commodityListQueryParams.goodsTypeIdTwo': navId
+      })
       this.getCommodityList()
+    }
+  },
+  VerticalMain(e) {
+    let that = this;
+    let list = this.data.navList;
+    let tabHeight = 0;
+    if (this.data.load) {
+      for (let i = 0; i < list.length; i++) {
+        let view = wx.createSelectorQuery().in(this).select("#main-" + i);
+        view.fields({
+          size: true
+        }, data => {
+          if(!data) return
+          list[i].top = tabHeight;
+          tabHeight = tabHeight + (data.height || 0);
+          list[i].bottom = tabHeight;     
+        }).exec();
+      }
+      that.setData({
+        load: false,
+        navList: list
+      })
+    }
+    let scrollTop = e.detail.scrollTop + 20;
+    for (let i = 0; i < list.length; i++) {
+      if (scrollTop > list[i].top && scrollTop < list[i].bottom) {
+        that.setData({
+          VerticalNavTop: (list[i].id - 1) * 50,
+          TabCur: list[i].id
+        })
+        return false
+      }
+    }
+  },
+  // 获取店铺的分类(二级分类)
+  getCategroyListByShopId: function () {
+    let params = {
+      shopId: this.data.commodityListQueryParams.shopId
+    }
+    request('dic/goodstypetwoall', params).then(res => {
+      let navList = this.data.navList.splice(0, 1)
+      this.setData({
+        navList: navList.concat(res.data.data)
+      })
+      this.getActivityCommodityList()
     })
   },
   // 商家-商品-分页查询活动商品列表
@@ -218,17 +314,37 @@ Page({
           // 活动商品实际显示的价格为活动价格
           item.showPrice = item.realPrice / 100
           item.realPrice = item.actPrice / 100
+          if (item.spuAbstract === '') {
+            item.spuAbstractTags = []
+          } else {
+            item.spuAbstractTags = item.spuAbstract.split('、')
+            console.log(item.spuAbstractTags)
+          }
         })
+        let tempNavList = this.data.navList
+        if (tempNavList[0].id != -1) {
+          let navActivity = {
+            id: -1,
+            name: '活动'
+          }
+          tempNavList.splice(0, 0, navActivity)
+          this.setData({
+            navList: tempNavList
+          })
+        } 
         this.setData({
-          limitedTimeCommodityList: [].concat(res.data.data).splice(0, 2),
+          isLimitedBuying: true,
+          commodityList: data,
           limitedStartTime: getStandardDate(res.data.data[0].startTime, 'hm').split(':'),
           limitedEndTime: getStandardDate(res.data.data[0].endTime, 'hm').split(':')
         })
-        // console.log(this.data.limitedStartTime, this.data.limitedEndTime)
       } else {
         this.setData({
-          limitedTimeCommodityList: res.data.data,
+          isLimitedBuying: false,
+          'commodityListQueryParams.goodsTypeIdTwo': this.data.navList[0].id
         })
+        // 如果没有活动商品，则请求第一个商品分类下的商品列表
+        this.getCommodityList()
       }
       wx.hideLoading()
     })
@@ -241,11 +357,9 @@ Page({
     let params = {
       ...this.data.commodityListQueryParams
     }
-    
     this.setData({
       isShowNoneData: false
     })
-
     request('shop/shopspupagelist', params).then(res => {
       this.setData({
         loading: false
@@ -255,6 +369,11 @@ Page({
         data.forEach(item => {
           item.showPrice = item.showPrice / 100
           item.realPrice = item.realPrice / 100
+          if (item.spuAbstract === '') {
+            item.spuAbstractTags = []
+          } else {
+            item.spuAbstractTags = item.spuAbstract.split('、')
+          }
         })
   
         this.setData({
@@ -262,7 +381,7 @@ Page({
         })
       } else {
         this.setData({
-          commodityList: res.data.data,
+          commodityList: [],
           isShowNoneData: true
         })
       }
@@ -291,11 +410,9 @@ Page({
                 wx.removeStorageSync('openId')
                 wx.removeStorageSync('isLogin')
                 wx.removeStorageSync('userInfo')
-                app.globalData.loginCode = 10007
                 self.setData({
                   isLogin: false,
                   showSearch: 'none',
-                  loginCode: app.globalData.loginCode
                 })
               }
             }
@@ -303,7 +420,6 @@ Page({
         } else {
           self.setData({
             PageCur: data,
-            loginCode: 0,
             showSearch: 'block'
           })
         }
@@ -313,7 +429,6 @@ Page({
     } else {
       self.setData({
         PageCur: data,
-        loginCode: 0,
         showSearch: 'block'
       })
     }
@@ -332,14 +447,6 @@ Page({
         self.queryShopInfo(params)
       }
     })
-  },
-  onShow: function () {
-    // 是否已经登录
-    let isLogin = wx.getStorageSync('isLogin')
-    this.setData({
-      isLogin: isLogin ? true : false
-    })
-
   },
   // 获取店铺广告
   queryAdvertising(shopId) {
@@ -375,13 +482,275 @@ Page({
       console.log('未知的广告类型', type)
     }
   },
+  // 阻止children节点事件冒泡
+  fixedCloseModal() {},
+  // 显示选择规格弹窗
+  showSelectStandardModal(e) {
+    let index = e.currentTarget.dataset.index
+    this.setData({
+      showSelectStandard: true,
+      tempDetail: {
+        ...this.data.commodityList[index],
+        CURRENT_QUANTITY: 1
+      }
+    })
+  },
+  // 隐藏选择规格弹窗
+  hideSelectStandardModal() {
+    this.setData({
+      showSelectStandard: false,
+      // 重置已选规格
+      SPEC_OBJ: {},
+      // 重置单品库存，即重置添加到购物车按钮样式
+      inventoryQty: 0,
+      // 重置临时的商品详情变量
+      tempDetail: {}
+    })
+  },
+  // 选择规格时商品数量发生变化
+  numberChange(e) {
+    let detail = e.detail
+    this.setData({
+      tempDetail: detail
+    })
+  },
+   // 选择规格
+   selectStandard(e) {
+    let parentValue = e.currentTarget.dataset.parentValue
+    let value = e.currentTarget.dataset.value
+    let label = e.currentTarget.dataset.label
+    let params = {
+      ...this.data.SPEC_OBJ,
+    }
+    params[parentValue] = {
+      label: label,
+      value: value
+    }
+    // 保存选中的规格
+    this.setData({
+      SPEC_OBJ: params,
+      detail: {
+        ...this.data.detail,
+        SPEC_OBJ: params
+      }
+    })
+    this.getStandardLabes()
+    // 获取单品
+    this.getCommodityBySpec()
+  },
+  // 页面显示的已选中规格
+  getStandardLabes() {
+    let label = []
+    for (let key in this.data.SPEC_OBJ) {
+      label.push(this.data.SPEC_OBJ[key].label)
+    }
+    this.setData({
+      standardLabel: label.join(',')
+    })
+  },
+   // 根据规格获取单品（热卖商品）
+   getCommodityBySpec() {
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    })
+    let params = {
+      skuKey: this.data.standardLabel.split(',').join('-'),
+      spuId: this.data.tempDetail.spuId,
+      shopId: this.data.tempDetail.shopId
+    }
+    request('shop/shopspupagespecinfo', params).then(res => {
+      let params = {}
+      if (res.data.data.inventoryQty == 0) {
+        // 重置单品数据
+        params = {}
+      } else {
+        params = {
+          ...res.data.data
+        }
+        params.realPrice = params.realPrice / 100
+        params.showPrice = params.showPrice / 100
+      }
+      this.setData({
+        shopcarDetail: params,
+        inventoryQty: params.inventoryQty
+      })
+      wx.hideLoading()
+    })
+  },
+  // 显示或关闭购物车列表
+  showShopCarModal() {
+    this.setData({
+      showShopCar: !this.data.showShopCar
+    })
+    if (this.data.showShopCar) {
+      this.setData({
+        shopcarList: wx.getStorageSync('shopcarList')
+      })
+    }
+  },
+  // 设置起送金额和配送费
+  getFreeDisMoneyAndDisMoney() {
+    // 起送金额
+    let freeDisMoney = wx.getStorageSync('shopDetails').freeDisMoney/100
+    // 配送费
+    let disMoney = wx.getStorageSync('shopDetails').disMoney/100
+    this.setData({
+      freeDisMoney: freeDisMoney,
+      disMoney: disMoney
+    })
+  },
+  // 计算购物车商品数量和商品总价
+  getCommodityNumberAndAmount() {
+    let arr = wx.getStorageSync('shopcarList') || []
+    let num = 0
+    let price = 0
+    arr.forEach(item => {
+      // 累计商品数量
+      num += item.CURRENT_QUANTITY
+      // 累计商品价格
+      price += item.realPrice * 100 * item.CURRENT_QUANTITY
+    })
+
+    this.setData({
+      // 商品总数
+      shopCarCommodityNums: num,
+      // 商品总价（单位：元）
+      totalAmount: price / 100
+    })
+  },
+  // 购物车中商品数量发生变化  CURRENT_QUANTITY
+  numberChange1(e) {
+    let detail = e.detail
+    let shopcarList = wx.getStorageSync('shopcarList')
+    // 获取单品的下标
+    let index = shopcarList.findIndex(item => item.skuId == detail.skuId)
+    shopcarList[index].CURRENT_QUANTITY = detail.CURRENT_QUANTITY
+    // 单品数量为0时移除单品
+    if (detail.CURRENT_QUANTITY == 0) {
+      shopcarList.splice(index, 1)
+    }
+    // 缓存购物车数据
+    wx.setStorage({
+      key: 'shopcarList',
+      data: shopcarList
+    })
+    // 更新本地数据
+    this.setData({
+      shopcarList: shopcarList
+    })
+    // 获取购物车单品数量和总价
+    this.getCommodityNumberAndAmount()
+  },
+  // 添加到购物车
+  shopingCart() {
+    if (this.data.isLimitedBuying == 'false') {
+      // 商品的默认数量为1，添加购物车需要选择完整规格
+      let specKeys = Object.keys(this.data.tempDetail.SPEC_OBJ)
+      if (!this.data.tempDetail.SPEC_OBJ || specKeys.length != this.data.tempDetail.mallSpuSpecModelList.length) {
+        wx.showToast({
+          title: '请选择商品规格',
+          icon: 'none'
+        })
+        return
+      }
+      // 商品的默认数量为1，添加购物车需要选择商品数量
+      if (!this.data.tempDetail.CURRENT_QUANTITY) {
+        wx.showToast({
+          title: '请选择商品数量',
+          icon: 'none'
+        })
+        return
+      }
+    }
+    let self = this
+    // 获取购物车数据
+    let shopcarList = wx.getStorageSync("shopcarList") || []
+    // 检查购物车是否有同一单品
+    let skuIndex = shopcarList.findIndex(item => this.data.isLimitedBuying ? this.data.tempDetail.mallSkuId == item.skuId : this.data.shopcarDetail.skuId == item.skuId)
+    if (skuIndex > -1) {
+      // 存在同一单品时合并到购物车
+      shopcarList[skuIndex].CURRENT_QUANTITY += this.data.tempDetail.CURRENT_QUANTITY
+    } else {
+      // 添加新的单品到购物车
+      let params = {
+        isActivity: this.data.isLimitedBuying || false,
+        shopId: this.data.tempDetail.shopId,
+        spuMainImg: this.data.tempDetail.spuMainImg,
+        spuName: this.data.tempDetail.spuName,
+        CURRENT_QUANTITY: this.data.tempDetail.CURRENT_QUANTITY,
+        // 实际售价为realPrice,展示价为showPrice。在商品详情中realPrice和showPrice相等时，只显示一个价格
+        showPrice: this.data.isLimitedBuying==true?this.data.tempDetail.showPrice:this.data.shopcarDetail.showPrice,
+        // 实际售价为realPrice,展示价为showPrice。在活动商品中actPrice才是实际售价
+        realPrice: this.data.isLimitedBuying==true?this.data.tempDetail.realPrice:this.data.shopcarDetail.realPrice,
+        // 加入购物车时，活动商品可以在列表中获取skuid和skukey而热卖商品需要选择规格后才能知道单品信息，所以区分了tempDetail和shopcarDetail
+        skuId: this.data.isLimitedBuying==true?this.data.tempDetail.mallSkuId:this.data.shopcarDetail.skuId,
+        skuKey: this.data.isLimitedBuying==true?this.data.tempDetail.mallSkuKey:this.data.shopcarDetail.skuKey,
+        mallActivityId: this.data.mallActivityId
+      }
+      shopcarList.push(params)
+    }
+    wx.setStorage({
+      key: 'shopcarList',
+      data: shopcarList,
+      success() {
+        wx.showToast({
+          title: '已添加到购物车'
+        })
+        // 计算商品购物车单品数量和单品总价
+        self.getCommodityNumberAndAmount()
+        // 关闭规格选择弹窗
+        self.hideSelectStandardModal()
+        // 获取购物车数据
+        self.setData({
+          shopcarList: wx.getStorageSync('shopcarList') || []
+        })
+      }
+    })
+  },
+  // 清空购物车
+  clearShopCar() {
+    let self = this
+    let shopcarList = wx.getStorageSync('shopcarList')
+    if (shopcarList) {
+      wx.showModal({
+        title: '提示',
+        content: '确定要清空购物车吗',
+        success(res) {
+          if (res.confirm) {
+            wx.removeStorage({
+              key: 'shopcarList',
+              success() {
+                // 获取购物车商品数量和商品总价
+                self.getCommodityNumberAndAmount()
+                self.setData({
+                  shopcarList: []
+                })
+              }
+            })
+          }
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '购物车是空的哦',
+        icon: 'none'
+      })
+    }
+  },
+  // 加载购物车数据
+  loadShopCar() {
+    // 获取购物车商品数量和总价
+    this.getCommodityNumberAndAmount()
+    // 获取起送金额和配送费
+    this.getFreeDisMoneyAndDisMoney()
+  },
   // 页面显示时检查店铺信息
   onLoad: function () {
     wx.showLoading({
       title: '加载中...',
       mask: true
     })
-
     // 加载商品分类和商品列表
     let self = this
     wx.getStorage({
@@ -390,17 +759,13 @@ Page({
         self.setData({
           shopDetails: res.data
         })
-        
-        self.queryNearHospitalInfo()
       },
-      fail (err) {
+      complete () {
         self.queryNearHospitalInfo()
       }
     })
-    
     // 新用户首单减免，只弹出一次。后端已经做了首次登录判断，所以前端只需根据字段判断，有值显示没值不显示，且只显示一次
     let isFirstShow = wx.getStorageSync('isFirstShow')
-    
     if (!isFirstShow) {
       // 减免金额，分
       let firstOrderRewardNewAamount = wx.getStorageSync('userInfo').firstOrderRewardNewAamount
@@ -422,12 +787,32 @@ Page({
         })
       }
     }
-
     // 是否已经登录
     let isLogin = wx.getStorageSync('isLogin')
     this.setData({
       isLogin: isLogin ? true : false
     })
-
-  }
+  },
+  onShow: function () {
+    // 是否已经登录
+    let isLogin = wx.getStorageSync('isLogin')
+    this.setData({
+      isLogin: isLogin ? true : false
+    })
+    // // 加载商品分类和商品列表
+    // let self = this
+    // wx.getStorage({
+    //   key: 'shopDetails',
+    //   success (res) {
+    //     self.setData({
+    //       shopDetails: res.data
+    //     })
+    //   },
+    //   complete () {
+    //     self.queryNearHospitalInfo()
+    //   }
+    // })
+    // 加载购物车数据
+    this.loadShopCar()
+  },
 })

@@ -1,0 +1,194 @@
+<!--pages/home/home.wxml-->
+<import src="home.skeleton.wxml"/>
+<template is="skeleton" wx-if="{{loading}}" data="{{commodityList}}"/>
+<view class="home-page" wx:if="{{PageCur == 'home'}}">
+  
+  <view class="top-area">
+    <!-- <cu-custom>
+      <view slot="content" class="bold">{{ title }}</view>
+    </cu-custom>
+  
+    搜索组件
+    <view class="search-box">
+      <view class="location qs-icon iconlocation text-white" bindtap="openHospitalListPage">
+        <text>{{locationStr}}</text>
+      </view>
+      <view class="search">
+        <view class="qs-icon iconsearch" bindtap="openCommodityListPage"></view>
+        <input type="text" value="{{searchStr}}" class="search" placeholder="{{searchPlaceholder}}" bindinput="bindinput"/>
+      </view>
+      <view class="shop-car qs-icon iconcart text-white" bindtap="openShopingCartPage"></view>
+    </view> -->
+  
+  </view>
+
+  <scroll-view
+    scroll-y
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{refreshTrigger}}"
+    enable-flex="{{true}}"
+    bindrefresherpulling="bindrefresherpulling"
+    class="scrollPage" 
+    > 
+  <!-- 附近店铺信息 -->
+  <view style="margin: 0 30rpx">
+    <view class="near-shop-info">
+    <view class="shop-img">
+      <image mode="aspectFill" class="img" src="{{shopDetails.shopLogo}}" />
+    </view>
+    <view class="shop-desc">
+      <view class="title">
+        马上送到 | {{shopDetails.shopName}}
+      </view>
+      <view class="text-gray">配送时间：{{beginShopHours}}-{{endShopHours}}</view>
+      <view class="title1">
+        {{shopDetails.areaName}}
+        <text class="qs-icon iconlocation text-orange" bindtap="openHospitalListPage">
+          <text class="fz-12">{{locationStr}}</text>
+        </text>  
+      </view>
+    </view>
+    <!-- <view class="attr-item">
+      <view class="value1 text-red">{{shopDetails.salesVolume}}</view>
+      <view class="label">购买指数</view>
+    </view> -->
+   </view>
+  </view>
+  
+    <!-- 店铺热门分类（二级） -->
+    <view class="hot-category">
+      <view
+        class="item"
+        data-id="{{item.id}}"
+        data-index="{{index}}"
+        wx:for="{{hotCategoryList}}"
+        wx:key="index"
+        bindtap="chooseCategory"
+        >
+        <view class="text-center">
+          <image class="logo-img" src="{{item.logoImg}}"></image>
+        </view>
+        <view class="text-center">{{item.name}}</view>
+      </view>
+    </view>
+
+    <!-- 广告 -->
+    <swiper wx:if="{{swiperList.length>0}}" class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{swiperList}}" wx:key="id" bindtap="tapAdvertising" data-type="{{item.type}}" data-spu-id="{{item.spuId}}" data-html-url="{{item.htmlUrl}}">
+        <image src="{{item.imgUrl}}" mode="aspectFill"></image>
+        <!-- <video src="{{item.url}}" autoplay loop muted show-play-btn="{{false}}" controls="{{false}}" objectFit="cover" wx:if="{{item.type=='video'}}"></video> -->
+      </swiper-item>
+    </swiper>
+
+    <!-- 限时抢购 -->
+    <view class="discount-commodity" wx:if="{{limitedTimeCommodityList.length>0}}">
+      <view class="theme-header">
+        <view class="flex-row4 flex align-center">
+          <view class="fz-18 bold">
+            <text class="text-black">限时</text>
+            <text class="text-red">抢购</text>
+          </view>
+          <view class="ml-10 fz-18">
+            <text class="bg-red squer">{{limitedStartTime[0]||''}}</text>
+            <text class="text-red">:</text>
+            <text class="bg-red squer">{{limitedStartTime[1]||''}}</text>
+            <text class="text-red bold ml-10 mr-10">至</text>
+            <text class="bg-red squer">{{limitedEndTime[0]||''}}</text>
+            <text class="text-red">:</text>
+            <text class="bg-red squer">{{limitedEndTime[1]||''}}</text>
+          </view>
+        </view>
+        <view class="flex-row1 text-right" bindtap="openDiscountCommodityPage">
+          <text class="text-gray fz-12 more-limit">更多</text>
+        </view>
+      </view>
+  
+      <view class="mt-20">
+        <commodity-list info="{{limitedTimeCommodityList}}" isLimitedBuying></commodity-list>
+      </view>
+    </view>
+
+    <!-- 热卖商品 -->
+    <view class="hot-commodity">
+      <view class="theme-header">
+        <view class="flex-row4 flex align-center">
+          <view class="fz-18 bold">
+            <text class="text-red">热卖</text>
+            <text class="text-black">商品</text>
+          </view>
+        </view>
+        <view class="flex-row1 text-right" bindtap="openCommodityListPage">
+          <text class="text-gray fz-12 more-limit">更多</text>
+        </view>
+      </view>
+
+      <!-- 商品列表 -->
+      <view class="mt-20">
+        <commodity-list info="{{commodityList}}"></commodity-list>
+      </view>
+
+      <view wx:if="{{isShowNoneData}}" class="list-order-none">
+        <image class="padding-xl" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
+        <view>该分类没有商品</view>
+      </view>
+    </view>
+  
+  </scroll-view>
+</view>
+
+<!-- 分类列表 -->
+<category-list wx:if="{{PageCur == 'category-list'}}"></category-list>
+
+<!-- 个人中心 -->
+<person-center wx:if="{{PageCur == 'person-center'}}"></person-center>
+
+<view class="cu-modal {{isShow ? 'show':''}}">
+  <view class="modal-body">
+    <view class="action" bindtap="hideModal">
+      <text class="qs-icon iconclose "></text>
+    </view>
+    <image src="http://m.quickssend.com/file/first-relief.png" />
+    <view class="text-white bold fz-14 label">
+      <text class="fz-30">{{firstOrderRewardNewAamount}}</text>元
+      <text decode="{{true}}">&ensp;有效期{{firstOrderRewardNewValidity}}天</text>
+    </view>
+  </view>
+  <!-- <view class="cu-dialog">
+    <view class="bg-img" style="background-image: url('http://m.quickssend.com/file/first-relief.png');height:200px;">
+      <view class="cu-bar justify-end text-white">
+      </view>
+    </view>
+    <view class="cu-bar bg-white">
+      <view class="action margin-0 flex-sub  solid-left" bindtap="hideModal">我知道了</view>
+    </view>
+  </view> -->
+</view>
+
+<!-- 底部导航 -->
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action text-grey {{PageCur == 'home' ? 'text-red' : ''}}" bindtap="routerPage" data-page="home">
+    <view class="{{PageCur == 'home' ? 'text-red': ''}}">
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='home'?'./img/sy2.png':'./img/sy1.png'}}"></image>
+      </view>
+      首页
+    </view>
+  </view>
+  <view class="action text-grey" bindtap="routerPage" data-page="category-list">
+    <view class="{{PageCur == 'category-list' ? 'text-red': ''}}">
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='category-list'?'./img/fl2.png':'./img/fl1.png'}}"></image>
+      </view>
+      分类
+    </view>
+  </view>
+  <view class="action text-grey {{PageCur == 'person-center' ? 'text-red' : ''}}" bindtap="routerPage" data-page="person-center">
+    <view class="{{PageCur == 'person-center' ? 'text-red': ''}}">
+      <view>
+        <image class="icon-menu-status" src="{{PageCur=='person-center'?'./img/wd2.png':'./img/wd1.png'}}"></image>
+      </view>
+      我的
+    </view>
+  </view>
+  <!-- wxec62e934c43063ab  wx6ccf702132ec39f4 -->
+</view>

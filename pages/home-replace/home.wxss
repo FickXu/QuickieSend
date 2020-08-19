@@ -1,0 +1,212 @@
+.home-page {
+  background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/bg-home.jpg');
+  background-repeat: no-repeat;
+  height: 100vh;
+  background-size: contain;
+}
+.icon-menu-status {
+  width: 45rpx!important;
+  height: 45rpx!important;
+}
+.top-area {
+  height: 210rpx;
+}
+.top-area .search-box {
+  height: 88rpx;
+  padding: 20rpx 40rpx;
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
+.top-area .search-box .location {
+  flex: 2;
+}
+.top-area .search-box .location .label {
+  color: #333333;
+}
+.top-area .search-box .cuIcon-location::before {
+  font-size: 36rpx;
+}
+.top-area .search-box .cuIcon-cart::before {
+  font-size: 44rpx;
+}
+.top-area .search-box .search {
+  flex: 6;
+  background-color: #ffffff;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0rpx 40rpx;
+}
+.top-area .search-box .search .cuIcon-search {
+  flex: 1;
+}
+.top-area .search-box .search .search {
+  flex: 9;
+  margin: 16rpx 0rpx;
+  width: 90%;
+  height: 100%;
+}
+.top-area .search-box .shop-car {
+  flex: 1;
+  text-align: right;
+}
+.near-shop-info {
+  margin: 0 30rpx;
+  border-radius: 14rpx;
+  background-color: #fff;
+  height: 144rpx;
+  padding: 24rpx 20rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 6rpx 12rpx rgba(0, 0, 0, 0.03);
+}
+.near-shop-info .shop-img {
+  width: 94rpx;
+  height: 94rpx;
+  border-radius: 14rpx;
+  overflow: hidden;
+}
+.near-shop-info .shop-img .img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.near-shop-info .shop-desc {
+  flex: 7;
+  margin-left: 10px;
+}
+.near-shop-info .shop-desc .title {
+  font-size: 36rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+  color: #111111;
+}
+.near-shop-info .shop-desc .title1 {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #bbbbbb;
+}
+.near-shop-info .attr-item {
+  text-align: center;
+  margin-right: 20rpx;
+}
+.near-shop-info .attr-item .orange {
+  color: #ffb636;
+}
+.near-shop-info .attr-item .red {
+  color: #f55858;
+}
+.near-shop-info .attr-item .value1 {
+  font-size: 30rpx;
+  font-family: PingFang SC;
+  font-weight: bold;
+}
+.near-shop-info .attr-item .label {
+  font-size: 24rpx;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #bbbbbb;
+  margin-top: 10rpx;
+}
+.hot-category {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40rpx 30rpx 40rpx;
+  background-color: #ffffff;
+  margin-top: 6rpx;
+}
+.hot-category .item {
+  flex-basis: 25%;
+}
+.hot-category .item .logo-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 100rpx;
+}
+.theme-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx;
+}
+.theme-header .squer {
+  width: 17px;
+  height: 20px;
+  font-size: 14px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #ffffff;
+  border-radius: 10rpx;
+  padding: 0 6rpx;
+}
+.theme-header .more-limit {
+  position: relative;
+  padding-right: 30rpx;
+}
+.theme-header .more-limit::after {
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  content: '>';
+  background-color: #FF7631;
+  color: #ffffff;
+  font-size: 16rpx;
+  text-align: center;
+  line-height: 22rpx;
+  right: 0;
+  top: 5rpx;
+  border-radius: 100rpx;
+}
+.discount-commodity {
+  padding-top: 40rpx;
+  background-color: #F7F7F7;
+}
+.hot-commodity {
+  padding-top: 40rpx;
+  background-color: #F7F7F7;
+}
+.scrollPage {
+  width: 100%;
+  height: calc(100vh - 210rpx);
+  padding-bottom: calc(100rpx + env(safe-area-inset-bottom) / 2);
+}
+.cu-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cu-modal .action {
+  position: absolute;
+  right: 40rpx;
+  top: 30rpx;
+  z-index: 9;
+}
+.cu-modal .modal-body {
+  position: relative;
+  width: 640rpx;
+  height: 800rpx;
+}
+.cu-modal .modal-body image {
+  width: 100%;
+  height: 100%;
+}
+.cu-modal .modal-body .label {
+  position: absolute;
+  top: 300rpx;
+  width: 100%;
+}
+.list-order-none {
+  text-align: center;
+  color: #888888;
+  background-color: #fff;
+  padding: 0 20rpx 30rpx 20rpx;
+  margin: 10px 30rpx;
+  border-radius: 30rpx;
+}
+.list-order-none image {
+  height: 600rpx;
+}
