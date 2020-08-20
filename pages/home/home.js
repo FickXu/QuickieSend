@@ -458,9 +458,9 @@ Page({
       })
     } else if (type == 2) {
       // 商品广告
-      let spuId = dataset.spuId
+      let id = dataset.id
       wx.navigateTo({
-        url: `../commodity-detail/commodity-detail?isAdvertising=true&isLimitedBuying=true&spuId=${spuId}`,
+        url: `../commodity-detail/commodity-detail?isActivity=true&isLimitedBuying=true&id=${id}`,
         success: (res) => {
           res.eventChannel.emit('sendData')
         },
