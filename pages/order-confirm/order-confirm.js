@@ -73,7 +73,7 @@ Page({
     eventChannel.on('sendData', function(data) {
       self.setData({
         commodityList: data,
-        'params.shopId': data[0].shopId
+        'params.shopId': wx.getStorageSync('shopDetails').shopId
       })
       // self.calcualtionTotalAmount()
       self.calcualtionPostCoast()
@@ -358,15 +358,15 @@ Page({
       this.setData({
         postAmount: disMoney/100
       })
-      // 重新计算总价
-      this.calcualtionTotalAmount()
     }
+    // 重新计算总价
+    this.calcualtionTotalAmount()
   },
   // 计算实际价格
   calcualtionRealAmount() {
     let discountAmount = this.data.discountAmount
     this.setData({
-      realAmount: (parseInt(this.data.totalAmount * 100) - (discountAmount+'')) / 100
+      realAmount: (parseInt(this.data.totalAmount * 100) - (discountAmount+'')) / 100 + this.data.postAmount
     })
   },
   // 计算订单总价格
@@ -398,7 +398,7 @@ Page({
       }
     });
     this.setData({
-      totalAmount: total / 100 + this.data.postAmount,
+      totalAmount: total / 100,
       'params.skuOrderDtoArr': skuOrderDtoArr,
       commodityTotalNumber: num
     })

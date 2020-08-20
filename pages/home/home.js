@@ -689,7 +689,7 @@ Page({
       // 添加新的单品到购物车
       let params = {
         isActivity: this.data.isLimitedBuying || false,
-        shopId: this.data.tempDetail.shopId,
+        shopId: wx.getStorageSync('shopDetails').shopId,
         spuMainImg: this.data.tempDetail.spuMainImg,
         spuName: this.data.tempDetail.spuName,
         CURRENT_QUANTITY: this.data.tempDetail.CURRENT_QUANTITY,

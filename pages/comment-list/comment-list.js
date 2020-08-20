@@ -1,4 +1,5 @@
 import request from '../api/request'
+import {getStandardDate} from '../../utils/util'
 
 const app = getApp();
 
@@ -27,8 +28,12 @@ Page({
       spuId: id
     }
     request('order/commentlist', params).then(res => {
+      let arr = [].concat(res.data.data)
+      arr.forEach(item => {
+        item.createDate = getStandardDate(item.createDate, 'year')
+      })
       this.setData({
-        commentList: res.data.data
+        commentList: arr,
       })
       wx.hideLoading()
     })

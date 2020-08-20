@@ -90,6 +90,29 @@ Page({
       }
     })
   },
+  // 扫码完成配送
+  scanFinishReceiving() {
+    let self = this
+    wx.scanCode({
+      onlyFromCamera: true,
+      scanType: ['qrCode'],
+      success: res => {
+        let params = {
+          orderNo: res.result
+        }
+        wx.showLoading({
+          title: '确认中...'
+        })
+        request('order/receivingdelivery', params).then(res => {
+          wx.showToast({
+            title: res.data.msg
+          })
+          wx.hideLoading()
+          self.queryorderlist()
+        })
+      }
+    })
+  },
 
   // 确认送达
   confirmReceiving(e) {

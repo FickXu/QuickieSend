@@ -22,13 +22,15 @@
   <!-- 订单列表 -->
   <view class="list-order">
     <!-- 扫码送货 -->
-    <view class="pading" wx:if="{{TabCur==0}}">
-      <view class="text-black mt-10 ml-10">扫码已备好商品的二维码，开始送货</view>
+    <view class="pading">
+      <view class="text-black mt-10 ml-10" wx:if="{{TabCur==0}}">扫码已备好商品的二维码，开始送货</view>
+      <view class="text-black mt-10 ml-10" wx:else>扫码已送达商品的二维码，完成配送</view>
       <view class="text-center padding-lg">
         <image src="./imgs/scan.png" class="scan" />
       </view>
       <view class="padding-lr">
-        <button class="qs-bg qs-btn" bindtap="scanSendGoods">扫码送货</button>
+        <button class="qs-bg qs-btn" bindtap="scanSendGoods" wx:if="{{TabCur==0}}">扫码接单</button>
+        <button class="qs-bg qs-btn" bindtap="scanFinishReceiving" wx:else>扫码送达</button>
       </view>
     </view>
     <view wx:if="{{orderListShow}}" class="list-order-item" wx:for="{{orderList}}" wx:key="index">

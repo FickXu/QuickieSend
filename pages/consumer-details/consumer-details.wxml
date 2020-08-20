@@ -8,7 +8,7 @@
   <view class="margin-top-sm bg-white" wx:if="{{list.length>0}}">
     <view class="padding qs-border-bottom flex justify-between flex-align-center" wx:for="{{list}}">
       <view>
-        <view class="text-black fz-14">
+        <view class="text-black fz-14 text-left">
           {{item.title}}
           <text class="text-gray" decode="{{true}}">&ensp;{{item.remark || ''}}</text>
         </view>
