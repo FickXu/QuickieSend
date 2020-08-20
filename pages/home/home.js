@@ -91,7 +91,7 @@ Page({
     SPEC_OBJ: {},
     standardLabel: [],
     // 单品库存
-    inventoryQty: 0
+    inventoryQty: -1
   },
   // 提交订单
   openConfirmOrderPage() {
@@ -174,6 +174,8 @@ Page({
         key: 'shopDetails',
         data: res.data.data
       })
+      // 获取免配送费金额和配送费
+      this.getFreeDisMoneyAndDisMoney()
     })
   },
   // 下拉刷新被触发
@@ -218,21 +220,6 @@ Page({
       url: `../../pages/commodity-detail/commodity-detail?isLimitedBuying=${this.data.isLimitedBuying}&id=${dataset.id}`,
     })
   },
-  // 商品列表页面
-  // openCommodityListPage() {
-  //   let self = this
-  //   wx.navigateTo({
-  //     url: `../../pages/commodity-list/commodity-list?isLimitedBuying=false&searchStr=${this.data.searchStr}`,
-  //     success() {
-  //       self.setData({
-  //         searchStr: ''
-  //       })
-  //     },
-  //     fail(err) {
-  //       console.log(err)
-  //     }
-  //   })
-  // },
   tabSelect(e) {
     this.setData({
       TabCur: e.currentTarget.dataset.id,
@@ -494,6 +481,10 @@ Page({
         CURRENT_QUANTITY: 1
       }
     })
+    // 非活动商品默认选择规格
+    if (!this.data.isLimitedBuying) {
+      this.setDefaultStandard()
+    }
   },
   // 隐藏选择规格弹窗
   hideSelectStandardModal() {
@@ -514,8 +505,31 @@ Page({
       tempDetail: detail
     })
   },
-   // 选择规格
-   selectStandard(e) {
+  //默认选中的规格
+  setDefaultStandard() {
+    let standardList = this.data.tempDetail.mallSpuSpecModelList
+    let params = {
+      ...this.data.SPEC_OBJ
+    }
+    // 遍历默认规格
+    standardList.forEach(item => {
+      params[item.value] = {
+        label: item.childs[0].label,
+        value: item.childs[0].value
+      }
+    })
+    this.setData({
+      SPEC_OBJ: params,
+      detail: {
+        ...this.data.detail,
+        SPEC_OBJ: params
+      }
+    })
+    this.getStandardLabes()
+    this.getCommodityBySpec()
+  }, 
+  // 用户选择规格
+  selectStandard(e) {
     let parentValue = e.currentTarget.dataset.parentValue
     let value = e.currentTarget.dataset.value
     let label = e.currentTarget.dataset.label

@@ -58,6 +58,7 @@
             <image class="commodity-img" mode="aspectFill" src="{{item.spuMainImg}}" />
             <view class="commodity-info ml-10 mr-10 flex-row4">
               <view class="title line-overflow text-left">{{item.spuName}}</view>
+              <view style="width: 100%;margin-top: 20rpx;text-align: left;"><text class="cu-tag round">{{item.skuKey}}</text></view>
               <!-- 编辑时为规格 -->
               <view class="flex space-between flex-align-center mt-10">
                 <text class="value fz-12" hidden="{{isInfoFromShopCar}}" decode="{{true}}">销量&ensp;{{item.saleQty}}</text>
@@ -88,7 +89,5 @@
         </view>
       </view>
     </checkbox-group>
-      
-
   </view>
 </view>

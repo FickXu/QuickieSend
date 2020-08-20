@@ -168,7 +168,7 @@ Page({
       return
     }
     // 备注不能超过50个字
-    if (this.params.description.length > 50) {
+    if (this.data.params.description.length > 50) {
       wx.showToast({
         title: '备注不能超过50个字',
         icon: 'none'

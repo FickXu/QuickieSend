@@ -188,6 +188,10 @@ Page({
         CURRENT_QUANTITY: 1
       }
     })
+    // 非活动商品默认选择规格
+    if (this.data.isLimitedBuying==='false') {
+      this.setDefaultStandard()
+    }
   },
   // 关闭规格选择弹窗
   hideSelectStandardModal(e) {
@@ -204,7 +208,29 @@ Page({
         tempDetail: {}
       })
     }
-  },
+  },//默认选中的规格
+  setDefaultStandard() {
+    let standardList = this.data.detail.mallSpuSpecModelList
+    let params = {
+      ...this.data.SPEC_OBJ
+    }
+    // 遍历默认规格
+    standardList.forEach(item => {
+      params[item.value] = {
+        label: item.childs[0].label,
+        value: item.childs[0].value
+      }
+    })
+    this.setData({
+      SPEC_OBJ: params,
+      detail: {
+        ...this.data.detail,
+        SPEC_OBJ: params
+      }
+    })
+    this.getStandardLabes()
+    this.getCommodityBySpec()
+  }, 
   noQty() {
     // wx.showToast({
     //   title: '当前商品库存大于0才可以添加到购物车',

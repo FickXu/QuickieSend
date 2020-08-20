@@ -384,16 +384,16 @@
 .padding-xl .commodity-summary .summary {
   text-align: left;
 }
-.padding-xl .commodity-standard-list .standard-item {
+.padding-xl .standard-item {
   text-align: left;
   padding: 0 10px;
 }
-.padding-xl .commodity-standard-list .standard-item .title {
+.padding-xl .standard-item .title {
   font-size: 16px;
   font-family: PingFang SC;
   font-weight: bold;
   color: #333333;
 }
-.padding-xl .commodity-standard-list .standard-item .values {
+.padding-xl .standard-item .values {
   padding: 10px 0;
 }

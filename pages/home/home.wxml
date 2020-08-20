@@ -112,6 +112,14 @@
                   <view class="commodity-tags" wx:if="{{goodItem.spuAbstractTags.length>0}}">
                     <text class="commodity-tags-item" wx:for="{{goodItem.spuAbstractTags}}">{{item}}</text>
                   </view>
+                  <!-- 价格 -->
+                  <view class="price flex justify-center flex-align-center mt-5">
+                      <text wx:if="{{goodItem.showPrice==goodItem.realPrice}}">¥ {{ goodItem.realPrice }}</text>
+                      <text wx:else>
+                        <text decode="{{true}}">¥ {{ goodItem.realPrice }}&ensp;</text>
+                        <text class="throw-line text-gray fz-12">¥ {{ goodItem.showPrice }}</text>
+                      </text>
+                  </view>
                   <!-- 销量 -->
                   <view class="flex space-between flex-align-center mt-5">
                     <text class="value fz-12" decode="{{true}}">销量&ensp;{{goodItem.saleQty}}</text>
@@ -120,14 +128,6 @@
                   <!-- <view class="flex space-between flex-align-center"> -->
                     <!-- <text class="fz-12 text-orange">免费配送</text> -->
                     <text class="select-spec" catchtap="showSelectStandardModal" data-index="{{index}}">选规格</text>
-                  </view>
-                  <!-- 价格 -->
-                  <view class="price flex justify-center flex-align-center mt-5">
-                      <text wx:if="{{goodItem.showPrice==goodItem.realPrice}}">¥ {{ goodItem.realPrice }}</text>
-                      <text wx:else>
-                        <text decode="{{true}}">¥ {{ goodItem.realPrice }}&ensp;</text>
-                        <text class="throw-line text-gray fz-12">¥ {{ goodItem.showPrice }}</text>
-                      </text>
                   </view>
                 </view>
               </view>
@@ -161,7 +161,7 @@
               </text>
             </view>
             <view class="value line-overflow" wx:if="{{isLimitedBuying==true}}">{{tempDetail.skuKey}}</view>
-            <view class="value line-overflow" wx:else-if="{{inventoryQty >= 0 }}">库存:{{inventoryQty}}</view>
+            <view class="value line-overflow" wx:if="{{isLimitedBuying!=true}}">库存:{{inventoryQty}}</view>
           </view>
         </view>
         <!-- 规格信息（非活动商品） -->
@@ -195,9 +195,9 @@
           </view>
         </view>
         <!-- 规格信息（活动商品） -->
-        <view class="flex algin-center padding-top" wx:else>
-          <text class="title" style="line-height: 48rpx;" decode="{{true}}">规格&nbsp;</text>
-          <text class="cu-tag round qs-bg">{{tempDetail.mallSkuKey}}</text>
+        <view style="text-align: left; padding: 20rpx;font-weight: 700;font-size: 32rpx;color: #333333;" wx:else>
+          <view class="title" style="line-height: 48rpx;" decode="{{true}}">规格</view>
+          <view class="cu-tag round qs-bg mt-10">{{tempDetail.mallSkuKey}}</view>
         </view>
         <!-- 规格计数器 -->
         <view class="standard-item flex algin-center space-between padding-top">
@@ -221,7 +221,7 @@
         <view class="ml-15">
           <view class="text-white fz-20">¥ {{totalAmount}}</view>
           <view class="text-white fz-12" wx:if="{{totalAmount>freeDisMoney}}">免费配送</view>
-          <view class="text-white fz-12" wx:else="{{disMoney}}">配送费 ¥{{disMoney}}</view>
+          <view class="text-white fz-12" wx:else>配送费 ¥{{disMoney}}</view>
         </view>
       </view>
       <view class="bg-red settlement flex-row2" bindtap="openConfirmOrderPage">结算</view>
