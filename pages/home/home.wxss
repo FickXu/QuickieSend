@@ -70,7 +70,7 @@
   margin-top: 10rpx;
 }
 .swiper-advertising {
-  padding: 30rpx;
+  margin: 30rpx 30rpx 0;
   height: 214rpx;
   min-height: 214rpx;
   background-color: #f7f7f7;

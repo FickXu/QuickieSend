@@ -392,7 +392,9 @@ Page({
           // 单品id
           skuId: item.skuId,
           // 单品规格
-          skuKey: item.skuKey
+          skuKey: item.skuKey,
+          // 活动id
+          mallActivityId: item.mallActivityId
         }
         skuOrderDtoArr.push(params)
       }

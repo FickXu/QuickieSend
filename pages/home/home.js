@@ -700,7 +700,7 @@ Page({
         // 加入购物车时，活动商品可以在列表中获取skuid和skukey而热卖商品需要选择规格后才能知道单品信息，所以区分了tempDetail和shopcarDetail
         skuId: this.data.isLimitedBuying==true?this.data.tempDetail.mallSkuId:this.data.shopcarDetail.skuId,
         skuKey: this.data.isLimitedBuying==true?this.data.tempDetail.mallSkuKey:this.data.shopcarDetail.skuKey,
-        mallActivityId: this.data.mallActivityId
+        mallActivityId:  this.data.isLimitedBuying==true?this.data.tempDetail.mallActivityId:''
       }
       shopcarList.push(params)
     }
