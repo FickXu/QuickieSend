@@ -42,17 +42,18 @@ Page({
     let self = this
     request('order/receivinglist', params).then(res => {
       if (res.data.code == 10000) {
-        if (res.data.data.length>0) {
+        if (res.data.data.length>0 && this.data.params.currentPage >= 1) {
           let data = res.data.data
           data.forEach(item => {
             item.payAmount = item.payAmount / 100,
             item.expressTime = getStandardDate(item.expressTime, 'year')
           })
+          let _orderList = this.data.orderList
           self.setData({
-            orderList: data,
+            orderList: _orderList.concat(data),
             orderListShow: true
           })
-        } else {
+        } else if (res.data.data.length==0 && this.data.params.currentPage == 1) {
           self.setData({
             orderList: [],
             orderListShow: false
@@ -61,6 +62,14 @@ Page({
         wx.hideLoading()
       }
     })
+  },
+  // 滚动到底部时触发
+  bindscrolltolower() {
+    console.log(1111)
+    this.setData({
+      'params.currentPage': ++this.data.params.currentPage
+    })
+    this.queryorderlist()
   },
   tabSelect(e) {
     let orderStatus = e.currentTarget.dataset.id

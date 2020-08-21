@@ -20,7 +20,7 @@
     </view>
   </scroll-view>
   <!-- 订单列表 -->
-  <view class="list-order">
+  <scroll-view lower-threshold="50" bindscrolltolower="bindscrolltolower" scroll-y class="list-order">
     <!-- 扫码送货 -->
     <view class="pading">
       <view class="text-black mt-10 ml-10" wx:if="{{TabCur==0}}">扫码已备好商品的二维码，开始送货</view>
@@ -111,5 +111,5 @@
       <image class="padding-xl" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
       <view>抱歉，您还没有相关订单</view>
     </view>
-  </view>
+  </scroll-view>
 </view>

@@ -30,12 +30,12 @@ Page({
 	},
 
 	onLoad(query) {
-		console.log(query)
 		request('user/info').then(res => {
 			this.setData({
 				details: res.data.data,
 				disabled: (query.isRealName == 0 || query.isRealName == 3) ? false : true,
-				genderIndex: res.data.data.sex
+				genderIndex: res.data.data.sex,
+				'params.sex': res.data.data.sex
 			})
 		})
 	},

@@ -12,6 +12,7 @@
 .order-page .list-order {
   margin-top: 20rpx;
   margin-bottom: 20rpx;
+  height: calc(100vh - 90rpx);
 }
 .order-page .list-order-item {
   background-color: #fff;
