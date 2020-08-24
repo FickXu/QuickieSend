@@ -27,6 +27,12 @@
 		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
+	"skeleton-config": {
+		"global": {
+			"loading": "shine",
+			"excludes": [".detail-bottom-nav"]
+		}
+	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.3",
 	"appid": "wxec62e934c43063ab",

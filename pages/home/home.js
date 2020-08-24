@@ -295,6 +295,10 @@ Page({
       ...this.data.commodityListQueryParams
     }
     request('shop/activityspupagelist', params).then(res => {
+      // 隐藏骨架屏
+      this.setData({
+        loading: false
+      })
       if (res.data.data && res.data.data.length > 0) {
         let data = res.data.data
         data.forEach(item => {
@@ -348,6 +352,7 @@ Page({
       isShowNoneData: false
     })
     request('shop/shopspupagelist', params).then(res => {
+      // 隐藏骨架屏
       this.setData({
         loading: false
       })
@@ -411,7 +416,6 @@ Page({
           })
         }
       })
-      
       return
     } else {
       self.setData({
