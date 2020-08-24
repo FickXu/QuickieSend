@@ -256,13 +256,12 @@
       </view>
     </view>
   </view>
-  
   <!-- 个人中心 -->
   <person-center wx:if="{{PageCur == 'person-center'}}"></person-center>
 </view>
-
+<!-- 新用户首单奖励 -->
 <view class="cu-modal {{isShow ? 'show':''}}">
-  <view class="modal-body">
+  <view class="modal-body cu-dialog" style="background-color: transparent;">
     <view class="action" bindtap="hideModal">
       <text class="qs-icon iconclose "></text>
     </view>

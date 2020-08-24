@@ -79,7 +79,14 @@ Page({
     })
     this.queryorderlist()
   },
-
+  // 拨打用户手机
+  // 打电话
+  callPhone: function(e) {
+    let txt = e.currentTarget.dataset.text
+    wx.makePhoneCall({
+    phoneNumber: txt //仅为示例，并非真实的电话号码
+    })
+},
   // 扫码送货
   scanSendGoods() {
     let self = this
@@ -122,7 +129,6 @@ Page({
       }
     })
   },
-
   // 确认送达
   confirmReceiving(e) {
     let self = this
@@ -140,7 +146,6 @@ Page({
       self.queryorderlist()
     })
   },
-
   // 取消订单
   cancelOrder(e) {
     let self = this
@@ -167,7 +172,6 @@ Page({
       }
     })
   },
-
   // 确认到货
   confirmgoods(e) {
     let params = {
@@ -185,6 +189,6 @@ Page({
         })
       }
     })
-  },
+  }
 })
 

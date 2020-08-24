@@ -43,6 +43,7 @@
           <view class="flex-row4">
             <text decode="{{true}}">{{item.name}}</text>
             <text decode="{{true}}">&ensp;&ensp;&ensp;{{item.mobile}}</text>
+            <text class="cu-tag round bg-orange ml-10" decode="{{true}}" bindtap="callPhone" data-text="{{item.mobile}}">拨打手机</text>
           </view>
           <view class="flex-row1">
             <text class="order-status">{{item.status==1?'待付款':(item.status==4?'代发货':(item.status==5?'待收货':(item.status==6?'已完成': '')))}}</text>
