@@ -30,7 +30,9 @@
 	"skeleton-config": {
 		"global": {
 			"loading": "shine",
-			"excludes": [".detail-bottom-nav"]
+			"excludes": [
+				".detail-bottom-nav"
+			]
 		}
 	},
 	"compileType": "miniprogram",

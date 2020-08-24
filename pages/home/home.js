@@ -436,6 +436,13 @@ Page({
           longitude: res.longitude
         }
         self.queryShopInfo(params)
+      },
+      fail (fail) {
+        wx.showModal({
+          title: '定位失败',
+          content: '请关闭WiFi仅通过流量定位或请稍后再试',
+        })
+        wx.hideLoading()
       }
     })
   },
