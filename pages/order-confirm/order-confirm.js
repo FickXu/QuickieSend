@@ -50,6 +50,8 @@ Page({
         // }
       ],
     },
+    // 起送金额
+    freeDisMoney: 0,
     // 免运费条件金额
     postAmount: 0,
     // 免配送费
@@ -350,12 +352,14 @@ Page({
     // 如果实际价格大于条件免运费金额，则免运费，否则需要运费
     if (freeDisMoney < this.data.totalAmount * 100) {
       this.setData({
+        freeDisMoney: freeDisMoney /100,
         postAmount: 0,
         postStr: '免费配送'
       })
     } else {
       // 设置运费
       this.setData({
+        freeDisMoney: freeDisMoney /100,
         postAmount: disMoney/100
       })
     }
