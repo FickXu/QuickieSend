@@ -221,11 +221,13 @@
           <image class="icon-shop-car" src="../images/logo1.png" />
           <view class="ml-15">
             <view class="text-white fz-20">¥ {{totalAmount}}</view>
-            <view class="text-white fz-12" wx:if="{{totalAmount>freeDisMoney}}">免费配送</view>
-            <view class="text-white fz-12" wx:else><text wx:if="{{disMoney}}">配送费 ¥{{disMoney}}</text></view>
+            <view class="text-white fz-12">免费配送</view>
+            <!-- <view class="text-white fz-12" wx:if="{{totalAmount>freeDisMoney}}">免费配送</view> -->
+            <!-- <view class="text-white fz-12" wx:else><text wx:if="{{disMoney}}">配送费 ¥{{disMoney}}</text></view> -->
           </view>
         </view>
-        <view class="bg-red settlement flex-row2" bindtap="openConfirmOrderPage">结算</view>
+        <view class="bg-red settlement flex-row2" wx:if="{{totalAmount>freeDisMoney}}" bindtap="openConfirmOrderPage">结算</view>
+        <view class="bg-black settlement flex-row2 fz-12" wx:else>¥{{freeDisMoney}}起送</view>
       </view>
     </view>
     <!-- 购物车列表 -->

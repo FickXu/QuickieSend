@@ -4,8 +4,6 @@
 </cu-custom>
 
 <view class="order-page">
-
-
   <!-- tag -->
   <scroll-view scroll-x class="nav text-center tabs-order">
     <view class="flex">
@@ -32,6 +30,9 @@
         <button class="qs-bg qs-btn" bindtap="scanSendGoods" wx:if="{{TabCur==0}}">扫码接单</button>
         <button class="qs-bg qs-btn" bindtap="scanFinishReceiving" wx:else>扫码送达</button>
       </view>
+      <!-- <view>
+        <input type="text" placeholder="输入手机号查询订单" confirm-type="search"></input>
+      </view> -->
     </view>
     <view wx:if="{{orderListShow}}" class="list-order-item" wx:for="{{orderList}}" wx:key="index">
       <view class="list-order-item-header">
