@@ -94,6 +94,11 @@
           <image class="icon-menu-status" src="./img/kpzd.png"></image>快跑账单
         </view>
       </view>
+      <view class="cu-item arrow" bindtap="openMyCoupons">
+        <view class="content">
+          <image class="icon-menu-status" src="./img/wdkq.png"></image>我的卡券
+        </view>
+      </view>
       <view class="cu-item arrow" bindtap="openAboutUsPage">
         <view class="content">
           <image class="icon-menu-status" src="./img/gywm.png"></image>关于我们

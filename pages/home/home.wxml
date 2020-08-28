@@ -38,6 +38,8 @@
         </view> -->
       </view>
       </view>
+      <!-- 优惠券模块 -->
+      <coupon></coupon>
       <!-- 广告模块 -->
       <view class="swiper-advertising" wx:if="{{swiperList.length>0}}">
         <swiper class="screen-swiper square-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">

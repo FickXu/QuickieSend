@@ -151,6 +151,16 @@ Component({
 			})
 		},
 
+		// 我的卡券
+		openMyCoupons() {
+			wx.navigateTo({
+				url: '../../pages/my-coupons/my-coupons',
+				fail: err => {
+					console.log(err)
+				}
+			})
+		},
+
 		// 关于我们
 		openAboutUsPage() {
 			wx.navigateTo({

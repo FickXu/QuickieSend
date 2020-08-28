@@ -3,6 +3,7 @@
     "usingComponents": {
         "commodity-list": "../components/commodity-list/commodity-list",
         "counter": "../components/counter/counter",
+        "coupon": "../components/coupon/coupon",
         "person-center": "../components/person-center/person-center"
     }
 }

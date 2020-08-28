@@ -1,67 +1,12 @@
-
-.scroll-page {
-  padding-bottom: 50px;
-  
-  .address-list {
-    background: linear-gradient(to right, #22BFB7 36%, #ffffff 36%, #F55859 85%, #ffffff 70%);
-    background-color: #fff;
-    background-size: 15px 2px;
-    background-repeat: repeat no-repeat;
-
-    .detail {
-      view {
-        line-height: 24px;
-      }
-    }
-  }
-
-  .commdity-info {
-    background-color: #fff;
-  }
-
-}
-
-.settle-accounts {
-  width: 100%;
-  height: 50px;
-  position: fixed;
-  z-index: 1111;
-  bottom: 0;
-  background-color: #fff;
-}
-
-.active {
-  border: 1px solid #22BFB7;
-  color: #22BFB7;
-}
-
-.btn-box {
-  height: 100%;
-  font-size: 16px;
-}
-.label {
-  margin: 30rpx 0rpx 40rpx;
-  font-size:36rpx;
-  font-family:PingFang SC;
-  font-weight:bold;
-  color:rgba(17,17,17,1);
-}
 .coupon-item {
   margin: 20rpx 0 0;
   display: flex;
   justify-content: space-between;
   
-  .bg-selected {
-    background: #FCF5E8!important;
-    // ::before {
-    //   box-shadow: 1px 0rpx 6px #FCF5E8!important;
-    // }
-  }
   .coupon-body {
     flex: 8;
     height: 192rpx;
-    background: #fff;
-    border-left: 1px solid  #f7f7f7;
+    background: rgba(255,255,255,1);
     box-shadow: 6px 0rpx 6px rgba(217,58,85,0.2);
     position: relative;
     z-index: 1;
@@ -73,8 +18,7 @@
       position: absolute;
       width: 60rpx;
       height: 60rpx;
-      background-color: #ffffff;
-      box-shadow: 1px 0rpx 6px #f7f7f7;
+      background-color: #f7f7f7;
       top: 71rpx;
       left: -30rpx;
       border-radius: 100rpx;
@@ -100,7 +44,7 @@
         right: 0;
         width:2rpx;
         height: 124rpx;
-        background-color: #FCE9C9;
+        background-color: rgba(245,245,245,1);
       }
       .money {
         color: #F98490;
@@ -130,12 +74,6 @@
         color:rgba(51,51,51,1);
         margin-bottom: 10rpx;
       }
-      .btn-rule-info {
-        font-size: 20rpx;
-        font-family:PingFang SC;
-        font-weight:400;
-        color:rgba(242,49,49,1);
-      }
     }
   }
   .btn-pull-coupon {
@@ -148,13 +86,23 @@
     text-align: center;
     .btn-pull-txt {
       position: absolute;
-      top: 14rpx;
-      right: 50rpx;
+      top:18rpx;
       width: 26rpx;
       font-family: PingFang SC;
       font-weight: bold;
-      font-size: 32rpx;
-
+      line-height: 40rpx;
     }
+  }
+}
+.info-item {
+  padding: 30rpx;
+  .title {
+    font-size: 36rpx;
+    font-family: PingFang SC;
+    font-weight: bold;
+    color:rgba(51,51,51,1);
+  }
+  .content {
+    margin-top: 30rpx;
   }
 }

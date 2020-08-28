@@ -1,0 +1,9 @@
+<!-- 计数器 -->
+<swiper class="coupon-swiper mt-15" wx:if="{{couponList.length>0}}" circular="true" autoplay="true" interval="4000" duration="500" vertical="true">
+  <swiper-item wx:for="{{couponList}}" wx:key="id">
+    <view class="coupon bg-white padding-lr">
+      <view class="title">{{item.groupName}}</view>
+      <view class="pull-coupon" bindtap="pullCoupon">领取</view>
+    </view>
+  </swiper-item>
+</swiper>

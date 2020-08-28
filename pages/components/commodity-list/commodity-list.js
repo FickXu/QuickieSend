@@ -78,7 +78,7 @@ Component({
     // 选择的商品数量发生变化时
     numberChange(e) {
       let detail = e.detail
-      console.log('detail', detail)
+      // console.log('detail', detail)
       this.triggerEvent('numberChange', detail)
     },
 

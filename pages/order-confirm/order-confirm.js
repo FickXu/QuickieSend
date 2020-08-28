@@ -63,7 +63,15 @@ Page({
     // 优惠券金额
     discountAmount: 0,
     // 优惠券名称
-    discountName: ''
+    discountName: '',
+    // 已选商品spuId，不包含活动商品,
+    spuIdArr: [],
+    // 是否显示优惠券弹窗
+    showCouponList: false,
+    // 优惠券列表
+    couponList: [],
+    // 当前已选优惠券的index
+    currentCouponIndex: ''
   },
   onShow () {
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
@@ -77,24 +85,62 @@ Page({
         commodityList: data,
         'params.shopId': wx.getStorageSync('shopDetails').shopId
       })
-      // self.calcualtionTotalAmount()
       self.calcualtionPostCoast()
       console.log('获取到的参数：', data)
       // 获取默认地址
       self.getDefaultAddress()
+      // 获取商品spuid
+      self.getCommoditySpuIds(data)
       // 获取优惠券
       self.getCoupon()
     }) 
   },
-  // 获取优惠券
+  // 展示优惠券列表
+  showCouponListModal() {
+    this.setData({
+      showCouponList: !this.data.showCouponList
+    })
+  },
+  // 获取商品的spuId集合
+  getCommoditySpuIds(data) {
+    let arr = []
+    data.forEach(item => {
+      if (!item.isActivity) {
+        arr.push(item.spuId)
+      }
+    })
+    this.setData({
+      spuIdArr: arr
+    })
+  },
+  // 选择要使用的优惠券
+  selectCoupon(e) {
+    let index = e.currentTarget.dataset.index
+    this.setData({
+      currentCouponIndex: index,
+      discouont: this.data.couponList[index]
+    })
+    // 是否启用优惠
+    this.enableDiscount()
+  },
+  // 获取用户订单能使用优惠劵列表
   getCoupon() {
-    // 获取优惠券
-    request('user/couponlist').then(res => {
+    let params = {
+      shopId: wx.getStorageSync('shopDetails').shopId,
+      spuIdArr: this.data.spuIdArr
+    }
+    request('coupons/couponorderlist', params).then(res => {
       if (res.data.data.length > 0) {
-        this.setData({
-          discouont: res.data.data[0]
+        let arr = res.data.data
+        arr.forEach(item => {
+          item.endTime = getStandardDate(item.endTime, 'year')
         })
-        this.enableDiscount()
+        this.setData({
+          couponList: arr
+        })
+        // discouont: res.data.data[0]
+        // 是否启用优惠券
+        // this.enableDiscount()
       }
     })
   },

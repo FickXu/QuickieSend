@@ -1,0 +1,28 @@
+.coupon-swiper {
+  height: 82rpx;
+}
+.coupon-swiper .coupon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  height: 82rpx;
+  width: 100%;
+}
+.coupon-swiper .coupon .title {
+  font-size: 28rpx;
+  color: #F23131;
+  font-weight: 500;
+  flex: 7;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.coupon-swiper .coupon .pull-coupon {
+  flex-basis: 100rpx;
+  border-radius: 24rpx;
+  padding: 2rpx 20rpx;
+  color: #fff;
+  background-color: #F23131;
+  height: 42rpx;
+}

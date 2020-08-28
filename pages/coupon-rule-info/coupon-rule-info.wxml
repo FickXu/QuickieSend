@@ -1,0 +1,40 @@
+<!--pages/consumer-details/consumer-details.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold text-black">{{ title }}</view>
+</cu-custom>
+
+<!-- 优惠券列表 -->
+<view class="bg-ghostWhite">
+  <view class="padding-lr padding-bottom-sm">
+    <view class="coupon-item">
+      <view class="coupon-body">
+        <view class="left">
+          <view class="money">
+            <text class="symbol">¥</text>
+            <text class="num">{{details.money/100}}</text>
+          </view>
+          <view class="expired">有效期至：{{details.expried}}</view>
+        </view>
+        <view class="right">
+          <view class="title">{{details.title}}</view>
+          <view class="title line-overflow">{{details.content}}</view>
+        </view>
+      </view>
+      <view class="btn-pull-coupon">
+        <text class="text-white fz-16 btn-pull-txt">立即领取</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="mt-15 bg-white">
+  <view class="info-item">
+    <view class="title">使用须知</view>
+    <view class="content" wx:if="{{details.limitMoney>0}}">● 订单参与立减后满{{details.limitMoney/100}}元可用</view>
+    <view class="content">● {{details.content}}</view>
+    <view class="content">● 使用时间：{{details.startTime}}至{{details.expried}}</view>
+  </view>
+  <view class="info-item">
+    <view class="title">使用说明</view>
+    <view class="content">{{details.desc}}</view>
+  </view>
+</view>

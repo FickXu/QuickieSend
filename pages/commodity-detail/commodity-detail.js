@@ -281,6 +281,7 @@ Page({
         realPrice: this.data.isLimitedBuying==='true'?this.data.detail.realPrice:this.data.tempDetail.realPrice,
         skuId: this.data.isLimitedBuying==='true'?this.data.detail.skuId:this.data.tempDetail.skuId,
         skuKey: this.data.isLimitedBuying==='true'?this.data.detail.skuKey:this.data.tempDetail.skuKey,
+        spuId: this.data.isLimitedBuying==='true'?this.data.detail.spuId:this.data.tempDetail.spuId,
         mallActivityId: this.data.mallActivityId
       }
       shopcarList.push(params)

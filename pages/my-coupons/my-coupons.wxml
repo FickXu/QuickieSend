@@ -1,0 +1,52 @@
+<!--pages/consumer-details/consumer-details.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold text-black">{{ title }}</view>
+</cu-custom>
+
+<!-- 优惠券列表 -->
+<view class="bg-ghostWhite">
+  <scroll-view scroll-x class="nav text-center tabs-order bg-white">
+    <view class="flex">
+      <view
+        class="cu-item flex-sub {{item.value==TabCur?'text-red cur':''}}"
+        wx:for="{{ orderStatus }}"
+        wx:key="index"
+        bindtap="tabSelect"
+        data-id="{{item.value}}">
+        {{item.label}}
+      </view>
+    </view>
+  </scroll-view>
+  <view wx:if="{{list.length>0}}">
+    <view class="padding-lr padding-bottom-sm" wx:for="{{list}}" wx:key="id">
+      <view>
+        <!-- label -->
+        <view class="label" wx:if="{{index==0}}">{{item.name}}</view>
+        <view class="label" wx:if="{{index>0&&item.label!=list[index-1].label}}">{{item.name}}</view>
+        <view class="coupon-item">
+          <view class="coupon-body {{item.statue==0?'magenta-linear':'bg-999-content'}}" bindtap="goToRuleDetail">
+            <view class="left">
+              <view class="money {{item.statue==0?'light-mageta':'color-999'}}">
+                <text class="symbol">¥</text>
+                <text class="num">{{item.amount/100}}</text>
+              </view>
+              <view class="expired">有效期至：{{item.endTime}}</view>
+            </view>
+            <view class="right">
+              <view class="title">满{{item.conditions/100}}元可用</view>
+              <view class="title line-overflow" style="font-size: 26rpx;">{{couponItem.useWay}}</view>
+              <view class="btn-rule-info {{item.statue==0?'magenta':'color-999'}}">规则详情 ></view>
+            </view>
+          </view>
+          <view class="btn-pull-coupon {{item.statue==0?'magenta-linear-full':'bg-999'}}" bindtap="openHomePage">
+            <text class="text-white fz-16 btn-pull-txt">立即使用</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="list-order-none">
+    <image class="padding-xl" src="https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/no-data.png" />
+    <view>抱歉，您还没有优惠券</view>
+  </view>
+</view>

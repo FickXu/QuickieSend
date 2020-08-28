@@ -7,37 +7,29 @@
   class="scroll-page"
   scroll-y
   scroll-with-animation
-  style="height: calc(~'100vh - {{CustomBar}}px - 50px')"
   >
-
-  <view class="commdity-info mt-10">
-    <!-- 商品列表 -->
-    <!-- <commodity-list
-      info="{{commodityList}}"
-      layout="{{layoutType}}"
-      >
-    </commodity-list> -->
-    <view class="list-order-item" wx:for="{{commodityList}}">
-      <view class="shop-view">
-        <image class="img" src="{{item.image}}" alt="diamond" />
-      </view>
-      <view class="shop-attr">
-        <view class="shop-attr-shape">
-          {{item.name}}
-        </view>
-        <view class="shop-attr-specs">
-          {{item.specName}}
-        </view>
-        <view class="shop-attr-total">
-          <text class="price">¥ {{item.finalPrice / 100}}</text>
-        </view>
-      </view>
+  <view class="bg-white mt-15 pay-body">
+    <view class="pay-status padding-top">
+      <view class="text-center mt-20"><image class="icon-success" src="./img/gou.png" /></view>
+      <view class="text-black fz-14 text-center mt-10">您已支付成功</view>
+    </view>
+    <view class="coupon">
+      <canvas
+        canvas-id="canvas1"
+        disable-scroll="{{true}}"
+        style="width:100%;height:100%;"
+        ></canvas>
+    </view>
+    <view class="coupon">
+      <canvas
+        canvas-id="canvas2"
+        disable-scroll="{{true}}"
+        style="width:100%;height:100%;"
+        bindtouchstart="bindtouchstart"
+        bindtouchmove="bindtouchmove"
+        bindtouchend="bindtouchend"
+        bindlongtap="bindlongtap"
+        ></canvas>
     </view>
   </view>
-
-  <!-- 操作按钮 -->
-  <view class="cu-bar bg-white text-center justify-center">
-    <button class="cu-btn round" bindtap="openHomePage">返回首页</button>
-  </view>
-
 </scroll-view>

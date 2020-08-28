@@ -54,16 +54,26 @@
       <view class="text-gray">订单金额</view>
       <view class="text-gray">¥ {{totalAmount}}</view>
     </view>
-    <!-- 活动减免 -->
-    <view class="flex justify-between mt-10" wx:if="{{discountAmount > 0}}">
-      <view class="text-gray">{{discountName}}</view>
-      <view class="text-gray">¥ {{discountAmount/100}}</view>
-    </view>
+    <!-- 运费 -->
     <view class="flex justify-between mt-10">
       <view class="text-gray">运费</view>
       <view class="text-gray">{{postAmount==0 ? postStr : '¥ '+ postAmount}}</view>
     </view>
-
+    <!-- 优惠券 -->
+    <view class="flex justify-between align-center mt-10" bindtap="showCouponListModal">
+      <view class="title flex justify-between align-center flex-row5">
+        <view>优惠券</view>
+        <view>
+          <text class="text-black">{{discountName}}</text>
+          <text class="text-black" decode="{{true}}"> ¥ {{discountAmount/100}}</text>
+        </view>
+      </view>
+      <view class="qs-icon iconright text-gray mt-5"></view>
+    </view>
+    <!-- <view class="flex justify-between mt-10" wx:if="{{discountAmount > 0}}">
+      <view class="text-black">{{discountName}}</view>
+      <view class="text-black">¥ {{discountAmount/100}}</view>
+    </view> -->
     <!-- 订单总计 -->
     <view class="order-total padding-tb mt-10">
       <view class="fz-14 text-black text-right">
@@ -72,13 +82,11 @@
       </view>
     </view>
   </view>
-
   <!-- 备注 -->
   <view class="cu-form-group align-start mt-10">
-		<view class="title">订单备注</view>
-		<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaBInput" data-key="description" placeholder="请输入备注"></textarea>
+    <view class="title">订单备注</view>
+		<input style="margin-top: 24rpx;" disabled="{{modalName!=null}}" bindinput="textareaBInput" data-key="description" placeholder="请输入备注"></input>
 	</view>
-
   <!-- 支付方式 -->
   <view class="pay-type mt-10 padding bg-white">
     <view class="title text-bold fz-18 flex justify-between">
@@ -93,9 +101,7 @@
       </radio-group>
     </view>
   </view>
-
 </scroll-view>
-
 <!-- 结算 -->
 <cover-view class="settle-accounts flex justify-center flex-align-center">
   <cover-view class="data-view flex-row5 flex justify-between align-center ml-10 mr-10">
@@ -116,7 +122,50 @@
     <cover-view>¥{{freeDisMoney}}起送</cover-view>
   </cover-view>
 </cover-view>
-
+<!-- 优惠券列表 -->
+<view class="cu-modal bottom-modal {{showCouponList ?'show':''}}" bindtap="showCouponListModal">
+  <view class="cu-dialog pb-100" catchtap="stopBubble">
+    <view class="padding-xl bg-white">
+      <!-- header -->
+      <view class="bg-white flex justify-between mt-15">
+        <text class="text-black bold fz-14">优惠券</text>
+      </view>
+      <view style="max-height: 1000rpx;overflow-y: auto" wx:if="{{couponList.length>0}}">
+        <!-- 优惠券列表 -->
+        <view
+          wx:for="{{couponList}}"
+          wx:key="id"
+          >
+          <!-- 优惠券组名称 -->
+          <view class="label" wx:if="{{index==0}}">{{item.name}}</view>
+          <view class="label" wx:if="{{index>0&&item.name!=couponList[index-1].name}}">{{item.name}}</view>
+          <view class="coupon-item">
+            <view class="coupon-body {{currentCouponIndex==index?'bg-selected':''}}" bindtap="selectCoupon" data-index="{{index}}">
+              <view class="left">
+                <view class="money">
+                  <text class="symbol">¥</text>
+                  <text class="num">{{item.amount/100}}</text>
+                </view>
+                <view class="expired">有效期至：{{item.endTime}}</view>
+              </view>
+              <view class="right">
+                <view class="title">满{{item.conditions/100}}元可用</view>
+                <view class="title line-overflow" style="font-size: 26rpx;">{{item.useWay}}</view>
+                <!-- <view class="btn-rule-info">规则详情 ></view> -->
+              </view>
+            </view>
+            <view class="btn-pull-coupon">
+              <text class="text-white fz-30 btn-pull-txt">点击使用</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else style="min-height: 300rpx; text-align: center;margin-top: 200rpx">
+        <text class="mt-30">当前没有可用优惠券哦~</text>
+      </view>
+    </view>
+  </view>
+</view>
 <view class="cu-modal {{isShow ?'show':''}}">
   <view class="cu-dialog">
     <view class="text-black fz-18 text-algin padding-tb text-bold">支付中...</view>
