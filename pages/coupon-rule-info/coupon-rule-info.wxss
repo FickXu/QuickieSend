@@ -87,11 +87,11 @@
 }
 .coupon-item .btn-pull-coupon .btn-pull-txt {
   position: absolute;
-  top: 18rpx;
+  top: 57rpx;
+  right: 50rpx;
   width: 26rpx;
   font-family: PingFang SC;
   font-weight: bold;
-  line-height: 40rpx;
 }
 .info-item {
   padding: 30rpx;

@@ -105,6 +105,40 @@ App({
     }
     return obj
   },
+  // 优惠券描述项
+  getCouponDesc(value) {
+    let str = ''
+    switch (value) {
+      case 1:
+        str = '全场通用'
+        break;
+      case 2:
+        str = '指定店铺'
+        break;
+      case 3:
+        str = '指定分类'
+        break;
+      case 4:
+        str = '指定商品'
+        break;
+      case 5:
+        str = '指定店铺指定分类'
+        break;
+      case 6:
+        str = '指定店铺指定商品'
+        break;
+      case 7:
+        str = '指定店铺指定分类指定商品'
+        break;
+      case 8:
+        str = '指定分类指定商品'
+        break;
+      default:
+        str = ''
+        break;
+    }
+    return str
+  },
 	globalData: {
     // 用户是否已经登录
     isLoin: wx.getStorageSync('isLogin'),

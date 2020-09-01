@@ -4,7 +4,11 @@
 * startType：要转换的类型<year:yyyy-MM-dd hh:mm:ss|yearDate:yyyy-MM-dd|monthDate:MM-dd|MM-dd hh:mm>
 */
 export const getStandardDate = (timeStamp, startType) => {
+  // 转为东8区时间
+  timeStamp = timeStamp.replace(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}).*$/, '$1 $2 GMT+0000').replace(/-/g, '/')
+  console.log('getStandardDate', timeStamp, startType)
   const dt = new Date(timeStamp)
+  console.log('dt', dt)
   const year = dt.getFullYear()
   const month = (dt.getMonth() + 1 + '').padStart(2, '0')
   const date = (dt.getDate() + '').padStart(2, '0')

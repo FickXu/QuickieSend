@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/about-us/child-page/feedback/feedback",
+    "pages/my-scan/my-scan",
     "pages/my-coupons/my-coupons",
     "pages/coupon-list/coupon-list",
     "pages/pay-success/pay-success",
@@ -15,7 +17,6 @@
     "pages/commodity-detail/commodity-detail",
     "pages/shoping-car/shoping-car",
     "pages/hospital-list/hospital-list",
-    "pages/my-scan/my-scan",
     "pages/withdraw/withdraw",
     "pages/user-auth/user-auth",
     "pages/add-comment/add-comment",

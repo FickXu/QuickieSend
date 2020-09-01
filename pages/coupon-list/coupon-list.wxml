@@ -17,7 +17,7 @@
         wx:for-index="couponIndex"
         wx:key="id"
         >
-        <view class="coupon-body" bindtap="goToRuleDetail">
+        <view class="coupon-body" bindtap="goToRuleDetail" data-index="{{index}}" data-c-index="{{couponIndex}}">
           <view class="left">
             <view class="money">
               <text class="symbol">¥</text>
@@ -27,7 +27,7 @@
           </view>
           <view class="right">
             <view class="title">满{{couponItem.conditions/100}}元可用</view>
-            <view class="title line-overflow" style="font-size: 26rpx;">{{couponItem.useWay}}</view>
+            <view class="title line-overflow" style="font-size: 26rpx;">{{couponItem.useWayStr||''}}</view>
             <view class="btn-rule-info">规则详情 ></view>
           </view>
         </view>

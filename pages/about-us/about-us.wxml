@@ -1,3 +1,20 @@
-<view>
+<!-- <view>
   <web-view src="https://m.quickssend.com/file/h5/Join.html" />
+</view> -->
+<!-- 明细列表 -->
+<cu-custom isBack="{{true}}" bgColor="bg-white">
+  <view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+  
+<view class="cu-list menu list-menu settings">
+  <view class="cu-item arrow" bindtap="openIntroducePage">
+    <view class="content">
+      <image class="icon-menu-status" src="./img/yhxy.png"></image>马上送到介绍
+    </view>
+  </view>
+  <view class="cu-item arrow" bindtap="openFeedbackPage">
+    <view class="content">
+      <image class="icon-menu-status" src="./img/ysxy.png"></image>帮助反馈
+    </view>
+  </view>
 </view>

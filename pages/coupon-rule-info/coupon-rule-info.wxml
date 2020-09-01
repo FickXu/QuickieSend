@@ -11,17 +11,17 @@
         <view class="left">
           <view class="money">
             <text class="symbol">¥</text>
-            <text class="num">{{details.money/100}}</text>
+            <text class="num">{{details.gouponsGroupItemEsModelList[cIndex].amount/100}}</text>
           </view>
-          <view class="expired">有效期至：{{details.expried}}</view>
+          <view class="expired">有效期至：{{details.timeUseEnd}}</view>
         </view>
         <view class="right">
-          <view class="title">{{details.title}}</view>
-          <view class="title line-overflow">{{details.content}}</view>
+          <view class="title">{{details.groupName}}</view>
+          <!-- <view class="title line-overflow">{{details.content}}</view> -->
         </view>
       </view>
       <view class="btn-pull-coupon">
-        <text class="text-white fz-16 btn-pull-txt">立即领取</text>
+        <text class="text-white fz-30 btn-pull-txt">券</text>
       </view>
     </view>
   </view>
@@ -29,12 +29,19 @@
 <view class="mt-15 bg-white">
   <view class="info-item">
     <view class="title">使用须知</view>
-    <view class="content" wx:if="{{details.limitMoney>0}}">● 订单参与立减后满{{details.limitMoney/100}}元可用</view>
-    <view class="content">● {{details.content}}</view>
-    <view class="content">● 使用时间：{{details.startTime}}至{{details.expried}}</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].amount/100>0}}">● 订单参与立减后满{{details.gouponsGroupItemEsModelList[cIndex].amount/100}}元可用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==1}}">● 全场通用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==2}}">● 仅{{details.gouponsGroupItemEsModelList[cIndex].useShopName}}店铺可用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==3}}">● 仅{{details.gouponsGroupItemEsModelList[cIndex].useGoodTypeName}}分类可用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==4}}">● 仅{{details.gouponsGroupItemEsModelList[cIndex].useSpuName}}商品可用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==5}}">● 仅{{details.gouponsGroupItemEsModelList[cIndex].useShopName}}店铺，{{details.gouponsGroupItemEsModelList[cIndex].useGoodTypeName}}分类可用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==6}}">● 仅{{details.gouponsGroupItemEsModelList[cIndex].useShopName}}店铺，{{details.gouponsGroupItemEsModelList[cIndex].useSpuName}}商品可用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==7}}">● 仅{{details.gouponsGroupItemEsModelList[cIndex].useShopName}}店铺，{{details.gouponsGroupItemEsModelList[cIndex].useGoodTypeName}}分类，{{details.gouponsGroupItemEsModelList[cIndex].useSpuName}}商品可用</view>
+    <view class="content" wx:if="{{details.gouponsGroupItemEsModelList[cIndex].useWay==8}}">● 仅{{details.gouponsGroupItemEsModelList[cIndex].useGoodTypeName}}分类，{{details.gouponsGroupItemEsModelList[cIndex].useSpuName}}商品可用</view>
+    <view class="content">● 使用时间：{{details.timeUseBegin}}至{{details.timeUseEnd}}</view>
   </view>
   <view class="info-item">
     <view class="title">使用说明</view>
-    <view class="content">{{details.desc}}</view>
+    <view class="content">{{details.groupBless}}</view>
   </view>
 </view>

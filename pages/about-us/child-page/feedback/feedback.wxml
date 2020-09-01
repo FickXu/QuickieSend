@@ -1,0 +1,41 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+
+<view class="add-feedback-page">
+  <view class="title">问题描述</view>
+  <!-- 评论输入 -->
+  <view class="padding">
+    <textarea class="textarea" placeholder="请输入评论内容" bindinput="bindinput" />
+  </view>
+  <!-- <view class="title"></view> -->
+  <view class="cu-bar bg-white margin-top">
+		<view class="action title">
+			问题图片/视频
+		</view>
+		<view class="action">
+			{{childList.length}}/{{childLength}}
+		</view>
+	</view>
+  <view class="cu-form-group margin-lr">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{childList}}" wx:key="index" bindtap="viewImage" data-url="{{childList[index]}}">
+				<image src='{{childList[index].resUrl}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="chooseImageOrVideo" wx:if="{{childList.length<childLength}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+  <view class="padding">
+    <view class="qs-btn-box">
+      <button class="qs-btn qs-bg" bindtap="confirmComment">提交评论</button>
+    </view>
+  </view>
+</view>
+<qs-actionSheet bindactiontap="btnClick" show="{{showActionsheet}}" actions="{{groups}}" title="选择图片或视频">
+</qs-actionSheet>

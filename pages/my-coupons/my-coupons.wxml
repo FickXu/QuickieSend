@@ -22,9 +22,9 @@
       <view>
         <!-- label -->
         <view class="label" wx:if="{{index==0}}">{{item.name}}</view>
-        <view class="label" wx:if="{{index>0&&item.label!=list[index-1].label}}">{{item.name}}</view>
+        <view class="label" wx:if="{{index>0&&item.name!=list[index-1].name}}">{{item.name}}</view>
         <view class="coupon-item">
-          <view class="coupon-body {{item.statue==0?'magenta-linear':'bg-999-content'}}" bindtap="goToRuleDetail">
+          <view class="coupon-body {{item.statue==0?'magenta-linear':'bg-999-content'}}" bindtap="goToRuleDetail" data-index="{{index}}" data-c-index="0">
             <view class="left">
               <view class="money {{item.statue==0?'light-mageta':'color-999'}}">
                 <text class="symbol">¥</text>

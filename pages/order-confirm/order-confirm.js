@@ -71,7 +71,7 @@ Page({
     // 优惠券列表
     couponList: [],
     // 当前已选优惠券的index
-    currentCouponIndex: ''
+    currentCouponIndex: -1
   },
   onShow () {
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
@@ -90,7 +90,7 @@ Page({
       // 获取默认地址
       self.getDefaultAddress()
       // 获取商品spuid
-      self.getCommoditySpuIds(data)
+      self.getCommoditySpuIds()
       // 获取优惠券
       self.getCoupon()
     }) 
@@ -100,54 +100,68 @@ Page({
     this.setData({
       showCouponList: !this.data.showCouponList
     })
+    this.getCoupon()
   },
   // 获取商品的spuId集合
-  getCommoditySpuIds(data) {
+  getCommoditySpuIds() {
     let arr = []
+    let data = this.data.commodityList
     data.forEach(item => {
       if (!item.isActivity) {
-        arr.push(item.spuId)
+        arr.push({
+          spuId: item.spuId,
+          skuId: item.skuId,
+          number: item.CURRENT_QUANTITY
+        })
       }
     })
     this.setData({
-      spuIdArr: arr
+      spuArr: arr
     })
   },
   // 选择要使用的优惠券
   selectCoupon(e) {
     let index = e.currentTarget.dataset.index
-    this.setData({
-      currentCouponIndex: index,
-      discouont: this.data.couponList[index]
-    })
-    // 是否启用优惠
-    this.enableDiscount()
+    let conditions = this.data.couponList[index].conditions
+    if (this.data.totalAmount*100 < conditions) {
+      wx.showToast({
+        title: `订单满${conditions/100}元才可以使用该优惠券哦~`,
+        icon: 'none'
+      })
+    } else {
+      this.setData({
+        currentCouponIndex: index,
+        discouont: this.data.couponList[index],
+        showCouponList: false
+      })
+      // 是否启用优惠
+      this.enableDiscount()
+    }
   },
   // 获取用户订单能使用优惠劵列表
   getCoupon() {
     let params = {
       shopId: wx.getStorageSync('shopDetails').shopId,
-      spuIdArr: this.data.spuIdArr
+      spuArr: this.data.spuArr
     }
     request('coupons/couponorderlist', params).then(res => {
+      let arr = []
       if (res.data.data.length > 0) {
-        let arr = res.data.data
+        arr = res.data.data
         arr.forEach(item => {
           item.endTime = getStandardDate(item.endTime, 'year')
+          item.useWayStr = app.getCouponDesc(item.useWay)
         })
-        this.setData({
-          couponList: arr
-        })
-        // discouont: res.data.data[0]
-        // 是否启用优惠券
-        // this.enableDiscount()
       }
+      this.setData({
+        couponList: arr
+      })
     })
   },
   // 是否启用优惠券
   enableDiscount() {
-    // 订单金额大于优惠券金额才能使用优惠券
-    if (this.data.totalAmount*100 > this.data.discouont.amount) {
+    // 订单金额大于条件金额并且大于优惠券金额才能使用优惠券
+    if (this.data.totalAmount*100 >= this.data.discouont.conditions && this.data.totalAmount*100 >= this.data.discouont.amount) {
       this.setData({
         discountAmount: this.data.discouont.amount,
         discountName: this.data.discouont.name
@@ -156,7 +170,9 @@ Page({
     } else {
       this.setData({
         discountAmount: 0,
-        discountName: ''
+        discountName: '',
+        discouont: {},
+        currentCouponIndex: -1
       })
     }
   },
@@ -382,8 +398,9 @@ Page({
     this.setData({
       commodityList: arr
     })
-    // 计算价格
-    // this.calcualtionTotalAmount()
+    // 获取优惠券参数
+    this.getCommoditySpuIds()
+    // 计算实际运费
     this.calcualtionPostCoast()
   },
   // 计算实际运费

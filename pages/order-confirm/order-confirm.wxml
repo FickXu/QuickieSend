@@ -115,10 +115,10 @@
       <cover-view>件</cover-view>
     </cover-view>
   </cover-view>
-  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pullPay" hidden="{{realAmount<freeDisMoney}}">
+  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pullPay" hidden="{{totalAmount<freeDisMoney}}">
     <cover-view>去支付</cover-view>
   </cover-view>
-  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-gray text-gray" hidden="{{realAmount>freeDisMoney}}">
+  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-gray text-gray" hidden="{{totalAmount>freeDisMoney}}">
     <cover-view>¥{{freeDisMoney}}起送</cover-view>
   </cover-view>
 </cover-view>
@@ -130,15 +130,15 @@
       <view class="bg-white flex justify-between mt-15">
         <text class="text-black bold fz-14">优惠券</text>
       </view>
-      <view style="max-height: 1000rpx;overflow-y: auto" wx:if="{{couponList.length>0}}">
+      <view style="max-height: 1000rpx;overflow-y: auto;margin-bottom: 100rpx;" wx:if="{{couponList.length>0}}">
         <!-- 优惠券列表 -->
         <view
           wx:for="{{couponList}}"
           wx:key="id"
           >
           <!-- 优惠券组名称 -->
-          <view class="label" wx:if="{{index==0}}">{{item.name}}</view>
-          <view class="label" wx:if="{{index>0&&item.name!=couponList[index-1].name}}">{{item.name}}</view>
+          <view class="label text-left" wx:if="{{index==0}}">{{item.name}}</view>
+          <view class="label text-left" wx:if="{{index>0&&item.name!=couponList[index-1].name}}">{{item.name}}</view>
           <view class="coupon-item">
             <view class="coupon-body {{currentCouponIndex==index?'bg-selected':''}}" bindtap="selectCoupon" data-index="{{index}}">
               <view class="left">
@@ -149,8 +149,8 @@
                 <view class="expired">有效期至：{{item.endTime}}</view>
               </view>
               <view class="right">
-                <view class="title">满{{item.conditions/100}}元可用</view>
-                <view class="title line-overflow" style="font-size: 26rpx;">{{item.useWay}}</view>
+                <view class="title text-left">满{{item.conditions/100}}元可用</view>
+                <view class="title line-overflow text-left" style="font-size: 26rpx;">{{item.useWayStr}}</view>
                 <!-- <view class="btn-rule-info">规则详情 ></view> -->
               </view>
             </view>

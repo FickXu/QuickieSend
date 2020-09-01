@@ -170,12 +170,15 @@ Page({
       this.queryAdvertising(res.data.data.shopId)
       // 获取店铺分类
       this.getCategroyListByShopId()
+      let self = this
       wx.setStorage({
         key: 'shopDetails',
-        data: res.data.data
+        data: res.data.data,
+        success: () => {
+          // 获取免配送费金额和配送费
+          self.getFreeDisMoneyAndDisMoney()
+        }
       })
-      // 获取免配送费金额和配送费
-      this.getFreeDisMoneyAndDisMoney()
     })
   },
   // 下拉刷新被触发
@@ -332,7 +335,7 @@ Page({
       } else {
         this.setData({
           isLimitedBuying: false,
-          'commodityListQueryParams.goodsTypeIdTwo': this.data.navList[0].id
+          'commodityListQueryParams.goodsTypeIdTwo': (this.data.navList[0]&&this.data.navList[0].id) || ''
         })
         // 如果没有活动商品，则请求第一个商品分类下的商品列表
         this.getCommodityList()
@@ -617,9 +620,9 @@ Page({
   // 设置起送金额和配送费
   getFreeDisMoneyAndDisMoney() {
     // 起送金额
-    let freeDisMoney = wx.getStorageSync('shopDetails').freeDisMoney/100
+    let freeDisMoney = wx.getStorageSync('shopDetails').freeDisMoney/100 || ''
     // 配送费
-    let disMoney = wx.getStorageSync('shopDetails').disMoney/100
+    let disMoney = wx.getStorageSync('shopDetails').disMoney/100 || ''
     this.setData({
       freeDisMoney: freeDisMoney,
       disMoney: disMoney

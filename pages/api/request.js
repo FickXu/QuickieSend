@@ -66,6 +66,9 @@ let request = (path, params = {}, type='POST') => {
       },
       fail (err) {
         reject(err)
+      },
+      complete: () => {
+        wx.hideLoading()
       }
     })
   })

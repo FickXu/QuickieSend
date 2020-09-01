@@ -66,8 +66,35 @@ Page({
   },
   // 优惠券详情
   goToRuleDetail(e) {
+    let dataset = e.currentTarget.dataset
+    let self = this
     wx.navigateTo({
-      url: '../coupon-rule-info/coupon-rule-info'
+      url: '../coupon-rule-info/coupon-rule-info',
+      success: function(res) {
+        // 通过eventChannel向被打开页面传送数据
+        // 这里因为公开券列表接口和我的优惠券接口列表返回的不同的数据结构，而详情页面都是取列表的数据，所以需要重新处理下数据结构，传到优惠券详情页面
+        let details = {
+          groupBless: self.data.list[dataset.index].name,
+          groupName: self.data.list[dataset.index].name,
+          timeUseBegin: self.data.list[dataset.index].startTime,
+          timeUseEnd: self.data.list[dataset.index].endTime,
+          gouponsGroupItemEsModelList: [
+            {
+              amount: self.data.list[dataset.index].amount,
+              conditions: self.data.list[dataset.index].conditions,
+              useWay: self.data.list[dataset.index].useWay,
+              useShopName: self.data.list[dataset.index].useShopName,
+              useGoodTypeName: self.data.list[dataset.index].useGoodTypeName,
+              useSpuName: self.data.list[dataset.index].useSpuName,
+              groupBless: '',
+            }
+          ]
+        }
+        res.eventChannel.emit('sendCouponInfo', {
+          data: details,
+          cIndex: dataset.cIndex
+        })
+      }
     })
   },
   tabSelect(e) {

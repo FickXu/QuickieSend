@@ -1,0 +1,15 @@
+.add-feedback-page {
+  margin-top: 30rpx;
+  background-color: #fff;
+  min-height: 100vh;
+}
+.title {
+  font-weight: bold;
+  padding: 30rpx 30rpx 0;
+}
+.textarea {
+  width: 100%;
+  background-color: #f7f7f7;
+  border-radius: 12rpx;
+  padding: 30rpx;
+}

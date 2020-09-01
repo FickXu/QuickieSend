@@ -1,6 +1,7 @@
 .my-scan {
   background-color: #FFC1A2;
-  height: 100vh;
+  min-height: 100vh;
+  padding-bottom: 30rpx;
 }
 
 .scan {
@@ -22,7 +23,18 @@
 
   }
 }
-
+.coupon-list-body {
+  background: #FED6C3;
+  margin: 120rpx 30rpx 0;
+  border-radius: 12rpx;
+  padding: 30rpx 0;
+}
+.banner {
+  display: block;
+  height: 72rpx;
+  width: 65%;
+  margin: -68rpx auto 0;
+}
 .button {
   width: 84.82%;
   height: 96rpx;
@@ -43,4 +55,113 @@
   border: 1px solid #F23131;
   background-color: transparent;
   color: #F23131;
+}
+.label {
+  margin: 30rpx 0rpx 40rpx;
+  font-size:36rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  color:rgba(17,17,17,1);
+}
+.coupon-item {
+  margin: 20rpx 0 0;
+  display: flex;
+  justify-content: space-between;
+  
+  .coupon-body {
+    flex: 8;
+    height: 192rpx;
+    background: rgba(255,255,255,1);
+    box-shadow: 6px 0rpx 6px rgba(217,58,85,0.2);
+    position: relative;
+    z-index: 1;
+    border-radius: 12rpx;
+    display: flex;
+    align-items: center;
+    &::before {
+      content: '';
+      position: absolute;
+      width: 60rpx;
+      height: 60rpx;
+      background-color: #FED6C3;
+      top: 71rpx;
+      left: -30rpx;
+      border-radius: 100rpx;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      width: 60rpx;
+      height: 60rpx;
+      background: linear-gradient(270deg,rgba(248,132,156,.2) 0%,rgba(239,86,104,1) 50%);
+      top: 71rpx;
+      right: -30rpx;
+      border-radius: 100rpx;
+    }
+    .left {
+      flex: 5;
+      margin-left: 60rpx;
+      position: relative;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 16rpx;
+        right: 0;
+        width:2rpx;
+        height: 124rpx;
+        background-color: rgba(245,245,245,1);
+      }
+      .money {
+        color: #F98490;
+        .symbol {
+          font-size: 60rpx;
+          font-weight: 400;
+        }
+        .num {
+          font-size: 100rpx;
+          font-weight:400;
+        }
+      }
+      .expired {
+        font-size:20rpx;
+        font-family:PingFang SC;
+        font-weight:400;
+        color:rgba(153,153,153,1);
+      }
+    }
+    .right {
+      flex: 6;
+      padding: 0 30rpx;
+      .title {
+        font-size: 30rpx;
+        font-family:PingFang SC;
+        font-weight:400;
+        color:rgba(51,51,51,1);
+        margin-bottom: 10rpx;
+      }
+      .btn-rule-info {
+        font-size: 20rpx;
+        font-family:PingFang SC;
+        font-weight:400;
+        color:rgba(242,49,49,1);
+      }
+    }
+  }
+  .btn-pull-coupon {
+    flex-basis: 132rpx;
+    height: 192rpx;
+    background: linear-gradient(270deg,rgba(248,132,156,1) 0%,rgba(239,86,104,1) 100%);
+    border-radius:16rpx;
+    margin-left: -30rpx;
+    position: relative;
+    text-align: center;
+    .btn-pull-txt {
+      position: absolute;
+      top:57rpx;
+      right: 50rpx;
+      width: 26rpx;
+      font-family: PingFang SC;
+      font-weight: bold;
+    }
+  }
 }
