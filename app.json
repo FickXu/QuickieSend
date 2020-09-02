@@ -1,11 +1,11 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/pay-success/pay-success",
     "pages/about-us/child-page/feedback/feedback",
     "pages/my-scan/my-scan",
     "pages/my-coupons/my-coupons",
     "pages/coupon-list/coupon-list",
-    "pages/pay-success/pay-success",
     "pages/coupon-rule-info/coupon-rule-info",
     "pages/shoping-detail/shoping-detail",
     "pages/withdraw-record/withdraw-record",

@@ -275,7 +275,7 @@ Page({
           })
         } else {
           let _obj = {
-            enablePay: obj.enablePay
+            enablePay: params.enablePay
           }
           self.createOrderAndPay(_obj)
         }
@@ -291,76 +291,104 @@ Page({
   // 创建订单并获取支付参数
   createOrderAndPay(obj) {
     this.calcualtionTotalAmount()
+    let self = this
     wx.showLoading({
       title: '正在下单...',
-    })
-    let params = {
-      ...this.data.params,
-      couponId: this.data.discountAmount/100 < this.data.totalAmount ? this.data.discouont.id : '' 
-    }
-    request('order/create', params).then(res => {
-      // 清空购物车
-      this.removeShopCar()
-      if (obj.enablePay) {
-        // 获取支付参数并拉起微信支付
-        this.payCreatewxorder(res.data.data.orderNo)
-      } else {
-        wx.showToast({
-          title: '商家已关闭支付功能，请联系商家开启！',
-          icon: 'none'
+      success: () => {
+        let params = {
+          ...self.data.params,
+          couponId: self.data.discountAmount/100 < self.data.totalAmount ? self.data.discouont.id : '' 
+        }
+        request('order/create', params).then(res => {
+          // 清空购物车
+          self.removeShopCar()
+          if (obj.enablePay) {
+            // 获取支付参数并拉起微信支付
+            self.payCreatewxorder(res.data.data.orderNo)
+          } else {
+            wx.showToast({
+              title: '商家已关闭支付功能，请联系商家开启！',
+              icon: 'none'
+            })
+            setTimeout(() => {
+              wx.navigateBack()
+            }, 500);
+          }
         })
-        setTimeout(() => {
-          wx.navigateBack()
-        }, 500);
       }
     })
   },
 // 获取支付参数
   payCreatewxorder(orderNo) {
-    let params = {
-      orderNo: orderNo
-    }
-    request('pay/createwxorder', params).then(res => {
-      wx.hideLoading()
-      let params = {
-        // 时间戳
-        timeStamp: res.data.data.timeStamp,
-        // 随机字符串
-        nonceStr: res.data.data.nonceStr,
-        // 统一下单借口返回的prepay_id，提交格式prepay_id=***
-        package: res.data.data.packageValue,
-        // 签名
-        paySign: res.data.data.paySign,
+    let self = this
+    wx.showLoading({
+      title: '订单已生成...',
+      success: () => {
+        let params1 = {
+          orderNo: orderNo
+        }
+        request('pay/createwxorder', params1).then(res => {
+          wx.hideLoading()
+          let params2 = {
+            // 时间戳
+            timeStamp: res.data.data.timeStamp,
+            // 随机字符串
+            nonceStr: res.data.data.nonceStr,
+            // 统一下单借口返回的prepay_id，提交格式prepay_id=***
+            package: res.data.data.packageValue,
+            // 签名
+            paySign: res.data.data.paySign,
+          }
+          self.callPay({...params1, ...params2})
+        })
       }
-      // 唤起微信支付
-      this.callPay(params)
     })
   },
   // 调用微信支付
   callPay(params) {
-    wx.requestPayment({
-      // 时间戳
-      timeStamp: params.timeStamp,
-      // 随机字符串
-      nonceStr: params.nonceStr,
-      // 统一下单借口返回的prepay_id，提交格式prepay_id=***
-      package: params.package,
-      // 签名
-      paySign: params.paySign,
-      signType: 'MD5',
-      success: res => {
-        console.log('pay success', res)
-        this.paySuccess()
-      },
-      fial: fail => {
-        console.log('pay fail', fail)
-        this.payFail()
-      },
-      complete: complete => {
-        console.log('pay complete', complete)
-        // this.setData({
-        //   isShow: true
-        // })
+    let self = this
+    wx.showLoading({
+      title: '支付中...',
+      success: () => {
+        wx.requestPayment({
+          // 时间戳
+          timeStamp: params.timeStamp,
+          // 随机字符串
+          nonceStr: params.nonceStr,
+          // 统一下单借口返回的prepay_id，提交格式prepay_id=***
+          package: params.package,
+          // 签名
+          paySign: params.paySign,
+          signType: 'MD5',
+          success: res => {
+            console.log('pay success', res)
+            wx.showToast({
+              title: '支付成功',
+              icon: 'none'
+            })
+            setTimeout(() => {
+              self.paySuccess(params.orderNo)
+            }, 700);
+          },
+          fial: fail => {
+            console.log('pay fail', fail)
+            self.payFail()
+          },
+          complete: complete => {
+            wx.hideLoading()
+            console.log('pay complete', complete)
+            // 支付取消
+            if (complete.errMsg === 'requestPayment:fail cancel') {
+              wx.showToast({
+                title: '支付已取消',
+                icon: 'none'
+              })
+              setTimeout(() => {
+                self.payFail()
+              }, 700);
+            }
+          }
+        })
       }
     })
   },
@@ -373,15 +401,15 @@ Page({
     // this.setData({
     //   isShow: false
     // })
-    // 支付失败，跳转到进度页
+    // 支付失败，跳转到订单页
     wx.navigateTo({
       url: '../orders/orders?type=1'
     })
   },
   // 支付成功
-  paySuccess() {
+  paySuccess(orderNo) {
     wx.navigateTo({
-      url: '../pay-success/pay-success',
+      url: `../pay-success/pay-success?orderNo=${orderNo}`,
       success: res => {
         this.setData({
           isShow: false

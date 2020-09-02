@@ -43,7 +43,6 @@ Page({
     request('coupons/publiccouponslist', params).then(res => {
       let arr = res.data.data
       arr.forEach(item => {
-        console.log('item.timeUseEnd',item.timeUseEnd)
         item.timeUseEnd = getStandardDate(item.timeUseEnd, 'year')
         if (item.gouponsGroupItemEsModelList.length>0) {
            item.gouponsGroupItemEsModelList.forEach(item => {

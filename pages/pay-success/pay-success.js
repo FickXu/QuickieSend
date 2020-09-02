@@ -1,3 +1,5 @@
+import {getStandardDate} from '../../utils/util'
+import request from '../api/request';
 const app = getApp();
 Page({
   options: {
@@ -10,21 +12,63 @@ Page({
     title: "支付成功",
     ctx: null,
     noPrize: './img/cover-prize.png',
+    details: null
   },
 
-  onLoad() {
-    // let self = this
-    // const eventChannel = this.getOpenerEventChannel()
-
-    // eventChannel.on('sendOrderInfo', function(data) {
-    //   console.log(data)
-    //   self.setData({
-    //     commodityList: data.orderInfo.mallOrderInfoList,
-    //   })
-    // })
-    this.loadCanvas()
-    // 加载奖券画布
-    this.loadCouponCanvas()
+  onLoad(query) {
+    let params = {
+      orderNo: query.orderNo || 'YY20090210061907953011'
+    }
+    this.getPaySuccessCoupon(params)
+    // this.loadCanvas()
+    // // 加载奖券画布
+    // this.loadCouponCanvas()
+  },
+  // 支付后领券
+  getPaySuccessCoupon(params) {
+    request('coupons/payaftercouponslist', params).then(res => {
+      let details = res.data.data
+      details.timeUseEnd = getStandardDate(details.timeUseEnd, 'year')
+      details.gouponsGroupItemEsModelList[0].useWayStr = app.getCouponDesc(details.gouponsGroupItemEsModelList[0].useWay)
+      this.setData({
+        details: details
+      })
+    })
+  },
+  // 用户领券
+  quickPullCoupon(e) {
+    app.isLogin().then(() => {
+      let dataset = e.currentTarget.dataset
+      let params = {
+        gouponsGroupId: dataset.id
+      }
+      wx.showLoading({
+        title: '领取中...',
+      })
+      request('coupons/ledthesecurities', params).then(res => {
+        wx.hideLoading()
+        wx.showToast({
+          title: res.data.msg,
+        })
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 700);
+      })
+    })
+   },
+  goToRuleDetail(e) {
+     let self = this
+     let dataset = e.currentTarget.dataset
+     wx.navigateTo({
+       url: '../coupon-rule-info/coupon-rule-info',
+       success: function(res) {
+         // 通过eventChannel向被打开页面传送数据
+         res.eventChannel.emit('sendCouponInfo', {
+           data: self.data.details,
+           cIndex: 0
+         })
+       }
+     })
   },
   // 手指触摸动作开始
   bindtouchstart(e) {

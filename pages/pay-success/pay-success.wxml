@@ -13,7 +13,43 @@
       <view class="text-center mt-20"><image class="icon-success" src="./img/gou.png" /></view>
       <view class="text-black fz-14 text-center mt-10">您已支付成功</view>
     </view>
-    <view class="coupon">
+    <!-- 优惠券列表 -->
+    <view class="padding-lr padding-bottom-sm margin-top" wx:if="{{details}}">
+      <view>
+        <!-- 优惠券组名称 -->
+        <!-- <view class="label">{{details.groupName}}</view> -->
+        <view
+          class="coupon-item"
+          wx:for="{{details.gouponsGroupItemEsModelList}}"
+          wx:for-item="couponItem"
+          wx:for-index="couponIndex"
+          wx:key="id"
+          >
+          <view class="coupon-body" bindtap="goToRuleDetail" data-index="{{index}}" data-c-index="{{couponIndex}}">
+            <view class="left">
+              <view class="money">
+                <text class="symbol">¥</text>
+                <text class="num">{{couponItem.amount/100}}</text>
+              </view>
+              <view class="expired">有效期至：{{item.timeUseEnd}}</view>
+            </view>
+            <view class="right">
+              <view class="title">满{{couponItem.conditions/100}}元可用</view>
+              <view class="title line-overflow" style="font-size: 26rpx;">{{couponItem.useWayStr||''}}</view>
+              <view class="btn-rule-info">规则详情 ></view>
+            </view>
+          </view>
+          <view class="btn-pull-coupon">
+            <text class="text-white fz-30 btn-pull-txt">券</text>
+          </view>
+        </view>
+        <!-- 一键领取 -->
+        <view class="mt-20">
+          <button class="qs-btn qs-bg" bindtap="quickPullCoupon" data-id="{{details.id}}">一键领取</button>
+        </view>
+      </view>
+    </view>
+    <!-- <view class="coupon">
       <canvas
         canvas-id="canvas1"
         disable-scroll="{{true}}"
@@ -30,6 +66,6 @@
         bindtouchend="bindtouchend"
         bindlongtap="bindlongtap"
         ></canvas>
-    </view>
+    </view> -->
   </view>
 </scroll-view>

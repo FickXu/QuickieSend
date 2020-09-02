@@ -56,7 +56,7 @@ App({
           // 是否可以创建订单
           enableCreateOrder: data['wechat.applet.open.order'] === 'Y' ? true : false,
           // 是否可以支付
-          enablePay: data['wechat.applet.pay.order'] === 'Y' ? true : false,
+          enablePay: data['wechat.applet.open.pay'] === 'Y' ? true : false,
         }
         resolve(obj)
       })
