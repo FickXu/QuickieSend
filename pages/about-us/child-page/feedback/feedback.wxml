@@ -18,7 +18,8 @@
 			{{childList.length}}/{{childLength}}
 		</view>
 	</view>
-  <view class="cu-form-group margin-lr">
+	<!-- 图片 -->
+  <view class="cu-form-group margin-lr" wx:if="{{childLength==5}}">
 		<view class="grid col-4 grid-square flex-sub">
 			<view class="bg-img" wx:for="{{childList}}" wx:key="index" bindtap="viewImage" data-url="{{childList[index]}}">
 				<image src='{{childList[index].resUrl}}' mode='aspectFill'></image>
@@ -27,6 +28,22 @@
 				</view>
 			</view>
 			<view class="solids" bindtap="chooseImageOrVideo" wx:if="{{childList.length<childLength}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+	<!-- 视频 -->
+	<view class="cu-form-group margin-lr" wx:else>
+		<view class="grid col-1 grid-square flex-sub" wx:if="{{childList.length==childLength}}">
+			<view style="height: 450rpx;padding-bottom: 0;" wx:if="{{childList.length>0}}">
+				<video src="{{childList[0].resUrl}}" style="width: 100%;"></video>
+				<view class="cu-tag bg-red" catchtap="delImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+		</view>
+		<view class="grid col-4 grid-square flex-sub" wx:else>
+			<view class="solids" bindtap="chooseImageOrVideo">
 				<text class="cuIcon-cameraadd"></text>
 			</view>
 		</view>

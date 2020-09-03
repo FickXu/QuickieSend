@@ -94,7 +94,7 @@
             {{goodsItem.specName}}
           </view>
           <view class="shop-attr-total flex justify-between flex-align-center">
-            <text class="price">¥ {{goodsItem.finalPrice / 100}}</text>
+            <text class="price">¥ {{goodsItem.price / 100}}</text>
             <text class="text-gray">x {{goodsItem.qty}}</text>
           </view>
           <view class="btn-delete-order text-right" wx:if="{{goodsItem.isAppraise==0 && details.status==6}}">
@@ -112,7 +112,11 @@
       <view class="list-order-item-footer">
         <view class="flex justify-between flex-align-center fz-14">
           <view class="text-gray">订单总价</view>
-          <view class="text-black">¥{{details.payAmount / 100}}</view>
+          <view class="text-black">¥{{details.payAmount/100+(details.discountAmount/100||0)}}</view>
+        </view>
+        <view class="flex justify-between flex-align-center fz-14" wx:if="{{details.discountAmount}}">
+          <view class="text-gray">减免金额</view>
+          <view class="text-black">¥{{details.discountAmount/100}}</view>
         </view>
         <view class="flex justify-between flex-align-center fz-14 mt-10">
           <view class="text-gray">运费</view>

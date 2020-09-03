@@ -175,8 +175,8 @@ Page({
     wx.chooseVideo({
       sourceType: ['album'],
       success: (res) => {
-        const tempFilePaths = res.tempFilePaths
-        self.uploadeFile(tempFilePaths[0])
+        const tempFilePath = res.tempFilePath
+        self.uploadeFile(tempFilePath)
       }
     });
   },
@@ -199,7 +199,7 @@ Page({
         let arr = [].concat(self.data.childList)
         arr.push({
           resUrl: data.data.reqUrl,
-          resType: self.data.params.resType
+          resType: self.data.resType
         })
         self.setData({
           'childList': arr
