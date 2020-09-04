@@ -27,7 +27,7 @@ Page({
   // 支付后领券
   getPaySuccessCoupon(params) {
     request('coupons/payaftercouponslist', params).then(res => {
-      if (!res.data.data) {
+      if (res.data.data) {
         let details = res.data.data
         details.timeUseEnd = getStandardDate(details.timeUseEnd, 'year')
         details.gouponsGroupItemEsModelList[0].useWayStr = app.getCouponDesc(details.gouponsGroupItemEsModelList[0].useWay)

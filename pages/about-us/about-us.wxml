@@ -9,12 +9,12 @@
 <view class="cu-list menu list-menu settings">
   <view class="cu-item arrow" bindtap="openIntroducePage">
     <view class="content">
-      <image class="icon-menu-status" src="./img/yhxy.png"></image>马上送到介绍
+      <image class="icon-menu-status" src="./img/mssd.png"></image>马上送到介绍
     </view>
   </view>
   <view class="cu-item arrow" bindtap="openFeedbackPage">
     <view class="content">
-      <image class="icon-menu-status" src="./img/ysxy.png"></image>帮助反馈
+      <image class="icon-menu-status" src="./img/bzfk.png"></image>帮助反馈
     </view>
   </view>
 </view>

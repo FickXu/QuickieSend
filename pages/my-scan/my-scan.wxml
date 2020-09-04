@@ -49,9 +49,9 @@
           </view>
         </view>
         <!-- 一键领取 -->
-        <view class="mt-20">
+        <!-- <view class="mt-20">
           <button class="qs-btn qs-bg" bindtap="quickPullCoupon" data-id="{{item.id}}">一键领取</button>
-        </view>
+        </view> -->
       </view>
     </view>
   </view>

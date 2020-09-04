@@ -452,8 +452,8 @@ Page({
       detail.SPEC_OBJ = {}
       this.setData({
         detail: detail,
-        limitedStartTime: getStandardDate(detail.startTime, 'hm').split(':'),
-        limitedEndTime: getStandardDate(detail.endTime, 'hm').split(':')
+        // limitedStartTime: getStandardDate(detail.startTime, 'hm').split(':'),
+        // limitedEndTime: getStandardDate(detail.endTime, 'hm').split(':')
       })
       this.queryCommentList()
     })

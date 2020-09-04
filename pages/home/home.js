@@ -775,7 +775,15 @@ Page({
     this.getFreeDisMoneyAndDisMoney()
   },
   // 页面显示时检查店铺信息
-  onLoad: function () {
+  onLoad: function (query) {
+    // 获取推荐人
+    if (query.scene) {
+      let scene = query.scene
+      wx.setStorage({
+        data: scene,
+        key: 'scene',
+      })
+    }
     wx.showLoading({
       title: '加载中...',
       mask: true
