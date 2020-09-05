@@ -282,9 +282,9 @@ Page({
       shopId: this.data.commodityListQueryParams.shopId
     }
     request('dic/goodstypetwoall', params).then(res => {
-      let navList = this.data.navList.splice(0, 1)
+      // let navList = this.data.navList.splice(0, 1)
       this.setData({
-        navList: navList.concat(res.data.data)
+        navList: res.data.data
       })
       this.getActivityCommodityList()
     })
