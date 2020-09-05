@@ -52,10 +52,12 @@ let request = (path, params = {}, type='POST') => {
           }
 
           if (res.data.code == 10003 || res.data.code == 10001) {
-            wx.showToast({
-              title: res.data.msg,
-              icon: 'none'
-            })
+            setTimeout(() => {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none'
+              })
+            }, 20);
             return
           }
           !isUrl && wx.showModal({

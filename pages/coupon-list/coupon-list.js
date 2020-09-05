@@ -26,12 +26,17 @@ Page({
      }
      wx.showLoading({
        title: '领取中...',
-     })
-     request('coupons/ledthesecurities', params).then(res => {
-       wx.hideLoading()
-       wx.showToast({
-         title: res.data.msg,
-       })
+       success: () => {
+         request('coupons/ledthesecurities', params).then(res => {
+           wx.hideLoading()
+            setTimeout(() => {
+              wx.showToast({
+                title: res.data.msg,
+                icon: 'none'
+              })
+            },20)
+         })
+       }
      })
    })
   },
