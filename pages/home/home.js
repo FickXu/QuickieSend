@@ -588,20 +588,30 @@ Page({
       shopId: this.data.tempDetail.shopId
     }
     request('shop/shopspupagespecinfo', params).then(res => {
-      let params = {}
+      let data = {}
       if (res.data.data.inventoryQty == 0) {
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
         // 重置单品数据
-        params = {}
+        data = {
+          ...this.data.tempDetail
+        }
       } else {
-        params = {
+        data = {
           ...res.data.data
         }
-        params.realPrice = params.realPrice / 100
-        params.showPrice = params.showPrice / 100
+        data.realPrice = data.realPrice / 100
+        data.showPrice = data.showPrice / 100
       }
       this.setData({
-        shopcarDetail: params,
-        inventoryQty: params.inventoryQty
+        shopcarDetail: data,
+        tempDetail: {
+          ...this.data.tempDetail,
+          ...data
+        },
+        inventoryQty: data.inventoryQty
       })
       wx.hideLoading()
     })
