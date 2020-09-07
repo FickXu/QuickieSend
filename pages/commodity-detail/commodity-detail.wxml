@@ -133,7 +133,7 @@
 
         <!-- 商品图片 -->
         <view class="img-box">
-          <image src="{{detail.spuMainImg}}" mode="aspectFill" class="img"/>
+          <image src="{{detail.skuImg}}" mode="aspectFill" class="img"/>
         </view>
 
         <!-- 商品名称价格 -->

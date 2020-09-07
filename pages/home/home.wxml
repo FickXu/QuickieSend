@@ -32,7 +32,7 @@
               <text class="fz-12">{{locationStr}}</text>
             </text>  
           </view>
-          <view class="text-red fz-12">郑重承诺：	简餐界的“小米”，每个盒饭只挣0.5元。</view>
+          <view class="text-red fz-12">简餐界的“小米”，每个盒饭只挣0.5元。</view>
         </view>
         <!-- <view class="attr-item">
           <view class="value1 text-red">{{shopDetails.salesVolume}}</view>
@@ -162,8 +162,8 @@
         <view class="padding-xl bg-white" catchtap="fixedCloseModal">
           <view class="commodity-summary flex">
             <!-- 商品图片 -->
-            <view class="img-box" wx:if="{{tempDetail.spuMainImg}}">
-              <image src="{{tempDetail.spuMainImg}}" mode="aspectFill" class="img"/>
+            <view class="img-box">
+              <image src="{{tempDetail.skuImg}}" mode="aspectFill" class="img"/>
             </view>
             <!-- 商品名称价格 -->
             <view class="summary ml-10 mt-10">
