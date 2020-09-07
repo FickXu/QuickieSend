@@ -46,7 +46,7 @@ Page({
       // 价格排序（0，升序；1，降序）
       priceSorted: 0,
       // 销量排序（0，升序；1，降序）
-      salesSorted:0
+      salesSorted: ''
     },
     // 是否显示无数据提示页面
     isShowNoneData: false,
