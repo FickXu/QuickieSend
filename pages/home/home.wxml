@@ -32,6 +32,7 @@
               <text class="fz-12">{{locationStr}}</text>
             </text>  
           </view>
+          <view class="text-red fz-12">郑重承诺：	简餐界的“小米”，每个盒饭只挣0.5元。</view>
         </view>
         <!-- <view class="attr-item">
           <view class="value1 text-red">{{shopDetails.salesVolume}}</view>
@@ -56,6 +57,16 @@
           <view class="fz-20 bold">
             <text class="text-red">热卖</text>
             <text class="text-black">商品</text>
+          </view>
+        </view>
+        <view class="flex-row flex" wx:if="{{!isLimitedBuying}}">
+          <view class="mr-30" bindtap="sortList" data-key="price">
+            <text class="bold qs-icon {{commodityListQueryParams.priceSorted===0?'text-green iconjiantou-xia1':'text-red iconjiantou-xia'}}"></text>
+            价格
+          </view>
+          <view bindtap="sortList" data-key="sales">
+            <text class="bold qs-icon {{commodityListQueryParams.salesSorted===0?'text-green iconjiantou-xia1':'text-red iconjiantou-xia'}}"></text>
+            销量
           </view>
         </view>
         <!-- <view class="flex-row1 text-right" bindtap="openCommodityListPage">
@@ -229,8 +240,8 @@
             <!-- <view class="text-white fz-12" wx:else><text wx:if="{{disMoney}}">配送费 ¥{{disMoney}}</text></view> -->
           </view>
         </view>
-        <view class="bg-red settlement flex-row2" wx:if="{{totalAmount>freeDisMoney}}" bindtap="openConfirmOrderPage">结算</view>
-        <view class="bg-black settlement flex-row2 fz-12" wx:else>¥{{freeDisMoney}}起送</view>
+        <view class="bg-red settlement flex-row2" wx:if="{{totalAmount>=freeDisMoney}}" bindtap="openConfirmOrderPage">结算</view>
+        <view style="background-color: #999999;" class="settlement flex-row2 fz-12" wx:else>¥{{freeDisMoney}}起送</view>
       </view>
     </view>
     <!-- 购物车列表 -->

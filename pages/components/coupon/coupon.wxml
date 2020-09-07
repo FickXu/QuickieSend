@@ -2,7 +2,8 @@
 <swiper class="coupon-swiper mt-15" wx:if="{{couponList.length>0}}" circular="true" autoplay="true" interval="4000" duration="500" vertical="true">
   <swiper-item wx:for="{{couponList}}" wx:key="id">
     <view class="coupon bg-white padding-lr">
-      <view class="title">{{item.groupName}}</view>
+      <image src="./img/icon-coupon.png" style="width: 50rpx;height: 50rpx;margin-right: 20rpx;"></image>
+      <view class="title">{{item.groupName}}<text decode="true" wx:if="{{item.totalMoney>0}}">&ensp;{{item.totalMoney/100}}元</text></view>
       <view class="pull-coupon" bindtap="pullCoupon">领取</view>
     </view>
   </swiper-item>

@@ -1,3 +1,3 @@
-<view>
-  <web-view src="https://m.quickssend.com/file/h5/Join.html" />
+<view style="width: 100vw;">
+  <web-view src="{{htmlUrl}}" style="width: 100vw;" />
 </view>

@@ -63,15 +63,12 @@
   </view>
   
   <!-- 规格 -->
-  <view class="standard-select mt-10">
+  <view class="standard-select mt-10 padding-lr-sm flex align-center justify-between">
     <view class="standard-container flex flex-align-center" bindtap="showSelectStandardModal">
       <text class="value">选择</text>
       <text class="line-overflow ml-10" decode="{{true}}">{{isLimitedBuying=='true' ? detail.skuKey : standardLabel}}</text>
     </view>
-    <!-- <view class="standard-container flex flex-align-center" wx:else>
-      <text class="value">规格</text>
-      <text class="line-overflow ml-10" decode="{{true}}">{{detail.skuKey}}</text>
-    </view> -->
+    <view class="cu-tag round bg-red" bindtap="showSelectStandardModal">加入到购物车</view>
   </view>
 
   <!-- 评论 -->
@@ -120,8 +117,8 @@
         <!-- <view class="text-white fz-12" wx:else>配送费 ¥{{disMoney}}</view> -->
       </view>
     </view>
-    <view class="bg-red settlement flex-row2" wx:if="{{totalAmount>freeDisMoney}}" bindtap="openConfirmOrderPage">结算</view>
-    <view class="bg-black settlement flex-row2 fz-12" wx:else>¥{{freeDisMoney}}起送</view>
+    <view class="bg-red settlement flex-row2" wx:if="{{totalAmount>=freeDisMoney}}" bindtap="openConfirmOrderPage">结算</view>
+    <view style="background-color: #999999;" class="settlement flex-row2 fz-12" wx:else>¥{{freeDisMoney}}起送</view>
   </view>
 </view>
 

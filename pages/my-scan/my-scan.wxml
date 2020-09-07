@@ -16,7 +16,7 @@
     <button class="button border" bindtap="openConsumeRecordPage">收支记录</button>
   </view> -->
   <!-- 优惠券列表 -->
-  <view class="bg-ghostWhite coupon-list-body">
+  <view class="bg-ghostWhite coupon-list-body" wx:if="{{list.length>0}}">
     <image src="./img/banner@2x.png" mode="aspectFit" class="banner"></image>
     <view class="padding-lr padding-bottom-sm" wx:for="{{list}}" wx:key="id">
       <view>

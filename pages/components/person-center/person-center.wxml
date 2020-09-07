@@ -3,7 +3,7 @@
   <view class="container">
     <!-- nav-bar -->
     <cu-custom bgColor="{{cuCustomBGColor}}">
-      <view slot="content" class="bold">{{ title }}</view>
+      <view slot="content" class="bold text-white">{{ title }}</view>
     </cu-custom>
     <!-- <view class="nav-bar">
     </view> -->

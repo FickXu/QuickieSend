@@ -43,6 +43,10 @@ Page({
       shopId: '',
       spuCode: '',
       spuName: '',
+      // 价格排序（0，升序；1，降序）
+      priceSorted: 0,
+      // 销量排序（0，升序；1，降序）
+      salesSorted:0
     },
     // 是否显示无数据提示页面
     isShowNoneData: false,
@@ -288,6 +292,27 @@ Page({
       })
       this.getActivityCommodityList()
     })
+  },
+   // 商品排序
+   sortList(e) {
+    let key = e.currentTarget.dataset.key
+    if (key == 'price') {
+      let value = this.data.commodityListQueryParams.priceSorted
+      this.setData({
+        'commodityListQueryParams.priceSorted': value === 0 ? 1 : 0,
+        'commodityListQueryParams.salesSorted': ''
+      })
+    } else {
+      let value = this.data.commodityListQueryParams.salesSorted
+      this.setData({
+        'commodityListQueryParams.priceSorted': '',
+        'commodityListQueryParams.salesSorted': value === 0 ? 1 : 0
+      })
+    }
+    // 热卖商品排序
+    if (!this.data.isLimitedBuying) {
+      this.getCommodityList()
+    }
   },
   // 商家-商品-分页查询活动商品列表
   getActivityCommodityList: function () {
@@ -861,5 +886,39 @@ Page({
     // })
     // 加载购物车数据
     this.loadShopCar()
+  },
+  onShareAppMessage: function(res) {
+    if (res.from === "button") {
+      console.log(res)
+      return {
+        title: wx.getStorageSync('shopDetails').shopName,
+        path: 'pages/home/home',
+        success: function(res) {
+          console.log(res, "转发成功")
+        },
+        fail: function(res) {
+          console.log(res, "转发失败")
+        }
+      }
+    } else {
+      console.log(res)
+    }
+  },
+  onShareTimeline: function(res) {
+    if (res.from === "button") {
+      console.log(res)
+      return {
+        title: wx.getStorageSync('shopDetails').shopName,
+        // path: 'pages/home/home',
+        // success: function(res) {
+        //   console.log(res, "转发成功")
+        // },
+        // fail: function(res) {
+        //   console.log(res, "转发失败")
+        // }
+      }
+    } else {
+      console.log(res)
+    }
   },
 })

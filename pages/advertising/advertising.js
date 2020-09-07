@@ -14,7 +14,7 @@ Page({
   onLoad(query) {
     let htmlUrl = query.htmlUrl
     this.setData({
-      htmlUrl: htmlUrl
+      htmlUrl: htmlUrl + '?timestamp=' + (new Date()).getTime()
     })
   }
 })

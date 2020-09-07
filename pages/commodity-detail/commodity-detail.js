@@ -523,5 +523,22 @@ Page({
     this.settingFreeDisMoney()
     // 设置配送费
     this.settingDisMoney()
-  }
+  },
+  // onShareAppMessage: function(res) {
+  //   let self = this
+  //   if (res.from === "button") {
+  //     return {
+  //       title: wx.getStorageSync('shopDetails').shopName,
+  //       path: `pages/commodity-detail/commodity-detail?isLimitedBuying=${self.data.isLimitedBuying}&id=${self.data.id}`,
+  //       success: function(res) {
+  //         console.log(res, "转发成功")
+  //       },
+  //       fail: function(res) {
+  //         console.log(res, "转发失败")
+  //       }
+  //     }
+  //   } else {
+  //     console.log(res)
+  //   }
+  // }
 })
