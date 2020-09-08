@@ -61,11 +61,11 @@
         </view>
         <view class="flex-row flex" wx:if="{{!isLimitedBuying}}">
           <view class="mr-30" bindtap="sortList" data-key="price">
-            <text class="bold qs-icon {{commodityListQueryParams.priceSorted===0?'text-green iconjiantou-xia1':'text-red iconjiantou-xia'}}"></text>
+            <text class="bold qs-icon {{commodityListQueryParams.priceSorted===0?'text-green iconjiantou-xia':'text-red iconjiantou-xia1'}}"></text>
             价格
           </view>
           <view bindtap="sortList" data-key="sales">
-            <text class="bold qs-icon {{commodityListQueryParams.salesSorted===0?'text-green iconjiantou-xia1':'text-red iconjiantou-xia'}}"></text>
+            <text class="bold qs-icon {{commodityListQueryParams.salesSorted===0?'text-green iconjiantou-xia':'text-red iconjiantou-xia1'}}"></text>
             销量
           </view>
         </view>
