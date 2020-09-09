@@ -181,6 +181,7 @@ Page({
         package: res.data.data.packageValue,
         // 签名
         paySign: res.data.data.paySign,
+        orderNo: orderNo
       }
       this.callPay(params)
     })
@@ -199,7 +200,7 @@ Page({
       signType: 'MD5',
       success: res => {
         console.log('pay success', res)
-        this.paySuccess()
+        this.paySuccess(params.orderNo)
       },
       fial: fail => {
         console.log('pay fail', fail)
@@ -226,7 +227,16 @@ Page({
   },
   
   // 支付成功
-  paySuccess() {
+  paySuccess(orderNo) {
+    wx.navigateTo({
+      url: `../pay-success/pay-success?orderNo=${orderNo}`,
+      success: res => {
+        app.subscribeMessage(['YA25e78anNWEGVJS8tP6-1FXe5AAWyIf1WwYhYzm1As'])
+        this.setData({
+          isShow: false
+        })
+      }
+    })
     this.queryorderInfo()
   },
 

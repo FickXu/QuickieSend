@@ -39,83 +39,149 @@ Page({
       // 楼栋名称
       areaTypeTwoName: '',
       // 联系人
-      contact: '',
+      contact: wx.getStorageSync('userInfo').nickName,
       // 联系地址
       contactAddress: '',
       // 电话号码
-      mobilePhone: '',
+      mobilePhone: wx.getStorageSync('userInfo').telephone,
       // 商家id
       shopId: '',
       // 是否为默认地址
       isDefault: 0
-    }
+    },
+    // 所有的医院列表
+    hospitalArray: [],
+    // 当前绑定的数据
+    multiArray: [],
+    // 当前选中的下标
+    multiIndex: [0, 0, 0]
   },
   onLoad() {
-    
     let shopId = wx.getStorageSync('shopDetails').shopId
     this.setData({
       'params.shopId': shopId
     })
-
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('sendData', data => {
       this.setData({
         isEdit: data.isEdit,
         params: data.isEdit ? data : this.data.params
       })
-
-      if (data.isEdit) {
-        this.queryInfo()
-      }
-
-      console.log(this.data.isEdit, this.data.params)
+      // if (data.isEdit) {
+      //   this.queryInfo()
+      // }
+      // console.log(this.data.isEdit, this.data.params)
+      this.getHospitalList()
     })
-
-    this.getShopAreaList({
-      parentId: 0, 
-      shopId: shopId
-    }, 'hospital')
+    // this.getShopAreaList({
+    //   parentId: 0, 
+    //   shopId: wx.getStorageSync('shopDetails').shopId
+    // }, 'hospital')
+    // this.getHospitalList()
   },
-
-  // 获取商家区域
-  getShopAreaList(params, areaFlag) {
-    let obj = {
-      ...params
+  // 获取所有的医院列表
+  getHospitalList() {
+    let params = {
+      parentId: 0,
+      shopId: wx.getStorageSync('shopDetails').shopId
     }
-    request('shop/getshoparea', obj).then(res => {
-      if (areaFlag === 'hospital') {
+    request('shop/getshoparea', params).then(res => {
+      let data = res.data.data
+      this.setData({
+        hospitalArray: data,
+        multiArray: [data, data[0].children, data[0].children[0].children]
+      })
+      // 编辑是回显地址
+      if (this.data.params.isEdit) {
         this.setData({
-          hospitals: res.data.data
+          multiIndex: this.data.params.multiindex.split(',')
         })
       }
-      if (areaFlag === 'build') {
-        this.setData({
-          buildings: res.data.data
-        })
-      }
-      if (areaFlag === 'floor') {
-        this.setData({
-          floors: res.data.data
-        })
-      }
+      this.setParams([0, 0, 0])
     })
   },
+  // 选择地址
+  bindMultiPickerChange(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setParams(e.detail.value)
+  },
+  // 设置参数
+  setParams(arr) {
+    let _hospitalArray = this.data.hospitalArray
+    this.setData({
+      // 医院
+      'params.areaTypeOne': _hospitalArray[arr[0]].id,
+      'params.areaTypeOneName': _hospitalArray[arr[0]].areaName,
+      // 楼栋
+      'params.areaTypeTwo': _hospitalArray[arr[0]].children[arr[1]].id,
+      'params.areaTypeTwoName': _hospitalArray[arr[0]].children[arr[1]].areaName,
+      // 楼层
+      'params.areaTypeThree': _hospitalArray[arr[0]].children[arr[1]].children[arr[2]].id,
+      'params.areaTypeThreeName': _hospitalArray[arr[0]].children[arr[1]].children[arr[2]].areaName,
+    })
+    console.log(this.data.params, this.data.multiIndex)
+  },
+  // 列选择变化时
+  bindMultiPickerColumnChange(e) {
+    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    let columnIndex = e.detail.column
+    let columnValueIndex = e.detail.value
+    let data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    }
+    data.multiIndex[columnIndex] = columnValueIndex
+    let _hospitalArray = this.data.hospitalArray
+    switch (columnIndex) {
+      // 第一列
+      case 0:
+        data.multiArray[1] = _hospitalArray[columnValueIndex].children
+        data.multiArray[2] = _hospitalArray[columnValueIndex].children[0].children
+        data.multiIndex[1] = 0
+        data.multiIndex[2] = 0
+        break;
+      case 1:
+        data.multiArray[2] = _hospitalArray[data.multiIndex[0]].children[columnValueIndex].children
+        data.multiIndex[2] = 0
+        break
+      default:
+        console.log('选择了(columnIndex,columnValueIndex)：', columnIndex, columnValueIndex)
+        break
+    }
+    this.setData({
+      multiArray: data.multiArray,
+      multiIndex: data.multiIndex
+    })
+  },
+  // 获取商家区域
+  // getShopAreaList(params, areaFlag) {
+  //   let obj = {
+  //     ...params
+  //   }
+  //   request('shop/getshoparea', obj).then(res => {
+  //     if (areaFlag === 'hospital') {
+  //       this.setData({
+  //         hospitals: res.data.data
+  //       })
+  //     }
+  //     if (areaFlag === 'build') {
+  //       this.setData({
+  //         buildings: res.data.data
+  //       })
+  //     }
+  //     if (areaFlag === 'floor') {
+  //       this.setData({
+  //         floors: res.data.data
+  //       })
+  //     }
+  //   })
+  // },
 
   // 获取收货地址详情
   queryInfo() {
     let params = {
       ...this.data.params
     }
-
-    // this.setData({
-    //   // 医院
-    //   hospitalIndex: this.data.hospitals.findIndex(item => item.id == params.areaTypeOne),
-    //   // 楼栋
-    //   buildingIndex: this.data.buildings.findIndex(item => item.id == params.areaTypeTwo),
-    //   // 楼层
-    //   floorIndex: this.data.floors.findIndex(item => item.id == params.areaTypeThree),
-    // })
-
     this.setData({
       // 医院
       'params.areaTypeOne': params.areaTypeOne,
@@ -128,11 +194,6 @@ Page({
       'params.areaTypeThreeName': params.areaTypeThreeName,
       
     })
-
-    // this.getShopAreaList({
-    //   parentId: 0, 
-    //   shopId: this.data.params.shopId
-    // }, 'hospital')
     this.getShopAreaList({
       parentId: params.areaTypeOne, 
       shopId: this.data.params.shopId
@@ -236,7 +297,8 @@ Page({
     // this.joinAddress()
 
     let params = {
-      ...this.data.params
+      ...this.data.params,
+      multiindex: this.data.multiIndex.join(',')
     }
 
     let api = ''

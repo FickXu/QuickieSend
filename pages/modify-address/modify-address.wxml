@@ -31,9 +31,24 @@
       <view class="text-gray" bindtap="phoneContact">联系人</view>
     </view> -->
   </view>
-
-  <!-- 医院 -->
+  <!-- 选择医院 -->
   <view class="cu-form-group" style="border-top: 1px solid #eee">
+    <view class='title'>配送地址</view>
+    <picker
+      mode="multiSelector"
+      bindchange="bindMultiPickerChange"
+      bindcolumnchange="bindMultiPickerColumnChange"
+      value="{{multiIndex}}"
+      range="{{multiArray}}"
+      range-key="areaName"
+      >
+      <view class="picker">
+        {{multiArray[0][multiIndex[0]].areaName}} {{multiArray[1][multiIndex[1]].areaName}} {{multiArray[2][multiIndex[2]].areaName}}
+      </view>
+    </picker>
+  </view>
+  <!-- 医院 -->
+  <!-- <view class="cu-form-group" style="border-top: 1px solid #eee">
     <view class='title'>医院</view>
     <picker
       mode="selector"
@@ -44,13 +59,13 @@
       data-parent-id="0"
       >
       <view class="picker">
-          {{params.areaTypeOneName}}
+        {{params.areaTypeOneName}}
       </view>
     </picker>
-  </view>
+  </view> -->
 
   <!-- 楼栋 -->
-  <view class="cu-form-group" style="border-top: 1px solid #eee">
+  <!-- <view class="cu-form-group" style="border-top: 1px solid #eee">
     <view class='title'>楼栋</view>
     <picker
       mode="selector"
@@ -61,13 +76,13 @@
       data-parent-id="{{buildings[buildingIndex].id}}"
       >
       <view class="picker">
-          {{params.areaTypeTwoName}}
+        {{params.areaTypeTwoName}}
       </view>
     </picker>
-  </view>
+  </view> -->
 
   <!-- 楼层 -->
-  <view class="cu-form-group" style="border-top: 1px solid #eee">
+  <!-- <view class="cu-form-group" style="border-top: 1px solid #eee">
     <view class='title'>楼层</view>
     <picker
       mode="selector"
@@ -81,12 +96,12 @@
           {{params.areaTypeThreeName}}
       </view>
     </picker>
-  </view>
+  </view> -->
 
   <view class="cu-form-group">
-    <view class='title'>详细地址</view>
+    <view class='title'>门牌号</view>
     <input
-      placeholder="请填写详细地址"
+      placeholder="请填写门牌号"
       class='radius text-right'
       data-key="contactAddress"
       value="{{params.contactAddress}}"

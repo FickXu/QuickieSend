@@ -87,13 +87,13 @@ Page({
       })
       self.calcualtionPostCoast()
       console.log('获取到的参数：', data)
-      // 获取默认地址
-      self.getDefaultAddress()
       // 获取商品spuid
       self.getCommoditySpuIds()
       // 获取优惠券
       self.getCoupon()
     }) 
+    // 获取默认地址
+    self.getDefaultAddress()
   },
   // 展示优惠券列表
   showCouponListModal() {
@@ -192,15 +192,21 @@ Page({
   },
   // 刷新收货地址
   refreshAddresss(params) {
-    if (!params) return
-    let contactAddress = `${params.areaTypeOneName} ${params.areaTypeTwoName} ${params.areaTypeThreeName} ${params.contactAddress}`
-
-    this.setData({
-      'params.address': contactAddress,
-      'params.mobile': params.mobilePhone,
-      'params.name': params.contact,
-    })
-    console.log('刷新收获地址', params)
+    if (!params) {
+      this.setData({
+        'params.address': '请添加收货地址'
+      })
+      return
+    } else {
+      let contactAddress = `${params.areaTypeOneName} ${params.areaTypeTwoName} ${params.areaTypeThreeName} ${params.contactAddress}`
+  
+      this.setData({
+        'params.address': contactAddress,
+        'params.mobile': params.mobilePhone,
+        'params.name': params.contact,
+      })
+      console.log('刷新收获地址', params)
+    }
   },
   // 选择收获地址
   openAddressListPage() {
@@ -211,6 +217,23 @@ Page({
         refreshAddresss(params) {
           self.refreshAddresss(params)
         }
+      }
+    })
+  },
+  // 新增收货地址
+  openAddAddressPage() {
+    wx.navigateTo({
+      url: '../modify-address/modify-address',
+      events: {
+        refresh: () => {
+          this.getDefaultAddress()
+        }
+      },
+      success: res => {
+        let params = {
+          isEdit: false
+        }
+        res.eventChannel.emit('sendData', params)
       }
     })
   },
@@ -411,6 +434,7 @@ Page({
     wx.navigateTo({
       url: `../pay-success/pay-success?orderNo=${orderNo}`,
       success: res => {
+        app.subscribeMessage(['YA25e78anNWEGVJS8tP6-1FXe5AAWyIf1WwYhYzm1As'])
         this.setData({
           isShow: false
         })

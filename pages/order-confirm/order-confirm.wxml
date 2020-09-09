@@ -11,13 +11,21 @@
   >
 
   <!-- 地址 -->
-  <view class="address-list flex flex-align-center justify-between padding" bindtap="openAddressListPage">
+  <view class="address-list flex flex-align-center justify-between padding" bindtap="openAddAddressPage" wx:if="{{params.address=='请添加收货地址'}}">
+    <view class="detail fz-16">
+      <view class="flex mt-5">
+        <view class="qs-icon iconlocation text-black"></view>
+        <text class="text-black ml-15">{{params.address}}</text>
+      </view>
+    </view>
+    <view class="qs-icon iconright"></view>
+  </view>
+  <view wx:else class="address-list flex flex-align-center justify-between padding" bindtap="openAddressListPage">
     <view class="detail fz-16">
       <view class="flex mt-5">
         <view class="qs-icon iconlocation text-black"></view>
         <text class="text-black">{{params.address}}</text>
       </view>
-      <!-- <view class="text-black margin-top-xs text-bold">深南大道9545号冲商务中心A座</view> -->
       <view class="text-black margin-top-xs text-bold">{{params.name + ' ' + params.mobile}}</view>
     </view>
     <view class="qs-icon iconright"></view>

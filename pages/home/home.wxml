@@ -32,7 +32,7 @@
               <text class="fz-12">{{locationStr}}</text>
             </text>  
           </view>
-          <view class="text-red fz-12">简餐界的“小米”，每个盒饭只挣0.5元。</view>
+          <!-- <view class="text-red fz-12">简餐界的“小米”，每个盒饭只挣0.5元。</view> -->
         </view>
         <!-- <view class="attr-item">
           <view class="value1 text-red">{{shopDetails.salesVolume}}</view>
@@ -59,7 +59,7 @@
             <text class="text-black">商品</text>
           </view>
         </view>
-        <view class="flex-row flex" wx:if="{{!isLimitedBuying}}">
+        <!-- <view class="flex-row flex" wx:if="{{!isLimitedBuying}}">
           <view class="mr-30" bindtap="sortList" data-key="price">
             <text class="bold qs-icon {{commodityListQueryParams.priceSorted===0?'text-green iconjiantou-xia':'text-red iconjiantou-xia1'}}"></text>
             价格
@@ -68,7 +68,7 @@
             <text class="bold qs-icon {{commodityListQueryParams.salesSorted===0?'text-green iconjiantou-xia':'text-red iconjiantou-xia1'}}"></text>
             销量
           </view>
-        </view>
+        </view> -->
         <!-- <view class="flex-row1 text-right" bindtap="openCommodityListPage">
           <text class="text-gray fz-12 more-limit">更多</text>
         </view> -->

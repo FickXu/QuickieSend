@@ -45,6 +45,18 @@ App({
       })
     })
   },
+  // 消息订阅
+  subscribeMessage(tempIds) {
+    wx.requestSubscribeMessage({
+      tmplIds: tempIds,
+      success (res) {
+        console.log('消息订阅', res)
+      },
+      fail (err) {
+        console.log('消息订阅fail', err)
+      }
+    })
+  },
   // 是否已经登录
   isLogin() {
     return new Promise((resolve, reject) => {

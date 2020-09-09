@@ -44,9 +44,9 @@ Page({
       spuCode: '',
       spuName: '',
       // 价格排序（0，升序；1，降序）
-      priceSorted: 0,
+      priceSorted: '',
       // 销量排序（0，升序；1，降序）
-      salesSorted: ''
+      salesSorted: 1
     },
     // 是否显示无数据提示页面
     isShowNoneData: false,
