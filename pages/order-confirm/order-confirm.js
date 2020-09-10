@@ -311,6 +311,12 @@ Page({
       }
     })
   },
+  // 订阅模板消息
+  // subscribeMessage(obj) {
+  //   app.subscribeMessage(['YA25e78anNWEGVJS8tP6-1FXe5AAWyIf1WwYhYzm1As']).finally(() => {
+  //     this.createOrderAndPay(obj)
+  //   })
+  // },
   // 创建订单并获取支付参数
   createOrderAndPay(obj) {
     this.calcualtionTotalAmount()
@@ -335,7 +341,7 @@ Page({
             })
             setTimeout(() => {
               wx.navigateBack()
-            }, 500);
+            }, 1200);
           }
         })
       }

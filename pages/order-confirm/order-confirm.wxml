@@ -126,7 +126,7 @@
   <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pullPay" hidden="{{totalAmount<freeDisMoney}}">
     <cover-view>去支付</cover-view>
   </cover-view>
-  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-gray text-gray" hidden="{{totalAmount>freeDisMoney}}">
+  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-gray text-gray" hidden="{{totalAmount>=freeDisMoney}}">
     <cover-view>¥{{freeDisMoney}}起送</cover-view>
   </cover-view>
 </cover-view>

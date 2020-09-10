@@ -62,6 +62,7 @@ Page({
     this.setData({
       TabCur: value
     })
+    wx.setStorageSync('openId', params.openid || wx.getStorageSync('openId'))
     // this.queryorderlist()
   },
   // 获取订单列表
