@@ -126,8 +126,8 @@ Page({
       let params = {
         ...res
       }
-      // 是否可以创建订单并支付
-      if (params.enableCreateOrder) {
+      // 是否可以支付
+      if (params.enablePay) {
         let self = this
         // 获取店铺配送时间
         let obj = app.shopEnableDeliver()
@@ -149,7 +149,7 @@ Page({
       } else {
         wx.hideLoading()
         wx.showToast({
-          title: '系统提示：该功能未开启，敬请期待！',
+          title: '商家已关闭支付功能，请联系商家开启！',
           icon: 'none'
         })
       }

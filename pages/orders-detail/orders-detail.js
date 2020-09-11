@@ -73,12 +73,27 @@ Page({
     this.clearInterval(this.data.timeInterval)
   },
 
+  // 转为分秒
+  covertMS(subTime) {
+    let ms = ''
+    subTime = subTime.replace(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}).*$/, '$1 $2 GMT+0000').replace(/-/g, '/')
+    const dt = new Date(subTime).getTime()
+    const overTime = dt + 30 * 60 * 1000
+    this.data.timeInterval = setInterval(() => {
+
+    })
+    return ms
+  },
+
   // 计时器
   setInterval() {
-    let subTime = new Date(this.data.details.submitTime).getTime()
+    let subTime = new Date(this.data.details.submitTime.replace(/^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2}).*$/, '$1 $2 GMT+0000').replace(/-/g, '/')).getTime()
     let overTime = subTime + 30 * 60 * 1000
+    console.log(subTime)
     this.data.timeInterval = setInterval(() => {
-      let time = getStandardDate(overTime - new Date().getTime(), 'ms')
+      let m = Math.abs(((new Date().getTime() - overTime) / 1000 /60).toFixed())
+      let s = Math.abs(((new Date().getTime() - overTime) / 1000  % 60).toFixed())
+      let time =(m < 10 ? `0${m}` : m) + ':' + (s < 10 ? `0${s}` : s)
       this.setData({
         overTime: time
       })
@@ -132,8 +147,8 @@ Page({
       let params = {
         ...res
       }
-      // 是否可以创建订单并支付
-      if (params.enableCreateOrder) {
+       // 是否可以支付
+       if (params.enablePay) {
         let self = this
         // 获取店铺配送时间
         let obj = app.shopEnableDeliver()
@@ -155,7 +170,7 @@ Page({
       } else {
         wx.hideLoading()
         wx.showToast({
-          title: '系统提示：该功能未开启，敬请期待！',
+          title: '商家已关闭支付功能，请联系商家开启！',
           icon: 'none'
         })
       }

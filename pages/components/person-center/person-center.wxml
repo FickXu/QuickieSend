@@ -18,7 +18,7 @@
           <text class="small">{{userInfo.telephone}}</text>
         </view>
       </view>
-      <view class="qs-icon iconqrcode text-white fz-30" catchtap="openMyScanOpenPage"></view>
+      <view style="font-size: 80rpx;" class="qs-icon iconqrcode text-white" catchtap="openMyScanOpenPage"></view>
     </view>
   
     <!-- 我的明细，我的搜藏，购物车 -->

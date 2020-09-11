@@ -471,7 +471,7 @@ Page({
     // 计算商品总价
     this.calcualtionTotalAmount()
     // 如果实际价格大于条件免运费金额，则免运费，否则需要运费
-    if (freeDisMoney < this.data.totalAmount * 100) {
+    if (freeDisMoney <= this.data.totalAmount * 100) {
       this.setData({
         freeDisMoney: freeDisMoney /100,
         postAmount: 0,
