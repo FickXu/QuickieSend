@@ -97,6 +97,12 @@ Page({
     // 单品库存
     inventoryQty: -1
   },
+  callPhone: function(e) {
+    let txt = e.currentTarget.dataset.text
+    wx.makePhoneCall({
+    phoneNumber: txt //仅为示例，并非真实的电话号码
+    })
+  },
   // 提交订单
   openConfirmOrderPage() {
     // 用户是否已经登录

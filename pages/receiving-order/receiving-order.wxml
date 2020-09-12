@@ -38,6 +38,7 @@
       <view class="list-order-item-header">
         <view class="text-gray">确认商品后点击送货按钮，开始派送。</view>
         <!-- <text class="tag">【定制】</text> -->
+        <view class="order-number"><text class="fz-16 bold"> 今日单号：<text class="fz-30">#{{item.orderNum}}</text></text></view>
         <view class="order-number"><text class="fz-16 bold"> 订单编号：</text>{{item.orderNo}}</view>
         <view class="text-gray">接单时间：{{item.expressTime}}</view>
         <view class="buy-user">

@@ -140,42 +140,50 @@ Page({
       self.setData({
         isAuthorPhone: false
       })
+      self.qsLogin(phoneInfo)
+    })
+  },
+  // 取消授权
+  cancelAuth() {
+    wx.showLoading({
+      title: '正在登录...',
+    })
+    this.qsLogin({phoneNumber: ''})
+  },
+  // 登录
+  qsLogin(phoneInfo) {
+    // 用户注册
+    let params = {
+      ...this.data.userInfo,
+      phone: phoneInfo.phoneNumber,
+      scene: wx.getStorageSync('scene') ? wx.getStorageSync('scene') : ''
+    }
 
-      // 用户注册
-      let params = {
-        ...self.data.userInfo,
-        phone: phoneInfo.phoneNumber,
-        scene: wx.getStorageSync('scene') ? wx.getStorageSync('scene') : ''
+    params.watermark && delete params.watermark
+
+    // console.log('用户注册信息：', params)
+    request('auth/login', params).then(res => {
+      wx.hideLoading()
+      setTimeout(() => {
+        wx.showToast({
+          title: '已登录',
+        })
+      }, 200);
+      if (res.data.code == 10000) {
+        wx.navigateBack()
+        wx.setStorage({
+          key: 'isLogin',
+          data: true
+        })
+        // 首单奖励金额
+        // firstOrderRewardNewAamount: "1000"
+        // 首单有效期 天
+        // firstOrderRewardNewValidity: "1"
+        wx.setStorage({
+          key: 'userInfo',
+          data: res.data.data
+        })
       }
-
-      params.watermark && delete params.watermark
-
-      // console.log('用户注册信息：', params)
-      request('auth/login', params).then(res => {
-        wx.hideLoading()
-        setTimeout(() => {
-          wx.showToast({
-            title: '已登录',
-          })
-        }, 200);
-        if (res.data.code == 10000) {
-          wx.navigateBack()
-          wx.setStorage({
-            key: 'isLogin',
-            data: true
-          })
-          // 首单奖励金额
-          // firstOrderRewardNewAamount: "1000"
-          // 首单有效期 天
-          // firstOrderRewardNewValidity: "1"
-          wx.setStorage({
-            key: 'userInfo',
-            data: res.data.data
-          })
-        }
-      })
-
     })
   }
-
 })
