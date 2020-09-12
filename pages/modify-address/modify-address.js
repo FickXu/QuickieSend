@@ -39,11 +39,11 @@ Page({
       // 楼栋名称
       areaTypeTwoName: '',
       // 联系人
-      contact: wx.getStorageSync('userInfo').nickName,
+      contact: '',
       // 联系地址
       contactAddress: '',
       // 电话号码
-      mobilePhone: wx.getStorageSync('userInfo').telephone,
+      mobilePhone: '',
       // 商家id
       shopId: '',
       // 是否为默认地址
@@ -59,7 +59,9 @@ Page({
   onLoad() {
     let shopId = wx.getStorageSync('shopDetails').shopId
     this.setData({
-      'params.shopId': shopId
+      'params.shopId': shopId,
+      'params.contact': wx.getStorageSync('userInfo').nickName,
+      'params.mobilePhone': wx.getStorageSync('userInfo').telephone,
     })
     const eventChannel = this.getOpenerEventChannel()
     eventChannel.on('sendData', data => {

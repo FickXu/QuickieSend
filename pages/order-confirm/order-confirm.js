@@ -156,6 +156,15 @@ Page({
       this.setData({
         couponList: arr
       })
+      // 如果有优惠券，默认选择第一个
+      if(arr.length > 0) {
+        this.setData({
+          currentCouponIndex: 0,
+          discouont: arr[0]
+        })
+        // 是否启用优惠
+        this.enableDiscount()
+      }
     })
   },
   // 是否启用优惠券
