@@ -229,7 +229,7 @@
     </view>
     <!-- 一键拨号点餐 -->
     <view bindtap="callPhone" class="on-key-call" data-text="{{shopDetails.mobile || '19894397139'}}">
-      <text class="qs-icon icondianhua cu-tag round bg-orange" style="font-size: 30rpx;"><text class="fz-12" style="margin-left: 10rpx;">拨号点餐</text></text>
+      <text class="qs-icon icondianhua cu-tag round bg-orange" style="font-size: 48rpx;height: 66rpx;"><text style="margin-left: 10rpx;font-size: 30rpx;line-height: 60rpx;">拨号点餐</text></text>
     </view>
     <!-- 购物车按钮 -->
     <view class="btn-shop-car {{showShopCar?'bg-white zIndex-1111':'hide-zIndex'}}">

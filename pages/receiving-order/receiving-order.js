@@ -59,13 +59,12 @@ Page({
             orderListShow: false
           })
         }
-        wx.hideLoading()
+        // wx.hideLoading()
       }
     })
   },
   // 滚动到底部时触发
   bindscrolltolower() {
-    console.log(1111)
     this.setData({
       'params.currentPage': ++this.data.params.currentPage
     })

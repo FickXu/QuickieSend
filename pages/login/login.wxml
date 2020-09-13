@@ -14,14 +14,18 @@
 </view>
 
 <view class="cu-modal {{isAuthorPhone?'show':''}}">
+<!-- <view class="cu-modal show"> -->
   <view class="cu-dialog bg-white">
     <view class="author-phone-title">马上送到</view>
     <view class="author-phone-desc">马上送到需要您授权来获取手机号</view>
-    <view class="cu-bar bg-white justify-end">
-      <view class="action">
-        <button class="cu-btn line-gray text-green" bindtap="cancelAuth">取消</button>
+    <view class="cu-bar bg-white justify-end" style="margin-bottom: 60rpx;">
+      <view class="action" style="width: 100%;">
         <button
-          class="cu-btn bg-red margin-left"
+          class="line-red text-red bg-white btn1"
+          bindtap="cancelAuth"
+          >取消</button>
+        <button
+          class="bg-red margin-left btn1"
           open-type="getPhoneNumber"
           bindgetphonenumber="getPhoneNumber"
           >确定</button>
