@@ -122,6 +122,8 @@
           <view class="text-gray">运费</view>
           <view class="text-black">免费配送</view>
         </view>
+        <view class="padding-top margin-top-sm text-orange" wx:if="{{details.status==3}}">商家己接单，正在备餐中</view>
+        <view class="padding-top margin-top-sm text-orange" wx:if="{{details.status==5}}">小二已接单正在努力赶来，预计10分钟内送达</view>
         <!-- <view class="order-mark">订单备注：{{item. contactAddress}}</view> -->
         <view class="order-total">总计：{{details.totalQty}}件，共计：<text class="price">¥{{details.payAmount / 100}}</text></view>
         <!-- 待支付 -->
@@ -133,7 +135,7 @@
           <view class="cu-btn round ml-10 bg-gray">已取消</view>
         </view>
         <view class="btn-delete-order text-right" wx:if="{{details.status==3}}">
-          <view class="cu-btn round ml-10 bg-gray">待发货</view>
+          <view class="cu-btn round ml-10 bg-red">备货中</view>
         </view>
         <!-- 待发货 -->
         <view class="btn-delete-order text-right" wx:if="{{details.status==4}}">
@@ -141,10 +143,9 @@
           <!-- <button class="cu-btn round ml-10 bg-red" data-order-id="{{details.id}}" bindtap="remindShip">提醒发货</button> -->
         </view>
         <!-- 待发货 -->
-        <!-- <view class="btn-delete-order text-right" wx:if="{{details.status==5}}">
-          <button class="cu-btn round line text-red" data-order-id="{{item.id}}" bindtap="cancelOrder">查看物流</button>
-          <button class="cu-btn round ml-10 bg-red" data-order-id="{{details.id}}" bindtap="confirmReceipt">确认收货</button>
-        </view> -->
+        <view class="btn-delete-order text-right" wx:if="{{details.status==5}}">
+          <button class="cu-btn round ml-10 bg-red">配送中</button>
+        </view>
       </view>
     </view>
   </view>

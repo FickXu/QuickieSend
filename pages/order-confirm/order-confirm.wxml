@@ -62,11 +62,21 @@
       <view class="text-gray">订单金额</view>
       <view class="text-gray">¥ {{totalAmount}}</view>
     </view>
+    <!-- 打包费 -->
+    <view class="flex justify-between mt-10">
+      <view class="text-gray">打包费(免费)</view>
+      <view class="text-gray">¥ 0</view>
+    </view>
     <!-- 运费 -->
     <view class="flex justify-between mt-10">
-      <view class="text-gray">运费</view>
+      <view class="text-gray">运费{{postAmount==0?'(免费)':''}}</view>
       <view class="text-gray">{{postAmount==0 ? postStr : '¥ '+ postAmount}}</view>
     </view>
+    <!-- 已优惠 -->
+    <!-- <view class="flex justify-between mt-10" wx:if="{{discountPrice > 0}}">
+      <view class="text-gray">商家已优惠</view>
+      <view class="text-gray">¥ {{discountPrice}}</view>
+    </view> -->
     <!-- 优惠券 -->
     <view class="flex justify-between align-center mt-10" bindtap="showCouponListModal">
       <view class="title flex justify-between align-center flex-row5">

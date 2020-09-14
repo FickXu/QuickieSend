@@ -95,7 +95,9 @@ Page({
     SPEC_OBJ: {},
     standardLabel: [],
     // 单品库存
-    inventoryQty: -1
+    inventoryQty: -1,
+    // 根据分类提示配送时间
+    tipForTypeStr: ''
   },
   callPhone: function(e) {
     let txt = e.currentTarget.dataset.text
@@ -201,6 +203,8 @@ Page({
   },
   // 获取最近的医院列表
   openHospitalListPage: function () {
+    // this.scanSendGoods()
+    // return
     let slef = this
     wx.navigateTo({
       url: `../hospital-list/hospital-list?localtion=${this.data.locationStr}`,
@@ -869,6 +873,24 @@ Page({
     let isLogin = wx.getStorageSync('isLogin')
     this.setData({
       isLogin: isLogin ? true : false
+    })
+  },
+  // 扫码送货
+  scanSendGoods() {
+    let self = this
+    wx.scanCode({
+      onlyFromCamera: true,
+      // scanType: ['qrCode'],
+      success: res => {
+        wx.showModal({
+          title: 'xxxx',
+          content: JSON.stringify(res)
+        })
+        console.log('邀请码', JSON.stringify(res))
+      },
+      fail: err => {
+        console.log('err', err)
+      }
     })
   },
   onShow: function () {

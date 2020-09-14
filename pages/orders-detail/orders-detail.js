@@ -203,6 +203,7 @@ Page({
   },
   // 调用支付
   callPay(params) {
+    let self = this
     wx.requestPayment({
       // 时间戳
       timeStamp: params.timeStamp,
@@ -215,7 +216,9 @@ Page({
       signType: 'MD5',
       success: res => {
         console.log('pay success', res)
-        this.paySuccess(params.orderNo)
+        app.subscribeMessage(['YA25e78anNWEGVJS8tP6-1FXe5AAWyIf1WwYhYzm1As']).finally(() => {
+          self.paySuccess(params.orderNo)
+        })
       },
       fial: fail => {
         console.log('pay fail', fail)
@@ -246,7 +249,6 @@ Page({
     wx.navigateTo({
       url: `../pay-success/pay-success?orderNo=${orderNo}`,
       success: res => {
-        app.subscribeMessage(['YA25e78anNWEGVJS8tP6-1FXe5AAWyIf1WwYhYzm1As'])
         this.setData({
           isShow: false
         })

@@ -19,6 +19,8 @@ Page({
     totalAmount: 0,
     // 订单实际应支付总价
     realAmount: 0,
+    // 订单原价
+    discountPrice: 0,
     // 订单中的商品数量
     commodityTotalNumber: 0,
     modalStatus: false,
@@ -57,7 +59,6 @@ Page({
     // 免配送费
     postStr: '',
     layoutType: 'row',
-    isShow: false,
     // 优惠券
     discouont: {},
     // 优惠券金额
@@ -71,7 +72,9 @@ Page({
     // 优惠券列表
     couponList: [],
     // 当前已选优惠券的index
-    currentCouponIndex: -1
+    currentCouponIndex: -1,
+    // 是否第一次加载页面
+    oneLoadPage: true
   },
   onShow () {
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
@@ -97,10 +100,13 @@ Page({
   },
   // 展示优惠券列表
   showCouponListModal() {
+    if (!this.data.showCouponList) {
+      this.getCoupon()
+    }
     this.setData({
       showCouponList: !this.data.showCouponList
     })
-    this.getCoupon()
+    // this.getCoupon()
   },
   // 获取商品的spuId集合
   getCommoditySpuIds() {
@@ -122,6 +128,16 @@ Page({
   // 选择要使用的优惠券
   selectCoupon(e) {
     let index = e.currentTarget.dataset.index
+    // 取消使用优惠券
+    if (this.data.currentCouponIndex == index) {
+      this.setData({
+        currentCouponIndex: -1,
+        discouont: {},
+        showCouponList: false
+      })
+      this.enableDiscount()
+      return
+    }
     let conditions = this.data.couponList[index].conditions
     if (this.data.totalAmount*100 < conditions) {
       wx.showToast({
@@ -157,8 +173,9 @@ Page({
         couponList: arr
       })
       // 如果有优惠券，默认选择第一个
-      if(arr.length > 0) {
+      if(arr.length > 0 && this.data.oneLoadPage) {
         this.setData({
+          oneLoadPage: false,
           currentCouponIndex: 0,
           discouont: arr[0]
         })
@@ -170,8 +187,9 @@ Page({
   // 是否启用优惠券
   enableDiscount() {
     // 订单金额大于条件金额并且大于优惠券金额才能使用优惠券
-    if (this.data.totalAmount*100 >= this.data.discouont.conditions && this.data.totalAmount*100 >= this.data.discouont.amount) {
+    if (this.data.currentCouponIndex > -1 && this.data.totalAmount*100 >= this.data.discouont.conditions && this.data.totalAmount*100 >= this.data.discouont.amount) {
       this.setData({
+        discountPrice: ((this.data.discountPrice*100 - this.data.discountAmount + (this.data.discouont.amount||0)) / 100).toFixed(2),
         discountAmount: this.data.discouont.amount,
         discountName: this.data.discouont.name
       })
@@ -179,6 +197,7 @@ Page({
     } else {
       this.setData({
         discountAmount: 0,
+        discountPrice: ((this.data.discountPrice*100 - (this.data.discountAmount||0)) / 100).toFixed(2),
         discountName: '',
         discouont: {},
         currentCouponIndex: -1
@@ -338,8 +357,6 @@ Page({
           couponId: self.data.discountAmount/100 < self.data.totalAmount ? self.data.discouont.id : '' 
         }
         request('order/create', params).then(res => {
-          // 清空购物车
-          self.removeShopCar()
           if (obj.enablePay) {
             // 获取支付参数并拉起微信支付
             self.payCreatewxorder(res.data.data.orderNo)
@@ -399,14 +416,11 @@ Page({
           paySign: params.paySign,
           signType: 'MD5',
           success: res => {
-            console.log('pay success', res)
-            wx.showToast({
-              title: '支付成功',
-              icon: 'none'
+            app.subscribeMessage(['YA25e78anNWEGVJS8tP6-1FXe5AAWyIf1WwYhYzm1As']).finally(() => {
+              setTimeout(() => {
+                self.paySuccess(params.orderNo)
+              }, 20);
             })
-            setTimeout(() => {
-              self.paySuccess(params.orderNo)
-            }, 700);
           },
           fial: fail => {
             console.log('pay fail', fail)
@@ -436,23 +450,22 @@ Page({
   },
   // 支付失败
   payFail() {
-    // this.setData({
-    //   isShow: false
-    // })
+    let self = this
     // 支付失败，跳转到订单页
     wx.navigateTo({
-      url: '../orders/orders?type=1'
+      url: '../orders/orders?type=1',
+      success: res => {
+        self.removeShopCar()
+      }
     })
   },
   // 支付成功
   paySuccess(orderNo) {
+    let self = this
     wx.navigateTo({
       url: `../pay-success/pay-success?orderNo=${orderNo}`,
       success: res => {
-        app.subscribeMessage(['YA25e78anNWEGVJS8tP6-1FXe5AAWyIf1WwYhYzm1As'])
-        this.setData({
-          isShow: false
-        })
+        self.removeShopCar()
       }
     })
   },
@@ -484,7 +497,8 @@ Page({
       this.setData({
         freeDisMoney: freeDisMoney /100,
         postAmount: 0,
-        postStr: '免费配送'
+        // postStr: '免费配送'
+        postStr: '¥ 0'
       })
     } else {
       // 设置运费
@@ -500,18 +514,20 @@ Page({
   calcualtionRealAmount() {
     let discountAmount = this.data.discountAmount
     this.setData({
-      realAmount: (parseInt(this.data.totalAmount * 100) - (discountAmount+'')) / 100 + this.data.postAmount
+      realAmount: ((this.data.totalAmount * 100 - discountAmount) / 100 + this.data.postAmount).toFixed(2)
     })
   },
   // 计算订单总价格
   calcualtionTotalAmount() {
     let arr = this.data.commodityList
     let total = 0
+    let totalShowPrice = 0
     let num = 0
     let skuOrderDtoArr = []
     arr.forEach(item => {
       if (item.CURRENT_QUANTITY) {
         total += item.realPrice * 100 * item.CURRENT_QUANTITY
+        totalShowPrice += item.showPrice * 100 * item.CURRENT_QUANTITY
         num += item.CURRENT_QUANTITY
         // 订单单品参数
         let params =  {
@@ -535,6 +551,7 @@ Page({
     });
     this.setData({
       totalAmount: total / 100,
+      discountPrice: ((totalShowPrice - total||0) / 100).toFixed(2),
       'params.skuOrderDtoArr': skuOrderDtoArr,
       commodityTotalNumber: num
     })
