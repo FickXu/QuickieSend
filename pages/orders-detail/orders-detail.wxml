@@ -122,7 +122,7 @@
           <view class="text-gray">运费</view>
           <view class="text-black">免费配送</view>
         </view>
-        <view class="padding-top margin-top-sm text-orange" wx:if="{{details.status==3}}">商家己接单，正在备餐中</view>
+        <view class="padding-top margin-top-sm text-orange" wx:if="{{details.status==3}}">商家己接单，正在备货中</view>
         <view class="padding-top margin-top-sm text-orange" wx:if="{{details.status==5}}">小二已接单正在努力赶来，预计10分钟内送达</view>
         <!-- <view class="order-mark">订单备注：{{item. contactAddress}}</view> -->
         <view class="order-total">总计：{{details.totalQty}}件，共计：<text class="price">¥{{details.payAmount / 100}}</text></view>
