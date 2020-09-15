@@ -78,7 +78,7 @@
   align-items: center;
 }
 .person-center .settings {
-  margin-top: 20px;
+  margin-top: 20rpx;
 }
 .person-center .recommend {
   padding: 10px 0;

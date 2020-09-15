@@ -1,202 +1,270 @@
 <!-- 顶部导航 -->
-<cu-custom bgColor="bg-white" isBack="{{true}}">
-  <view slot="content" class="bold">{{ title }}</view>
-</cu-custom>
-
-<scroll-view
-  class="scroll-page"
-  scroll-y
-  scroll-with-animation
-  style="height: calc(~'100vh - {{CustomBar}}px - 50px')"
-  >
-
-  <!-- 地址 -->
-  <view class="address-list flex flex-align-center justify-between padding" bindtap="openAddAddressPage" wx:if="{{params.address=='请添加收货地址'}}">
-    <view class="detail fz-16">
-      <view class="flex mt-5">
-        <view class="qs-icon iconlocation text-black"></view>
-        <text class="text-black ml-15">{{params.address}}</text>
-      </view>
-    </view>
-    <view class="qs-icon iconright"></view>
-  </view>
-  <view wx:else class="address-list flex flex-align-center justify-between padding" bindtap="openAddressListPage">
-    <view class="detail fz-16">
-      <view class="flex mt-5">
-        <view class="qs-icon iconlocation text-black"></view>
-        <text class="text-black">{{params.address}}</text>
-      </view>
-      <view class="text-black margin-top-xs text-bold">{{params.name + ' ' + params.mobile}}</view>
-    </view>
-    <view class="qs-icon iconright"></view>
-  </view>
-
-  <view class="commdity-info mt-10">
-    <view class="title padding text-bold fz-18 flex justify-between">
-      <view class="text-black">商品信息</view>
-      <view class="text-black fz-14">
-        共
-        <text class="text-red fz-13">{{commodityTotalNumber}}</text>
-        件
-      </view>
-    </view>
-    <!-- 商品列表 -->
-    <commodity-list
-      info="{{commodityList}}"
-      layout="{{layoutType}}"
-      isCount="{{true}}"
-      isGoToDetailPage="{{false}}"
-      bind:numberChange="numberChange"
-      >
-    </commodity-list>
-  </view>
-
-  <!-- 订单信息 -->
-  <view class="order-info mt-10 padding bg-white">
-    <!-- <view class="title text-bold fz-18 flex justify-between">
-      <view class="text-black">订单编号</view>
-      <view class="text-black fz-14">654653416546496</view>
-    </view> -->
-
-    <view class="flex justify-between mt-10">
-      <view class="text-gray">订单金额</view>
-      <view class="text-gray">¥ {{totalAmount}}</view>
-    </view>
-    <!-- 打包费 -->
-    <view class="flex justify-between mt-10">
-      <view class="text-gray">打包费(免费)</view>
-      <view class="text-gray">¥ 0</view>
-    </view>
-    <!-- 运费 -->
-    <view class="flex justify-between mt-10">
-      <view class="text-gray">运费{{postAmount==0?'(免费)':''}}</view>
-      <view class="text-gray">{{postAmount==0 ? postStr : '¥ '+ postAmount}}</view>
-    </view>
-    <!-- 已优惠 -->
-    <!-- <view class="flex justify-between mt-10" wx:if="{{discountPrice > 0}}">
-      <view class="text-gray">商家已优惠</view>
-      <view class="text-gray">¥ {{discountPrice}}</view>
-    </view> -->
-    <!-- 优惠券 -->
-    <view class="flex justify-between align-center mt-10" bindtap="showCouponListModal">
-      <view class="title flex justify-between align-center flex-row5">
-        <view>优惠券</view>
-        <view>
-          <text class="text-black">{{discountName}}</text>
-          <text class="text-black" decode="{{true}}"> ¥ {{discountAmount/100}}</text>
+<view class="order-confirm-page">
+  <cu-custom isBack="{{true}}">
+    <view slot="content" class="bold">{{ title }}</view>
+  </cu-custom>
+  
+  <scroll-view
+    class="scroll-page"
+    scroll-y
+    scroll-with-animation
+    style="height: calc(~'100vh - {{CustomBar}}px - 50px')"
+    >
+  
+    <!-- 地址 -->
+    <!-- <view class="address-list" bindtap="openAddAddressPage" wx:if="{{params.address=='请添加收货地址'}}">
+      <view class="detail fz-16">
+        <view class="flex mt-5">
+          <view class="qs-icon iconlocation text-black"></view>
+          <text class="text-black ml-15">{{params.address}}</text>
         </view>
       </view>
-      <view class="qs-icon iconright text-gray mt-5"></view>
-    </view>
-    <!-- <view class="flex justify-between mt-10" wx:if="{{discountAmount > 0}}">
-      <view class="text-black">{{discountName}}</view>
-      <view class="text-black">¥ {{discountAmount/100}}</view>
+      <view class="qs-icon iconright"></view>
     </view> -->
-    <!-- 订单总计 -->
-    <view class="order-total padding-tb mt-10">
-      <view class="fz-14 text-black text-right">
-        共<text class="text-red">{{commodityTotalNumber}}</text> 商品 
-        总计：<text class="price fz-18">¥ {{realAmount}}</text>
+    <!-- tab切换 -->
+    <view class="address-tab">
+      <view class="tab-item tab-delivery {{addressTabIndex==0?'tab-active':'tab-left-un-active'}}" bindtap="switchTab" data-index="0">
+        <text>外卖配送</text>
+      </view>
+      <view class="tab-item tab-pick {{addressTabIndex==1?'tab-active':'tab-right-un-active'}}" bindtap="switchTab" data-index="1">
+        <text>到店自取</text>
       </view>
     </view>
-  </view>
-  <!-- 备注 -->
-  <view class="cu-form-group align-start mt-10">
-    <view class="title">订单备注</view>
-		<input style="margin-top: 24rpx;" disabled="{{modalName!=null}}" bindinput="textareaBInput" data-key="description" placeholder="请输入备注"></input>
-	</view>
-  <!-- 支付方式 -->
-  <view class="pay-type mt-10 padding bg-white">
-    <view class="title text-bold fz-18 flex justify-between">
-      <view class="text-black">请选择支付方式</view>
-    </view>
-    <view class="pay-item">
-      <radio-group class="block">
-        <view class="cu-form-group margin-top" style="border-top: 1px solid #eee">
-          <view class="title">微信支付</view>
-          <view class="qs-icon icongouxuan2 text-red"></view>
-        </view>
-      </radio-group>
-    </view>
-  </view>
-</scroll-view>
-<!-- 结算 -->
-<cover-view class="settle-accounts flex justify-center flex-align-center">
-  <cover-view class="data-view flex-row5 flex justify-between align-center ml-10 mr-10">
-    <cover-view class="total-amount ml-15 flex align-center">
-      <cover-view class="text-red fz-18">合计 </cover-view>
-      <cover-view class="text-red" style="font-size: 18px;font-weight: 700;min-width: 160rpx;">¥ {{realAmount}}</cover-view>
-    </cover-view>
-    <cover-view class="radio-box flex align-center text-bold">
-      <cover-view>共</cover-view>
-      <cover-view class="text-red" decode="{{true}}"> {{commodityTotalNumber}} </cover-view>
-      <cover-view>件</cover-view>
-    </cover-view>
-  </cover-view>
-  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pullPay" hidden="{{totalAmount<freeDisMoney}}">
-    <cover-view>去支付</cover-view>
-  </cover-view>
-  <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-gray text-gray" hidden="{{totalAmount>=freeDisMoney}}">
-    <cover-view>¥{{freeDisMoney}}起送</cover-view>
-  </cover-view>
-</cover-view>
-<!-- 优惠券列表 -->
-<view class="cu-modal bottom-modal {{showCouponList ?'show':''}}" bindtap="showCouponListModal">
-  <view class="cu-dialog pb-100" catchtap="stopBubble">
-    <view class="padding-xl bg-white">
-      <!-- header -->
-      <view class="bg-white flex justify-between mt-15">
-        <text class="text-black bold fz-14">优惠券</text>
-      </view>
-      <view style="max-height: 1000rpx;overflow-y: auto;margin-bottom: 100rpx;" wx:if="{{couponList.length>0}}">
-        <!-- 优惠券列表 -->
-        <view
-          wx:for="{{couponList}}"
-          wx:key="id"
-          >
-          <!-- 优惠券组名称 -->
-          <view class="label text-left" wx:if="{{index==0}}">{{item.name}}</view>
-          <view class="label text-left" wx:if="{{index>0&&item.name!=couponList[index-1].name}}">{{item.name}}</view>
-          <view class="coupon-item">
-            <view class="coupon-body {{currentCouponIndex==index?'bg-selected':''}}" bindtap="selectCoupon" data-index="{{index}}">
-              <view class="left">
-                <view class="money">
-                  <text class="symbol">¥</text>
-                  <text class="num">{{item.amount/100}}</text>
-                </view>
-                <view class="expired">有效期至：{{item.endTime}}</view>
-              </view>
-              <view class="right">
-                <view class="title text-left">满{{item.conditions/100}}元可用</view>
-                <view class="title line-overflow text-left" style="font-size: 26rpx;">{{item.useWayStr}}</view>
-                <!-- <view class="btn-rule-info">规则详情 ></view> -->
-              </view>
+    <view class="address-list {{addressTabIndex==0?'address-list-radius1':'address-list-radius2'}}" >
+      <!-- 店铺配送 -->
+      <view class="shop-delivery" wx:if="{{addressTabIndex==0}}">
+        <!-- 选择地址 -->
+        <view class="choose-address"bindtap="openAddressListPage">
+          <view class="detail fz-16">
+            <view class="flex">
+              <view class="qs-icon iconlocation text-black"></view>
+              <text class="text-black">{{params.address}}</text>
             </view>
-            <view class="btn-pull-coupon">
-              <text class="text-white fz-30 btn-pull-txt">点击使用</text>
+            <view class="text-black margin-top-xs text-bold">{{params.name + ' ' + params.mobile}}</view>
+          </view>
+          <view class="qs-icon iconright"></view>
+        </view>
+        <!-- 选择时间 -->
+        <view class="choose-time">
+          <view class="detail fz-16 bold">立即送出</view>
+          <view class="flex" style="flex: 5;justify-content: flex-end;align-items: center;">
+            <picker
+              mode="multiSelector"
+              bindchange="bindMultiPickerChange"
+              bindcolumnchange="bindMultiPickerColumnChange"
+              value="{{multiIndex}}"
+              range="{{multiArray}}"
+              style="flex: 5;text-align: right;"
+              >
+              <view class="text-red" style="width: 100%;min-height: 60rpx;line-height: 60rpx;">
+                {{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}
+              </view>
+            </picker>
+            <view class="qs-icon iconright text-black"></view>
+          </view>
+        </view>
+      </view>
+      <!-- 客户自提 -->
+      <view class="custom-pick" wx:else>
+        <view class="fz-18 bold">{{shopName}}</view>
+         <!-- 选择时间 -->
+         <view class="choose-time" style="justify-content: flex-start;">
+          <view style="display: flex;justify-content: center;align-items: flex-start;flex-direction: column;padding-right: 30rpx;border-right: 2rpx solid #f7f7f7;">
+            <view class="detail fz-13 text-gray">自取时间</view>
+            <view class="flex">
+              <picker
+                mode="multiSelector"
+                bindchange="bindMultiPickerChange"
+                bindcolumnchange="bindMultiPickerColumnChange"
+                value="{{multiIndex}}"
+                range="{{multiArray}}"
+                style="flex: 5;text-align: right;"
+                >
+                <view class="text-black fz-16 bold" style="width: 100%;min-height: 60rpx;line-height: 60rpx;">
+                  {{multiArray[0][multiIndex[0]]}} {{multiArray[1][multiIndex[1]]}}
+                </view>
+              </picker>
+              <!-- <view class="qs-icon iconright text-black"></view> -->
+            </view>
+          </view>
+          <view style="display: flex;justify-content: center;align-items: flex-start;flex-direction: column;padding-right: 30rpx;border-right: 2rpx solid #f7f7f7;margin-left: 30rpx;">
+            <view class="detail fz-13 text-gray">预留电话</view>
+            <view style="display: flex;justify-content: flex-start;align-items: center;">
+              <input bindinput="textareaBInput1" placeholder="请输入手机号码" value="{{params.mobile}}" style="width: 200rpx;"></input>
+              <text class="qs-icon iconziyuan text-black"></text>
             </view>
           </view>
         </view>
       </view>
-      <view wx:else style="min-height: 300rpx; text-align: center;margin-top: 200rpx">
-        <text class="mt-30">当前没有可用优惠券哦~</text>
-      </view>
     </view>
-  </view>
-</view>
-<view class="cu-modal {{isShow ?'show':''}}">
-  <view class="cu-dialog">
-    <view class="text-black fz-18 text-algin padding-tb text-bold">支付中...</view>
-    <view class="bg-img" style="background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/pay-status.png');height:200px;">
-      <view class="cu-bar justify-end text-white">
-        <view class="action" bindtap="hideModal">
-          <text class="qs-icon iconclose "></text>
+  
+    <view class="commdity-info mt-10" style="margin: 20rpx 30rpx 0;border-radius: 24rpx;">
+      <view class="title padding text-bold fz-18 flex justify-between">
+        <view class="text-black">商品信息</view>
+        <view class="text-black fz-14">
+          共
+          <text class="text-red fz-13">{{commodityTotalNumber}}</text>
+          件
+        </view>
+      </view>
+      <!-- 商品列表 -->
+      <commodity-list
+        info="{{commodityList}}"
+        layout="{{layoutType}}"
+        isCount="{{true}}"
+        isGoToDetailPage="{{false}}"
+        bind:numberChange="numberChange"
+        >
+      </commodity-list>
+    </view>
+  
+    <!-- 订单信息 -->
+    <view class="order-info mt-10 padding bg-white" style="margin: 20rpx 30rpx 0;border-radius: 24rpx;">
+      <!-- <view class="title text-bold fz-18 flex justify-between">
+        <view class="text-black">订单编号</view>
+        <view class="text-black fz-14">654653416546496</view>
+      </view> -->
+  
+      <view class="flex justify-between mt-10">
+        <view class="text-gray">订单金额</view>
+        <view class="text-gray">¥ {{totalAmount}}</view>
+      </view>
+      <!-- 打包费 -->
+      <view class="flex justify-between mt-10">
+        <view class="text-gray">打包费(免费)</view>
+        <view class="text-gray">¥ 0</view>
+      </view>
+      <!-- 运费 -->
+      <view class="flex justify-between mt-10">
+        <view class="text-gray">运费{{postAmount==0?'(免费)':''}}</view>
+        <view class="text-gray">{{postAmount==0 ? postStr : '¥ '+ postAmount}}</view>
+      </view>
+      <!-- 已优惠 -->
+      <view class="flex justify-between mt-10" wx:if="{{discountPrice > 0}}">
+        <view class="text-gray">商家已优惠</view>
+        <view class="text-gray">¥ {{discountPrice}}</view>
+      </view>
+      <!-- 优惠券 -->
+      <view class="flex justify-between align-center mt-10" bindtap="showCouponListModal">
+        <view class="title flex justify-between align-center flex-row5">
+          <view>优惠券</view>
+          <view>
+            <text class="text-black">{{discountName}}</text>
+            <text class="text-black" decode="{{true}}"> ¥ {{discountAmount/100}}</text>
+          </view>
+        </view>
+        <view class="qs-icon iconright text-gray mt-5"></view>
+      </view>
+      <!-- <view class="flex justify-between mt-10" wx:if="{{discountAmount > 0}}">
+        <view class="text-black">{{discountName}}</view>
+        <view class="text-black">¥ {{discountAmount/100}}</view>
+      </view> -->
+      <!-- 订单总计 -->
+      <view class="order-total padding-tb mt-10">
+        <view class="fz-14 text-black text-right">
+          共<text class="text-red">{{commodityTotalNumber}}</text> 商品 
+          总计：<text class="price fz-18">¥ {{realAmount}}</text>
         </view>
       </view>
     </view>
-    <view class="cu-bar bg-white text-center justify-center">
-      <button class="cu-btn round" bindtap="payFail">支付遇到问题</button>
-      <button class="cu-btn round bg-red ml-15" bindtap="paySuccess">已经支付成功</button>
+    <!-- 备注 -->
+    <view class="cu-form-group align-start mt-10" style="margin: 20rpx 30rpx 0;border-radius: 24rpx;">
+      <view class="title">订单备注</view>
+      <input style="margin-top: 24rpx;" disabled="{{modalName!=null}}" bindinput="textareaBInput" data-key="description" placeholder="请输入备注"></input>
+    </view>
+    <!-- 支付方式 -->
+    <view class="pay-type mt-10 padding bg-white" style="margin: 20rpx 30rpx 0;border-radius: 24rpx;">
+      <view class="title text-bold fz-18 flex justify-between">
+        <view class="text-black">请选择支付方式</view>
+      </view>
+      <view class="pay-item">
+        <radio-group class="block">
+          <view class="cu-form-group margin-top" style="border-top: 1px solid #eee">
+            <view class="title">微信支付</view>
+            <view class="qs-icon icongouxuan2 text-red"></view>
+          </view>
+        </radio-group>
+      </view>
+    </view>
+  </scroll-view>
+  <!-- 结算 -->
+  <cover-view class="settle-accounts flex justify-center flex-align-center">
+    <cover-view class="data-view flex-row5 flex justify-between align-center ml-10 mr-10">
+      <cover-view class="total-amount ml-15 flex align-center">
+        <cover-view class="text-red fz-18">合计 </cover-view>
+        <cover-view class="text-red" style="font-size: 18px;font-weight: 700;min-width: 160rpx;">¥ {{realAmount}}</cover-view>
+      </cover-view>
+      <cover-view class="radio-box flex align-center text-bold">
+        <cover-view>共</cover-view>
+        <cover-view class="text-red" decode="{{true}}"> {{commodityTotalNumber}} </cover-view>
+        <cover-view>件</cover-view>
+      </cover-view>
+    </cover-view>
+    <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-red text-white" bindtap="pullPay" hidden="{{totalAmount<freeDisMoney}}">
+      <cover-view>去支付</cover-view>
+    </cover-view>
+    <cover-view class="btn-box flex-row2 flex flex-align-center justify-center bg-gray text-gray" hidden="{{totalAmount>=freeDisMoney}}">
+      <cover-view>¥{{freeDisMoney}}起送</cover-view>
+    </cover-view>
+  </cover-view>
+  <!-- 优惠券列表 -->
+  <view class="cu-modal bottom-modal {{showCouponList ?'show':''}}" bindtap="showCouponListModal">
+    <view class="cu-dialog pb-100" catchtap="stopBubble">
+      <view class="padding-xl bg-white">
+        <!-- header -->
+        <view class="bg-white flex justify-between mt-15">
+          <text class="text-black bold fz-14">优惠券</text>
+        </view>
+        <view style="max-height: 1000rpx;overflow-y: auto;margin-bottom: 100rpx;" wx:if="{{couponList.length>0}}">
+          <!-- 优惠券列表 -->
+          <view
+            wx:for="{{couponList}}"
+            wx:key="id"
+            >
+            <!-- 优惠券组名称 -->
+            <view class="label text-left" wx:if="{{index==0}}">{{item.name}}</view>
+            <view class="label text-left" wx:if="{{index>0&&item.name!=couponList[index-1].name}}">{{item.name}}</view>
+            <view class="coupon-item">
+              <view class="coupon-body {{currentCouponIndex==index?'bg-selected':''}}" bindtap="selectCoupon" data-index="{{index}}">
+                <view class="left">
+                  <view class="money">
+                    <text class="symbol">¥</text>
+                    <text class="num">{{item.amount/100}}</text>
+                  </view>
+                  <view class="expired">有效期至：{{item.endTime}}</view>
+                </view>
+                <view class="right">
+                  <view class="title text-left">满{{item.conditions/100}}元可用</view>
+                  <view class="title line-overflow text-left" style="font-size: 26rpx;">{{item.useWayStr}}</view>
+                  <!-- <view class="btn-rule-info">规则详情 ></view> -->
+                </view>
+              </view>
+              <view class="btn-pull-coupon">
+                <text class="text-white fz-30 btn-pull-txt">点击使用</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view wx:else style="min-height: 300rpx; text-align: center;margin-top: 200rpx">
+          <text class="mt-30">当前没有可用优惠券哦~</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cu-modal {{isShow ?'show':''}}">
+    <view class="cu-dialog">
+      <view class="text-black fz-18 text-algin padding-tb text-bold">支付中...</view>
+      <view class="bg-img" style="background-image: url('https://yykjoss.oss-cn-shenzhen.aliyuncs.com/wechaapplet/basic/pay-status.png');height:200px;">
+        <view class="cu-bar justify-end text-white">
+          <view class="action" bindtap="hideModal">
+            <text class="qs-icon iconclose "></text>
+          </view>
+        </view>
+      </view>
+      <view class="cu-bar bg-white text-center justify-center">
+        <button class="cu-btn round" bindtap="payFail">支付遇到问题</button>
+        <button class="cu-btn round bg-red ml-15" bindtap="paySuccess">已经支付成功</button>
+      </view>
     </view>
   </view>
 </view>

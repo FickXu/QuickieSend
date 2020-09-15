@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/address-list/address-list",
+    "pages/order-confirm/order-confirm",
+    "pages/orders/orders",
     "pages/pay-success/pay-success",
     "pages/about-us/child-page/feedback/feedback",
     "pages/my-scan/my-scan",
@@ -11,7 +14,6 @@
     "pages/withdraw-record/withdraw-record",
     "pages/plateform-card/plateform-card",
     "pages/receiving-bill/receiving-bill",
-    "pages/orders/orders",
     "pages/receiving-order/receiving-order",
     "pages/login/login",
     "pages/commodity-detail/commodity-detail",
@@ -20,14 +22,12 @@
     "pages/withdraw/withdraw",
     "pages/user-auth/user-auth",
     "pages/add-comment/add-comment",
-    "pages/address-list/address-list",
     "pages/modify-address/modify-address",
     "pages/bind-phone/bind-phone",
     "pages/person-info/person-info",
     "pages/orders-detail/orders-detail",
     "pages/collection-list/collection-list",
     "pages/consumer-details/consumer-details",
-    "pages/order-confirm/order-confirm",
     "pages/commodity-list/commodity-list",
     "pages/comment-list/comment-list",
     "pages/setting/setting"

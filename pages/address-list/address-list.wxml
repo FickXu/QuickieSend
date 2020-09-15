@@ -19,13 +19,16 @@
       data-id="{{item.id}}"
       >
       <view class="box">
-        <view class="contact-info">
+        <view class="contact-info" style="width: 100%;">
           <view class="mb-10">
             <text wx:if="{{item.isDefault==0}}" class="cu-tag round bg-red">默认</text>
             <text class="bold text-black fz-16 margin-left-sm">{{item.contact}}</text>
             <text class="bold text-black fz-16" decode="{{true}}">&emsp;{{item.mobilePhone}}</text>
           </view>
-          <view class="text-gray">{{item.areaTypeOneName + ' ' + item.areaTypeThreeName + ' ' + item.areaTypeTwoName + ' ' + item.contactAddress}}</view>
+          <view class="text-gray" style="display: flex;justify-content: space-between;align-items: center;flex-basis: 100%;">
+            <text>{{item.areaTypeOneName + ' ' + item.areaTypeThreeName + ' ' + item.areaTypeTwoName + ' ' + item.contactAddress}}</text>
+            <tex>左滑修改地址</tex>
+          </view>
         </view>
       </view>
     </slideView>

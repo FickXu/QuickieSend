@@ -51,6 +51,12 @@ Page({
         //   skuId: '',
         // }
       ],
+      // 预计配送时间
+      estimatedDeliveryTime: '',
+      // 是否为自提(0,配送；1，自提)
+      whetherToHave: 0,
+      // 配送的默认地址
+      contactAddress: ''
     },
     // 起送金额
     freeDisMoney: 0,
@@ -74,7 +80,19 @@ Page({
     // 当前已选优惠券的index
     currentCouponIndex: -1,
     // 是否第一次加载页面
-    oneLoadPage: true
+    oneLoadPage: true,
+    // 当前激活的地址选择页签
+    addressTabIndex: 0,
+    showChooseTimeModal: false,
+    multiIndex: [0, 0],
+    multiArray: [
+      [],
+      []
+    ],
+    currentDuring: [],
+    tomorrowDuring: [],
+    // 店铺名称
+    shopName: ''
   },
   onShow () {
     if (!wx.getStorageSync('shopcarList') || wx.getStorageSync('shopcarList').length == 0) {
@@ -86,7 +104,8 @@ Page({
     eventChannel.on('sendData', function(data) {
       self.setData({
         commodityList: data,
-        'params.shopId': wx.getStorageSync('shopDetails').shopId
+        'params.shopId': wx.getStorageSync('shopDetails').shopId,
+          shopName: wx.getStorageSync('shopDetails').shopName
       })
       self.calcualtionPostCoast()
       console.log('获取到的参数：', data)
@@ -97,6 +116,149 @@ Page({
     }) 
     // 获取默认地址
     self.getDefaultAddress()
+
+    // ------------------------------------- test page
+    // let self = this
+    // wx.getStorage({
+    //   key: 'shopcarList',
+    //   success: res => {
+    //     self.setData({
+    //       commodityList: res.data,
+    //       'params.shopId': wx.getStorageSync('shopDetails').shopId,
+    //       shopName: wx.getStorageSync('shopDetails').shopName
+    //     })
+    //     self.calcualtionPostCoast()
+    //     self.getCommoditySpuIds()
+    //     self.getCoupon()
+    //   }
+    // })
+    // this.getDefaultAddress()
+  },
+  onLoad() {
+    this.createTimePart()
+  },
+  // 选择配送或自取
+  switchTab(e) {
+    let index = e.currentTarget.dataset.index
+    this.setData({
+      addressTabIndex: index,
+      'params.whetherToHave': index
+    })
+    if (index == 1) {
+      this.setData({
+        'params.mobile': wx.getStorageSync('userInfo').telephone,
+        'params.address': '自提'
+      })
+    } else {
+      this.setData({
+        'params.address': this.data.contactAddress
+      })
+    }
+  },
+  // 生成可选时间段
+  createTimePart() {
+    let _shopDetails = wx.getStorageSync('shopDetails')
+    let beginShopHours = _shopDetails.beginShopHours
+    let endShopHours = _shopDetails.endShopHours
+    let currentTime = this.getCurrentHM()
+    // 时间段间隔时间（分钟）
+    let conditionMinute = 30
+    let tomorrowDuring = this.computeDuringTime(beginShopHours, endShopHours, conditionMinute)
+    let currentDuring= this.computeDuringTime(currentTime, endShopHours, conditionMinute)
+    let ma1 = currentDuring.length == 0 ? ['明天'] : ['今天', '明天']
+    this.setData({
+      'multiArray[0]': ma1,
+      'multiArray[1]': currentDuring.length > 0 ? currentDuring : tomorrowDuring,
+      tomorrowDuring: tomorrowDuring,
+      currentDuring: currentDuring
+    })
+    let estimatedDeliveryTime = this.getDates()[0] + this.data.multiArray[1][0] + ':00'
+    console.log('预计配送时间', estimatedDeliveryTime)
+    this.setData({
+      'params.estimatedDeliveryTime': estimatedDeliveryTime
+    })
+  },
+  // 获取现在的小时和分钟
+  getCurrentHM() {
+    const dt = new Date()
+    const h = dt.getHours()
+    const m = dt.getMinutes()
+    return `${h}:${m}`
+  },
+  // 获取下一天和今天日期
+  getDates() {
+    const dt = new Date()
+    let nextDate =  new Date(dt.getTime() + 24*60*60*1000); //后一天
+    return [`${dt.getFullYear()}-${dt.getMonth()}-${dt.getDate()} `, `${nextDate.getFullYear()}-${nextDate.getMonth()}-${nextDate.getDate()} `]
+  },
+  // 计算营业时间段差
+  computeDuringTime(beginTime, endTime, conditionMinute) {
+    let arr = []
+    // 时间段间隔差值
+    let conditionsValue = 60 / conditionMinute
+    // 传入的开始时间
+    let _beginTime = beginTime.split(':')
+    let _endTime = endTime.split(':')
+    // 小时开始的时间
+    let beginHours = _beginTime[0]
+    // 小时结束的时间
+    let endHours = _endTime[0]
+    // 分钟开始的时间
+    // let beginMinute = _beginTime[1]
+    // 分钟结束的时间
+    // let endMinute = _endTime[1]
+    
+    // 小时：时间差，以30分钟为一时间段，时间段数量为时间差两倍
+    let diffHours = endHours - beginHours
+    // 分钟：时间差大于30向前取一个时间段否则为0
+    let diffMinute = 1
+    let timeDuring = diffHours + diffMinute
+    let hours = beginHours
+    let minute = ''
+    for(let i = 0; i < timeDuring * conditionsValue; i++) {
+      if (i % 2 == 0) {
+        minute = '30'
+      } else {
+        hours = parseInt(hours) + 1
+        minute = '00'
+      }
+      arr.push(`${hours}:${minute}`)
+    }
+    console.log('时间差', timeDuring, arr)
+    return arr
+  },
+  // 选择时间
+  bindMultiPickerChange(e) {
+    // console.log('picker发送选择改变', this.data.multiArray[0][e.detail.value[0]], this.data.multiArray[1][e.detail.value[1]],)
+    let currentTime = this.getDates()[e.detail.value[0]] + this.data.multiArray[1][e.detail.value[1]] + ':00'
+    console.log('预计配送时间', currentTime)
+    this.setData({
+      'params.estimatedDeliveryTime': currentTime
+    })
+  },
+  bindMultiPickerColumnChange(e) {
+    console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    let columnIndex = e.detail.column
+    let columnValueIndex = e.detail.value
+    let data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    }
+    data.multiIndex[columnIndex] = columnValueIndex
+    switch (columnIndex) {
+      // 第一列
+      case 0:
+        data.multiArray[1] = columnValueIndex == 0 ? this.data.currentDuring : this.data.tomorrowDuring
+        data.multiIndex[1] = 0
+        break;
+      default:
+        console.log('选择了(columnIndex,columnValueIndex)：', columnIndex, columnValueIndex)
+        break
+    }
+    this.setData({
+      multiArray: data.multiArray,
+      multiIndex: data.multiIndex
+    })
   },
   // 展示优惠券列表
   showCouponListModal() {
@@ -136,6 +298,7 @@ Page({
         showCouponList: false
       })
       this.enableDiscount()
+      this.calcualtionRealAmount()
       return
     }
     let conditions = this.data.couponList[index].conditions
@@ -229,6 +392,7 @@ Page({
       let contactAddress = `${params.areaTypeOneName} ${params.areaTypeTwoName} ${params.areaTypeThreeName} ${params.contactAddress}`
   
       this.setData({
+        contactAddress: contactAddress,
         'params.address': contactAddress,
         'params.mobile': params.mobilePhone,
         'params.name': params.contact,
@@ -263,6 +427,13 @@ Page({
         }
         res.eventChannel.emit('sendData', params)
       }
+    })
+  },
+  // 输入预留手机号码
+  textareaBInput1(e) {
+    let value = e.detail.value
+    this.setData({
+      'params.mobile': value
     })
   },
   // 备注
@@ -318,7 +489,7 @@ Page({
             success(res) {
               if (res.confirm) {
                 let _obj = {
-                  enablePay: obj.enablePay
+                  enablePay: params.enablePay
                 }
                 self.createOrderAndPay(_obj)
               }

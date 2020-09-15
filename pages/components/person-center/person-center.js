@@ -11,7 +11,9 @@ Component({
 		title: '个人中心',
 		cuCustomBGColor: 'bg-transparent',
 		userInfo: {},
-		isDelivery: false
+		isDelivery: false,
+		logisticsInfo: {},
+		timeInterval: null
 	},
 	// ready: function () {
 	// 	this.getUserInfo()
@@ -20,8 +22,33 @@ Component({
 	attached: function () {
 		this.getUserInfo()
 		this.getUserRole()
+		this.getLogisticsInfo()
+		this.setInterval()
+	},
+	detached: function() {
+		clearInterval(this.data.timeInterval)
+	},
+	pageLifetimes: {
+		hide: function() {
+			clearInterval(this.data.timeInterval)
+		}
 	},
 	methods: {
+		setInterval() {
+			let self = this
+			this.data.timeInterval = setInterval(() => {
+				self.getLogisticsInfo()
+			}, 2000)
+		},
+
+		// 获取物流信息
+		getLogisticsInfo() {
+			request('user/logisticsinform', {}).then(res => {
+				this.setData({
+					logisticsInfo: res.data.data
+				})
+			})
+		},
 
 		// 是否为配送员
 		getUserRole() {

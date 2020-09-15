@@ -63,6 +63,10 @@
           <view class="text-gray">减免金额</view>
           <view class="text-black">¥{{item.discountAmount/100}}</view>
         </view>
+        <view class="flex justify-between flex-align-center fz-14 mt-10" wx:if="{{item.discountAmountTotal}}">
+          <view class="text-gray">已优惠</view>
+          <view class="text-black">¥{{item.discountAmountTotal/100}}</view>
+        </view>
         <view class="flex justify-between flex-align-center fz-14 mt-10">
           <view class="text-gray">运费</view>
           <view class="text-black">免费配送</view>
