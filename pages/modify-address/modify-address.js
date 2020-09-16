@@ -99,7 +99,7 @@ Page({
           multiIndex: this.data.params.multiindex.split(',')
         })
       }
-      this.setParams([0, 0, 0])
+      // this.setParams([0, 0, 0])
     })
   },
   // 选择地址

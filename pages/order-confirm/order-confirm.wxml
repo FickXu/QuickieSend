@@ -11,16 +11,6 @@
     style="height: calc(~'100vh - {{CustomBar}}px - 50px')"
     >
   
-    <!-- 地址 -->
-    <!-- <view class="address-list" bindtap="openAddAddressPage" wx:if="{{params.address=='请添加收货地址'}}">
-      <view class="detail fz-16">
-        <view class="flex mt-5">
-          <view class="qs-icon iconlocation text-black"></view>
-          <text class="text-black ml-15">{{params.address}}</text>
-        </view>
-      </view>
-      <view class="qs-icon iconright"></view>
-    </view> -->
     <!-- tab切换 -->
     <view class="address-tab">
       <view class="tab-item tab-delivery {{addressTabIndex==0?'tab-active':'tab-left-un-active'}}" bindtap="switchTab" data-index="0">
@@ -33,16 +23,28 @@
     <view class="address-list {{addressTabIndex==0?'address-list-radius1':'address-list-radius2'}}" >
       <!-- 店铺配送 -->
       <view class="shop-delivery" wx:if="{{addressTabIndex==0}}">
-        <!-- 选择地址 -->
-        <view class="choose-address"bindtap="openAddressListPage">
+        <!-- 地址 -->
+        <view class="choose-addresst" bindtap="openAddAddressPage" wx:if="{{params.address==''}}" style="display: flex;justify-content: space-between;align-items: center;">
           <view class="detail fz-16">
-            <view class="flex">
+            <view class="flex mt-5">
               <view class="qs-icon iconlocation text-black"></view>
-              <text class="text-black">{{params.address}}</text>
+              <text class="text-black ml-15">请添加收货地址</text>
             </view>
-            <view class="text-black margin-top-xs text-bold">{{params.name + ' ' + params.mobile}}</view>
           </view>
           <view class="qs-icon iconright"></view>
+        </view>
+        <view wx:else>
+          <!-- 选择地址 -->
+          <view class="choose-address"bindtap="openAddressListPage">
+            <view class="detail fz-16">
+              <view class="flex">
+                <view class="qs-icon iconlocation text-black"></view>
+                <text class="text-black">{{params.address}}</text>
+              </view>
+              <view class="text-black margin-top-xs text-bold">{{params.name + ' ' + params.mobile}}</view>
+            </view>
+            <view class="qs-icon iconright"></view>
+          </view>
         </view>
         <!-- 选择时间 -->
         <view class="choose-time">

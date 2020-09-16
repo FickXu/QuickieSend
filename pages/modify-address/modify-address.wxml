@@ -43,7 +43,8 @@
       range-key="areaName"
       >
       <view class="picker">
-        {{multiArray[0][multiIndex[0]].areaName}} {{multiArray[1][multiIndex[1]].areaName}} {{multiArray[2][multiIndex[2]].areaName}}
+        {{params.areaTypeOneName}} {{params.areaTypeTwoName}} {{params.areaTypeThreeName}}
+        <!-- {{multiArray[0][multiIndex[0]].areaName}} {{multiArray[1][multiIndex[1]].areaName}} {{multiArray[2][multiIndex[2]].areaName}} -->
       </view>
     </picker>
   </view>

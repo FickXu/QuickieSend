@@ -161,6 +161,9 @@ Page({
     let beginShopHours = _shopDetails.beginShopHours
     let endShopHours = _shopDetails.endShopHours
     let currentTime = this.getCurrentHM()
+    if (beginShopHours.split(':')[0] > currentTime.split(':')[0]) {
+      currentTime = beginShopHours
+    }
     // 时间段间隔时间（分钟）
     let conditionMinute = 30
     let tomorrowDuring = this.computeDuringTime(beginShopHours, endShopHours, conditionMinute)
@@ -204,7 +207,7 @@ Page({
     // 小时结束的时间
     let endHours = _endTime[0]
     // 分钟开始的时间
-    // let beginMinute = _beginTime[1]
+    let beginMinute = _beginTime[1]
     // 分钟结束的时间
     // let endMinute = _endTime[1]
     
@@ -217,12 +220,27 @@ Page({
     let minute = ''
     for(let i = 0; i < timeDuring * conditionsValue; i++) {
       if (i % 2 == 0) {
-        minute = '30'
+        // i为0时单独处理第一个时间值和第二个时间值
+        if (i == 0) {
+          // 第一个时间值为当前时间
+          minute = (beginMinute < 10 && beginMinute > 0) ? `0${beginMinute}` : beginMinute
+          arr.push(`${hours}:${minute}`)
+          // 分钟数如果小于等于20，第二个时间值后推20分钟
+          if (beginMinute <= 15) {
+            let _minute = parseInt(beginMinute) + 30
+            arr.push(`${hours}:${_minute}`)
+          }
+        } else {
+          // 否则后推30分钟
+          minute = '30'
+          arr.push(`${hours}:${minute}`)
+        }
       } else {
-        hours = parseInt(hours) + 1
+        // 到达临界点小时值后推1小时
+        hours = (parseInt(hours) + 1) < 10 ? '0' + (parseInt(hours) + 1) : (parseInt(hours) + 1)
         minute = '00'
+        arr.push(`${hours}:${minute}`)
       }
-      arr.push(`${hours}:${minute}`)
     }
     console.log('时间差', timeDuring, arr)
     return arr
@@ -385,7 +403,7 @@ Page({
   refreshAddresss(params) {
     if (!params) {
       this.setData({
-        'params.address': '请添加收货地址'
+        'params.address': ''
       })
       return
     } else {
