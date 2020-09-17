@@ -51,6 +51,16 @@
             <!-- <text wx:if="{{goodsItem.finalPrice!=goodsItem.price}}" class="throw-line fz-12 text-gray"> ¥{{goodsItem.price/100}}</text> -->
             <text class="text-gray">x {{goodsItem.qty}}</text>
           </view>
+          <view class="btn-delete-order text-right" wx:if="{{goodsItem.isAppraise==0 && item.status==6}}">
+            <button
+              class="cu-btn round line text-red ml-10"
+              data-item-index="{{index}}"
+              data-index="{{goodsIndex}}"
+              catchtap="openAddCommentPage"
+              >
+              我要评价
+            </button>
+          </view>
         </view>
       </view>
 

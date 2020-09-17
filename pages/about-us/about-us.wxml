@@ -1,7 +1,4 @@
-<!-- <view>
-  <web-view src="https://m.quickssend.com/file/h5/Join.html" />
-</view> -->
-<!-- 明细列表 -->
+<!-- 关于我们 -->
 <cu-custom isBack="{{true}}" bgColor="bg-white">
   <view slot="content" class="bold">{{ title }}</view>
 </cu-custom>

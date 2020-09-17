@@ -15,4 +15,9 @@
       <image class="icon-menu-status" src="./img/pttg.png"></image>平台推广
     </view>
   </view>
+  <view class="cu-item arrow" bindtap="openGetReferrerPage">
+    <view class="content">
+      <image class="icon-menu-status" src="./img/pttg.png"></image>识别推荐人
+    </view>
+  </view>
 </view>

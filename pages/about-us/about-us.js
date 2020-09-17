@@ -12,8 +12,9 @@ Page({
   },
   // 关于我们介绍
   openIntroducePage () {
+    let url = 'https://m.quickssend.com/file/h5/Join.html'
     wx.navigateTo({
-      url: './child-page/introduce/introduce'
+      url: `../advertising/advertising?htmlUrl=${url}`
     })
   },
   // 反馈

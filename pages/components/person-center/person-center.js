@@ -101,7 +101,7 @@ Component({
 			let detail = event.detail
 			if (detail.scrollTop >= 20) {
 				this.setData({
-					cuCustomBGColor: 'bg-cyan'
+					cuCustomBGColor: 'bg-orange'
 				})
 			} else {
 				this.setData({
@@ -140,7 +140,6 @@ Component({
 				url: '../../pages/shoping-car/shoping-car'
 			})
 		},
-		
 		openConfirm: function () {
 			wx.showModal({
 					content: '检测到您没打开地址权限，是否去设置打开？',
@@ -157,7 +156,6 @@ Component({
 					}
 			});
 		},
-
 		// 小二快跑
 		openReceivingOrderPage() {
 			wx.navigateTo({
@@ -167,7 +165,6 @@ Component({
 				}
 			})
 		},
-
 		// 快跑账单
 		openReceivingBillPage() {
 			wx.navigateTo({
@@ -177,7 +174,6 @@ Component({
 				}
 			})
 		},
-
 		// 我的卡券
 		openMyCoupons() {
 			wx.navigateTo({
@@ -187,7 +183,6 @@ Component({
 				}
 			})
 		},
-
 		// 关于我们
 		openAboutUsPage() {
 			wx.navigateTo({
@@ -197,7 +192,6 @@ Component({
 				}
 			})
 		},
-
 		// 法律条款
 		openLegalTermsPage() {
 			wx.navigateTo({
@@ -206,7 +200,27 @@ Component({
 					console.log(err)
 				}
 			})
+		},
+		// 推荐页面
+		openRecommendPage(e) {
+			let type = e.currentTarget.dataset.type
+			let url = ''
+			switch (type) {
+				case '人才招聘':
+					url = 'https://m.quickssend.com/file/advertising/talentRecruitment/talentRecruitment.html'
+					break;
+				case '垃圾分类':
+					url = ''
+					break;
+				case '招商加盟':
+					url = ''
+					break;
+				default:
+					break;
+			}
+			wx.navigateTo({
+				url: `../../pages/advertising/advertising?htmlUrl=${url}`
+			})
 		}
-		
 	}
 })

@@ -247,21 +247,23 @@ Page({
 
   // 我要评价
   openAddCommentPage(e) {
-    this.goToGoodsDetail(e)
-    // let self = this
-    // let index = e.currentTarget.dataset.index
-    // let data = this.data.orderList[index]
-    // wx.navigateTo({
-    //   url: `../add-comment/add-comment`,
-    //   events: {
-    //     refresh: () => {
-    //       self.queryorderlist()
-    //     }
-    //   },
-    //   success(res) {
-    //     res.eventChannel.emit('sendOrderInfo', {orderInfo: data})
-    //   }
-    // })
+    // this.goToGoodsDetail(e)
+    let self = this
+    let index = e.currentTarget.dataset.index
+    let itemIndex = e.currentTarget.dataset.itemIndex
+    let data = this.data.orderList[itemIndex].mallOrderInfoList[index]
+    wx.navigateTo({
+      url: `../add-comment/add-comment`,
+      events: {
+        refresh: () => {
+          self.queryorderlist()
+        }
+      },
+      success(res) {
+        console.log(data)
+        res.eventChannel.emit('sendOrderInfo', {orderInfo: data})
+      }
+    })
   },
 
   // 再次购买

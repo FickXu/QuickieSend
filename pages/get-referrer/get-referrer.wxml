@@ -1,0 +1,38 @@
+<!--pages/home/home.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+	<view slot="content" class="bold">{{ title }}</view>
+</cu-custom>
+
+<view class="order-page">
+  <!-- 订单列表 -->
+  <scroll-view lower-threshold="50" bindscrolltolower="bindscrolltolower" scroll-y class="list-order">
+    <!-- 扫码送货 -->
+    <view class="pading">
+      <view class="padding-lr" style="background-color: #ffff;padding-top: 200rpx;padding-bottom: 30rpx;">
+        <button class="qs-bg qs-btn" bindtap="scanGetReferrer">扫一扫识别推荐人</button>
+      </view>
+    </view>
+    <view class="cu-list menu list-menu margin-top">
+      <view class="cu-item" wx:if="{{details}}">
+        <view class="content">邀请码</view>
+        <view class="text-black">{{promotionId}}</view>
+      </view>
+      <view class="cu-item" wx:if="{{details}}">
+        <view class="content">是否已绑定用户</view>
+        <view class="text-black">{{details.wetherPromotion ? '是' : '否'}}</view>
+      </view>
+      <view class="cu-item" wx:if="{{details.wetherPromotion}}">
+        <view class="content">昵称</view>
+        <view class="text-black">{{details.nickName}}</view>
+      </view>
+      <!-- <view class="cu-item" wx:if="{{details.wetherPromotion}}">
+        <view class="content">姓名</view>
+        <view class="text-black">{{details.realName}}</view>
+      </view> -->
+      <view class="cu-item" wx:if="{{details.wetherPromotion}}">
+        <view class="content">手机号</view>
+        <view class="text-black">{{details.telephone}}</view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

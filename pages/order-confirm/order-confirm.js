@@ -151,7 +151,7 @@ Page({
       })
     } else {
       this.setData({
-        'params.address': this.data.contactAddress
+        'params.address': this.data.contactAddress || ''
       })
     }
   },
@@ -403,7 +403,8 @@ Page({
   refreshAddresss(params) {
     if (!params) {
       this.setData({
-        'params.address': ''
+        'params.address': '',
+        contactAddress: ''
       })
       return
     } else {

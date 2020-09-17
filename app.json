@@ -1,9 +1,10 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/get-referrer/get-referrer",
+    "pages/orders/orders",
     "pages/order-confirm/order-confirm",
     "pages/address-list/address-list",
-    "pages/orders/orders",
     "pages/pay-success/pay-success",
     "pages/about-us/child-page/feedback/feedback",
     "pages/my-scan/my-scan",

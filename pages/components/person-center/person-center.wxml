@@ -20,24 +20,6 @@
       </view>
       <view style="font-size: 80rpx;" class="qs-icon iconqrcode text-white" catchtap="openMyScanOpenPage"></view>
     </view>
-  
-    <!-- 我的明细，我的搜藏，购物车 -->
-    <!-- <view class="list-menu">
-      <view class="cu-list grid col-3 no-border">
-        <view class="cu-item"  bindtap="openConsumerDetailsPage">
-          <view class="qs-icon iconcart text-grey"></view>
-          <text>消费明细</text>
-        </view>
-        <view class="cu-item" bindtap="openCollectionPage">
-          <view class="qs-icon iconfavor text-grey"></view>
-          <text>收藏</text>
-        </view>
-        <view class="cu-item" bindtap="openShopingCarPage">
-          <view class="qs-icon iconlocation text-grey"></view>
-          <text>购物车</text>
-        </view>
-      </view>
-    </view> -->
     <!-- 我的订单 -->
     <view class="list-menu my-orders">
       <view class="header">
@@ -82,6 +64,29 @@
         <view class="text-gray">{{logisticsInfo.tipContent}}</view>
       </view>
     </view>
+    <!-- 推荐 -->
+    <view class="list-menu my-orders" style="margin-top: 30rpx;margin-bottom: 30rpx;">
+      <view class="header">
+        <view class="title">推荐</view>
+      </view>
+      <view class="cu-list grid col-3 no-border padding">
+        <!-- 人才招聘 -->
+        <view class="cu-item" bindtap="openRecommendPage" data-type="人才招聘">
+          <image class="icon-order-status" src="./img/rczp.png"></image>
+          <text>人才招聘</text>
+        </view>
+        <!-- 垃圾分类 -->
+        <!-- <view class="cu-item" bindtap="openRecommendPage" data-type="垃圾分类">
+          <image class="icon-order-status" src="./img/ljfl.png"></image>
+          <text>垃圾分类</text>
+        </view> -->
+        <!-- 招商加盟 -->
+        <!-- <view class="cu-item" bindtap="openRecommendPage" data-type="招商加盟">
+          <image class="icon-order-status" src="./img/zsjm.png"></image>
+          <text>招商加盟</text>
+        </view> -->
+      </view>
+    </view>
     <!-- 设置 -->
     <view class="cu-list menu list-menu settings">
       <!-- 需要接口控制 -->
@@ -117,7 +122,6 @@
         </view>
       </view>
     </view>
-    
     <!-- 猜你喜欢 -->
     <!-- <view class="recommend">
       <view class="icon-banner">

@@ -13,15 +13,17 @@ Page({
 
   // 用户协议
   openUserAgreementPage () {
+    let url = 'https://m.quickssend.com/file/h5/userAgreement.html'
     wx.navigateTo({
-      url: './agreement-page/user-agreement/user-agreement'
+      url: `../advertising/advertising?htmlUrl=${url}`
     })
   },
 
   // 隐私协议
   openPrivacyAgreementPage () {
+    let url = 'https://m.quickssend.com/file/h5/privacyAgreement.html'
     wx.navigateTo({
-      url: './agreement-page/privacy-agreement/privacy-agreement'
+      url: `../advertising/advertising?htmlUrl=${url}`
     })
   },
 })
